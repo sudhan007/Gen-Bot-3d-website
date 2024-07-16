@@ -75,8 +75,10 @@ const Roboticintelligence = () => {
   });
 
   useEffect(() => {
-    if (data?.data?.data) {
+    if (data?.data?.data?.length > 0) {
       form.setValue("records", data?.data?.data);
+    } else {
+      form.setValue("records", Array(5).fill({ title: "", content: "" }));
     }
   }, [data, form]);
 
