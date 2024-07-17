@@ -67,3 +67,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+@font-face {
+  font-family: "Atvik-regular";
+  src: url("./lib/Fonts/AktivGrotesk-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Atvik-bold";
+  src: url("./Fonts/AktivGrotesk-Bold.ttf");
+}
