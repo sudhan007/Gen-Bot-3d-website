@@ -10,7 +10,7 @@ import Robotfeatures from "./pages/Robot-features";
 import FutureTech from "./pages/FutureTech";
 
 function LayoutRouter() {
-  let { type } = useParams();
+  const { type } = useParams();
   let renderComponent = null;
 
   switch (type) {
