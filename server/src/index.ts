@@ -1,6 +1,6 @@
-import { Elysia } from "elysia";
 import cors from "@elysiajs/cors";
 import swagger from "@elysiajs/swagger";
+import { Elysia } from "elysia";
 import mongoose from "mongoose";
 import { RootRouter } from "./controller/root";
 
