@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "AktivGrotesk";
+    src: url('/fonts/AktivGrotesk-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    unicode-range: U+0000-00FF;
+}
+
+@font-face {
+    font-family: "AktivGrotesk";
+    src: url('/fonts/AktivGrotesk-BlackItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+    unicode-range: U+0000-00FF;
+}
+
+@font-face {
+    font-family: "AktivGrotesk";
+    src: url('/fonts/AktivGrotesk-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    unicode-range: U+0000-00FF;
+}
+
+@font-face {
+    font-family: "AktivGrotesk";
+    src: url('/fonts/AktivGrotesk-BoldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+    unicode-range: U+0000-00FF;
+}
+
+@font-face {
+    font-family: "AktivGrotesk";
+    src: url('/fonts/AktivGrotesk-Hairline.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    unicode-range: U+0000-00FF;
+}
+
+@font-face {
+    font-family: "AktivGrotesk";
+    src: url('/fonts/AktivGrotesk-HairlineItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+    unicode-range: U+0000-00FF;
+}
+
+@font-face {
+    font-family: "AktivGrotesk";
+    src: url('/fonts/AktivGrotesk-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    unicode-range: U+0000-00FF;
+}
+
+@font-face {
+    font-family: "AktivGrotesk";
+    src: url('/fonts/AktivGrotesk-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    unicode-range: U+0000-00FF;
+}
+
+@font-face {
+    font-family: "AktivGrotesk";
+    src: url('/fonts/AktivGrotesk-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    unicode-range: U+0000-00FF;
+}
+
+@font-face {
+    font-family: "AktivGrotesk";
+    src: url('/fonts/AktivGrotesk-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    unicode-range: U+0000-00FF;
+}
+
+@font-face {
+    font-family: "AktivGrotesk";
+    src: url('/fonts/AktivGrotesk-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    unicode-range: U+0000-00FF;
+}
+
+@font-face {
+    font-family: "AktivGrotesk";
+    src: url('/fonts/AktivGrotesk-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+    unicode-range: U+0000-00FF;
+}
+
+@font-face {
+    font-family: "AktivGrotesk";
+    src: url('/fonts/AktivGrotesk-XBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    unicode-range: U+0000-00FF;
+}
+
+@font-face {
+    font-family: "AktivGrotesk";
+    src: url('/fonts/AktivGrotesk-BoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+    unicode-range: U+0000-00FF;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    border-radius: 10px;
+  }
