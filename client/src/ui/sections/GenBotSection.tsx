@@ -1,11 +1,9 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useState } from "react";
 
 export const GenBotSection = () => {
   const { scrollYProgress } = useScroll();
-  const [_, setScroll] = useState(0);
 
-  const sectionProgress = useTransform(scrollYProgress, [0.2, 1], [0, 1]);
+  const sectionProgress = useTransform(scrollYProgress, [0.05, 1], [0, 1]);
 
   const visibility = useTransform(
     scrollYProgress,
@@ -13,19 +11,10 @@ export const GenBotSection = () => {
     [0, 0, 1, 1, 0]
   );
 
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      setScroll(window.scrollY);
-    });
-    return () => {
-      window.removeEventListener("scroll", () => {});
-    };
-  }, []);
+  const textScale = useTransform(sectionProgress, [0, 0.7], [1, 0.1]);
+  const textOpacity = useTransform(sectionProgress, [0, 0.3], [1, 0]);
 
-  const textScale = useTransform(sectionProgress, [0, 0.9], [1, 0.1]);
-  const textOpacity = useTransform(sectionProgress, [0, 0.4], [1, 0]);
-
-  const robotScale = useTransform(sectionProgress, [0, 1], [3, 7]);
+  const robotScale = useTransform(sectionProgress, [0, 0.4], [2.5, 6]);
   const robotOpacity = useTransform(sectionProgress, [0, 1], [0.7, 1]);
   const robotZ = useTransform(sectionProgress, [0, 1], [0, 70]);
 

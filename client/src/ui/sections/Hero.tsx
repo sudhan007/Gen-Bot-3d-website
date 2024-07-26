@@ -45,15 +45,16 @@ export const HeroSection = () => {
         Your browser does not support the video tag.
       </video>
 
-      <div className="text-white font-normal uppercase text-[7rem] mx-[11%] leading-none z-10 absolute bottom-0 left-0">
+      <div className="text-white font-normal uppercase text-[7rem] mx-[11%] leading-none z-10 absolute bottom-12 left-0">
         <h1>Advancing</h1>
         <h1>Safety</h1>
         <h1>
           Through <span className="text-yellow">Innovation</span>
         </h1>
-        <div className="flex justify-center pb-[10px]">
-          <Icon icon={"bi:mouse"} fontSize={40} />
-        </div>
+      </div>
+
+      <div className="absolute bottom-0 left-1/2 flex justify-center pb-[10px]">
+        <Icon icon={"bi:mouse"} fontSize={40} />
       </div>
     </section>
   );
