@@ -23,16 +23,17 @@ export const GenBotSection = () => {
   }, []);
 
   const textScale = useTransform(sectionProgress, [0, 1], [1, 0.1]);
-  const textOpacity = useTransform(sectionProgress, [0, 0.4], [1, 0.1]);
+  const textOpacity = useTransform(sectionProgress, [0, 0.4], [1, 0]);
 
-  const robotScale = useTransform(sectionProgress, [0, 1], [2, 7]);
+  const robotScale = useTransform(sectionProgress, [0, 1], [3, 7]);
+  const robotOpacity = useTransform(sectionProgress, [0, 1], [0.7, 1]);
   const robotZ = useTransform(sectionProgress, [0, 1], [0, 70]);
 
   return (
     <div className="bg-lightbg text-white font-base h-[600vh]">
       <motion.img
         src="/img/genbot-text.svg"
-        className="w-[600px] fixed top-[15%] left-[40%] transform -translate-x-1/2 -translate-y-1/2"
+        className="w-[600px] fixed top-[15%] left-[35%] transform -translate-x-1/2 -translate-y-1/2"
         style={{
           scale: textScale,
           opacity: textOpacity,
@@ -42,9 +43,10 @@ export const GenBotSection = () => {
       />
       <motion.img
         src="/img/genbot-img.png"
-        className="h-[100px] w-auto fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        className="h-[100px] w-auto fixed top-1/2 left-[45%] transform -translate-x-1/2 -translate-y-1/2"
         style={{
           scale: robotScale,
+          opacity: robotOpacity,
           z: robotZ,
           display: visibility,
         }}
