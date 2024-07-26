@@ -22,7 +22,7 @@ const GlowUpText = ({ text }: { text: string }) => {
         } else {
           clearInterval(intervalId);
         }
-      }, 30);
+      }, 40);
       return () => clearInterval(intervalId);
     } else {
       setGlowIndex(-1);
@@ -37,8 +37,8 @@ const GlowUpText = ({ text }: { text: string }) => {
       {text.split("").map((char: string, index: number) => (
         <motion.span
           key={index}
-          initial={{ opacity: 0.5 }}
-          animate={{ opacity: index <= glowIndex ? 1 : 0.5 }}
+          initial={{ opacity: 0.01 }}
+          animate={{ opacity: index <= glowIndex ? 1 : 0.1 }}
           transition={{ duration: 0.2 }}
         >
           {char}
@@ -53,11 +53,11 @@ export const GenBotAbout = () => {
   const videoRef: any = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const isInView = useInView(containerRef, {
-    once: false,
-    amount: 0.3,
-    margin: "-100px 0px -100px 0px",
-  });
+  // const isInView = useInView(containerRef, {
+  //   once: false,
+  //   amount: 0.3,
+  //   margin: "-100px 0px -100px 0px",
+  // });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -87,7 +87,7 @@ export const GenBotAbout = () => {
 
   return (
     <div className="relative">
-      <div ref={containerRef} className="font-base h-[600vh] relative bg-white">
+      <div ref={containerRef} className="font-base h-[300vh] relative bg-white">
         <div className="sticky top-0 h-screen w-full flex">
           <div className="bg-white w-1/2 h-screen z-[300] flex flex-col justify-start items-start gap-4">
             <div className="mx-[10%]">

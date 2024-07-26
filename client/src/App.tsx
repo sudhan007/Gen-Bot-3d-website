@@ -5,6 +5,7 @@ import { Navbar } from "@/ui/components/Navbar";
 import { GenBotAbout } from "@/ui/sections/GenBotAbout";
 import { GenBotSection } from "@/ui/sections/GenBotSection";
 import { HeroSection } from "@/ui/sections/Hero";
+import { FlyGenBotSection } from "./ui/sections/FlyGenBotSection";
 
 function App() {
   const heroRef = useRef(null);
@@ -87,6 +88,9 @@ function App() {
         </div>
         <div ref={genBotAboutRef}>
           <GenBotAbout />
+        </div>
+        <div>
+          <FlyGenBotSection />
         </div>
       </div>
     </React.Fragment>

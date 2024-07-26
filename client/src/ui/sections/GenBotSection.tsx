@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 export const GenBotSection = () => {
   const { scrollYProgress } = useScroll();
-  const [scroll, setScroll] = useState(0);
+  const [_, setScroll] = useState(0);
 
   const sectionProgress = useTransform(scrollYProgress, [0.2, 1], [0, 1]);
 
@@ -22,7 +22,7 @@ export const GenBotSection = () => {
     };
   }, []);
 
-  const textScale = useTransform(sectionProgress, [0, 1], [1, 0.1]);
+  const textScale = useTransform(sectionProgress, [0, 0.9], [1, 0.1]);
   const textOpacity = useTransform(sectionProgress, [0, 0.4], [1, 0]);
 
   const robotScale = useTransform(sectionProgress, [0, 1], [3, 7]);
@@ -30,7 +30,7 @@ export const GenBotSection = () => {
   const robotZ = useTransform(sectionProgress, [0, 1], [0, 70]);
 
   return (
-    <div className="bg-lightbg text-white font-base h-[600vh]">
+    <div className="bg-lightbg text-white font-base h-[500vh]">
       <motion.img
         src="/img/genbot-text.svg"
         className="w-[600px] fixed top-[15%] left-[35%] transform -translate-x-1/2 -translate-y-1/2"
