@@ -7,7 +7,7 @@ import { GenBotSection } from "@/ui/sections/GenBotSection";
 import { HeroSection } from "@/ui/sections/Hero";
 import { FlyGenBotSection } from "./ui/sections/FlyGenBotSection";
 import { Footer } from "./ui/sections/Footer";
-import { EXPERIENCE } from "./ui/sections/EXPERIENCE";
+import { EXPERIENCE } from "./ui/sections/EXPERIENCE"; 
 
 function App() {
   const heroRef = useRef(null);
@@ -115,7 +115,7 @@ function App() {
         </div>
         <div>
           <FlyGenBotSection />
-        </div>
+        </div> 
         <div >
           <EXPERIENCE />
         </div>

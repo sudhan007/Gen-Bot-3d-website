@@ -74,7 +74,7 @@ export const EXPERIENCE = () => {
       ></div>
       <div
         className="mx-[5%]"
-        style={{ paddingBottom: "10%", position: "relative", zIndex: 1000 }}
+        style={{ paddingBottom: "10%", position: "relative", zIndex: 1000 , height : 950 }}
       >
         <img
           src="/img/root2.png"
@@ -90,7 +90,7 @@ export const EXPERIENCE = () => {
         />
         <div
           style={{
-            paddingTop: "10%",
+            paddingTop: "30%",
             justifyContent: "center",
             alignItems: "center",
           }}
