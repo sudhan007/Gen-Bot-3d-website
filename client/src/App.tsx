@@ -108,10 +108,7 @@ function App() {
         </div>
         <div>
           <FlyGenBotSection />
-        </div> 
-        <div >
-          <EXPERIENCE />
-        </div>
+        </div>  
         <div>
           <Experience />
         </div>
