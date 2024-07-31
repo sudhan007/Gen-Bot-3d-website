@@ -55,7 +55,7 @@ export const EXPERIENCE = () => {
     <div
       ref={exps}
       className=" text-black font-base relative "
-      style={{ backgroundColor: "#fff" , overflow : 'hidden'  }}
+      style={{ backgroundColor: "#fff" }}
     >
       <div
         style={{
@@ -69,7 +69,7 @@ export const EXPERIENCE = () => {
           width: 150,
           top: "150%",
           left: "50%",
-          clipPath: "inset(0 0 50% 0)" // This clips the bottom half
+          scale: 20,
         }}
       ></div>
       <div
