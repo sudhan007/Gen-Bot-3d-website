@@ -1,14 +1,8 @@
+import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { FlyGenBotCard } from "../components/FlyGenBotCard";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from "framer-motion";
 
 export const FlyGenBotSection = () => {
-
   const exps = useRef<HTMLDivElement>(null);
 
   const [isClicked, setIsClicked] = useState(false);
@@ -46,16 +40,18 @@ export const FlyGenBotSection = () => {
 
   const textProgress = useTransform(scrollYProgress, [0, 1], [0, 20]);
 
-  const [glowIndex, setGlowIndex] = useState(-1);
+  const [_, setGlowIndex] = useState(-1);
 
   useMotionValueEvent(textProgress, "change", (latest) => {
     console.log(latest, "lllllllll");
     setGlowIndex(Math.floor(latest));
   });
 
-
   return (
-    <section className="bg-white text-black font-base h-screen relative flex justify-center items-center" ref={exps}>
+    <section
+      className="bg-white text-black font-base h-screen relative flex justify-center items-center"
+      ref={exps}
+    >
       <div className="relative">
         <img
           src="/img/genbot-img.png"
@@ -69,19 +65,25 @@ export const FlyGenBotSection = () => {
       </div>
 
       <div className="absolute  z-0 top-10 left-1/2">
-        <div  style={{  marginLeft :'15%' , marginTop : '50%' }} className="absolute" >
+        <div
+          style={{ marginLeft: "15%", marginTop: "50%" }}
+          className="absolute"
+        >
           <FlyGenBotCard
             heading="Hazardous environment compatibility"
             subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
           />
         </div>
-        <div style={{ marginTop : '25%' , marginLeft :'65%' }} className="absolute" >
+        <div
+          style={{ marginTop: "25%", marginLeft: "65%" }}
+          className="absolute"
+        >
           <FlyGenBotCard
             heading="Hazardous environment compatibility"
             subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
           />
         </div>
-        <div style={{ marginTop : '25%' , marginLeft :'50%' }}>
+        <div style={{ marginTop: "25%", marginLeft: "50%" }}>
           <FlyGenBotCard
             heading="Hazardous environment compatibility"
             subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
@@ -89,19 +91,19 @@ export const FlyGenBotSection = () => {
         </div>
       </div>
 
-      <div className="absolute top-10 " style={{ right : '65%' }}>
-        <div style={{ marginLeft : '40%' }}  >
+      <div className="absolute top-10 " style={{ right: "65%" }}>
+        <div style={{ marginLeft: "40%" }}>
           <FlyGenBotCard
             heading="Hazardous environment compatibility"
             subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
           />
         </div>
-        <div style={{ marginTop : '55%' , marginRight :'65%' }} >
+        <div style={{ marginTop: "55%", marginRight: "65%" }}>
           <FlyGenBotCard
             heading="Hazardous environment compatibility"
             subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
           />
-        </div> 
+        </div>
       </div>
     </section>
   );
