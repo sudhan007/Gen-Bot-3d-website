@@ -49,60 +49,61 @@ export const FlyGenBotSection = () => {
 
   return (
     <section
-      className="bg-white text-black font-base h-screen relative flex justify-center items-center"
+      className=" h-[500vh] bg-white relative text-black font-base flex justify-center items-center "
       ref={exps}
     >
-      <div className="relative">
-        <img
-          src="/img/genbot-img.png"
-          className="w-[800px]"
-          alt="Fly Genbot"
-          style={{
-            zIndex: 1,
-            transform: "scaleX(-1)",
-          }}
-        />
-      </div>
+      <div className="sticky top-0 h-screen w-full flex">
+        <div className=" top-0 ">
+          <img
+            src="/img/genbot-img.png"
+            className="w-[800px]"
+            alt="Fly Genbot"
+            style={{
+              zIndex: 1,
+              transform: "scaleX(-1)",
+            }}
+          />
+        </div>
 
-      <div className="absolute  z-0 top-10 left-1/2">
-        <div
-          style={{ marginLeft: "15%", marginTop: "50%" }}
-          className="absolute"
-        >
-          <FlyGenBotCard
-            heading="Hazardous environment compatibility"
-            subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
-          />
+        <div className="  z-0 top-0 left-1/2">
+          <div
+            style={{
+              marginLeft: "15%",
+              marginTop: glowIndex > 0 ? 40 - glowIndex * 2 + "%" : "40%",
+            }}
+          >
+            <FlyGenBotCard
+              heading="Hazardous environment compatibility"
+              subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
+            />
+          </div>
+          <div style={{ marginTop: "65%", marginLeft: "65%" }}>
+            <FlyGenBotCard
+              heading="Hazardous environment compatibility"
+              subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
+            />
+          </div>
+          <div style={{ marginTop: "65%", marginLeft: "50%" }}>
+            <FlyGenBotCard
+              heading="Hazardous environment compatibility"
+              subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
+            />
+          </div>
         </div>
-        <div
-          style={{ marginTop: "25%", marginLeft: "65%" }}
-          className="absolute"
-        >
-          <FlyGenBotCard
-            heading="Hazardous environment compatibility"
-            subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
-          />
-        </div>
-        <div style={{ marginTop: "25%", marginLeft: "50%" }}>
-          <FlyGenBotCard
-            heading="Hazardous environment compatibility"
-            subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
-          />
-        </div>
-      </div>
 
-      <div className="absolute top-10 " style={{ right: "65%" }}>
-        <div style={{ marginLeft: "40%" }}>
-          <FlyGenBotCard
-            heading="Hazardous environment compatibility"
-            subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
-          />
-        </div>
-        <div style={{ marginTop: "55%", marginRight: "65%" }}>
-          <FlyGenBotCard
-            heading="Hazardous environment compatibility"
-            subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
-          />
+        <div className="absolute top-10 " style={{ right: "65%" }}>
+          <div style={{ marginLeft: "40%" }}>
+            <FlyGenBotCard
+              heading="Hazardous environment compatibility"
+              subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
+            />
+          </div>
+          <div style={{ marginTop: "55%", marginRight: "65%" }}>
+            <FlyGenBotCard
+              heading="Hazardous environment compatibility"
+              subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
+            />
+          </div>
         </div>
       </div>
     </section>
