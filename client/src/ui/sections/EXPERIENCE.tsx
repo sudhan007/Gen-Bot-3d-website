@@ -1,12 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
-export const EXPERIENCE = () => {
+export const Experience = () => {
   const exps = useRef<HTMLDivElement>(null);
 
   const [isClicked, setIsClicked] = useState(false);
@@ -19,7 +14,6 @@ export const EXPERIENCE = () => {
     const expob = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          console.log("hhhhhhhhhhhhhhhhhhhhh");
           handleClick();
         }
       },
@@ -60,7 +54,6 @@ export const EXPERIENCE = () => {
       <div
         style={{
           backgroundColor: "rgba(66, 71, 65, 1)",
-          // width: `${glowIndex}` + "%",
           transform: `translate(-50%, -50%) scale(${glowIndex})`,
           height: 150,
           borderRadius: "50%",
@@ -78,15 +71,25 @@ export const EXPERIENCE = () => {
       >
         <img
           src="/img/root2.png"
-          alt="GenBot 3D model" 
+          alt="GenBot 3D model"
           className="w-[480px] "
-          style={{ position : 'absolute' , bottom : glowIndex*10-165 , left : 66 , transition: "transform 0.5s ease",}}
+          style={{
+            position: "absolute",
+            bottom: glowIndex * 10 - 165,
+            left: 66,
+            transition: "transform 0.5s ease",
+          }}
         />
         <img
           src="/img/root1.png"
-          alt="GenBot 3D model" 
-           className="w-[480px] "
-          style={{ position : 'absolute' , bottom : glowIndex*10-230 ,right : 35 , transition: "transform 0.5s ease", }}
+          alt="GenBot 3D model"
+          className="w-[480px] "
+          style={{
+            position: "absolute",
+            bottom: glowIndex * 10 - 230,
+            right: 35,
+            transition: "transform 0.5s ease",
+          }}
         />
         <div
           style={{

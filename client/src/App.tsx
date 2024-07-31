@@ -5,9 +5,9 @@ import { Navbar } from "@/ui/components/Navbar";
 import { GenBotAbout } from "@/ui/sections/GenBotAbout";
 import { GenBotSection } from "@/ui/sections/GenBotSection";
 import { HeroSection } from "@/ui/sections/Hero";
+import { Experience } from "./ui/sections/EXPERIENCE";
 import { FlyGenBotSection } from "./ui/sections/FlyGenBotSection";
 import { Footer } from "./ui/sections/Footer";
-import { EXPERIENCE } from "./ui/sections/EXPERIENCE";
 
 function App() {
   const heroRef = useRef(null);
@@ -41,8 +41,6 @@ function App() {
     const heroObserver = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting && genBotRef.current) {
-
-          console.log('kkkkkkkkkkkkkkkkkkkkkk')
           smoothScroll(genBotRef.current.offsetTop);
         }
       },
@@ -62,14 +60,9 @@ function App() {
       { threshold: 0.1 }
     );
 
-
     const expob = new IntersectionObserver(
       ([entry]) => {
-        if (
-          entry.isIntersecting 
-        ) {
-           
-          console.log('hhhhhhhhhhhhhhhhhhhhh')
+        if (entry.isIntersecting) {
         }
       },
       { threshold: 0.1 }
@@ -116,8 +109,8 @@ function App() {
         <div>
           <FlyGenBotSection />
         </div>
-        <div >
-          <EXPERIENCE />
+        <div>
+          <Experience />
         </div>
         <div>
           <Footer />
