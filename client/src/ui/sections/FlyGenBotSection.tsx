@@ -1,40 +1,59 @@
-import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import anime from "animejs";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { FlyGenBotCard } from "../components/FlyGenBotCard";
 
 export const FlyGenBotSection = () => {
-  const exps = useRef<HTMLDivElement>(null);
-
-  const [isClicked, setIsClicked] = useState(false);
-
-  const handleClick = () => {
-    setIsClicked(!isClicked);
-  };
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const expob = new IntersectionObserver(
+    const smoothScrollTo = (targetY = 0) => {
+      const startY = window.scrollY;
+      const distance = targetY - startY;
+      const duration = 600;
+      let startTime: any = null;
+
+      const scroll = (timestamp: any) => {
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        window.scrollTo(0, startY + distance * progress);
+
+        if (progress < 1) {
+          requestAnimationFrame(scroll);
+        }
+      };
+
+      requestAnimationFrame(scroll);
+    };
+
+    const sectionObserver = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          console.log("hhhhhhhhhhhhhhhhhhhhh");
-          handleClick();
+          // @ts-ignore
+          smoothScrollTo(sectionRef.current.offsetTop);
         }
       },
       { threshold: 0.1 }
     );
 
-    if (exps.current) {
-      expob.observe(exps.current);
+    if (sectionRef.current) {
+      sectionObserver.observe(sectionRef.current);
     }
 
     return () => {
-      if (exps.current) {
-        expob.unobserve(exps.current);
+      if (sectionRef.current) {
+        sectionObserver.unobserve(sectionRef.current);
       }
     };
   }, []);
 
   const { scrollYProgress } = useScroll({
-    target: exps,
+    target: sectionRef,
     offset: ["start end", "end end"],
   });
 
@@ -43,20 +62,32 @@ export const FlyGenBotSection = () => {
   const [_, setGlowIndex] = useState(-1);
 
   useMotionValueEvent(textProgress, "change", (latest) => {
-    console.log(latest, "lllllllll");
     setGlowIndex(Math.floor(latest));
   });
 
+  useEffect(() => {
+    const cards = document.querySelectorAll(".fly-genbot-card");
+
+    anime({
+      targets: cards,
+      opacity: [0, 1],
+      translateY: [20, 0],
+      delay: anime.stagger(100),
+      duration: 800,
+      easing: "easeOutQuad",
+    });
+  }, [textProgress]);
+
   return (
     <section
-      className=" h-[500vh] bg-white relative text-black font-base flex justify-center items-center "
-      ref={exps}
+      className=" bg-white relative text-black font-base flex justify-center items-center"
+      ref={sectionRef}
     >
       <div className="sticky top-0 h-screen w-full flex">
-        <div className=" top-0 ">
+        <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
           <img
             src="/img/genbot-img.png"
-            className="w-[800px]"
+            className="w-[700px]"
             alt="Fly Genbot"
             style={{
               zIndex: 1,
@@ -65,46 +96,37 @@ export const FlyGenBotSection = () => {
           />
         </div>
 
-        <div className="  z-0 top-0 left-1/2">
-          <div
-            style={{
-              marginLeft: "15%",
-              marginTop: glowIndex > 0 ? 40 - glowIndex * 2 + "%" : "40%",
-            }}
-          >
-            <FlyGenBotCard
-              heading="Hazardous environment compatibility"
-              subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
-            />
-          </div>
-          <div style={{ marginTop: "65%", marginLeft: "65%" }}>
-            <FlyGenBotCard
-              heading="Hazardous environment compatibility"
-              subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
-            />
-          </div>
-          <div style={{ marginTop: "65%", marginLeft: "50%" }}>
-            <FlyGenBotCard
-              heading="Hazardous environment compatibility"
-              subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
-            />
-          </div>
-        </div>
+        <motion.div className="absolute top-[11%] left-[20%]">
+          <FlyGenBotCard
+            heading="Hazardous environment compatibility"
+            subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
+          />
+        </motion.div>
+        <motion.div className="absolute top-[9%] right-[20%]">
+          <FlyGenBotCard
+            heading="REAL-TIME DATA ANALYSIS"
+            subHeading="Genbot's Al analyzes data in real-time for informed decision-making."
+          />
+        </motion.div>
+        <motion.div className="absolute bottom-[50%] right-[15%]">
+          <FlyGenBotCard
+            heading="ADVANCED SENSORS"
+            subHeading="Equipped with state-of-the-art sensors for precise and safe navigation."
+          />
+        </motion.div>
 
-        <div className="absolute top-10 " style={{ right: "65%" }}>
-          <div style={{ marginLeft: "40%" }}>
-            <FlyGenBotCard
-              heading="Hazardous environment compatibility"
-              subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
-            />
-          </div>
-          <div style={{ marginTop: "55%", marginRight: "65%" }}>
-            <FlyGenBotCard
-              heading="Hazardous environment compatibility"
-              subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
-            />
-          </div>
-        </div>
+        <motion.div className="absolute bottom-[24%] left-[15%]">
+          <FlyGenBotCard
+            heading="HUMAN-ROBOT COLLABORATION"
+            subHeading="Genbot works seamlessly alongside humans, reducing their exposure to risky conditions."
+          />
+        </motion.div>
+        <motion.div className="absolute bottom-[25%] right-[19%]">
+          <FlyGenBotCard
+            heading="MULTI-TERRAIN TRAVERSAL"
+            subHeading="Genbot’s advanced tracks enable it to navigate a wide range of terrains ease."
+          />
+        </motion.div>
       </div>
     </section>
   );

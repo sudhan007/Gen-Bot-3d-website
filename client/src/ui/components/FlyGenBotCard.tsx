@@ -6,7 +6,7 @@ type Props = {
 export const FlyGenBotCard = ({ heading, subHeading }: Props) => {
   return (
     <div
-      className="flex flex-col items-center justify-center w-[400px] rounded-xl border bg-white"
+      className="fly-genbot-card flex flex-col items-center justify-center w-[400px] rounded-xl border bg-white"
       style={{
         boxShadow: "rgb(255 202 0) 0px 7px 0px",
       }}
