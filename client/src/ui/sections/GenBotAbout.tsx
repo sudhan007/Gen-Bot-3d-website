@@ -23,7 +23,7 @@ const GenBot = () => {
   });
 
   return (
-    <primitive ref={ref} object={fbx} scale={[0.00002, 0.00002, 0.00002]} />
+    <primitive ref={ref} object={fbx} scale={[0.000025, 0.000025, 0.000025]} />
   );
 };
 
@@ -49,7 +49,7 @@ export const GenBotAbout = () => {
   const textProgress = useTransform(
     scrollYProgress,
     [0, 1],
-    [-1, text.length + 70]
+    [-1, text.length + 140]
   );
 
   const backgroundSectionProgress = useTransform(
@@ -70,7 +70,7 @@ export const GenBotAbout = () => {
   });
 
   return (
-    <div className="font-base h-[500vh] bg-white relative" ref={containerRef}>
+    <div className="font-base h-[600vh] bg-white relative" ref={containerRef}>
       <div className="sticky top-0 h-screen w-full flex">
         <div className="bg-white w-1/2 h-screen flex flex-col justify-start items-start gap-4">
           <div className="mx-[10%]">
