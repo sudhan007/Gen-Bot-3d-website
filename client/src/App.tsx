@@ -6,10 +6,13 @@ import { GenBotAbout } from "@/ui/sections/GenBotAbout";
 import { GenBotSection } from "@/ui/sections/GenBotSection";
 import { HeroSection } from "@/ui/sections/Hero";
 import { FlyGenBotSection } from "./ui/sections/FlyGenBotSection";
+import { Footer } from "./ui/sections/Footer";
+import { EXPERIENCE } from "./ui/sections/EXPERIENCE";
 
 function App() {
   const heroRef = useRef(null);
   const genBotRef = useRef<HTMLDivElement>(null);
+  const exp = useRef<HTMLDivElement>(null);
   const genBotAboutRef = useRef<HTMLDivElement>(null);
 
   const smoothScroll = (end: number, duration = 700) => {
@@ -38,6 +41,8 @@ function App() {
     const heroObserver = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting && genBotRef.current) {
+
+          console.log('kkkkkkkkkkkkkkkkkkkkkk')
           smoothScroll(genBotRef.current.offsetTop);
         }
       },
@@ -57,8 +62,24 @@ function App() {
       { threshold: 0.1 }
     );
 
+
+    const expob = new IntersectionObserver(
+      ([entry]) => {
+        if (
+          entry.isIntersecting 
+        ) {
+           
+          console.log('hhhhhhhhhhhhhhhhhhhhh')
+        }
+      },
+      { threshold: 0.1 }
+    );
+
     if (heroRef.current) {
       heroObserver.observe(heroRef.current);
+    }
+    if (exp.current) {
+      expob.observe(exp.current);
     }
 
     if (genBotRef.current) {
@@ -71,6 +92,9 @@ function App() {
       }
       if (genBotRef.current) {
         genBotObserver.unobserve(genBotRef.current);
+      }
+      if (exp.current) {
+        expob.unobserve(exp.current);
       }
     };
   }, []);
@@ -91,6 +115,12 @@ function App() {
         </div>
         <div>
           <FlyGenBotSection />
+        </div>
+        <div >
+          <EXPERIENCE />
+        </div>
+        <div>
+          <Footer />
         </div>
       </div>
     </React.Fragment>
