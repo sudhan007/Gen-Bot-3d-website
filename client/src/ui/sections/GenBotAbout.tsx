@@ -23,7 +23,7 @@ const GenBot = () => {
   });
 
   return (
-    <primitive ref={ref} object={fbx} scale={[0.000025, 0.000025, 0.000025]} />
+    <primitive ref={ref} object={fbx} scale={[0.00002, 0.00002, 0.00002]} />
   );
 };
 
@@ -115,6 +115,7 @@ export const GenBotAbout = () => {
           <Canvas
             gl={{ antialias: false }}
             camera={{ position: [0, 1, 16], fov: 25, near: 1, far: 20 }}
+            className="mt-[15%]"
             style={{
               zIndex: 100,
               position: "absolute",
