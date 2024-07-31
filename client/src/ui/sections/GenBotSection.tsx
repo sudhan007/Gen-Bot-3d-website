@@ -11,10 +11,10 @@ export const GenBotSection = () => {
     [0, 0, 1, 1, 0]
   );
 
-  const textScale = useTransform(sectionProgress, [0, 0.7], [1, 0.1]);
+  const textScale = useTransform(sectionProgress, [0, 0.7], [1.2, 0.1]);
   const textOpacity = useTransform(sectionProgress, [0, 0.3], [1, 0]);
 
-  const robotScale = useTransform(sectionProgress, [0, 0.4], [2.5, 6]);
+  const robotScale = useTransform(sectionProgress, [0, 0.5], [2, 7]);
   const robotOpacity = useTransform(sectionProgress, [0, 1], [0.7, 1]);
   const robotZ = useTransform(sectionProgress, [0, 1], [0, 70]);
 
