@@ -1,19 +1,19 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 import { Navbar } from "@/ui/components/Navbar";
-import { GenBotAbout } from "@/ui/sections/GenBotAbout";
-import { GenBotSection } from "@/ui/sections/GenBotSection";
+import { GenBot } from "@/ui/sections/Genbot";
 import { HeroSection } from "@/ui/sections/Hero";
-import { Experience } from "./ui/sections/EXPERIENCE";
-import { FlyGenBotSection } from "./ui/sections/FlyGenBotSection";
-import { Footer } from "./ui/sections/Footer"; 
+import { motion } from "framer-motion";
 
 function App() {
+  const [progress, setProgress] = useState(0);
   const heroRef = useRef(null);
   const genBotRef = useRef<HTMLDivElement>(null);
   const exp = useRef<HTMLDivElement>(null);
   const genBotAboutRef = useRef<HTMLDivElement>(null);
+
+  const [loading, setLoading] = useState(true);
 
   const smoothScroll = (end: number, duration = 700) => {
     const start = window.pageYOffset;
@@ -92,30 +92,61 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress((prevProgress) => {
+        if (prevProgress === 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            setLoading(false);
+          }, 2000);
+        }
+        return Math.min(prevProgress + 10, 100);
+      });
+    }, 100);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
     <React.Fragment>
-      <div className="font-base">
-        <div className="start"></div>
+      <motion.div
+        className="fixed top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black text-white z-50"
+        initial={{ opacity: 1 }}
+        animate={{ opacity: loading ? 1 : 0 }}
+        transition={{ duration: 0.5 }}
+        style={{
+          pointerEvents: loading ? "none" : "auto",
+          overflow: loading ? "hidden" : "auto",
+        }}
+      >
+        <div className="w-1/2 h-2 bg-gray-800 rounded-sm overflow-hidden mb-4">
+          <div
+            className="h-full bg-green-500 transition-all duration-300 ease-in-out"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+        <div className="text-center">
+          <p className="text-lg font-semibold">Initializing...</p>
+          <p className="text-sm">{progress}%</p>
+        </div>
+      </motion.div>
+
+      <motion.div
+        className="font-base"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: loading ? 0 : 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <Navbar />
         <div ref={heroRef}>
           <HeroSection />
         </div>
         <div ref={genBotRef}>
-          <GenBotSection />
+          <GenBot />
         </div>
-        <div ref={genBotAboutRef}>
-          <GenBotAbout />
-        </div>
-        <div>
-          <FlyGenBotSection />
-        </div>  
-        <div>
-          <Experience />
-        </div>
-        <div>
-          <Footer />
-        </div>
-      </div>
+      </motion.div>
     </React.Fragment>
   );
 }

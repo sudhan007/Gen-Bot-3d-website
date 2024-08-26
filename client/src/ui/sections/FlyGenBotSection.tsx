@@ -85,7 +85,7 @@ export const FlyGenBotSection = () => {
     >
       <div className="sticky top-0 h-screen w-full flex">
         <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
-          <img
+          {/* <img
             src="/img/genbot-img.png"
             className="w-[700px]"
             alt="Fly Genbot"
@@ -93,7 +93,7 @@ export const FlyGenBotSection = () => {
               zIndex: 1,
               transform: "scaleX(-1)",
             }}
-          />
+          /> */}
         </div>
 
         <motion.div className="absolute top-[11%] left-[20%]">
@@ -121,7 +121,7 @@ export const FlyGenBotSection = () => {
             subHeading="Genbot works seamlessly alongside humans, reducing their exposure to risky conditions."
           />
         </motion.div>
-        <motion.div className="absolute bottom-[25%] right-[19%]">
+        <motion.div className="absolute bottom-[25%] right-[12%]">
           <FlyGenBotCard
             heading="MULTI-TERRAIN TRAVERSAL"
             subHeading="Genbot’s advanced tracks enable it to navigate a wide range of terrains ease."
