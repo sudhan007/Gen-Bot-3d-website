@@ -83,45 +83,33 @@ export const FlyGenBotSection = () => {
       className=" bg-white relative text-black font-base flex justify-center items-center"
       ref={sectionRef}
     >
-      <div className="sticky top-0 h-screen w-full flex">
-        <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
-          {/* <img
-            src="/img/genbot-img.png"
-            className="w-[700px]"
-            alt="Fly Genbot"
-            style={{
-              zIndex: 1,
-              transform: "scaleX(-1)",
-            }}
-          /> */}
-        </div>
-
-        <motion.div className="absolute top-[11%] left-[20%]">
+      <div className="sticky top-0 h-screen w-full opacity-0 lg:opacity-100">
+        <motion.div className="absolute top-[11%] left-[10%]">
           <FlyGenBotCard
             heading="Hazardous environment compatibility"
             subHeading="Designed to excel in toxic and hazardous settings, Genbot ensures human safety."
           />
         </motion.div>
-        <motion.div className="absolute top-[9%] right-[20%]">
+        <motion.div className="absolute top-[9%] right-[12%]">
           <FlyGenBotCard
             heading="REAL-TIME DATA ANALYSIS"
             subHeading="Genbot's Al analyzes data in real-time for informed decision-making."
           />
         </motion.div>
-        <motion.div className="absolute bottom-[50%] right-[15%]">
+        <motion.div className="absolute bottom-[50%] right-[2%]">
           <FlyGenBotCard
             heading="ADVANCED SENSORS"
             subHeading="Equipped with state-of-the-art sensors for precise and safe navigation."
           />
         </motion.div>
 
-        <motion.div className="absolute bottom-[24%] left-[15%]">
+        <motion.div className="absolute bottom-[24%] left-[7%]">
           <FlyGenBotCard
             heading="HUMAN-ROBOT COLLABORATION"
             subHeading="Genbot works seamlessly alongside humans, reducing their exposure to risky conditions."
           />
         </motion.div>
-        <motion.div className="absolute bottom-[25%] right-[12%]">
+        <motion.div className="absolute bottom-[25%] right-[4%]">
           <FlyGenBotCard
             heading="MULTI-TERRAIN TRAVERSAL"
             subHeading="Genbot’s advanced tracks enable it to navigate a wide range of terrains ease."

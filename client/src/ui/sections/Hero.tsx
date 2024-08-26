@@ -1,9 +1,12 @@
 import hero from "@/assets/videos/hero-1080.mp4";
+import { useGlobalLoading } from "@/context/GlobalLoadingContext";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import anime from "animejs/lib/anime.es.js";
 import { useEffect } from "react";
 
 export const HeroSection = () => {
+  const { loading } = useGlobalLoading();
+
   useEffect(() => {
     anime({
       targets: ".hero-section h1",
@@ -13,18 +16,19 @@ export const HeroSection = () => {
       easing: "easeOutExpo",
       duration: 1000,
     });
-  }, []);
+  }, [loading]);
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
+    const handleScroll = () => {
       if (window.scrollY > 100) {
         const scroll = document.querySelector("#genbot");
         if (scroll)
           scroll.scrollIntoView({ behavior: "smooth", block: "start" });
       }
-    });
+    };
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener("scroll", () => {});
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -39,13 +43,13 @@ export const HeroSection = () => {
         autoPlay
         muted
         loop
-        className="absolute top-0 left-0 w-screen h-screen object-cover"
+        className="absolute top-0 left-0 w-full h-screen object-cover"
       >
         <source src={hero} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
-      <div className="text-white font-normal uppercase text-[7rem] mx-[11%] leading-none z-10 absolute bottom-12 left-0">
+      <div className="text-white font-normal uppercase text-[6rem] mx-[11%] leading-none z-10 absolute bottom-12 left-0 md:text-[6rem] sm:text-[3rem]">
         <h1>Advancing</h1>
         <h1>Safety</h1>
         <h1>

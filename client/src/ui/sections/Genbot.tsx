@@ -77,7 +77,7 @@ const GenBotModel = ({
   return <primitive ref={ref} object={fbx} />;
 };
 
-const initialGenBotSize = 0.00001;
+const initialGenBotSize = 0;
 
 export const GenBot = () => {
   const [startRobotMove, setStartRobotMove] = useState(false);
@@ -190,7 +190,6 @@ export const GenBot = () => {
     };
 
     requestAnimationFrame(animation);
-    if (callback) callback();
   };
 
   const easeInOutQuad = (t: number, b: number, c: number, d: number) => {
@@ -203,9 +202,9 @@ export const GenBot = () => {
   useEffect(() => {
     if (entry?.isIntersecting) {
       setStartRobotMove(true);
-      smoothScroll(thirdContainerOriginRef.current.offsetTop, 1000, () => {
-        setStartRobotRotate(true);
-      });
+      smoothScroll(thirdContainerOriginRef.current.offsetTop, 1000);
+      setStartRobotMove(true);
+      console.log("entry");
     } else {
       setStartRobotMove(false);
       setStartRobotRotate(false);
@@ -268,8 +267,9 @@ export const GenBot = () => {
           camera={{ position: [0, 1, 16], fov: 25, near: 1, far: 20 }}
           className="mt-[10%] h-screen"
           gl={{
-            antialias: false,
-            alpha: true,
+            antialias: true,
+            logarithmicDepthBuffer: true,
+            readRenderTargetPixels: 8,
           }}
           style={{
             position: "fixed",
@@ -280,9 +280,8 @@ export const GenBot = () => {
             zIndex: 5,
           }}
         >
-          <ambientLight intensity={0.5} />
-          <pointLight position={[10, 10, 10]} />
-          <directionalLight position={[-2, 5, 2]} intensity={1} />
+          <ambientLight intensity={1} />
+          <directionalLight position={[0, 10, 300]} intensity={0.6} />
           <Suspense fallback={null}>
             <GenBotModel
               startRobotMove={startRobotMove}
@@ -325,8 +324,20 @@ export const GenBot = () => {
                 <img
                   src="/img/bot3d.svg"
                   alt="GenBot 3D model"
-                  className="w-[200px] mt-[30%]"
+                  className="w-[320px] mt-[30%]"
                 />
+                {/* <div className="mt-[30%]">
+                  <a
+                    className="group relative inline-block text-sm font-medium text-black"
+                    href="#"
+                  >
+                    <span className="absolute inset-0 border-b-[1px] border-r-[1px] rounded-sm border-current"></span>
+                    <span className="block border rounded-sm border-current bg-transparent px-12 py-3 -translate-x-2 -translate-y-2  bg-yellow border-b-0 border-r-0">
+                      GENBOT
+                    </span>
+                  </a>
+                </div> */}
+
                 <h4 className="font-medium text-7xl mt-[20px]">
                   Your Safety Partner
                 </h4>
