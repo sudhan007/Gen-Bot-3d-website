@@ -1,8 +1,9 @@
 // @ts-nocheck
 
 import { useIntersection } from "@mantine/hooks";
-import { useFBX } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { PerspectiveCamera } from "@react-three/drei";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 import {
   AnimatePresence,
@@ -30,7 +31,8 @@ const GenBotModel = ({
   inFirstSection,
   sectionProgress,
 }) => {
-  const fbx = useFBX("Genbot.fbx");
+  // const fbx = useFBX("Genbot.fbx");
+  const gltf = useLoader(GLTFLoader, "/genbot.glb");
   const ref = useRef(null);
 
   const startPos = new THREE.Vector3(-3.5, 0.9, 0);
@@ -41,40 +43,40 @@ const GenBotModel = ({
     if (ref.current) {
       ref.current.scale.set(robotScaleValue, robotScaleValue, robotScaleValue);
 
-      if (startRobotMove) {
-        ref.current.position.lerp(targetPos, delta * 2.5);
-      } else {
-        ref.current.position.lerp(startPos, delta * 2.5);
-      }
+      // if (startRobotMove) {
+      //   ref.current.position.lerp(targetPos, delta * 2.5);
+      // } else {
+      //   ref.current.position.lerp(startPos, delta * 2.5);
+      // }
 
-      if (startRobotMove && startRobotRotate) {
-        const rotationSpeed = 1;
-        ref.current.rotation.y = (sectionProgress.get() / 200) * Math.PI * 2;
-      } else {
-        ref.current.rotation.y = 0;
-      }
+      // if (startRobotMove && startRobotRotate) {
+      //   const rotationSpeed = 1;
+      //   ref.current.rotation.y = (sectionProgress.get() / 200) * Math.PI * 2;
+      // } else {
+      //   ref.current.rotation.y = 0;
+      // }
 
-      if (genbotFinalMoveActivate) {
-        ref.current.position.lerp(finalPos, delta * 2.5);
-        ref.current.rotation.y = 0.5;
-        ref.current.scale.set(
-          robotScaleValue,
-          robotScaleValue,
-          robotScaleValue
-        );
-      } else {
-        ref.current.position.lerp(targetPos, delta * 2.5);
-        ref.current.rotation.y = 0;
-        ref.current.scale.set(
-          robotScaleValue,
-          robotScaleValue,
-          robotScaleValue
-        );
-      }
+      // if (genbotFinalMoveActivate) {
+      //   ref.current.position.lerp(finalPos, delta * 2.5);
+      //   ref.current.rotation.y = 0.5;
+      //   ref.current.scale.set(
+      //     robotScaleValue,
+      //     robotScaleValue,
+      //     robotScaleValue
+      //   );
+      // } else {
+      //   ref.current.position.lerp(targetPos, delta * 2.5);
+      //   ref.current.rotation.y = 0;
+      //   ref.current.scale.set(
+      //     robotScaleValue,
+      //     robotScaleValue,
+      //     robotScaleValue
+      //   );
+      // }
     }
   });
 
-  return <primitive ref={ref} object={fbx} />;
+  return <primitive ref={ref} object={gltf.scene} />;
 };
 
 const initialGenBotSize = 0;
@@ -110,7 +112,7 @@ export const GenBot = () => {
   const robotScale = useTransform(
     sectionProgress,
     [0, 0.8],
-    [initialGenBotSize, 0.00002]
+    [initialGenBotSize, 0.002]
   );
 
   const robotRotation = useTransform(
@@ -204,11 +206,9 @@ export const GenBot = () => {
       setStartRobotMove(true);
       smoothScroll(thirdContainerOriginRef.current.offsetTop, 1000);
       setStartRobotMove(true);
-      console.log("entry");
     } else {
       setStartRobotMove(false);
       setStartRobotRotate(false);
-      console.log("stopped");
     }
   }, [entry]);
 
@@ -264,12 +264,10 @@ export const GenBot = () => {
     <React.Fragment>
       <section>
         <Canvas
-          camera={{ position: [0, 1, 16], fov: 25, near: 1, far: 20 }}
           className="mt-[10%] h-screen"
           gl={{
             antialias: true,
             logarithmicDepthBuffer: true,
-            readRenderTargetPixels: 8,
           }}
           style={{
             position: "fixed",
@@ -280,17 +278,20 @@ export const GenBot = () => {
             zIndex: 5,
           }}
         >
-          <ambientLight intensity={1} />
-          <directionalLight position={[0, 10, 300]} intensity={0.6} />
+          <directionalLight castShadow position={[0, 10, 20]} intensity={5} />
+          {/* <meshStandardMaterial /> */}
+          <PerspectiveCamera makeDefault manual />
           <Suspense fallback={null}>
-            <GenBotModel
-              startRobotMove={startRobotMove}
-              startRobotRotate={startRobotRotate}
-              robotScaleValue={robotScaleValue}
-              genbotFinalMoveActivate={genbotFinalMoveActivate}
-              inFirstSection={entry && entry.isIntersecting}
-              sectionProgress={textProgress}
-            />
+            <mesh>
+              <GenBotModel
+                startRobotMove={startRobotMove}
+                startRobotRotate={startRobotRotate}
+                robotScaleValue={robotScaleValue}
+                genbotFinalMoveActivate={genbotFinalMoveActivate}
+                inFirstSection={entry && entry.isIntersecting}
+                sectionProgress={textProgress}
+              />
+            </mesh>
           </Suspense>
         </Canvas>
       </section>
