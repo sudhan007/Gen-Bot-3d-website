@@ -1,7 +1,6 @@
 // @ts-nocheck
 
 import { useIntersection } from "@mantine/hooks";
-import { PerspectiveCamera } from "@react-three/drei";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
@@ -23,7 +22,7 @@ type Props = {
 };
 
 const GenBotModel = ({
-  scale = [0.00002, 0.000002, 0.00002],
+  scale = [0.00004, 0.000002, 0.00002], // Adjusted X-axis scale
   startRobotMove,
   startRobotRotate,
   robotScaleValue,
@@ -31,48 +30,66 @@ const GenBotModel = ({
   inFirstSection,
   sectionProgress,
 }) => {
-  // const fbx = useFBX("Genbot.fbx");
-  const gltf = useLoader(GLTFLoader, "/genbot.glb");
+  const gltf = useLoader(GLTFLoader, "/models/genbot.gltf");
   const ref = useRef(null);
 
-  const startPos = new THREE.Vector3(-3.5, 0.9, 0);
-  const targetPos = new THREE.Vector3(3.5, 0.1, 1);
-  const finalPos = new THREE.Vector3(-3, 0.9, 0);
+  const startPos = new THREE.Vector3(0, 2, 0);
+  const startingCameraPos = new THREE.Vector3(0, 2, 4);
+  const startingCameraRot = new THREE.Euler(0, 0, 0);
+
+  const targetPos = new THREE.Vector3(2.5, 2, 0);
+  const finalPos = new THREE.Vector3(-2.8, 2, 0);
 
   useFrame((state, delta) => {
     if (ref.current) {
-      ref.current.scale.set(robotScaleValue, robotScaleValue, robotScaleValue);
+      const { position, rotation, scale } = ref.current;
 
-      // if (startRobotMove) {
-      //   ref.current.position.lerp(targetPos, delta * 2.5);
-      // } else {
-      //   ref.current.position.lerp(startPos, delta * 2.5);
+      const newScale = new THREE.Vector3(
+        robotScaleValue,
+        robotScaleValue,
+        robotScaleValue
+      );
+
+      const robotPosition = ref.current.position;
+
+      const camera = state.camera;
+
+      camera.position.set(
+        startingCameraPos.x,
+        startingCameraPos.y,
+        startingCameraPos.z
+      );
+      camera.rotation.set(
+        startingCameraRot.x,
+        startingCameraRot.y,
+        startingCameraRot.z
+      );
+
+      if (!position.equals(targetPos) && startRobotMove) {
+        position.lerp(targetPos, delta * 2.5);
+      } else if (!position.equals(startPos)) {
+        position.lerp(startPos, delta * 2.5);
+      }
+
+      // if (startRobotRotate) {
+      //   const newRotationY = (sectionProgress.get() / 200) * Math.PI * 2;
+      //   if (rotation.y !== newRotationY) {
+      //     rotation.y = newRotationY;
+      //   }
+      // } else if (rotation.y !== 0) {
+      //   rotation.y = 0;
       // }
 
-      // if (startRobotMove && startRobotRotate) {
-      //   const rotationSpeed = 1;
-      //   ref.current.rotation.y = (sectionProgress.get() / 200) * Math.PI * 2;
-      // } else {
-      //   ref.current.rotation.y = 0;
-      // }
+      if (!scale.equals(newScale)) {
+        scale.set(robotScaleValue, robotScaleValue, robotScaleValue);
+      }
 
-      // if (genbotFinalMoveActivate) {
-      //   ref.current.position.lerp(finalPos, delta * 2.5);
-      //   ref.current.rotation.y = 0.5;
-      //   ref.current.scale.set(
-      //     robotScaleValue,
-      //     robotScaleValue,
-      //     robotScaleValue
-      //   );
-      // } else {
-      //   ref.current.position.lerp(targetPos, delta * 2.5);
-      //   ref.current.rotation.y = 0;
-      //   ref.current.scale.set(
-      //     robotScaleValue,
-      //     robotScaleValue,
-      //     robotScaleValue
-      //   );
-      // }
+      if (genbotFinalMoveActivate) {
+        position.lerp(finalPos, delta * 2.5);
+        rotation.x = 0;
+        rotation.y = 0;
+        rotation.z = 0;
+      }
     }
   });
 
@@ -112,7 +129,7 @@ export const GenBot = () => {
   const robotScale = useTransform(
     sectionProgress,
     [0, 0.8],
-    [initialGenBotSize, 0.002]
+    [initialGenBotSize, 0.0015]
   );
 
   const robotRotation = useTransform(
@@ -278,9 +295,18 @@ export const GenBot = () => {
             zIndex: 5,
           }}
         >
-          <directionalLight castShadow position={[0, 10, 20]} intensity={5} />
-          {/* <meshStandardMaterial /> */}
-          <PerspectiveCamera makeDefault manual />
+          <ambientLight intensity={4} color="#ffffff" />
+          <directionalLight
+            position={[0, 0, 1]}
+            intensity={3}
+            color="#ffffff"
+          />
+
+          <directionalLight
+            position={[-10, 0, 0]}
+            intensity={1}
+            color="#ffffff"
+          />
           <Suspense fallback={null}>
             <mesh>
               <GenBotModel
@@ -301,7 +327,7 @@ export const GenBot = () => {
       >
         <motion.img
           src="/img/genbot-text.svg"
-          className="w-[600px] fixed top-[15%] transform"
+          className="w-[600px] fixed top-[15%] transform md:w-[600px] sm:w-[400px] xs:w-[300px]"
           style={{
             scale: textScale,
             opacity: textOpacity,
@@ -319,31 +345,20 @@ export const GenBot = () => {
             zIndex: 1,
           }}
         >
-          <div className="sticky top-0 h-screen w-full flex">
-            <div className="bg-white w-1/2 h-screen flex flex-col justify-start items-start gap-4">
+          <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row">
+            <div className="bg-white w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4">
               <div className="mx-[10%]">
                 <img
                   src="/img/bot3d.svg"
                   alt="GenBot 3D model"
-                  className="w-[320px] mt-[30%]"
+                  className="w-[320px] mt-[30%] md:w-[260px] sm:w-[200px]"
                 />
-                {/* <div className="mt-[30%]">
-                  <a
-                    className="group relative inline-block text-sm font-medium text-black"
-                    href="#"
-                  >
-                    <span className="absolute inset-0 border-b-[1px] border-r-[1px] rounded-sm border-current"></span>
-                    <span className="block border rounded-sm border-current bg-transparent px-12 py-3 -translate-x-2 -translate-y-2  bg-yellow border-b-0 border-r-0">
-                      GENBOT
-                    </span>
-                  </a>
-                </div> */}
 
-                <h4 className="font-medium text-7xl mt-[20px]">
+                <h4 className="font-medium text-7xl mt-[20px] md:text-5xl sm:text-3xl">
                   Your Safety Partner
                 </h4>
 
-                <motion.p className="mt-[10px] text-3xl leading-relaxed font-normal">
+                <motion.p className="mt-[10px] text-3xl leading-relaxed font-normal sm:text-xl">
                   {text.split("").map((char, index) => (
                     <motion.span
                       key={index}
@@ -357,7 +372,7 @@ export const GenBot = () => {
                 </motion.p>
               </div>
             </div>
-            <div className="w-1/2 h-full relative bg-transparent overflow-hidden">
+            <div className="w-full md:w-1/2 h-full relative bg-transparent overflow-hidden">
               <AnimatePresence initial={false}>
                 <motion.div
                   key={backgroundIndex}
@@ -367,9 +382,7 @@ export const GenBot = () => {
                   exit={{ y: scrollDirection === "down" ? "-100%" : "100%" }}
                   transition={{ duration: 0.6, ease: "easeInOut" }}
                   style={{
-                    backgroundImage: `url(
-                      ${backgroundImages[backgroundIndex]}
-                    )`,
+                    backgroundImage: `url(${backgroundImages[backgroundIndex]})`,
                   }}
                 />
               </AnimatePresence>
