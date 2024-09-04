@@ -114,7 +114,7 @@ function App() {
     <GlobalLoadingContext.Provider value={{ loading, setLoading }}>
       <React.Fragment>
         <motion.div
-          className="fixed top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black text-white z-50"
+          className="fixed top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black text-white"
           initial={{ opacity: 1 }}
           animate={{ opacity: loading ? 1 : 0 }}
           transition={{ duration: 0.5 }}

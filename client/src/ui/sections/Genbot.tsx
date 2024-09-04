@@ -5,7 +5,6 @@ import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 import {
-  AnimatePresence,
   motion,
   useMotionValueEvent,
   useScroll,
@@ -37,8 +36,8 @@ const GenBotModel = ({
   const startingCameraPos = new THREE.Vector3(0, 2, 4);
   const startingCameraRot = new THREE.Euler(0, 0, 0);
 
-  const targetPos = new THREE.Vector3(2.5, 2, 0);
-  const finalPos = new THREE.Vector3(-2.8, 2, 0);
+  const targetPos = new THREE.Vector3(2.5, 2, 10);
+  const finalPos = new THREE.Vector3(-2.8, 2, -10);
 
   useFrame((state, delta) => {
     if (ref.current) {
@@ -188,6 +187,17 @@ export const GenBot = () => {
   const [scrollDirection, setScrollDirection] = useState("down");
   const prevScrollY = useRef(0);
 
+  const videoRef = useRef(null);
+  const [videoCurrentSecond, setVideoCurrentSecond] = useState(0);
+
+  let maximumVideoSec = 30;
+
+  const videoProgress = useTransform(
+    sectionThreeScrollYProgress,
+    [0, 1],
+    [0, maximumVideoSec]
+  );
+
   useMotionValueEvent(textProgress, "change", (latest) => {
     setGlowIndex(Math.floor(latest));
   });
@@ -220,8 +230,7 @@ export const GenBot = () => {
 
   useEffect(() => {
     if (entry?.isIntersecting) {
-      setStartRobotMove(true);
-      smoothScroll(thirdContainerOriginRef.current.offsetTop, 1000);
+      smoothScroll(thirdContainerOriginRef.current.offsetTop, 600);
       setStartRobotMove(true);
     } else {
       setStartRobotMove(false);
@@ -251,29 +260,28 @@ export const GenBot = () => {
     setRobotRotationValue(latest);
   });
 
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const currentScrollY = window.scrollY;
+
+  //     if (currentScrollY > prevScrollY.current) {
+  //       setScrollDirection("down");
+  //     } else {
+  //       setScrollDirection("up");
+  //     }
+
+  //     prevScrollY.current = currentScrollY;
+  //   };
+
+  //   window.addEventListener("scroll", handleScroll);
+
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
+
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY > prevScrollY.current) {
-        setScrollDirection("down");
-      } else {
-        setScrollDirection("up");
-      }
-
-      prevScrollY.current = currentScrollY;
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (backgroundIndex === backgroundImages.length - 1) {
-      console.log("last section");
+    if (backgroundIndex === backgroundImages.length) {
     }
   }, [backgroundIndex]);
 
@@ -292,7 +300,7 @@ export const GenBot = () => {
             left: 0,
             width: "100vw",
             height: "100vh",
-            zIndex: 5,
+            zIndex: 2,
           }}
         >
           <ambientLight intensity={4} color="#ffffff" />
@@ -341,9 +349,6 @@ export const GenBot = () => {
         <div
           className="font-base h-[400vh] bg-white relative"
           ref={thirdContainerRef}
-          style={{
-            zIndex: 1,
-          }}
         >
           <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row">
             <div className="bg-white w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4">
@@ -373,19 +378,14 @@ export const GenBot = () => {
               </div>
             </div>
             <div className="w-full md:w-1/2 h-full relative bg-transparent overflow-hidden">
-              <AnimatePresence initial={false}>
-                <motion.div
-                  key={backgroundIndex}
-                  className="absolute inset-0 bg-cover bg-center"
-                  initial={{ y: scrollDirection === "down" ? "100%" : "-100%" }}
-                  animate={{ y: 0 }}
-                  exit={{ y: scrollDirection === "down" ? "-100%" : "100%" }}
-                  transition={{ duration: 0.6, ease: "easeInOut" }}
-                  style={{
-                    backgroundImage: `url(${backgroundImages[backgroundIndex]})`,
-                  }}
-                />
-              </AnimatePresence>
+              <video
+                ref={videoRef}
+                src="/genbot_transition.mp4"
+                muted
+                autoPlay
+                loop
+                className="w-full h-full object-cover absolute z-20"
+              />
             </div>
           </div>
         </div>
