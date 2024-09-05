@@ -1,26 +1,40 @@
+import { useInViewport } from "@mantine/hooks";
 import anime from "animejs";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { FlyGenBotCard } from "../components/FlyGenBotCard";
 
 export const FlyGenBotSection = () => {
+  const { inViewport, ref: genbotRef } = useInViewport();
+
   useEffect(() => {
     const cards = document.querySelectorAll(".fly-genbot-card");
-
-    setTimeout(() => {
+    if (inViewport) {
+      setTimeout(() => {
+        anime({
+          targets: cards,
+          opacity: [0, 1],
+          translateY: [20, 0],
+          delay: anime.stagger(200),
+          duration: 800,
+          easing: "easeOutQuad",
+        });
+      }, 200);
+    } else {
       anime({
         targets: cards,
-        opacity: [0, 1],
-        translateY: [20, 0],
-        delay: anime.stagger(100),
-        duration: 800,
-        easing: "easeOutQuad",
+        opacity: [1, 0],
+        translateY: [0, 20],
+        duration: 0,
       });
-    }, 200);
-  }, []);
+    }
+  }, [inViewport]);
 
   return (
-    <section className="bg-white relative text-black font-base flex justify-center items-center">
+    <section
+      className="bg-white relative text-black font-base flex justify-center items-center"
+      ref={genbotRef}
+    >
       <div className="sticky top-0 h-screen w-full opacity-0 lg:opacity-100">
         {/* First Card */}
         <motion.div className="absolute top-[11%] left-[10%] md:top-[15%] md:left-[5%] sm:top-[20%] sm:left-[3%]">
