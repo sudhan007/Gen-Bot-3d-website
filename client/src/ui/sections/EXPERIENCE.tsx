@@ -41,7 +41,6 @@ export const Experience = () => {
   const [glowIndex, setGlowIndex] = useState(-1);
 
   useMotionValueEvent(textProgress, "change", (latest) => {
-    console.log(latest, "lllllllll");
     setGlowIndex(Math.floor(latest));
   });
 
@@ -49,7 +48,7 @@ export const Experience = () => {
     <div
       ref={exps}
       className=" text-black font-base relative "
-      style={{ backgroundColor: "#fff" , overflow : 'hidden'  }}
+      style={{ backgroundColor: "#fff", overflow: "hidden" }}
     >
       <div
         style={{
@@ -62,12 +61,17 @@ export const Experience = () => {
           width: 150,
           top: "150%",
           left: "50%",
-          clipPath: "inset(0 0 50% 0)" // This clips the bottom half
+          clipPath: "inset(0 0 50% 0)", // This clips the bottom half
         }}
       ></div>
       <div
         className="mx-[5%]"
-        style={{ paddingBottom: "10%", position: "relative", zIndex: 1000 , height : 950 }}
+        style={{
+          paddingBottom: "10%",
+          position: "relative",
+          zIndex: 1000,
+          height: 950,
+        }}
       >
         <img
           src="/img/root2.png"

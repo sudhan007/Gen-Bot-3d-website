@@ -1,102 +1,77 @@
 // @ts-nocheck
 
 import { useIntersection } from "@mantine/hooks";
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { useFBX } from "@react-three/drei";
+import { Canvas, useFrame } from "@react-three/fiber";
 
+import { smoothScroll } from "@/lib/utils";
 import {
   motion,
   useMotionValueEvent,
   useScroll,
   useTransform,
 } from "framer-motion";
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { AnimatedText } from "../components/AnimatedText";
 import { FlyGenBotSection } from "./FlyGenBotSection";
 
-type Props = {
-  scale: number[];
-  startRobotMove: boolean;
-  startRobotRotate: boolean;
-};
-
 const GenBotModel = ({
-  scale = [0.00004, 0.000002, 0.00002], // Adjusted X-axis scale
   startRobotMove,
-  startRobotRotate,
   robotScaleValue,
   genbotFinalMoveActivate,
-  inFirstSection,
-  sectionProgress,
+  setGenbotFinalMoveActivate,
 }) => {
-  const gltf = useLoader(GLTFLoader, "/models/genbot.gltf");
+  const fbx = useFBX("Genbot.fbx");
   const ref = useRef(null);
 
-  const startPos = new THREE.Vector3(0, 2, 0);
-  const startingCameraPos = new THREE.Vector3(0, 2, 3.5);
-  const startingCameraRot = new THREE.Euler(0, 0, 0);
+  const startPos = useMemo(() => new THREE.Vector3(0, 0, -25), []);
+  const targetPos = useMemo(() => new THREE.Vector3(153, 0, -200), []);
+  const finalPos = useMemo(() => new THREE.Vector3(0, 0, -23), []);
 
-  const targetPos = new THREE.Vector3(10, 2, -20);
-  const finalPos = new THREE.Vector3(-16, 3, -10);
+  const scaleFactor = useMemo(() => 1, []);
 
   useFrame((state, delta) => {
     if (ref.current) {
-      const { position, rotation, scale } = ref.current;
-
+      const { position, scale, rotation } = ref.current;
       const camera = state.camera;
-      camera.position.set(
-        startingCameraPos.x,
-        startingCameraPos.y,
-        startingCameraPos.z
-      );
-      camera.rotation.set(
-        startingCameraRot.x,
-        startingCameraRot.y,
-        startingCameraRot.z
-      );
 
-      const shrinkingFactor = 1.0 - delta * 5.5;
-      const minScaleValue = 0.00000001;
-      const maxScaleValue = 0.0015;
+      const shrinkingFactor = 1.0 - delta * 8;
+      const expandingFactor = 1.0 + delta * 8;
+      const minScaleValue = 0.0000001;
 
-      if (!position.equals(targetPos) && startRobotMove) {
-        position.lerp(targetPos, delta * 2.5);
-
+      if (
+        !position.equals(targetPos) &&
+        startRobotMove &&
+        !genbotFinalMoveActivate
+      ) {
+        position.lerp(targetPos, delta);
         const newScaleValue = Math.max(
           scale.x * shrinkingFactor,
           minScaleValue
         );
-        scale.set(newScaleValue, newScaleValue, newScaleValue);
-      } else if (!position.equals(startPos)) {
-        position.lerp(startPos, delta * 2.5);
-
-        if (
-          !scale.equals(
-            new THREE.Vector3(robotScaleValue, robotScaleValue, robotScaleValue)
-          )
-        ) {
-          scale.set(robotScaleValue, robotScaleValue, robotScaleValue);
-        }
-      }
-
-      if (genbotFinalMoveActivate) {
-        position.lerp(finalPos, delta * 1.5);
-
-        const finalScaleValue = Math.max(scale.x / shrinkingFactor, 0.007);
-        scale.set(finalScaleValue, finalScaleValue, finalScaleValue);
-
-        if (position.distanceTo(finalPos) < 0.1) {
-          scale.set(robotScaleValue, robotScaleValue, robotScaleValue);
-        }
+        scale.setScalar(newScaleValue * scaleFactor);
+      } else if (!position.equals(startPos) && !genbotFinalMoveActivate) {
+        position.lerp(startPos, delta * 6);
+        scale.setScalar(robotScaleValue * scaleFactor);
+      } else if (genbotFinalMoveActivate) {
+        position.lerp(finalPos, delta * 6);
+        scale.setScalar(robotScaleValue * scaleFactor);
       }
     }
   });
 
-  return <primitive ref={ref} object={gltf.scene} />;
+  return (
+    <primitive
+      ref={ref}
+      object={fbx}
+      scale={[scaleFactor, scaleFactor, scaleFactor]}
+    />
+  );
 };
 
 const initialGenBotSize = 0;
+const maxGenBotSize = 0.000101;
 
 export const GenBot = () => {
   const [startRobotMove, setStartRobotMove] = useState(false);
@@ -111,6 +86,8 @@ export const GenBot = () => {
   const secondContainerRef = useRef(null);
   const thirdContainerOriginRef = useRef(null);
   const fourthContainerOriginRef = useRef(null);
+
+  const [currentSection, setCurrentSection] = useState("section1");
 
   const { scrollYProgress } = useScroll({
     target: secondContainerRef,
@@ -129,7 +106,7 @@ export const GenBot = () => {
   const robotScale = useTransform(
     sectionProgress,
     [0, 0.8],
-    [initialGenBotSize, 0.0015]
+    [initialGenBotSize, maxGenBotSize]
   );
 
   const robotRotation = useTransform(
@@ -170,6 +147,12 @@ export const GenBot = () => {
     [-1, text.length + 140]
   );
 
+  const videoProgress = useTransform(
+    sectionThreeScrollYProgress,
+    [0, 1],
+    [0, 30]
+  );
+
   const backgroundSectionProgress = useTransform(
     sectionThreeScrollYProgress,
     [0, 1],
@@ -183,33 +166,17 @@ export const GenBot = () => {
   );
 
   const [glowIndex, setGlowIndex] = useState(-1);
-  const [backgroundIndex, setBackgroundIndex] = useState(0);
+  const [videoIndex, setVideoIndex] = useState(0);
 
-  const smoothScroll = (
-    end: number,
-    duration = 1000,
-    callback?: () => void
-  ) => {
-    const start = window.pageYOffset;
-    let startTime: number | null = null;
-
-    const animation = (currentTime: number) => {
-      if (startTime === null) startTime = currentTime;
-      const timeElapsed = currentTime - startTime;
-      const run = easeInOutQuad(timeElapsed, start, end - start, duration);
-      window.scrollTo(0, run);
-      if (timeElapsed < duration) requestAnimationFrame(animation);
-    };
-
-    requestAnimationFrame(animation);
-  };
-
-  const easeInOutQuad = (t: number, b: number, c: number, d: number) => {
-    t /= d / 2;
-    if (t < 1) return (c / 2) * t * t + b;
-    t--;
-    return (-c / 2) * (t * (t - 2) - 1) + b;
-  };
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      setCurrentSection("section2");
+    } else if (flybotEntry?.isIntersecting) {
+      setCurrentSection("section3");
+    } else {
+      setCurrentSection("section1");
+    }
+  }, [entry, flybotEntry]);
 
   useEffect(() => {
     if (entry?.isIntersecting) {
@@ -243,56 +210,15 @@ export const GenBot = () => {
     setRobotRotationValue(latest);
   });
 
-  const videoRef = useRef(null);
-  const [scrollTimeout, setScrollTimeout] = useState(null);
-
-  const handleScroll = () => {
+  useMotionValueEvent(videoProgress, "change", (latest) => {
     if (videoRef.current) {
-      const video = videoRef.current;
-      const scrollTop = window.scrollY;
-      const scrollHeight = document.documentElement.scrollHeight;
-      const windowHeight = window.innerHeight;
-      const videoDuration = video.duration;
-
-      if (!isNaN(videoDuration) && videoDuration > 0) {
-        const scrollPercentage = Math.max(
-          0,
-          Math.min(1, scrollTop / (scrollHeight - windowHeight))
-        );
-        video.currentTime = scrollPercentage * videoDuration;
-
-        // Clear existing timeout if there is any
-        if (scrollTimeout) {
-          clearTimeout(scrollTimeout);
-        }
-
-        // Play video while scrolling
-        if (video.paused) {
-          video.play();
-        }
-
-        // Set a timeout to pause the video if no scrolling occurs
-        setScrollTimeout(
-          setTimeout(() => {
-            video.pause();
-          }, 300)
-        ); // Adjust delay as needed
-      }
+      const duration = videoRef.current.duration;
+      const progress = videoProgress.get();
+      videoRef.current.currentTime = progress;
     }
-  };
+  });
 
-  useEffect(() => {
-    // Attach scroll event listener
-    window.addEventListener("scroll", handleScroll);
-
-    // Clean up event listener and timeout
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-      }
-    };
-  }, [scrollTimeout]);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   return (
     <React.Fragment>
@@ -312,25 +238,16 @@ export const GenBot = () => {
             zIndex: 2,
           }}
         >
-          <ambientLight intensity={4} color="#ffffff" />
-          <directionalLight
-            position={[0, 0, 1]}
-            intensity={3}
-            color="#ffffff"
-          />
-
-          <directionalLight
-            position={[-10, 0, 0]}
-            intensity={1}
-            color="#ffffff"
-          />
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[0, 10, 300]} intensity={0.3} />
           <Suspense fallback={null}>
             <mesh>
               <GenBotModel
                 startRobotMove={startRobotMove}
-                startRobotRotate={startRobotRotate}
+                // startRobotRotate={startRobotRotate}
                 robotScaleValue={robotScaleValue}
                 genbotFinalMoveActivate={genbotFinalMoveActivate}
+                setGenbotFinalMoveActivate={setGenbotFinalMoveActivate}
                 inFirstSection={entry && entry.isIntersecting}
                 sectionProgress={textProgress}
               />
@@ -378,7 +295,7 @@ export const GenBot = () => {
             <div className="w-full md:w-1/2 h-full relative bg-transparent overflow-hidden">
               <video
                 ref={videoRef}
-                src="/genbot_transition.mp4"
+                src="/input-encoded.mp4"
                 muted
                 autoPlay={false}
                 className="w-full h-full object-cover absolute z-20"

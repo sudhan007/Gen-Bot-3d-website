@@ -6,46 +6,25 @@ import { GenBot } from "@/ui/sections/Genbot";
 import { HeroSection } from "@/ui/sections/Hero";
 import { motion } from "framer-motion";
 import GlobalLoadingContext from "./context/GlobalLoadingContext";
+import { smoothScroll } from "./lib/utils";
 
 function App() {
   const [progress, setProgress] = useState(0);
-  const heroRef = useRef(null);
+  const heroRef = useRef<HTMLDivElement>(null);
   const genBotRef = useRef<HTMLDivElement>(null);
-  const exp = useRef<HTMLDivElement>(null);
   const genBotAboutRef = useRef<HTMLDivElement>(null);
-
   const [loading, setLoading] = useState(true);
-
-  const smoothScroll = (end: number, duration = 700) => {
-    const start = window.pageYOffset;
-    let startTime: number | null = null;
-
-    const animation = (currentTime: number) => {
-      if (startTime === null) startTime = currentTime;
-      const timeElapsed = currentTime - startTime;
-      const run = easeInOutQuad(timeElapsed, start, end - start, duration);
-      window.scrollTo(0, run);
-      if (timeElapsed < duration) requestAnimationFrame(animation);
-    };
-
-    requestAnimationFrame(animation);
-  };
-
-  const easeInOutQuad = (t: number, b: number, c: number, d: number) => {
-    t /= d / 2;
-    if (t < 1) return (c / 2) * t * t + b;
-    t--;
-    return (-c / 2) * (t * (t - 2) - 1) + b;
-  };
 
   useEffect(() => {
     const heroObserver = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting && genBotRef.current) {
-          smoothScroll(genBotRef.current.offsetTop);
+          smoothScroll(genBotRef.current.offsetTop, 600);
+        } else if (entry.isIntersecting && genBotAboutRef.current) {
+          smoothScroll(genBotAboutRef.current.offsetTop, 600);
         }
       },
-      { threshold: 0.9 }
+      { threshold: 0.95 }
     );
 
     const genBotObserver = new IntersectionObserver(
@@ -61,21 +40,9 @@ function App() {
       { threshold: 0.1 }
     );
 
-    const expob = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-        }
-      },
-      { threshold: 0.1 }
-    );
-
     if (heroRef.current) {
       heroObserver.observe(heroRef.current);
     }
-    if (exp.current) {
-      expob.observe(exp.current);
-    }
-
     if (genBotRef.current) {
       genBotObserver.observe(genBotRef.current);
     }
@@ -83,12 +50,11 @@ function App() {
     return () => {
       if (heroRef.current) {
         heroObserver.unobserve(heroRef.current);
+        heroObserver.disconnect();
+        window.onscroll = null;
       }
       if (genBotRef.current) {
         genBotObserver.unobserve(genBotRef.current);
-      }
-      if (exp.current) {
-        expob.unobserve(exp.current);
       }
     };
   }, []);
@@ -96,15 +62,15 @@ function App() {
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prevProgress) => {
-        if (prevProgress === 100) {
+        if (prevProgress >= 100) {
           clearInterval(interval);
-          setTimeout(() => {
-            setLoading(false);
-          }, 100);
+          setTimeout(() => setLoading(false), 100);
+          return 100;
         }
         return Math.min(prevProgress + 10, 100);
       });
     }, 100);
+
     return () => {
       clearInterval(interval);
     };

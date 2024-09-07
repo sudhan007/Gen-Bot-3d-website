@@ -18,20 +18,6 @@ export const HeroSection = () => {
     });
   }, [loading]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
-        const scroll = document.querySelector("#genbot");
-        if (scroll)
-          scroll.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
     <section
       className="h-screen bg-black text-white font-base flex flex-col justify-end mx-auto hero-section relative"

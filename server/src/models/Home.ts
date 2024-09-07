@@ -9,7 +9,7 @@ const HomeSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export const HomePageModel = model("Homecontent", HomeSchema);
