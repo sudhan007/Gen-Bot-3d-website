@@ -1,19 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import "./App.css";
 
 import { Navbar } from "@/ui/components/Navbar";
 import { GenBot } from "@/ui/sections/Genbot";
 import { HeroSection } from "@/ui/sections/Hero";
 import { motion } from "framer-motion";
-import GlobalLoadingContext from "./context/GlobalLoadingContext";
+import {
+  LoadingProvider,
+  useLoading,
+} from "./context/GlobalLoadingContext.tsx";
 import { smoothScroll } from "./lib/utils";
 
 function App() {
-  const [progress, setProgress] = useState(0);
   const heroRef = useRef<HTMLDivElement>(null);
   const genBotRef = useRef<HTMLDivElement>(null);
   const genBotAboutRef = useRef<HTMLDivElement>(null);
-  const [loading, setLoading] = useState(true);
+
+  const { loading } = useLoading();
 
   useEffect(() => {
     const heroObserver = new IntersectionObserver(
@@ -59,25 +62,8 @@ function App() {
     };
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((prevProgress) => {
-        if (prevProgress >= 100) {
-          clearInterval(interval);
-          setTimeout(() => setLoading(false), 100);
-          return 100;
-        }
-        return Math.min(prevProgress + 10, 100);
-      });
-    }, 100);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
   return (
-    <GlobalLoadingContext.Provider value={{ loading, setLoading }}>
+    <LoadingProvider>
       <React.Fragment>
         <motion.div
           className="fixed top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black text-white"
@@ -90,14 +76,12 @@ function App() {
           }}
         >
           <div className="w-1/2 h-2 bg-gray-800 rounded-sm overflow-hidden mb-4">
-            <div
-              className="h-full bg-green-500 transition-all duration-300 ease-in-out"
-              style={{ width: `${progress}%` }}
-            ></div>
+            <div className="h-full bg-green-500 transition-all duration-300 ease-in-out">
+              Loading
+            </div>
           </div>
           <div className="text-center">
             <p className="text-lg font-semibold">Initializing...</p>
-            <p className="text-sm">{progress}%</p>
           </div>
         </motion.div>
 
@@ -116,7 +100,7 @@ function App() {
           </div>
         </motion.div>
       </React.Fragment>
-    </GlobalLoadingContext.Provider>
+    </LoadingProvider>
   );
 }
 

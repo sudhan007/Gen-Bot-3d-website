@@ -1,15 +1,17 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
-export type GlobalLoadingContextType = {
-  loading: boolean;
-  setLoading: (loading: boolean) => void;
+const LoadingContext = createContext<any>({});
+
+export const useLoading = () => useContext(LoadingContext);
+
+export const LoadingProvider = ({ children }: any) => {
+  const [loading, setLoading] = useState(true);
+  const startLoading = () => setLoading(true);
+  const stopLoading = () => setLoading(false);
+
+  return (
+    <LoadingContext.Provider value={{ loading, startLoading, stopLoading }}>
+      {children}
+    </LoadingContext.Provider>
+  );
 };
-
-const GlobalLoadingContext = createContext<GlobalLoadingContextType>({
-  loading: false,
-  setLoading: () => {},
-});
-
-export const useGlobalLoading = () => useContext(GlobalLoadingContext);
-
-export default GlobalLoadingContext;

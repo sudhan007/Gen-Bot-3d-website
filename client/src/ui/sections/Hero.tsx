@@ -1,12 +1,10 @@
 import hero from "@/assets/videos/hero-1080.mp4";
-import { useGlobalLoading } from "@/context/GlobalLoadingContext";
+import useMediaLoader from "@/hooks/useMediaLoader";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import anime from "animejs/lib/anime.es.js";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export const HeroSection = () => {
-  const { loading } = useGlobalLoading();
-
   useEffect(() => {
     anime({
       targets: ".hero-section h1",
@@ -16,7 +14,11 @@ export const HeroSection = () => {
       easing: "easeOutExpo",
       duration: 1000,
     });
-  }, [loading]);
+  }, []);
+
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+
+  useMediaLoader([heroVideoRef]);
 
   return (
     <section
@@ -29,6 +31,7 @@ export const HeroSection = () => {
         autoPlay
         muted
         loop
+        ref={heroVideoRef}
         className="absolute top-0 left-0 w-full h-screen object-cover"
       >
         <source src={hero} type="video/mp4" />

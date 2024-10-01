@@ -1,10 +1,10 @@
 // @ts-nocheck
 
+import useMediaLoader from "@/hooks/useMediaLoader";
+import { smoothScroll } from "@/lib/utils";
 import { useIntersection } from "@mantine/hooks";
 import { useFBX } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
-
-import { smoothScroll } from "@/lib/utils";
 import {
   motion,
   useMotionValueEvent,
@@ -133,14 +133,6 @@ export const GenBot = () => {
     "Meet Genbot, the semi humanoid robotic innovation with state-of-the-art features designed to excel in industrial and toxic environments, Genbot ensures human safety by working side by side, eliminating the need for humans to expose themselves to hazardous conditions."
   );
 
-  const [backgroundImages] = useState([
-    "/img/1.png",
-    "/img/2.png",
-    "/img/3.png",
-    "/img/4.png",
-    "/img/5.png",
-  ]);
-
   const textProgress = useTransform(
     sectionThreeScrollYProgress,
     [0, 1],
@@ -151,12 +143,6 @@ export const GenBot = () => {
     sectionThreeScrollYProgress,
     [0, 1],
     [0, 30]
-  );
-
-  const backgroundSectionProgress = useTransform(
-    sectionThreeScrollYProgress,
-    [0, 1],
-    [0, backgroundImages.length]
   );
 
   const robotoRotation = useTransform(
@@ -219,6 +205,8 @@ export const GenBot = () => {
   });
 
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  useMediaLoader([videoRef]);
 
   return (
     <React.Fragment>
