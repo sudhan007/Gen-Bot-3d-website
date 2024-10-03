@@ -71,7 +71,7 @@ function App() {
   return (
     <LoadingProvider>
       <motion.div
-        className="font-base overflow-x-hidden"
+        className="font-base w-screen "
         initial={{ opacity: 0 }}
         animate={{ opacity: loading ? 0 : 1 }}
         transition={{ duration: 0.5 }}

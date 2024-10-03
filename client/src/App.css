@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    overflow-x: hidden;
+  }
+
 @font-face {
     font-family: "AktivGrotesk";
     src: url('/fonts/AktivGrotesk-Black.ttf') format('truetype');
@@ -134,4 +138,3 @@
     background: #555;
     border-radius: 10px;
   }
-  

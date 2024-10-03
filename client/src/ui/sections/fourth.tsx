@@ -1,24 +1,28 @@
-import { useInViewport } from "@mantine/hooks";
-import { motion, useAnimation } from "framer-motion";
+import { useIntersection } from "@/hooks/useIntersection";
+import anime from "animejs";
 import { useEffect } from "react";
-import { FlyGenBotCard } from "../components/FlyGenBotCard";
 
-export const FlyGenBotSection = () => {
-  const { inViewport, ref: genbotRef } = useInViewport();
-  const controls = useAnimation();
+type Props = {
+  isVisible: boolean;
+};
+
+export const FlyGenBotSection = ({}: Props) => {
+  const { entry, ref } = useIntersection({
+    threshold: 0.8,
+  });
 
   useEffect(() => {
-    if (inViewport) {
-      controls.start("visible");
-    } else {
-      controls.start("hidden");
+    const elems = document.querySelectorAll(".cards");
+    if (entry?.isIntersecting) {
+      anime({
+        targets: elems,
+        opacity: [0, 1],
+        translateY: [30, 0],
+        duration: 1200,
+        delay: anime.stagger(220),
+      });
     }
-  }, [inViewport, controls]);
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
+  }, [entry]);
 
   const cardData = [
     {
@@ -55,42 +59,32 @@ export const FlyGenBotSection = () => {
 
   return (
     <section
+      ref={ref}
       className="bg-white relative text-black font-base min-h-screen flex justify-center items-center overflow-hidden"
-      ref={genbotRef}
     >
       <div className="w-full h-full absolute">
         {cardData.map((card, index) => (
-          <motion.div
+          <div
             key={index}
-            className={`absolute ${card.className} hidden md:block`}
-            variants={cardVariants}
-            initial="hidden"
-            animate={controls}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className={`absolute ${card.className} hidden md:block cards`}
           >
-            <FlyGenBotCard
-              heading={card.heading}
-              subHeading={card.subHeading}
-            />
-          </motion.div>
-        ))}
-      </div>
+            <div
+              className="fly-genbot-card flex flex-col items-center justify-center w-[400px] rounded-xl border bg-white "
+              style={{
+                boxShadow: "rgb(255 202 0) 0px 7px 0px",
+              }}
+            >
+              <div className="w-full h-full flex flex-col p-5 bg-white rounded-xl">
+                <h1 className="text-2xl font-medium uppercase mb-2 break-before-avoid">
+                  {card.heading}
+                </h1>
 
-      {/* Mobile view */}
-      <div className="md:hidden w-full px-4 py-8 space-y-4">
-        {cardData.map((card, index) => (
-          <motion.div
-            key={index}
-            variants={cardVariants}
-            initial="hidden"
-            animate={controls}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
-            <FlyGenBotCard
-              heading={card.heading}
-              subHeading={card.subHeading}
-            />
-          </motion.div>
+                <p className="text-sm text-black  leading-normal opacity-95">
+                  {card.subHeading}
+                </p>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
     </section>
