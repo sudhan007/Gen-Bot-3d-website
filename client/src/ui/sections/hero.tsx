@@ -22,7 +22,7 @@ export const HeroSection = () => {
 
   return (
     <section
-      className="h-screen bg-black text-white font-base flex flex-col justify-end mx-auto hero-section relative"
+      className="h-screen bg-black text-white font-base flex flex-col justify-end hero-section relative w-screen overflow-hidden"
       style={{
         zIndex: 1000,
       }}
@@ -32,7 +32,7 @@ export const HeroSection = () => {
         muted
         loop
         ref={heroVideoRef}
-        className="absolute top-0 left-0 w-full h-screen object-cover"
+        className="absolute top-0 left-0  h-screen object-cover w-full"
       >
         <source src={hero} type="video/mp4" />
         Your browser does not support the video tag.

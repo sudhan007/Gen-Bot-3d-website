@@ -1,53 +1,62 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 import { Navbar } from "@/ui/components/Navbar";
-import { GenBot } from "@/ui/sections/Genbot";
-import { HeroSection } from "@/ui/sections/Hero";
+import { useInViewport } from "@mantine/hooks";
 import { motion } from "framer-motion";
 import {
   LoadingProvider,
   useLoading,
 } from "./context/GlobalLoadingContext.tsx";
 import { smoothScroll } from "./lib/utils";
+import { GenBot } from "./ui/sections/genbot.tsx";
+import { HeroSection } from "./ui/sections/hero.tsx";
 
 function App() {
   const heroRef = useRef<HTMLDivElement>(null);
   const genBotRef = useRef<HTMLDivElement>(null);
   const genBotAboutRef = useRef<HTMLDivElement>(null);
 
+  const [section, setSection] = useState<string>("section1");
+
+  const { ref, inViewport } = useInViewport();
+  const { ref: infoRef, inViewport: infoInViewport } = useInViewport();
+
   const { loading } = useLoading();
+
+  useEffect(() => {
+    if (inViewport && section == "section2") {
+      if (!genBotRef.current) return;
+      smoothScroll(0, 600, () => {
+        setSection("section2");
+      });
+    }
+  }, [inViewport]);
+
+  useEffect(() => {
+    if (infoInViewport && section == "section3") {
+      if (!genBotAboutRef.current) return;
+      smoothScroll(genBotAboutRef?.current?.offsetTop, 600, () => {
+        setSection("section2");
+      });
+    }
+  }, [infoInViewport]);
 
   useEffect(() => {
     const heroObserver = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting && genBotRef.current) {
-          smoothScroll(genBotRef.current.offsetTop, 600);
-        } else if (entry.isIntersecting && genBotAboutRef.current) {
-          smoothScroll(genBotAboutRef.current.offsetTop, 600);
+          smoothScroll(genBotRef.current.offsetTop + 100, 600, () => {
+            setSection("section2");
+          });
+          setSection("section2");
         }
       },
       { threshold: 0.95 }
     );
 
-    const genBotObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (
-          !entry.isIntersecting &&
-          entry.boundingClientRect.top < 0 &&
-          genBotAboutRef.current
-        ) {
-          smoothScroll(genBotAboutRef.current.offsetTop);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
     if (heroRef.current) {
       heroObserver.observe(heroRef.current);
-    }
-    if (genBotRef.current) {
-      genBotObserver.observe(genBotRef.current);
     }
 
     return () => {
@@ -56,50 +65,29 @@ function App() {
         heroObserver.disconnect();
         window.onscroll = null;
       }
-      if (genBotRef.current) {
-        genBotObserver.unobserve(genBotRef.current);
-      }
     };
   }, []);
 
   return (
     <LoadingProvider>
-      <React.Fragment>
-        <motion.div
-          className="fixed top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black text-white"
-          initial={{ opacity: 1 }}
-          animate={{ opacity: loading ? 1 : 0 }}
-          transition={{ duration: 0.5 }}
-          style={{
-            pointerEvents: loading ? "none" : "auto",
-            overflow: loading ? "hidden" : "auto",
-          }}
-        >
-          <div className="w-1/2 h-2 bg-gray-800 rounded-sm overflow-hidden mb-4">
-            <div className="h-full bg-green-500 transition-all duration-300 ease-in-out">
-              Loading
-            </div>
-          </div>
-          <div className="text-center">
-            <p className="text-lg font-semibold">Initializing...</p>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="font-base"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: loading ? 0 : 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Navbar />
-          <div ref={heroRef}>
+      <motion.div
+        className="font-base overflow-x-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: loading ? 0 : 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Navbar />
+        <div ref={heroRef}>
+          <div ref={ref}>
             <HeroSection />
           </div>
-          <div ref={genBotRef}>
+        </div>
+        <div ref={genBotRef}>
+          <div ref={infoRef}>
             <GenBot />
           </div>
-        </motion.div>
-      </React.Fragment>
+        </div>
+      </motion.div>
     </LoadingProvider>
   );
 }

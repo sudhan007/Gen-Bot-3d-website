@@ -2,7 +2,7 @@
 
 import useMediaLoader from "@/hooks/useMediaLoader";
 import { smoothScroll } from "@/lib/utils";
-import { useIntersection } from "@mantine/hooks";
+import { useIntersection, useInViewport } from "@mantine/hooks";
 import { useFBX } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
@@ -14,7 +14,10 @@ import {
 import React, { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { AnimatedText } from "../components/AnimatedText";
-import { FlyGenBotSection } from "./FlyGenBotSection";
+import { Experience } from "./experiance";
+import { Footer } from "./footer";
+import { FlyGenBotSection } from "./fourth";
+import { GBotOne } from "./gbot-one";
 
 const GenBotModel = ({
   startRobotMove,
@@ -87,8 +90,6 @@ export const GenBot = () => {
   const thirdContainerOriginRef = useRef(null);
   const fourthContainerOriginRef = useRef(null);
 
-  const [currentSection, setCurrentSection] = useState("section1");
-
   const { scrollYProgress } = useScroll({
     target: secondContainerRef,
   });
@@ -118,7 +119,13 @@ export const GenBot = () => {
   // Third Section Imports
 
   const { entry, ref: thirdContainerRef } = useIntersection();
+  const { inViewport, ref: thirdViewPortRef } = useInViewport();
+
   const { entry: flybotEntry, ref: fourceContainerRef } = useIntersection();
+  const { entry: afterFourthSection, ref: afterFourthSectionRef } =
+    useIntersection();
+
+  const [currentSection, setCurrentSection] = useState("section3");
 
   const { scrollYProgress: sectionThreeScrollYProgress } = useScroll({
     target: thirdContainerOriginRef,
@@ -131,6 +138,10 @@ export const GenBot = () => {
 
   const [text] = useState(
     "Meet Genbot, the semi humanoid robotic innovation with state-of-the-art features designed to excel in industrial and toxic environments, Genbot ensures human safety by working side by side, eliminating the need for humans to expose themselves to hazardous conditions."
+  );
+
+  const [text2] = useState(
+    "Get acquainted with G bot. A humanoid robot empowered by AI, redefining collaboration with humans. Designed to work seamlessly alongside humans, G bot is more than just a robotic assistant: it's the future of technological partnership."
   );
 
   const textProgress = useTransform(
@@ -152,21 +163,30 @@ export const GenBot = () => {
   );
 
   const [glowIndex, setGlowIndex] = useState(-1);
-  const [videoIndex, setVideoIndex] = useState(0);
+
+  // re scroll up
 
   useEffect(() => {
-    if (entry?.isIntersecting) {
-      setCurrentSection("section2");
-    } else if (flybotEntry?.isIntersecting) {
-      setCurrentSection("section3");
-    } else {
-      setCurrentSection("section1");
+    if (inViewport && currentSection === "section3") {
+      const containerHeight = secondContainerRef.current.offsetHeight - 100;
+      const scrollPosition = (300 / 400) * containerHeight;
+
+      smoothScroll(
+        secondContainerRef.current.offsetTop + scrollPosition,
+        600,
+        () => {
+          setCurrentSection("section2");
+        }
+      );
     }
-  }, [entry, flybotEntry]);
+  }, [inViewport]);
 
   useEffect(() => {
     if (entry?.isIntersecting) {
-      smoothScroll(thirdContainerOriginRef.current.offsetTop, 600);
+      smoothScroll(thirdContainerOriginRef.current.offsetTop + 2, 600, () => {
+        setCurrentSection("section3");
+      });
+      setCurrentSection("section3");
       setStartRobotMove(true);
     } else {
       setStartRobotMove(false);
@@ -179,9 +199,7 @@ export const GenBot = () => {
       setGenbotFinalMoveActivate(true);
       setStartRobotRotate(false);
 
-      smoothScroll(fourthContainerOriginRef.current.offsetTop, 1000, () => {
-        setStartRobotMove(true);
-      });
+      smoothScroll(fourthContainerOriginRef.current.offsetTop);
     } else {
       setGenbotFinalMoveActivate(false);
       setStartRobotRotate(true);
@@ -206,81 +224,85 @@ export const GenBot = () => {
 
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  const [botVisible, setBotVisible] = useState(true);
+
   useMediaLoader([videoRef]);
 
   return (
     <React.Fragment>
-      <section>
-        <Canvas
-          className="mt-[10%] h-screen"
-          gl={{
-            antialias: true,
-            logarithmicDepthBuffer: true,
-          }}
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            zIndex: 2,
-          }}
+      {botVisible && (
+        <section>
+          <Canvas
+            className="mt-[10%] h-screen"
+            gl={{
+              antialias: true,
+              logarithmicDepthBuffer: true,
+            }}
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+              zIndex: 2,
+            }}
+          >
+            <ambientLight intensity={0.5} />
+            <directionalLight position={[0, 10, 300]} intensity={0.3} />
+            <Suspense fallback={null}>
+              <mesh>
+                <GenBotModel
+                  startRobotMove={startRobotMove}
+                  // startRobotRotate={startRobotRotate}
+                  robotScaleValue={robotScaleValue}
+                  genbotFinalMoveActivate={genbotFinalMoveActivate}
+                  setGenbotFinalMoveActivate={setGenbotFinalMoveActivate}
+                  inFirstSection={entry && entry.isIntersecting}
+                  sectionProgress={textProgress}
+                />
+              </mesh>
+            </Suspense>
+          </Canvas>
+        </section>
+      )}
+      {/* thirdViewPortRef */}
+      <div ref={secondContainerRef}>
+        <section
+          className="bg-lightbg text-white font-base h-[400vh] flex justify-center w-screen"
+          ref={thirdViewPortRef}
         >
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[0, 10, 300]} intensity={0.3} />
-          <Suspense fallback={null}>
-            <mesh>
-              <GenBotModel
-                startRobotMove={startRobotMove}
-                // startRobotRotate={startRobotRotate}
-                robotScaleValue={robotScaleValue}
-                genbotFinalMoveActivate={genbotFinalMoveActivate}
-                setGenbotFinalMoveActivate={setGenbotFinalMoveActivate}
-                inFirstSection={entry && entry.isIntersecting}
-                sectionProgress={textProgress}
-              />
-            </mesh>
-          </Suspense>
-        </Canvas>
-      </section>
-      <section
-        className="bg-lightbg text-white font-base h-[400vh] flex justify-center"
-        ref={secondContainerRef}
-      >
-        <motion.img
-          src="/img/genbot-text.svg"
-          className="w-[600px] fixed top-[15%] transform md:w-[600px] sm:w-[400px] xs:w-[300px]"
-          style={{
-            scale: textScale,
-            opacity: textOpacity,
-            zIndex: 10,
-            display: visibility,
-          }}
-        />
-      </section>
+          <motion.img
+            src="/img/genbot-text.svg"
+            className="w-[600px] fixed top-[15%] transform md:w-[600px] sm:w-[400px] xs:w-[300px]"
+            style={{
+              scale: textScale,
+              opacity: textOpacity,
+              zIndex: 10,
+              display: visibility,
+            }}
+          />
+        </section>
+      </div>
 
       <section ref={thirdContainerOriginRef}>
-        <div
-          className="font-base h-[400vh] bg-white relative"
-          ref={thirdContainerRef}
-        >
+        <div className="font-base h-[400vh] bg-white" ref={thirdContainerRef}>
           <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row">
-            <div className="bg-white w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4">
+            {/* Left Side Content */}
+            <div className="bg-white w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0">
               <div className="mx-[10%]">
                 <img
                   src="/img/bot3d.svg"
                   alt="GenBot 3D model"
                   className="w-[320px] mt-[30%] md:w-[260px] sm:w-[200px]"
                 />
-
                 <h4 className="font-medium text-7xl mt-[20px] md:text-5xl sm:text-3xl">
                   Your Safety Partner
                 </h4>
-
                 <AnimatedText text={text} />
               </div>
             </div>
-            <div className="w-full md:w-1/2 h-full relative bg-transparent overflow-hidden">
+            {/* Right Side Video */}
+            <div className="w-full md:w-1/2 h-screen bg-transparent overflow-hidden sticky top-0">
               <video
                 ref={videoRef}
                 src="/input-encoded.mp4"
@@ -293,11 +315,71 @@ export const GenBot = () => {
         </div>
       </section>
 
-      <div ref={fourthContainerOriginRef}>
-        <div ref={fourceContainerRef}>
-          <FlyGenBotSection isVisible={genbotFinalMoveActivate} />
-        </div>
+      <div>
+        <FlyGenBotSection isVisible={genbotFinalMoveActivate} />
       </div>
+
+      <GBotOne />
+
+      <section ref={afterFourthSectionRef}>
+        <div className="font-base h-[100vh] bg-white relative">
+          <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row">
+            <div className="bg-white w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4">
+              <div className="mx-[10%]">
+                <img
+                  src="/img/gbot3d.svg"
+                  alt="GenBot 3D model"
+                  className="w-[320px] mt-[30%] md:w-[260px] sm:w-[200px]"
+                />
+
+                <h4 className="font-medium text-7xl mt-[20px] md:text-5xl sm:text-3xl">
+                  The Future Of Human-Robot Interaction
+                </h4>
+
+                <AnimatedText text={text2} />
+              </div>
+            </div>
+            <div className="w-full md:w-1/2 h-full flex justify-center items-center relative">
+              <img
+                src="/img/gbot-text2.svg"
+                className="w-[600px] z-[1]"
+                alt=""
+              />
+
+              <img
+                src="/img/gbot-sidec.png"
+                className="w-[300px] absolute top-0 left-0 z-[2] h-full"
+                style={{
+                  transform: "translate(-50%, -50%)",
+                  top: "50%",
+                  left: "50%",
+                }}
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div className="font-base h-[100vh] bg-white relative">
+          <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row">
+            <div className="bg-white w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4">
+              <div className="mx-[10%]">
+                <img
+                  src="/img/gbot-rightface.png"
+                  className="w-[600px] z-[1]"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Experience />
+
+      <Footer />
     </React.Fragment>
   );
 };
