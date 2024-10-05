@@ -1,15 +1,23 @@
 import { useIntersection } from "@/hooks/useIntersection";
 import anime from "animejs";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   isVisible: boolean;
 };
 
 export const FlyGenBotSection = ({}: Props) => {
+  const [show, setShow] = useState(false);
+
   const { entry, ref } = useIntersection({
     threshold: 0.8,
   });
+
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      setShow(true);
+    }
+  }, [entry]);
 
   useEffect(() => {
     const elems = document.querySelectorAll(".cards");
@@ -22,7 +30,7 @@ export const FlyGenBotSection = ({}: Props) => {
         delay: anime.stagger(220),
       });
     }
-  }, [entry]);
+  }, [show]);
 
   const cardData = [
     {

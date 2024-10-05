@@ -1,6 +1,5 @@
 // @ts-nocheck
 
-import useMediaLoader from "@/hooks/useMediaLoader";
 import { smoothScroll } from "@/lib/utils";
 import { useIntersection, useInViewport } from "@mantine/hooks";
 import { useFBX } from "@react-three/drei";
@@ -16,6 +15,8 @@ import * as THREE from "three";
 import { AnimatedText } from "../components/AnimatedText";
 import { FlyGenBotSection } from "./fourth";
 import { GBotOne } from "./gbot-one";
+import { GbotThree } from "./gbot-three";
+import { GbotTwo } from "./gbot-two";
 
 const GenBotModel = ({
   startRobotMove,
@@ -87,6 +88,9 @@ export const GenBot = () => {
   const secondContainerRef = useRef(null);
   const thirdContainerOriginRef = useRef(null);
   const fourthContainerOriginRef = useRef(null);
+  const fifthContainerOriginRef = useRef(null);
+  const sixthContainerOriginRef = useRef(null);
+  const seventhContainerOriginRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
     target: secondContainerRef,
@@ -123,8 +127,30 @@ export const GenBot = () => {
 
   const { inViewport: fourthInViewPort, ref: fourthEntryRef } = useInViewport();
 
-  const { entry: afterFourthSection, ref: afterFourthSectionRef } =
-    useIntersection();
+  // fifth
+
+  const { entry: fifthEntry, ref: fifthContainerRef } = useIntersection({
+    threshold: 0.1,
+  });
+
+  const { inViewport: fifthInViewPort, ref: fifthEntryRef } = useInViewport();
+
+  // sixth
+
+  const { entry: sixthEntry, ref: sixthContainerRef } = useIntersection({
+    threshold: 0.1,
+  });
+
+  const { inViewport: sixthInViewPort, ref: sixthEntryRef } = useInViewport();
+
+  //seventh
+
+  const { entry: seventhEntry, ref: seventhContainerRef } = useIntersection({
+    threshold: 0.1,
+  });
+
+  const { inViewport: seventhInViewPort, ref: seventhEntryRef } =
+    useInViewport();
 
   const [currentSection, setCurrentSection] = useState("section3");
 
@@ -139,10 +165,6 @@ export const GenBot = () => {
 
   const [text] = useState(
     "Meet Genbot, the semi humanoid robotic innovation with state-of-the-art features designed to excel in industrial and toxic environments, Genbot ensures human safety by working side by side, eliminating the need for humans to expose themselves to hazardous conditions."
-  );
-
-  const [text2] = useState(
-    "Get acquainted with G bot. A humanoid robot empowered by AI, redefining collaboration with humans. Designed to work seamlessly alongside humans, G bot is more than just a robotic assistant: it's the future of technological partnership."
   );
 
   const textProgress = useTransform(
@@ -198,6 +220,36 @@ export const GenBot = () => {
   }, [fourthInViewPort]);
 
   useEffect(() => {
+    if (fifthInViewPort && currentSection === "section5") {
+      const containerHeight =
+        fourthContainerOriginRef.current.offsetHeight - 100;
+      const scrollPosition = (300 / 400) * containerHeight;
+      smoothScroll(
+        fourthContainerOriginRef.current.offsetTop + scrollPosition,
+        600,
+        () => {
+          setCurrentSection("section4");
+        }
+      );
+    }
+  }, [fifthInViewPort]);
+
+  useEffect(() => {
+    if (sixthInViewPort && currentSection === "section6") {
+      const containerHeight =
+        fifthContainerOriginRef.current.offsetHeight - 100;
+      const scrollPosition = (300 / 400) * containerHeight;
+      smoothScroll(
+        fifthContainerOriginRef.current.offsetTop + scrollPosition,
+        600,
+        () => {
+          setCurrentSection("section5");
+        }
+      );
+    }
+  }, [sixthInViewPort]);
+
+  useEffect(() => {
     if (entry?.isIntersecting && currentSection == "section2") {
       smoothScroll(thirdContainerOriginRef.current.offsetTop, 600, () => {
         setCurrentSection("section3");
@@ -226,6 +278,36 @@ export const GenBot = () => {
     }
   }, [flybotEntry]);
 
+  useEffect(() => {
+    if (fifthEntry?.isIntersecting) {
+      smoothScroll(fifthContainerOriginRef.current.offsetTop + 10, 600, () => {
+        setCurrentSection("section5");
+      });
+
+      setCurrentSection("section5");
+    }
+  }, [fifthEntry]);
+
+  useEffect(() => {
+    if (sixthEntry?.isIntersecting) {
+      smoothScroll(sixthContainerOriginRef.current.offsetTop + 10, 600, () => {
+        setCurrentSection("section6");
+      });
+    }
+  }, [sixthEntry]);
+
+  useEffect(() => {
+    if (seventhEntry?.isIntersecting) {
+      smoothScroll(
+        seventhContainerOriginRef.current.offsetTop + 10,
+        600,
+        () => {
+          setCurrentSection("section7");
+        }
+      );
+    }
+  }, [seventhEntry]);
+
   useMotionValueEvent(robotScale, "change", (latest) => {
     setRobotScaleValue(latest);
   });
@@ -248,44 +330,41 @@ export const GenBot = () => {
 
   const [botVisible, setBotVisible] = useState(true);
 
-  useMediaLoader([videoRef]);
-
   return (
     <React.Fragment>
-      {botVisible && (
-        <section className="min-w-[100vw]">
-          <Canvas
-            className="mt-[10%] h-screen"
-            gl={{
-              antialias: true,
-              logarithmicDepthBuffer: true,
-            }}
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              zIndex: 2,
-              overflow: "visible",
-            }}
-          >
-            <ambientLight intensity={0.5} />
-            <directionalLight position={[0, 10, 300]} intensity={0.3} />
-            <Suspense fallback={null}>
-              <mesh>
-                <GenBotModel
-                  startRobotMove={startRobotMove}
-                  // startRobotRotate={startRobotRotate}
-                  robotScaleValue={robotScaleValue}
-                  genbotFinalMoveActivate={genbotFinalMoveActivate}
-                  setGenbotFinalMoveActivate={setGenbotFinalMoveActivate}
-                  inFirstSection={entry && entry.isIntersecting}
-                  sectionProgress={textProgress}
-                />
-              </mesh>
-            </Suspense>
-          </Canvas>
-        </section>
-      )}
+      <section className="min-w-[100vw]">
+        <Canvas
+          className="mt-[10%] h-screen"
+          gl={{
+            antialias: true,
+            logarithmicDepthBuffer: true,
+          }}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            zIndex: 2,
+            overflow: "visible",
+          }}
+        >
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[0, 10, 300]} intensity={0.3} />
+          <Suspense fallback={null}>
+            <mesh>
+              <GenBotModel
+                startRobotMove={startRobotMove}
+                // startRobotRotate={startRobotRotate}
+                robotScaleValue={robotScaleValue}
+                genbotFinalMoveActivate={genbotFinalMoveActivate}
+                setGenbotFinalMoveActivate={setGenbotFinalMoveActivate}
+                inFirstSection={entry && entry.isIntersecting}
+                sectionProgress={textProgress}
+              />
+            </mesh>
+          </Suspense>
+        </Canvas>
+      </section>
+
       {/* thirdViewPortRef */}
       <div ref={secondContainerRef}>
         <section
@@ -344,69 +423,23 @@ export const GenBot = () => {
         </div>
       </div>
 
-      <div>
-        <GBotOne />
+      <div ref={fifthContainerOriginRef}>
+        <div ref={fifthContainerRef}>
+          <GBotOne />
+        </div>
       </div>
 
-      {/* <section ref={afterFourthSectionRef}>
-        <div className="font-base h-[100vh] bg-white relative">
-          <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row">
-            <div className="bg-white w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4">
-              <div className="mx-[10%]">
-                <img
-                  src="/img/gbot3d.svg"
-                  alt="GenBot 3D model"
-                  className="w-[320px] mt-[30%] md:w-[260px] sm:w-[200px]"
-                />
-
-                <h4 className="font-medium text-7xl mt-[20px] md:text-5xl sm:text-3xl">
-                  The Future Of Human-Robot Interaction
-                </h4>
-
-                <AnimatedText text={text2} />
-              </div>
-            </div>
-            <div className="w-full md:w-1/2 h-full flex justify-center items-center relative">
-              <img
-                src="/img/gbot-text2.svg"
-                className="w-[600px] z-[1]"
-                alt=""
-              />
-
-              <img
-                src="/img/gbot-sidec.png"
-                className="w-[300px] absolute top-0 left-0 z-[2] h-full"
-                style={{
-                  transform: "translate(-50%, -50%)",
-                  top: "50%",
-                  left: "50%",
-                }}
-                alt=""
-              />
-            </div>
-          </div>
+      <div ref={sixthContainerOriginRef}>
+        <div ref={sixthContainerRef}>
+          <GbotTwo />
         </div>
-      </section>
+      </div>
 
-      <section>
-        <div className="font-base h-[100vh] bg-white relative">
-          <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row">
-            <div className="bg-white w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4">
-              <div className="mx-[10%]">
-                <img
-                  src="/img/gbot-rightface.png"
-                  className="w-[600px] z-[1]"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
+      <div ref={seventhContainerOriginRef}>
+        <div ref={seventhContainerRef}>
+          <GbotThree />
         </div>
-      </section>
-
-      <Experience />
-
-      <Footer /> */}
+      </div>
     </React.Fragment>
   );
 };

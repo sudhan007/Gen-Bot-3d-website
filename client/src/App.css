@@ -138,3 +138,9 @@ body {
     background: #555;
     border-radius: 10px;
   }
+
+  /* Disable scrolling while loading */
+body.loading {
+    overflow: hidden;
+  }
+  

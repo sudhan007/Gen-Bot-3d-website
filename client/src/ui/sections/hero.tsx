@@ -1,8 +1,7 @@
-import hero from "@/assets/videos/hero-1080.mp4";
-import useMediaLoader from "@/hooks/useMediaLoader";
+// import hero from "@/assets/videos/hero-1080.mp4";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import anime from "animejs/lib/anime.es.js";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 export const HeroSection = () => {
   useEffect(() => {
@@ -16,10 +15,6 @@ export const HeroSection = () => {
     });
   }, []);
 
-  const heroVideoRef = useRef<HTMLVideoElement>(null);
-
-  useMediaLoader([heroVideoRef]);
-
   return (
     <section
       className="h-screen bg-black text-white font-base flex flex-col justify-end hero-section relative w-screen overflow-hidden"
@@ -31,10 +26,12 @@ export const HeroSection = () => {
         autoPlay
         muted
         loop
-        ref={heroVideoRef}
         className="absolute top-0 left-0  h-screen object-cover w-full"
+        onLoad={() => {
+          console.log("loaded");
+        }}
       >
-        <source src={hero} type="video/mp4" />
+        <source src={"/hero-1080.mp4"} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 

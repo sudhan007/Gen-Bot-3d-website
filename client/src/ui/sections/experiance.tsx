@@ -47,7 +47,7 @@ export const Experience = () => {
   return (
     <div
       ref={exps}
-      className=" text-black font-base relative "
+      className=" text-black font-base relative z-[100]"
       style={{ backgroundColor: "#fff", overflow: "hidden" }}
     >
       <div
@@ -114,6 +114,7 @@ export const Experience = () => {
             <span style={{ color: "rgba(252, 217, 2, 1)" }}>FUTURE TODAY</span>
           </p>
           <p
+            className="uppercase"
             style={{
               fontSize: 30,
               fontWeight: "400",
@@ -129,24 +130,9 @@ export const Experience = () => {
             <br /> efficient, and tech-driven possibilities today.
           </p>
         </div>
-        <div
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            display: "flex",
-          }}
-        >
-          <div
-            style={{
-              width: 460,
-              backgroundColor: "rgba(252, 217, 2, 1)",
-              justifyContent: "center",
-              alignItems: "center",
-              display: "flex",
-              marginTop: 40,
-            }}
-          >
-            <p style={{ fontSize: 30, fontWeight: "400" }}>what’s the hold</p>
+        <div className="justify-center items-center flex">
+          <div className="w-[460px] bg-[rgba(252,217,2,1)] justify-center items-center flex mt-10">
+            <p className="uppercase text-2xl font-400">what’s the hold</p>
           </div>
         </div>
       </div>
