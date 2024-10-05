@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 import { Navbar } from "@/ui/components/Navbar";
+import { useInViewport } from "@mantine/hooks";
 import React from "react";
+import { smoothScroll } from "./lib/utils.tsx";
 import { GenBot } from "./ui/sections/genbot.tsx";
 import { HeroSection } from "./ui/sections/hero.tsx";
 
@@ -12,6 +14,15 @@ function App() {
   const [loadedAssets, setLoadedAssets] = useState(0);
   const [totalAssets, setTotalAssets] = useState(0);
   const [videoLoaded, setVideoLoaded] = useState(false);
+
+  const heroRef = useRef<HTMLDivElement>(null);
+  const genBotRef = useRef<HTMLDivElement>(null);
+  const genBotAboutRef = useRef<HTMLDivElement>(null);
+
+  const [section, setSection] = useState<string>("section1");
+
+  const { ref, inViewport } = useInViewport();
+  const { ref: infoRef, inViewport: infoInViewport } = useInViewport();
 
   useEffect(() => {
     const assets = document.querySelectorAll("img, video");
@@ -53,21 +64,65 @@ function App() {
 
   useEffect(() => {
     if (loading) {
-      document.body.classList.add("loading"); // Disable scroll while loading
+      document.body.classList.add("loading");
     } else {
-      document.body.classList.remove("loading"); // Re-enable scroll after loading
+      document.body.classList.remove("loading");
+      loading;
     }
   }, [loading]);
 
   useEffect(() => {
     if (loadedAssets >= totalAssets && totalAssets > 0 && videoLoaded) {
-      // Adding a small delay to ensure smooth transition
       setTimeout(() => {
-        window.scrollTo(0, 0); // Reset scroll to top
-        setLoading(false); // Set loading to false after delay
-      }, 1000); // 1 second delay for smoother experience
+        window.scrollTo(0, 0);
+        setLoading(false);
+      }, 1000);
     }
   }, [loadedAssets, totalAssets, videoLoaded]);
+
+  useEffect(() => {
+    if (inViewport && section == "section2") {
+      if (!genBotRef.current) return;
+      smoothScroll(0, 600, () => {
+        setSection("section2");
+      });
+    }
+  }, [inViewport]);
+
+  useEffect(() => {
+    if (infoInViewport && section == "section3") {
+      if (!genBotAboutRef.current) return;
+      smoothScroll(genBotAboutRef?.current?.offsetTop, 600, () => {
+        setSection("section2");
+      });
+    }
+  }, [infoInViewport]);
+
+  useEffect(() => {
+    const heroObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting && genBotRef.current) {
+          smoothScroll(genBotRef.current.offsetTop + 100, 600, () => {
+            setSection("section2");
+          });
+          setSection("section2");
+        }
+      },
+      { threshold: 0.95 }
+    );
+
+    if (heroRef.current) {
+      heroObserver.observe(heroRef.current);
+    }
+
+    return () => {
+      if (heroRef.current) {
+        heroObserver.unobserve(heroRef.current);
+        heroObserver.disconnect();
+        window.onscroll = null;
+      }
+    };
+  }, []);
 
   return (
     <React.Fragment>
@@ -95,13 +150,20 @@ function App() {
 
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+        animate={{ opacity: loading ? 0 : 1 }}
         transition={{ duration: 0.5 }}
       >
         <Navbar />
-        <HeroSection />
-        <GenBot />
+        <div ref={heroRef}>
+          <div ref={ref}>
+            <HeroSection />
+          </div>
+        </div>
+        <div ref={genBotRef}>
+          <div ref={infoRef}>
+            <GenBot />
+          </div>
+        </div>
       </motion.div>
     </React.Fragment>
   );

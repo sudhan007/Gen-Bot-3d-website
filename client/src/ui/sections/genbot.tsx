@@ -10,7 +10,7 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import React, { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { AnimatedText } from "../components/AnimatedText";
 import { FlyGenBotSection } from "./fourth";
@@ -210,7 +210,7 @@ export const GenBot = () => {
         thirdContainerOriginRef.current.offsetHeight - 100;
       const scrollPosition = (300 / 400) * containerHeight;
       smoothScroll(
-        thirdContainerOriginRef.current.offsetTop + scrollPosition,
+        thirdContainerOriginRef.current.offsetTop + scrollPosition + 20,
         600,
         () => {
           setCurrentSection("section3");
@@ -251,7 +251,7 @@ export const GenBot = () => {
 
   useEffect(() => {
     if (entry?.isIntersecting && currentSection == "section2") {
-      smoothScroll(thirdContainerOriginRef.current.offsetTop, 600, () => {
+      smoothScroll(thirdContainerOriginRef.current.offsetTop + 10, 600, () => {
         setCurrentSection("section3");
       });
       setCurrentSection("section3");
@@ -331,7 +331,7 @@ export const GenBot = () => {
   const [botVisible, setBotVisible] = useState(true);
 
   return (
-    <React.Fragment>
+    <div>
       <section className="min-w-[100vw]">
         <Canvas
           className="mt-[10%] h-screen"
@@ -388,7 +388,6 @@ export const GenBot = () => {
         <section ref={thirdContainerOriginRef}>
           <div className="font-base h-[400vh] bg-white" ref={thirdContainerRef}>
             <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row">
-              {/* Left Side Content */}
               <div className="bg-white w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0">
                 <div className="mx-[10%]">
                   <img
@@ -408,7 +407,7 @@ export const GenBot = () => {
                   ref={videoRef}
                   src="/input-encoded.mp4"
                   muted
-                  autoPlay={false}
+                  // autoPlay={false}
                   className="w-full h-full object-cover absolute z-20"
                 />
               </div>
@@ -440,6 +439,6 @@ export const GenBot = () => {
           <GbotThree />
         </div>
       </div>
-    </React.Fragment>
+    </div>
   );
 };
