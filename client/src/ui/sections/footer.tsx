@@ -1,8 +1,41 @@
 export const Footer = () => {
+  const links = [
+    [
+      {
+        name: "Home",
+        url: "",
+      },
+      {
+        name: "Medical & Mobility",
+        url: "https://www.genroboticsmedical.com/",
+      },
+      {
+        name: "Robotics & AI",
+        url: "",
+      },
+      {
+        name: "Newsroom",
+        url: "",
+      },
+      {
+        name: "Careers",
+        url: "",
+      },
+      {
+        name: "Contact",
+        url: "",
+      },
+    ],
+  ];
+
   return (
     <section
       className=" text-black font-base relative "
-      style={{ backgroundColor: "rgba(66, 71, 65, 1)" , position : "relative", zIndex : 1000}}
+      style={{
+        backgroundColor: "rgba(66, 71, 65, 1)",
+        position: "relative",
+        zIndex: 1000,
+      }}
     >
       <div className="mx-[5%]">
         <hr
@@ -14,73 +47,27 @@ export const Footer = () => {
         />
         <div className=" py-[5%]">
           <div className="grid grid-cols-[20%_20%_20%_40%] gap-4">
-            <div>
-              <p
-                style={{
-                  color: "rgba(255, 255, 255, 1)",
-                  fontSize: 24,
-                  fontWeight: "400",
-                }}
-                className="mb-2"
-              >
-                Home
-              </p>
-              <p
-                style={{
-                  color: "rgba(255, 255, 255, 1)",
-                  fontSize: 24,
-                  fontWeight: "400",
-                }}
-                className="mb-2"
-              >
-                Medical & Mobility
-              </p>
-              <p
-                style={{
-                  color: "rgba(255, 255, 255, 1)",
-                  fontSize: 24,
-                  fontWeight: "400",
-                }}
-                className="mb-2"
-              >
-                Robotics & AI
-              </p>
-              <p
-                style={{
-                  color: "rgba(255, 255, 255, 1)",
-                  fontSize: 24,
-                  fontWeight: "400",
-                }}
-                className="mb-2"
-              >
-                Newsroom
-              </p>
-              <p
-                style={{
-                  color: "rgba(255, 255, 255, 1)",
-                  fontSize: 24,
-                  fontWeight: "400",
-                }}
-                className="mb-2"
-              >
-                Careers
-              </p>
-              <p
-                style={{
-                  color: "rgba(255, 255, 255, 1)",
-                  fontSize: 24,
-                  fontWeight: "400",
-                }}
-                className="mb-2"
-              >
-                Contact
-              </p>
+            <div className="flex flex-col">
+              {links[0].map((link) => {
+                return (
+                  <p
+                    key={link.name}
+                    className="mb-2 text-[rgba(255, 255, 255, 1)] text-2xl font-normal text-white cursor-pointer hover:opacity-70"
+                    onClick={() => {
+                      if (!link.url) return;
+                      window.open(link.url, "_blank");
+                    }}
+                  >
+                    {link.name}
+                  </p>
+                );
+              })}
             </div>
 
             <div
               style={{
                 alignItems: "center",
-                justifyContent: "center", 
+                justifyContent: "center",
               }}
             >
               <p
@@ -217,7 +204,7 @@ export const Footer = () => {
             <div
               style={{
                 alignItems: "center",
-                justifyContent: "center", 
+                justifyContent: "center",
               }}
             >
               <div className="flex">
@@ -289,33 +276,67 @@ export const Footer = () => {
             </div>
 
             <div>
-             <div style={{ display : 'flex' }} > 
+              <div style={{ display: "flex" }}>
+                <a
+                  href="https://www.linkedin.com/company/genrobotics/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img
                     src="/img/li.svg"
                     alt="GenBot 3D model"
-                    className="w-[200px] "
-                  /> 
+                    className="w-[200px] cursor-pointer"
+                  />
+                </a>
+
+                <a
+                  href="https://www.facebook.com/genrobotics.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img
                     src="/img/face.svg"
                     alt="GenBot 3D model"
-                    className="w-[200px] "
-                  /> 
+                    className="w-[200px] cursor-pointer"
+                  />
+                </a>
+
+                <a
+                  href="https://twitter.com/genrobotic/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img
                     src="/img/tw.svg"
                     alt="GenBot 3D model"
-                    className="w-[200px] "
-                  /> 
+                    className="w-[200px] cursor-pointer"
+                  />
+                </a>
+
+                <a
+                  href="https://www.instagram.com/genroboticinnovations/?hl=en"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img
                     src="/img/insta.svg"
                     alt="GenBot 3D model"
-                    className="w-[200px] "
-                  /> 
+                    className="w-[200px] cursor-pointer"
+                  />
+                </a>
+
+                <a
+                  href="https://www.youtube.com/@genroboticinnovations5113"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img
                     src="/img/you.svg"
                     alt="GenBot 3D model"
-                    className="w-[200px] "
-                  /> 
-             </div>
+                    className="w-[200px] cursor-pointer"
+                  />
+                </a>
+              </div>
             </div>
           </div>
         </div>

@@ -76,7 +76,7 @@ function App() {
       setTimeout(() => {
         window.scrollTo(0, 0);
         setLoading(false);
-      }, 1000);
+      }, 4500);
     }
   }, [loadedAssets, totalAssets, videoLoaded]);
 
@@ -127,32 +127,38 @@ function App() {
   return (
     <React.Fragment>
       {loading && (
-        <div className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 z-[1000000]">
-          <h2 className="text-white text-3xl font-bold mb-6 animate-pulse">
-            Loading...{" "}
-            {Math.min(Math.round((loadedAssets / totalAssets) * 100), 100)}%
-          </h2>
-
-          <div className="w-3/4 md:w-1/2 h-3 bg-gray-600 rounded-full overflow-hidden shadow-md">
-            <div
-              className="h-full bg-blue-500 transition-all duration-300 ease-in-out"
-              style={{ width: `${(loadedAssets / totalAssets) * 100}%` }}
-            ></div>
+        <motion.div
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2, ease: "easeOut" }}
+          exit={{ opacity: 0 }}
+          className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 z-[1000000]"
+        >
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <h1 className="text-white text-lg font-bold mb-4">
+              Initializing...
+            </h1>
+            <span className="loader"></span>
           </div>
-
-          <div className="mt-4 flex items-center justify-center space-x-2">
-            <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce"></div>
-            <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce delay-200"></div>
-            <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce delay-400"></div>
-          </div>
-        </div>
+        </motion.div>
       )}
 
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: loading ? 0 : 1 }}
-        transition={{ duration: 0.5 }}
-      >
+        initial={{ scaleX: 1 }}
+        animate={{ scaleX: !loading ? 0 : 1 }}
+        transition={{ duration: 2, ease: "easeOut" }}
+        className="fixed top-0 left-0 w-1/2 h-screen bg-gradient-to-br from-gray-800 to-gray-900 z-[999999]"
+        style={{ transformOrigin: "left" }}
+      ></motion.div>
+
+      <motion.div
+        initial={{ scaleX: 1 }}
+        animate={{ scaleX: !loading ? 0 : 1 }}
+        transition={{ duration: 2, ease: "easeOut" }}
+        className="fixed top-0 right-0 w-1/2 h-screen bg-gradient-to-br from-gray-800 to-gray-900 z-[999999]"
+        style={{ transformOrigin: "right" }}
+      ></motion.div>
+
+      <motion.div>
         <Navbar />
         <div ref={heroRef}>
           <div ref={ref}>

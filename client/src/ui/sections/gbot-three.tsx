@@ -1,22 +1,14 @@
 import { useIntersection } from "@mantine/hooks";
 import anime from "animejs";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { FlyGenBotCard } from "../components/FlyGenBotCard";
 import { Experience } from "./experiance";
 import { Footer } from "./footer";
 
 export const GbotThree = () => {
-  const [show, setShow] = useState(false);
-
   const { entry, ref } = useIntersection({
     threshold: 0.3,
   });
-
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      setShow(!show);
-    }
-  }, [entry]);
 
   useEffect(() => {
     const elems = document.querySelectorAll(".cards > div");
@@ -26,10 +18,10 @@ export const GbotThree = () => {
         opacity: [0, 1],
         translateY: [30, 0],
         duration: 1200,
-        delay: anime.stagger(220),
+        delay: anime.stagger(100),
       });
     }
-  }, [show]);
+  }, [entry]);
 
   return (
     <React.Fragment>

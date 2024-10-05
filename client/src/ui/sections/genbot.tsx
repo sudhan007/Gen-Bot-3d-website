@@ -407,7 +407,7 @@ export const GenBot = () => {
                   ref={videoRef}
                   src="/input-encoded.mp4"
                   muted
-                  // autoPlay={false}
+                  autoPlay={false}
                   className="w-full h-full object-cover absolute z-20"
                 />
               </div>
