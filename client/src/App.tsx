@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 import { Navbar } from "@/ui/components/Navbar";
-import { useInViewport } from "@mantine/hooks";
+import { useInViewport, useViewportSize } from "@mantine/hooks";
 import React from "react";
 import { smoothScroll } from "./lib/utils.tsx";
 import { GenBot } from "./ui/sections/genbot.tsx";
@@ -14,6 +14,8 @@ function App() {
   const [loadedAssets, setLoadedAssets] = useState(0);
   const [totalAssets, setTotalAssets] = useState(0);
   const [videoLoaded, setVideoLoaded] = useState(false);
+
+  const { width } = useViewportSize();
 
   const heroRef = useRef<HTMLDivElement>(null);
   const genBotRef = useRef<HTMLDivElement>(null);

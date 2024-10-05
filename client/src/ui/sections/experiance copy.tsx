@@ -1,3 +1,4 @@
+import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 export const Experience = () => {
@@ -30,18 +31,18 @@ export const Experience = () => {
     };
   }, []);
 
-  // const { scrollYProgress } = useScroll({
-  //   target: exps,
-  //   offset: ["start end", "end end"],
-  // });
+  const { scrollYProgress } = useScroll({
+    target: exps,
+    offset: ["start end", "end end"],
+  });
 
-  // const textProgress = useTransform(scrollYProgress, [0, 1], [0, 20]);
+  const textProgress = useTransform(scrollYProgress, [0, 1], [0, 20]);
 
-  const [glowIndex] = useState(30);
+  const [glowIndex, setGlowIndex] = useState(-1);
 
-  // useMotionValueEvent(textProgress, "change", (latest) => {
-  //   setGlowIndex(Math.floor(latest));
-  // });
+  useMotionValueEvent(textProgress, "change", (latest) => {
+    setGlowIndex(Math.floor(latest));
+  });
 
   return (
     <div

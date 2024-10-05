@@ -31,7 +31,7 @@ export const AnimatedText = ({ text }: { text: string }) => {
   return (
     <motion.p
       ref={textRef}
-      className="mt-[10px] text-4xl leading-relaxed font-normal sm:text-2xl"
+      className="mt-[10px] text-xl leading-relaxed font-normal sm:text-2xl"
     >
       {text.split("").map((char: string, index: number) => (
         <motion.span

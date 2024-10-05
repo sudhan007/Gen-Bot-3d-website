@@ -1,4 +1,4 @@
-export const Navbar = () => {
+export const MobileNavbar = () => {
   return (
     <div
       className="bg-black shadow-sm absolute top-0 left-0 right-0  p-4 bg-transparent"
@@ -7,14 +7,8 @@ export const Navbar = () => {
       }}
     >
       <nav className="container mx-auto flex items-center justify-between py-5">
-        <div className="flex items-center gap-3 w-full justify-between md:w-auto">
-          <div className="block md:hidden">
-            <div>
-              <img src={"/icons/logo.svg"} className="w-56" alt="NavLogo" />
-            </div>
-          </div>
-
-          <div className="flex items-center">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center ">
             <div className="inline-block cursor-pointer rounded-full border-[1.5px] border-white p-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -33,14 +27,14 @@ export const Navbar = () => {
               </svg>
             </div>
           </div>
-          <span className="text-white font-bold hidden md:block">Menu</span>
+          <span className="text-white font-bold">Menu</span>
         </div>
-        <div className="hidden md:block">
+        <div>
           <div>
             <img src={"/icons/logo.svg"} className="" alt="NavLogo" />
           </div>
         </div>
-        <div className="hidden md:block">
+        <div>
           <a
             className="group relative inline-block text-sm font-medium text-white"
             href="#"

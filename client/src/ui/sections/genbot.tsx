@@ -373,7 +373,7 @@ export const GenBot = () => {
         >
           <motion.img
             src="/img/genbot-text.svg"
-            className="fixed top-[15%] transform"
+            className="fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto"
             style={{
               scale: textScale,
               opacity: textOpacity,
@@ -386,28 +386,41 @@ export const GenBot = () => {
 
       <div ref={fourthEntryRef}>
         <section ref={thirdContainerOriginRef}>
-          <div className="font-base h-[400vh] bg-white" ref={thirdContainerRef}>
+          <div
+            className="font-base h-[110vh] md:h-[400vh] bg-white"
+            ref={thirdContainerRef}
+          >
             <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row">
               <div className="bg-white w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0">
                 <div className="mx-[10%]">
                   <img
                     src="/img/bot3d.svg"
                     alt="GenBot 3D model"
-                    className="w-[320px] mt-[30%] md:w-[260px] sm:w-[200px]"
+                    className="w-[120px] mt-[30%] md:w-[260px] sm:w-[200px]"
                   />
-                  <h4 className="font-medium text-7xl mt-[20px] md:text-5xl sm:text-3xl">
+                  <h4 className="font-medium text-3xl mt-[20px] md:text-5xl sm:text-3xl">
                     Your Safety Partner
                   </h4>
                   <AnimatedText text={text} />
                 </div>
+
+                <div className="md:hidden w-screen mt-[20%]">
+                  <video
+                    src="/input-encoded.mp4"
+                    muted
+                    autoPlay={true}
+                    preload="auto"
+                    className="object-cover absolute z-20"
+                  />
+                </div>
               </div>
-              {/* Right Side Video */}
-              <div className="w-full md:w-1/2 h-screen bg-transparent overflow-hidden sticky top-0">
+              <div className="w-full md:w-1/2 h-screen bg-transparent overflow-hidden sticky top-0 hidden md:block">
                 <video
                   ref={videoRef}
                   src="/input-encoded.mp4"
                   muted
                   autoPlay={false}
+                  preload="auto"
                   className="w-full h-full object-cover absolute z-20"
                 />
               </div>

@@ -36,13 +36,13 @@ export const HeroSection = () => {
       </video>
 
       <div className="text-white font-medium uppercase mx-[5%] leading-none z-10 absolute bottom-12 left-0">
-        <h1 className="text-[10vw] sm:text-[12vw] md:text-[8vw] lg:text-[6vw] xl:text-[5vw]">
+        <h1 className="text-[12vw] sm:text-[12vw] md:text-[8vw] lg:text-[6vw] xl:text-[5vw]">
           Advancing
         </h1>
-        <h1 className="text-[10vw] sm:text-[12vw] md:text-[8vw] lg:text-[6vw] xl:text-[5vw]">
+        <h1 className="text-[12vw] sm:text-[12vw] md:text-[8vw] lg:text-[6vw] xl:text-[5vw]">
           Safety
         </h1>
-        <h1 className="text-[10vw] sm:text-[12vw] md:text-[8vw] lg:text-[6vw] xl:text-[5vw]">
+        <h1 className="text-[12vw] sm:text-[12vw] md:text-[8vw] lg:text-[6vw] xl:text-[5vw]">
           Through <span className="text-yellow">Innovation</span>
         </h1>
       </div>
