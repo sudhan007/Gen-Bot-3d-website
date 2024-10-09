@@ -46,92 +46,48 @@ export const Experience = () => {
   return (
     <div
       ref={exps}
-      className=" text-black font-base relative z-[100]"
-      style={{ backgroundColor: "#fff", overflow: "hidden" }}
+      className=" text-black font-base relative z-[100] bg-[#424741]"
     >
       <div
-        style={{
-          backgroundColor: "rgba(66, 71, 65, 1)",
-          transform: `translate(-50%, -50%) scale(${glowIndex})`,
-          height: 150,
-          borderRadius: "50%",
-          position: "absolute",
-          zIndex: 1,
-          width: 150,
-          top: "150%",
-          left: "50%",
-          clipPath: "inset(0 0 50% 0)", // This clips the bottom half
-        }}
-      ></div>
-      <div
-        className="mx-[5%]"
-        style={{
-          paddingBottom: "10%",
-          position: "relative",
-          zIndex: 1000,
-          height: 950,
-        }}
+        className=" bg-[#424741]"
+        style={{ position: "relative", height: 750 }}
       >
-        <img
-          src="/img/root2.png"
-          alt="GenBot 3D model"
-          className="w-[480px] "
-          style={{
-            position: "absolute",
-            bottom: glowIndex * 10 - 165,
-            left: 66,
-            transition: "transform 0.5s ease",
-          }}
-        />
-        <img
-          src="/img/root1.png"
-          alt="GenBot 3D model"
-          className="w-[480px] "
-          style={{
-            position: "absolute",
-            bottom: glowIndex * 10 - 230,
-            right: 35,
-            transition: "transform 0.5s ease",
-          }}
-        />
-        <div
-          style={{
-            paddingTop: "20%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <p
-            style={{
-              fontSize: 54,
-              fontWeight: "400",
-              textAlign: "center",
-              color: "#fff",
-            }}
-          >
-            EXPERIENCE THE{" "}
-            <span style={{ color: "rgba(252, 217, 2, 1)" }}>FUTURE TODAY</span>
-          </p>
-          <p
-            className="uppercase"
-            style={{
-              fontSize: 30,
-              fontWeight: "400",
-              textAlign: "center",
-              color: "#fff",
-              marginTop: 10,
-              lineHeight: "initial",
-            }}
-          >
-            Explore the innovative solutions of Genbot and G Bot.
-            <br /> Embrace the future of technology and human-robot
-            <br /> interaction. Begin your journey to safer, more
-            <br /> efficient, and tech-driven possibilities today.
-          </p>
+        <div className="absolute top-0 left-0 w-full h-full">
+          <div className="flex flex-col justify-center items-center mt-[10%]">
+            <p className="uppercase text-center text-white text-4xl md:text-5xl font-bold">
+              EXPERIENCE THE{" "}
+              <span style={{ color: "rgba(252, 217, 2, 1)" }}>
+                FUTURE TODAY
+              </span>
+            </p>
+            <p className="text-center uppercase text-white mt-6 text-lg font-[400] md:text-xl">
+              Explore the innovative solutions of Genbot and G Bot.
+              <br /> Embrace the future of technology and human-robot
+              <br /> interaction. Begin your journey to safer, more
+              <br /> efficient, and tech-driven possibilities today.
+            </p>
+          </div>
+
+          {/* Button */}
+          <div className="justify-center items-center flex">
+            <div className="w-[360px] bg-[rgba(252,217,2,1)] justify-center items-center flex mt-10">
+              <p className="uppercase text-xl font-400 p-3">what’s the hold</p>
+            </div>
+          </div>
         </div>
-        <div className="justify-center items-center flex">
-          <div className="w-[460px] bg-[rgba(252,217,2,1)] justify-center items-center flex mt-10">
-            <p className="uppercase text-2xl font-400">what’s the hold</p>
+
+        <div className="relative flex justify-center items-center h-full w-screen">
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-between items-center w-screen border-b-[1px] border-[#525652]">
+            <img
+              src="/img/root2.png"
+              alt="GenBot 3D model"
+              className="w-[580px] md:mr-[5%]"
+            />
+            <img
+              src="/img/footer-genbot.png"
+              alt="GenBot 3D model"
+              className="w-[480px] md:mr-[4%]"
+            />
           </div>
         </div>
       </div>

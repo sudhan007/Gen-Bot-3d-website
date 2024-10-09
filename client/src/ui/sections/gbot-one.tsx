@@ -9,13 +9,16 @@ export const GBotOne = () => {
 
   useEffect(() => {
     const img = document.querySelector(".img");
-    if (img) {
-      anime({
-        targets: img,
-        translateX: [1500, 0],
-        duration: 1000,
-        easing: "easeOutExpo",
-      });
+
+    if (entry?.isIntersecting) {
+      if (img) {
+        anime({
+          targets: img,
+          translateY: [1500, 0],
+          duration: 1000,
+          easing: "easeOutExpo",
+        });
+      }
     }
 
     return () => {

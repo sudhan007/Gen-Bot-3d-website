@@ -1,11 +1,8 @@
-import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import "./App.css";
-
 import { Navbar } from "@/ui/components/Navbar";
 import { useInViewport } from "@mantine/hooks";
-import React from "react";
-import { smoothScroll } from "./lib/utils.tsx";
+import { motion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import "./App.css";
 import { GenBot } from "./ui/sections/genbot.tsx";
 import { HeroSection } from "./ui/sections/hero.tsx";
 
@@ -38,7 +35,7 @@ function App() {
       } else if (asset.tagName === "VIDEO") {
         asset.addEventListener("loadeddata", handleAssetLoad);
         asset.addEventListener("loadeddata", () => {
-          setVideoLoaded(true); // Set video loaded when it's ready
+          setVideoLoaded(true);
         });
         if (asset.readyState >= 3) {
           handleAssetLoad();
@@ -80,49 +77,49 @@ function App() {
     }
   }, [loadedAssets, totalAssets, videoLoaded]);
 
-  useEffect(() => {
-    if (inViewport && section == "section2") {
-      if (!genBotRef.current) return;
-      smoothScroll(0, 600, () => {
-        setSection("section2");
-      });
-    }
-  }, [inViewport]);
+  // useEffect(() => {
+  //   if (inViewport && section == "section2") {
+  //     if (!genBotRef.current) return;
+  //     smoothScroll(0, 600, () => {
+  //       setSection("section2");
+  //     });
+  //   }
+  // }, [inViewport]);
 
-  useEffect(() => {
-    if (infoInViewport && section == "section3") {
-      if (!genBotAboutRef.current) return;
-      smoothScroll(genBotAboutRef?.current?.offsetTop, 600, () => {
-        setSection("section2");
-      });
-    }
-  }, [infoInViewport]);
+  // useEffect(() => {
+  //   if (infoInViewport && section == "section3") {
+  //     if (!genBotAboutRef.current) return;
+  //     smoothScroll(genBotAboutRef?.current?.offsetTop, 600, () => {
+  //       setSection("section2");
+  //     });
+  //   }
+  // }, [infoInViewport]);
 
-  useEffect(() => {
-    const heroObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting && genBotRef.current) {
-          smoothScroll(genBotRef.current.offsetTop + 100, 600, () => {
-            setSection("section2");
-          });
-          setSection("section2");
-        }
-      },
-      { threshold: 0.95 }
-    );
+  // useEffect(() => {
+  //   const heroObserver = new IntersectionObserver(
+  //     ([entry]) => {
+  //       if (!entry.isIntersecting && genBotRef.current) {
+  //         smoothScroll(genBotRef.current.offsetTop + 100, 600, () => {
+  //           setSection("section2");
+  //         });
+  //         setSection("section2");
+  //       }
+  //     },
+  //     { threshold: 0.95 }
+  //   );
 
-    if (heroRef.current) {
-      heroObserver.observe(heroRef.current);
-    }
+  //   if (heroRef.current) {
+  //     heroObserver.observe(heroRef.current);
+  //   }
 
-    return () => {
-      if (heroRef.current) {
-        heroObserver.unobserve(heroRef.current);
-        heroObserver.disconnect();
-        window.onscroll = null;
-      }
-    };
-  }, []);
+  //   return () => {
+  //     if (heroRef.current) {
+  //       heroObserver.unobserve(heroRef.current);
+  //       heroObserver.disconnect();
+  //       window.onscroll = null;
+  //     }
+  //   };
+  // }, []);
 
   return (
     <React.Fragment>
@@ -134,9 +131,7 @@ function App() {
           className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 z-[1000000]"
         >
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <h1 className="text-white text-lg font-bold mb-4">
-              Initializing...
-            </h1>
+            <h1 className="text-white text-lg font-bold mb-4">Loading...</h1>
             <span className="loader"></span>
           </div>
         </motion.div>

@@ -30,7 +30,7 @@ export const Footer = () => {
 
   return (
     <section
-      className=" text-black font-base relative "
+      className="text-black font-base relative "
       style={{
         backgroundColor: "rgba(66, 71, 65, 1)",
         position: "relative",
@@ -38,13 +38,6 @@ export const Footer = () => {
       }}
     >
       <div className="mx-[5%]">
-        <hr
-          style={{
-            border: "none",
-            height: 2,
-            backgroundColor: "rgba(255, 255, 255, 0.46)",
-          }}
-        />
         <div className=" py-[5%]">
           <div className="grid grid-cols-[20%_20%_20%_40%] gap-4">
             <div className="flex flex-col">

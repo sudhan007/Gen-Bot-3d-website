@@ -52,7 +52,7 @@ export const FlyGenBotSection = ({}: Props) => {
       heading: "MULTI-TERRAIN TRAVERSAL",
       subHeading:
         "Genbot's advanced tracks enable it to navigate a wide range of terrains with ease.",
-      className: "lg:left-1/2 lg:top-[85%] md:left-[34%] md:top-[80%]",
+      className: "lg:left-[65%] lg:top-[80%] md:left-[24%] md:top-[60%]",
     },
   ];
 
@@ -68,17 +68,17 @@ export const FlyGenBotSection = ({}: Props) => {
             className={`absolute ${card.className} hidden md:block cards`}
           >
             <div
-              className="fly-genbot-card flex flex-col items-center justify-center w-[400px] rounded-xl border bg-white "
+              className="fly-genbot-card flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white"
               style={{
                 boxShadow: "rgb(255 202 0) 0px 7px 0px",
               }}
             >
-              <div className="w-full h-full flex flex-col p-5 bg-white rounded-xl">
-                <h1 className="text-2xl font-medium uppercase mb-2 break-before-avoid">
+              <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl">
+                <h1 className="text-lg md:text-xl lg:text-2xl font-medium uppercase mb-2 break-before-avoid">
                   {card.heading}
                 </h1>
 
-                <p className="text-sm text-black  leading-normal opacity-95">
+                <p className="text-xs md:text-sm lg:text-base text-black leading-normal opacity-95">
                   {card.subHeading}
                 </p>
               </div>

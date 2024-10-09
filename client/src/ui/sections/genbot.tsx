@@ -1,6 +1,5 @@
 // @ts-nocheck
 
-import { smoothScroll } from "@/lib/utils";
 import { useIntersection, useInViewport } from "@mantine/hooks";
 import { useFBX } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
@@ -189,71 +188,71 @@ export const GenBot = () => {
 
   // re scroll up
 
-  useEffect(() => {
-    if (inViewport && currentSection === "section3") {
-      const containerHeight = secondContainerRef.current.offsetHeight - 100;
-      const scrollPosition = (300 / 400) * containerHeight;
+  // useEffect(() => {
+  //   if (inViewport && currentSection === "section3") {
+  //     const containerHeight = secondContainerRef.current.offsetHeight - 100;
+  //     const scrollPosition = (300 / 400) * containerHeight;
 
-      smoothScroll(
-        secondContainerRef.current.offsetTop + scrollPosition,
-        600,
-        () => {
-          setCurrentSection("section2");
-        }
-      );
-    }
-  }, [inViewport]);
+  //     smoothScroll(
+  //       secondContainerRef.current.offsetTop + scrollPosition,
+  //       600,
+  //       () => {
+  //         setCurrentSection("section2");
+  //       }
+  //     );
+  //   }
+  // }, [inViewport]);
+
+  // useEffect(() => {
+  //   if (fourthInViewPort && currentSection === "section4") {
+  //     const containerHeight =
+  //       thirdContainerOriginRef.current.offsetHeight - 100;
+  //     const scrollPosition = (300 / 400) * containerHeight;
+  //     smoothScroll(
+  //       thirdContainerOriginRef.current.offsetTop + scrollPosition + 20,
+  //       600,
+  //       () => {
+  //         setCurrentSection("section3");
+  //       }
+  //     );
+  //   }
+  // }, [fourthInViewPort]);
+
+  // useEffect(() => {
+  //   if (fifthInViewPort && currentSection === "section5") {
+  //     const containerHeight =
+  //       fourthContainerOriginRef.current.offsetHeight - 100;
+  //     const scrollPosition = (300 / 400) * containerHeight;
+  //     smoothScroll(
+  //       fourthContainerOriginRef.current.offsetTop + scrollPosition,
+  //       600,
+  //       () => {
+  //         setCurrentSection("section4");
+  //       }
+  //     );
+  //   }
+  // }, [fifthInViewPort]);
+
+  // useEffect(() => {
+  //   if (sixthInViewPort && currentSection === "section6") {
+  //     const containerHeight =
+  //       fifthContainerOriginRef.current.offsetHeight - 100;
+  //     const scrollPosition = (300 / 400) * containerHeight;
+  //     smoothScroll(
+  //       fifthContainerOriginRef.current.offsetTop + scrollPosition,
+  //       600,
+  //       () => {
+  //         setCurrentSection("section5");
+  //       }
+  //     );
+  //   }
+  // }, [sixthInViewPort]);
 
   useEffect(() => {
-    if (fourthInViewPort && currentSection === "section4") {
-      const containerHeight =
-        thirdContainerOriginRef.current.offsetHeight - 100;
-      const scrollPosition = (300 / 400) * containerHeight;
-      smoothScroll(
-        thirdContainerOriginRef.current.offsetTop + scrollPosition + 20,
-        600,
-        () => {
-          setCurrentSection("section3");
-        }
-      );
-    }
-  }, [fourthInViewPort]);
-
-  useEffect(() => {
-    if (fifthInViewPort && currentSection === "section5") {
-      const containerHeight =
-        fourthContainerOriginRef.current.offsetHeight - 100;
-      const scrollPosition = (300 / 400) * containerHeight;
-      smoothScroll(
-        fourthContainerOriginRef.current.offsetTop + scrollPosition,
-        600,
-        () => {
-          setCurrentSection("section4");
-        }
-      );
-    }
-  }, [fifthInViewPort]);
-
-  useEffect(() => {
-    if (sixthInViewPort && currentSection === "section6") {
-      const containerHeight =
-        fifthContainerOriginRef.current.offsetHeight - 100;
-      const scrollPosition = (300 / 400) * containerHeight;
-      smoothScroll(
-        fifthContainerOriginRef.current.offsetTop + scrollPosition,
-        600,
-        () => {
-          setCurrentSection("section5");
-        }
-      );
-    }
-  }, [sixthInViewPort]);
-
-  useEffect(() => {
-    if (entry?.isIntersecting && currentSection == "section2") {
-      smoothScroll(thirdContainerOriginRef.current.offsetTop + 10, 600, () => {
-        setCurrentSection("section3");
-      });
+    if (entry?.isIntersecting) {
+      // smoothScroll(thirdContainerOriginRef.current.offsetTop + 10, 600, () => {
+      //   setCurrentSection("section3");
+      // });
       setCurrentSection("section3");
       setStartRobotMove(true);
       setFlybotActivate(true);
@@ -269,44 +268,44 @@ export const GenBot = () => {
     }
   }, [entry]);
 
-  useEffect(() => {
-    if (flybotEntry?.isIntersecting) {
-      smoothScroll(fourthContainerOriginRef.current.offsetTop + 10, 600, () => {
-        setCurrentSection("section4");
-      });
-      setCurrentSection("section4");
-    }
-  }, [flybotEntry]);
+  // useEffect(() => {
+  //   if (flybotEntry?.isIntersecting) {
+  //     smoothScroll(fourthContainerOriginRef.current.offsetTop + 10, 600, () => {
+  //       setCurrentSection("section4");
+  //     });
+  //     setCurrentSection("section4");
+  //   }
+  // }, [flybotEntry]);
 
-  useEffect(() => {
-    if (fifthEntry?.isIntersecting) {
-      smoothScroll(fifthContainerOriginRef.current.offsetTop + 10, 600, () => {
-        setCurrentSection("section5");
-      });
+  // useEffect(() => {
+  //   if (fifthEntry?.isIntersecting) {
+  //     smoothScroll(fifthContainerOriginRef.current.offsetTop + 10, 600, () => {
+  //       setCurrentSection("section5");
+  //     });
 
-      setCurrentSection("section5");
-    }
-  }, [fifthEntry]);
+  //     setCurrentSection("section5");
+  //   }
+  // }, [fifthEntry]);
 
-  useEffect(() => {
-    if (sixthEntry?.isIntersecting) {
-      smoothScroll(sixthContainerOriginRef.current.offsetTop + 10, 600, () => {
-        setCurrentSection("section6");
-      });
-    }
-  }, [sixthEntry]);
+  // useEffect(() => {
+  //   if (sixthEntry?.isIntersecting) {
+  //     smoothScroll(sixthContainerOriginRef.current.offsetTop + 10, 600, () => {
+  //       setCurrentSection("section6");
+  //     });
+  //   }
+  // }, [sixthEntry]);
 
-  useEffect(() => {
-    if (seventhEntry?.isIntersecting) {
-      smoothScroll(
-        seventhContainerOriginRef.current.offsetTop + 10,
-        600,
-        () => {
-          setCurrentSection("section7");
-        }
-      );
-    }
-  }, [seventhEntry]);
+  // useEffect(() => {
+  //   if (seventhEntry?.isIntersecting) {
+  //     smoothScroll(
+  //       seventhContainerOriginRef.current.offsetTop + 10,
+  //       600,
+  //       () => {
+  //         setCurrentSection("section7");
+  //       }
+  //     );
+  //   }
+  // }, [seventhEntry]);
 
   useMotionValueEvent(robotScale, "change", (latest) => {
     setRobotScaleValue(latest);

@@ -34,7 +34,7 @@ export const GbotThree = () => {
             backgroundSize: "contain",
           }}
         >
-          <div className="h-screen flex flex-col justify-center items-end gap-8 w-[80%] cards">
+          <div className="h-screen flex flex-col justify-center items-end gap-8 w-[90%] cards">
             <FlyGenBotCard
               heading="Hazardous environment compatibility"
               subHeading="Designed to work seamlessly alongside humans, G Bot enhances productivity and efficiency."

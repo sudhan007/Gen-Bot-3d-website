@@ -27,7 +27,7 @@ export const GbotTwo = () => {
 
           <img
             src="/img/gbot-sidec.png"
-            className="w-[300px] absolute top-0 left-0 z-[2] h-full"
+            className="w-[400px] absolute top-0 left-0 z-[2] h-full"
             style={{
               transform: "translate(-50%, -50%)",
               top: "50%",
