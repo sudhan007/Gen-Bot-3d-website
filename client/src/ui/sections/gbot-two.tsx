@@ -5,21 +5,21 @@ export const GbotTwo = () => {
     "Get acquainted with G bot. A humanoid robot empowered by AI, redefining collaboration with humans. Designed to work seamlessly alongside humans, G bot is more than just a robotic assistant: it's the future of technological partnership.";
 
   return (
-    <div className="font-base h-[100vh] bg-white relative z-[100]">
+    <div className="font-base h-[100vh] bg-lightbg relative z-[101]">
       <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row">
-        <div className="bg-white w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4">
-          <div className="mx-[10%]">
+        <div className=" w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0 py-[60px] pl-[2%]">
+          <div className="ml-[5%] px-[10%] h-full z-[10000]">
             <img
-              src="/img/gbot3d.svg"
+              src="/img/bot3d.svg"
               alt="GenBot 3D model"
-              className="w-[320px] mt-[30%] md:w-[260px] sm:w-[200px]"
+              className="w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-4"
             />
-
-            <h4 className="font-medium text-7xl mt-[20px] md:text-5xl sm:text-3xl">
-              The Future Of Human-Robot Interaction
+            <h4 className="font-medium mb-8 text-3xl mt-[20px] md:text-5xl sm:text-3xl text-[#2B2B2B]">
+              Your Safety Partner
             </h4>
-
-            <AnimatedText text={text2} />
+            <div className="w-[95%]">
+              <AnimatedText text={text2} />
+            </div>
           </div>
         </div>
         <div className="w-full md:w-1/2 h-full flex justify-center items-center relative">

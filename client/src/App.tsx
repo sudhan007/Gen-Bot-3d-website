@@ -1,8 +1,9 @@
 import { Navbar } from "@/ui/components/Navbar";
 import { useInViewport } from "@mantine/hooks";
 import { motion } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
+import { smoothScroll } from "./lib/utils.tsx";
 import { GenBot } from "./ui/sections/genbot.tsx";
 import { HeroSection } from "./ui/sections/hero.tsx";
 
@@ -11,6 +12,7 @@ function App() {
   const [loadedAssets, setLoadedAssets] = useState(0);
   const [totalAssets, setTotalAssets] = useState(0);
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [modelLoaded, setModelLoaded] = useState(false);
 
   const heroRef = useRef<HTMLDivElement>(null);
   const genBotRef = useRef<HTMLDivElement>(null);
@@ -23,7 +25,7 @@ function App() {
 
   useEffect(() => {
     const assets = document.querySelectorAll("img, video");
-    setTotalAssets(assets.length);
+    setTotalAssets(assets.length + 1);
 
     assets.forEach((asset: any) => {
       if (asset.tagName === "IMG") {
@@ -59,6 +61,11 @@ function App() {
     setLoadedAssets((prev) => prev + 1);
   };
 
+  const handleModelLoad = () => {
+    setModelLoaded(true);
+    handleAssetLoad(); // Increase the loaded assets count
+  };
+
   useEffect(() => {
     if (loading) {
       document.body.classList.add("loading");
@@ -69,60 +76,72 @@ function App() {
   }, [loading]);
 
   useEffect(() => {
-    if (loadedAssets >= totalAssets && totalAssets > 0 && videoLoaded) {
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        setLoading(false);
-      }, 4500);
+    if (
+      loadedAssets >= totalAssets &&
+      totalAssets > 0 &&
+      videoLoaded &&
+      modelLoaded
+    ) {
+      // setTimeout(() => {
+      window.scrollTo(0, 0);
+      setLoading(false);
+      // }, 2000);
     }
-  }, [loadedAssets, totalAssets, videoLoaded]);
+  }, [loadedAssets, totalAssets, videoLoaded, modelLoaded]);
 
-  // useEffect(() => {
-  //   if (inViewport && section == "section2") {
-  //     if (!genBotRef.current) return;
-  //     smoothScroll(0, 600, () => {
-  //       setSection("section2");
-  //     });
-  //   }
-  // }, [inViewport]);
+  useEffect(() => {
+    if (inViewport && section == "section2") {
+      if (!genBotRef.current) return;
+      smoothScroll(0, 600, () => {
+        setSection("section2");
+      });
+    }
+  }, [inViewport]);
 
-  // useEffect(() => {
-  //   if (infoInViewport && section == "section3") {
-  //     if (!genBotAboutRef.current) return;
-  //     smoothScroll(genBotAboutRef?.current?.offsetTop, 600, () => {
-  //       setSection("section2");
-  //     });
-  //   }
-  // }, [infoInViewport]);
+  useEffect(() => {
+    if (infoInViewport && section == "section3") {
+      if (!genBotAboutRef.current) return;
+      smoothScroll(genBotAboutRef?.current?.offsetTop, 600, () => {
+        setSection("section2");
+      });
+    }
+  }, [infoInViewport]);
 
-  // useEffect(() => {
-  //   const heroObserver = new IntersectionObserver(
-  //     ([entry]) => {
-  //       if (!entry.isIntersecting && genBotRef.current) {
-  //         smoothScroll(genBotRef.current.offsetTop + 100, 600, () => {
-  //           setSection("section2");
-  //         });
-  //         setSection("section2");
-  //       }
-  //     },
-  //     { threshold: 0.95 }
-  //   );
+  const [isMobile] = useState(window.innerWidth < 768);
 
-  //   if (heroRef.current) {
-  //     heroObserver.observe(heroRef.current);
-  //   }
+  useEffect(() => {
+    const heroObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting && genBotRef.current) {
+          smoothScroll(genBotRef.current.offsetTop + 10, 600, () => {
+            setSection("section2");
+          });
+          setSection("section2");
+        }
+      },
+      { threshold: 0.95 }
+    );
 
-  //   return () => {
-  //     if (heroRef.current) {
-  //       heroObserver.unobserve(heroRef.current);
-  //       heroObserver.disconnect();
-  //       window.onscroll = null;
-  //     }
-  //   };
-  // }, []);
+    if (heroRef.current) {
+      heroObserver.observe(heroRef.current);
+    }
+
+    return () => {
+      if (heroRef.current) {
+        heroObserver.unobserve(heroRef.current);
+        heroObserver.disconnect();
+        window.onscroll = null;
+      }
+    };
+  }, []);
 
   return (
-    <React.Fragment>
+    <div
+      onContextMenu={() => {
+        // e.preventDefault();
+        // return false;
+      }}
+    >
       {loading && (
         <motion.div
           animate={{ opacity: 1 }}
@@ -131,13 +150,13 @@ function App() {
           className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 z-[1000000]"
         >
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <h1 className="text-white text-lg font-bold mb-4">Loading...</h1>
+            {/* <h1 className="text-white text-lg font-bold mb-4">Loading...</h1> */}
             <span className="loader"></span>
           </div>
         </motion.div>
       )}
 
-      <motion.div
+      {/* <motion.div
         initial={{ scaleX: 1 }}
         animate={{ scaleX: !loading ? 0 : 1 }}
         transition={{ duration: 2, ease: "easeOut" }}
@@ -151,22 +170,22 @@ function App() {
         transition={{ duration: 2, ease: "easeOut" }}
         className="fixed top-0 right-0 w-1/2 h-screen bg-gradient-to-br from-gray-800 to-gray-900 z-[999999]"
         style={{ transformOrigin: "right" }}
-      ></motion.div>
+      ></motion.div> */}
 
-      <motion.div>
-        <Navbar />
+      <div className={`w-screen ${isMobile ? "overflow-x-hidden" : ""}`}>
+        <Navbar {...{ loading }} />
         <div ref={heroRef}>
           <div ref={ref}>
-            <HeroSection />
+            <HeroSection {...{ loading }} />
           </div>
         </div>
         <div ref={genBotRef}>
           <div ref={infoRef}>
-            <GenBot />
+            <GenBot onModelLoad={handleModelLoad} />
           </div>
         </div>
-      </motion.div>
-    </React.Fragment>
+      </div>
+    </div>
   );
 }
 

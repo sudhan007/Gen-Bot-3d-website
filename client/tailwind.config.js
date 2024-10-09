@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         base: ["AktivGrotesk", "sans-serif"],
+        sfpro: ["SFpro", "sans-serif"],
       },
       colors: {
         yellow: "#FCD902",

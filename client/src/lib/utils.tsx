@@ -10,17 +10,23 @@ export const smoothScroll = (
   duration = 1000,
   callback?: () => void
 ) => {
-  const start = window.pageYOffset;
-  let startTime: number | null = null;
+  const isMobile = /android|iphone|ipad/i.test(navigator.userAgent);
 
-  const animation = (currentTime: number) => {
-    if (startTime === null) startTime = currentTime;
-    const timeElapsed = currentTime - startTime;
-    const run = easeInOutQuad(timeElapsed, start, end - start, duration);
-    window.scrollTo(0, run);
-    if (timeElapsed < duration) requestAnimationFrame(animation);
-  };
+  if (!isMobile) {
+    const start = window.pageYOffset;
+    let startTime: number | null = null;
 
-  requestAnimationFrame(animation);
-  if (callback) callback();
+    const animation = (currentTime: number) => {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const run = easeInOutQuad(timeElapsed, start, end - start, duration);
+      window.scrollTo(0, run);
+      if (timeElapsed < duration) requestAnimationFrame(animation);
+    };
+
+    requestAnimationFrame(animation);
+    if (callback) callback();
+  } else {
+    if (callback) callback();
+  }
 };

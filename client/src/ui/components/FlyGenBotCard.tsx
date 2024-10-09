@@ -6,16 +6,17 @@ type Props = {
 export const FlyGenBotCard = ({ heading, subHeading }: Props) => {
   return (
     <div
-      className="fly-genbot-card flex flex-col items-center justify-center w-[80vw] max-w-[400px] min-h-[14vh] rounded-xl border bg-white"
+      className="fly-genbot-card flex flex-col items-center opacity-0 justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white"
       style={{
-        boxShadow: "rgb(255 202 0) 0px 2px 0px",
+        boxShadow: "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
       }}
     >
-      <div className="w-full h-full flex flex-col p-5 bg-white rounded-xl">
-        <h1 className="text-[3.5vw] sm:text-[2vh] font-medium uppercase mb-2 break-before-avoid text-center">
+      <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
+        <h1 className="text-lg font-normal mb-2 break-before-avoid capitalize">
           {heading}
         </h1>
-        <p className="text-[2.5vw] sm:text-[1.5vh] text-black leading-normal opacity-95 text-center">
+
+        <p className="text-sm text-[#909090] leading-normal opacity-95">
           {subHeading}
         </p>
       </div>

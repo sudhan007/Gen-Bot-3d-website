@@ -118,9 +118,25 @@ body {
     unicode-range: U+0000-00FF;
 }
 
+@font-face {
+  font-family: "SFpro";
+  src: url('/fonts/SF-Pro-Text-Regular.otf');
+  font-weight: 400;
+  font-style: normal;
+  unicode-range: U+0000-00FF;
+}
+
+@font-face {
+  font-family: "SFpro";
+  src: url('/fonts/SF-Pro-Text-RegularItalic.otf');
+  font-weight: 400;
+  font-style: italic;
+  unicode-range: U+0000-00FF;
+}
+
 /* width */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 0px;
   }
   
   /* Track */
@@ -145,63 +161,33 @@ body.loading {
   }
   
   .loader {
-    width: 0;
-    height: 4.8px;
-    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: block;
+    margin:15px auto;
     position: relative;
-    background: #FFF;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    color: #FFF;
     box-sizing: border-box;
-    animation: animFw 8s linear infinite;
+    animation: animloader 1s linear infinite alternate;
   }
-    .loader::after,
-    .loader::before {
-      content: '';
-      width: 10px;
-      height: 1px;
-      background: #FFF;
-      position: absolute;
-      top: 9px;
-      right: -2px;
-      opacity: 0;
-      transform: rotate(-45deg) translateX(0px);
-      box-sizing: border-box;
-      animation: coli1 0.3s linear infinite;
-    }
-    .loader::before {
-      top: -4px;
-      transform: rotate(45deg);
-      animation: coli2 0.3s linear infinite;
-    }
   
-  @keyframes animFw {
-      0% {
-    width: 0;
-  }
-      100% {
-    width: 100%;
-  }
+  @keyframes animloader {
+    0% {
+      box-shadow: -38px -12px ,  -14px 0,  14px 0, 38px 0;
     }
+    33% {
+      box-shadow: -38px 0px, -14px -12px,  14px 0, 38px 0;
+    }
+    66% {
+      box-shadow: -38px 0px , -14px 0, 14px -12px, 38px 0;
+    }
+    100% {
+      box-shadow: -38px 0 , -14px 0, 14px 0 , 38px -12px;
+    }
+  }
   
-  @keyframes coli1 {
-      0% {
-    transform: rotate(-45deg) translateX(0px);
-    opacity: 0.7;
-  }
-      100% {
-    transform: rotate(-45deg) translateX(-45px);
-    opacity: 0;
-  }
-    }
+    
   
-  @keyframes coli2 {
-      0% {
-    transform: rotate(45deg) translateX(0px);
-    opacity: 1;
-  }
-      100% {
-    transform: rotate(45deg) translateX(-45px);
-    opacity: 0.7;
-  }
-    }
+   
     

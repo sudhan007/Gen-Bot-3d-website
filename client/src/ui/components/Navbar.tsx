@@ -1,12 +1,33 @@
-export const Navbar = () => {
+import anime from "animejs/lib/anime.es.js";
+import { useEffect } from "react";
+
+type Props = {
+  loading: boolean;
+};
+
+export const Navbar = ({ loading }: Props) => {
+  useEffect(() => {
+    if (!loading) {
+      setTimeout(() => {
+        anime({
+          targets: "nav",
+          opacity: [0, 1],
+          delay: 500,
+          easing: "easeOutExpo",
+          duration: 1000,
+        });
+      }, 200);
+    }
+  }, [loading]);
+
   return (
     <div
-      className="bg-black shadow-sm absolute top-0 left-0 right-0  p-4 bg-transparent"
+      className="bg-black shadow-sm absolute top-0 left-0 right-0  p-4 bg-transparent navbar"
       style={{
         zIndex: 100000,
       }}
     >
-      <nav className="container mx-auto flex items-center justify-between py-5">
+      <nav className="w-[90%] mx-auto flex items-center justify-between py-1 opacity-0">
         <div className="flex items-center gap-3 w-full justify-between md:w-auto">
           <div className="block md:hidden">
             <div>
