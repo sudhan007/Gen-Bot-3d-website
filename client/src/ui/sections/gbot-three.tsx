@@ -1,99 +1,44 @@
-import { useIntersection } from "@mantine/hooks";
-import anime from "animejs";
-import React, { useEffect } from "react";
+import { AnimatedText } from "../components/AnimatedText";
 
-export const GbotThree = () => {
-  const { entry, ref } = useIntersection({
-    threshold: 0.1,
-  });
-
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      const elems = document.querySelectorAll(".cards > div > div");
-
-      anime({
-        targets: elems,
-        opacity: [0, 1],
-        translateY: [30, 0],
-        duration: 1200,
-        delay: anime.stagger(100),
-      });
-    }
-  }, [entry]);
-
-  const cardData = [
-    {
-      heading: "Hazardous Environment Compatibility",
-      subHeading:
-        "Designed to excel in toxic and hazardous settings, Genbot ensures human safety.",
-    },
-    {
-      heading: "Security and Privacy",
-      subHeading:
-        "G Bot ensures the utmost security and privacy in interactions.",
-    },
-    {
-      heading: "AI Empowerment",
-      subHeading:
-        "G Bot is equipped with cutting-edge AI technology, making it a versatile and intelligent companion.",
-    },
-    {
-      heading: "Friendly Interface",
-      subHeading:
-        "G Bot offers a friendly and approachable interface for easy communication and collaboration.",
-    },
-    {
-      heading: "Adaptive Learning",
-      subHeading: "G Bot continuously learns and adapts to user needs.",
-    },
-  ];
+const GbotThree = () => {
+  const text2 =
+    "Get acquainted with G bot. A humanoid robot empowered by AI, redefining collaboration with humans. Designed to work seamlessly alongside humans, G bot is more than just a robotic assistant: it's the future of technological partnership.";
 
   return (
-    <React.Fragment>
-      <div className="font-base h-[100vh] bg-white relative z-[100]" ref={ref}>
-        <div className="sticky top-0 h-screen w-[60%] m-auto">
-          <img
-            src="/img/gbot-rightface.png"
-            alt="G Bot"
-            className="h-screen absolute top-20"
-          />
-          <div className="flex flex-col justify-center items-end gap-8 cards h-full">
-            <div className="flex flex-col justify-center items-end gap-8">
-              {cardData.map(({ heading, subHeading }, index) => (
-                // <FlyGenBotCard
-                //   key={index}
-                //   heading={card.heading}
-                //   subHeading={card.subHeading}
-                // />
-
-                <div
-                  key={index}
-                  className="fly-genbot-card flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white"
-                  style={{
-                    boxShadow:
-                      "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
-                    opacity: 0,
-                  }}
-                >
-                  <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
-                    <h1 className="text-lg font-normal mb-2 break-before-avoid capitalize">
-                      {heading}
-                    </h1>
-
-                    <p className="text-sm text-[#909090] leading-normal opacity-95">
-                      {subHeading}
-                    </p>
-                  </div>
-                </div>
-              ))}
+    <div className="font-base h-[100vh] bg-lightbg relative z-[101]">
+      <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row">
+        <div className=" w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0 py-[60px] pl-[2%]">
+          <div className="ml-[5%] px-[10%] h-full z-[10000]">
+            <img
+              src="/img/gbot3d.svg"
+              alt="GenBot 3D model"
+              className="w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-4"
+            />
+            <h4 className="font-medium mb-8 text-3xl mt-[20px] md:text-5xl sm:text-3xl text-[#2B2B2B]">
+              Your Safety Partner
+            </h4>
+            <div className="w-[95%]">
+              <AnimatedText text={text2} />
             </div>
           </div>
         </div>
+        <div className="w-full md:w-1/2 h-full flex justify-center items-center relative">
+          <img src="/img/gbot-text2.png" className="w-[600px] z-[1]" alt="" />
+
+          <img
+            src="/img/gbot-rightface.png"
+            className="w-[300px] absolute top-0 left-0 z-[2] h-full"
+            style={{
+              transform: "translate(-50%, -50%) scaleX(-1)", // Add scaleX(-1) to flip it horizontally
+              top: "50%",
+              left: "50%",
+            }}
+            alt=""
+          />
+        </div>
       </div>
-
-      {/* <Experience />
-
-      <Footer /> */}
-    </React.Fragment>
+    </div>
   );
 };
+
+export default GbotThree;

@@ -1,31 +1,46 @@
 import { Navbar } from "@/ui/components/Navbar";
-import { useInViewport } from "@mantine/hooks";
+import { useInViewport, useScrollIntoView } from "@mantine/hooks";
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import "./App.css";
-import { smoothScroll } from "./lib/utils.tsx";
-import { GenBot } from "./ui/sections/genbot.tsx";
+import useDisableKeyboardScroll from "./hooks/useDisableKeyScroll.tsx";
 import { HeroSection } from "./ui/sections/hero.tsx";
 
+const GenBot = React.lazy(() => import("./ui/sections/genbot.tsx"));
+
 function App() {
+  const [section, setSection] = useState<string>("section1");
   const [loading, setLoading] = useState(true);
   const [loadedAssets, setLoadedAssets] = useState(0);
   const [totalAssets, setTotalAssets] = useState(0);
   const [videoLoaded, setVideoLoaded] = useState(false);
-  const [modelLoaded, setModelLoaded] = useState(false);
 
   const heroRef = useRef<HTMLDivElement>(null);
   const genBotRef = useRef<HTMLDivElement>(null);
-  const genBotAboutRef = useRef<HTMLDivElement>(null);
 
-  const [section, setSection] = useState<string>("section1");
+  const { scrollIntoView: goToSecond, targetRef: secondRef } =
+    useScrollIntoView<HTMLDivElement>({
+      cancelable: false,
+      offset: 2,
+      duration: 1000,
+      onScrollFinish() {
+        setSection("section2");
+        console.log("section2");
+      },
+    });
 
-  const { ref, inViewport } = useInViewport();
-  const { ref: infoRef, inViewport: infoInViewport } = useInViewport();
+  const { scrollIntoView: gotoFirst, targetRef: firstRef } =
+    useScrollIntoView<HTMLDivElement>({
+      cancelable: false,
+      onScrollFinish() {
+        setSection("section1");
+        console.log("section1");
+      },
+    });
 
   useEffect(() => {
     const assets = document.querySelectorAll("img, video");
-    setTotalAssets(assets.length + 1);
+    setTotalAssets(assets.length);
 
     assets.forEach((asset: any) => {
       if (asset.tagName === "IMG") {
@@ -35,13 +50,12 @@ function App() {
           handleAssetLoad();
         }
       } else if (asset.tagName === "VIDEO") {
-        asset.addEventListener("loadeddata", handleAssetLoad);
-        asset.addEventListener("loadeddata", () => {
-          setVideoLoaded(true);
-        });
-        if (asset.readyState >= 3) {
-          handleAssetLoad();
-          setVideoLoaded(true);
+        asset.setAttribute("preload", "auto");
+
+        asset.addEventListener("canplaythrough", handleVideoLoad);
+
+        if (asset.readyState >= 4) {
+          handleVideoLoad();
         }
       }
     });
@@ -51,7 +65,7 @@ function App() {
         if (asset.tagName === "IMG") {
           asset.removeEventListener("load", handleAssetLoad);
         } else if (asset.tagName === "VIDEO") {
-          asset.removeEventListener("loadeddata", handleAssetLoad);
+          asset.removeEventListener("canplaythrough", handleVideoLoad);
         }
       });
     };
@@ -61,9 +75,9 @@ function App() {
     setLoadedAssets((prev) => prev + 1);
   };
 
-  const handleModelLoad = () => {
-    setModelLoaded(true);
-    handleAssetLoad(); // Increase the loaded assets count
+  const handleVideoLoad = () => {
+    setLoadedAssets((prev) => prev + 1);
+    setVideoLoaded(true);
   };
 
   useEffect(() => {
@@ -71,55 +85,41 @@ function App() {
       document.body.classList.add("loading");
     } else {
       document.body.classList.remove("loading");
-      loading;
     }
   }, [loading]);
 
   useEffect(() => {
-    if (
-      loadedAssets >= totalAssets &&
-      totalAssets > 0 &&
-      videoLoaded &&
-      modelLoaded
-    ) {
-      // setTimeout(() => {
-      window.scrollTo(0, 0);
-      setLoading(false);
-      // }, 2000);
+    window.scrollTo(0, 0);
+    if (loadedAssets >= totalAssets && totalAssets > 0 && videoLoaded) {
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        setLoading(false);
+      }, 3000);
     }
-  }, [loadedAssets, totalAssets, videoLoaded, modelLoaded]);
-
-  useEffect(() => {
-    if (inViewport && section == "section2") {
-      if (!genBotRef.current) return;
-      smoothScroll(0, 600, () => {
-        setSection("section2");
-      });
-    }
-  }, [inViewport]);
-
-  useEffect(() => {
-    if (infoInViewport && section == "section3") {
-      if (!genBotAboutRef.current) return;
-      smoothScroll(genBotAboutRef?.current?.offsetTop, 600, () => {
-        setSection("section2");
-      });
-    }
-  }, [infoInViewport]);
+  }, [loadedAssets, totalAssets, videoLoaded]);
 
   const [isMobile] = useState(window.innerWidth < 768);
+
+  useDisableKeyboardScroll();
+
+  const { ref, inViewport } = useInViewport();
+  const { ref: infoRef } = useInViewport();
+
+  useEffect(() => {
+    if (inViewport && section === "section2") {
+      if (!genBotRef.current) return;
+      gotoFirst();
+    }
+  }, [inViewport]);
 
   useEffect(() => {
     const heroObserver = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting && genBotRef.current) {
-          smoothScroll(genBotRef.current.offsetTop + 10, 600, () => {
-            setSection("section2");
-          });
-          setSection("section2");
+          goToSecond();
         }
       },
-      { threshold: 0.95 }
+      { threshold: 0.97 }
     );
 
     if (heroRef.current) {
@@ -150,38 +150,27 @@ function App() {
           className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 z-[1000000]"
         >
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            {/* <h1 className="text-white text-lg font-bold mb-4">Loading...</h1> */}
             <span className="loader"></span>
           </div>
         </motion.div>
       )}
 
-      {/* <motion.div
-        initial={{ scaleX: 1 }}
-        animate={{ scaleX: !loading ? 0 : 1 }}
-        transition={{ duration: 2, ease: "easeOut" }}
-        className="fixed top-0 left-0 w-1/2 h-screen bg-gradient-to-br from-gray-800 to-gray-900 z-[999999]"
-        style={{ transformOrigin: "left" }}
-      ></motion.div>
-
-      <motion.div
-        initial={{ scaleX: 1 }}
-        animate={{ scaleX: !loading ? 0 : 1 }}
-        transition={{ duration: 2, ease: "easeOut" }}
-        className="fixed top-0 right-0 w-1/2 h-screen bg-gradient-to-br from-gray-800 to-gray-900 z-[999999]"
-        style={{ transformOrigin: "right" }}
-      ></motion.div> */}
-
       <div className={`w-screen ${isMobile ? "overflow-x-hidden" : ""}`}>
         <Navbar {...{ loading }} />
-        <div ref={heroRef}>
+        <div ref={firstRef}>
           <div ref={ref}>
-            <HeroSection {...{ loading }} />
+            <div ref={heroRef}>
+              <HeroSection {...{ loading }} />
+            </div>
           </div>
         </div>
-        <div ref={genBotRef}>
+        <div ref={secondRef}>
           <div ref={infoRef}>
-            <GenBot onModelLoad={handleModelLoad} />
+            <div ref={genBotRef}>
+              <Suspense fallback={<div>Loading...</div>}>
+                <GenBot onModelLoad={() => {}} />
+              </Suspense>
+            </div>
           </div>
         </div>
       </div>

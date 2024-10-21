@@ -11,6 +11,7 @@ export const smoothScroll = (
   callback?: () => void
 ) => {
   const isMobile = /android|iphone|ipad/i.test(navigator.userAgent);
+  // const isDesktop = !isMobile;
 
   if (!isMobile) {
     const start = window.pageYOffset;
@@ -29,4 +30,14 @@ export const smoothScroll = (
   } else {
     if (callback) callback();
   }
+};
+
+export const fetchVideoAsBase64 = async (url: string) => {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.readAsDataURL(blob);
+  });
 };

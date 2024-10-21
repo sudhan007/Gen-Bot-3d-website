@@ -1,42 +1,66 @@
-import { AnimatedText } from "../components/AnimatedText";
+import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
-export const GbotTwo = () => {
-  const text2 =
-    "Get acquainted with G bot. A humanoid robot empowered by AI, redefining collaboration with humans. Designed to work seamlessly alongside humans, G bot is more than just a robotic assistant: it's the future of technological partnership.";
+const GbotTwo = () => {
+  const totalImages = 200;
+  const ref = useRef(null);
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    const preloadedImages: any = [];
+    for (let i = 1; i <= totalImages; i++) {
+      const paddedIndex = String(i).padStart(4, "0");
+      preloadedImages.push(`/gbot/${paddedIndex}.png`);
+    }
+    setImages(preloadedImages);
+  }, [totalImages]);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+  });
+
+  const sectionProgress = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, totalImages - 1]
+  );
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useMotionValueEvent(sectionProgress, "change", (latest) => {
+    const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
+    setCurrentIndex(clampedIndex);
+  });
 
   return (
-    <div className="font-base h-[100vh] bg-lightbg relative z-[101]">
-      <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row">
-        <div className=" w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0 py-[60px] pl-[2%]">
-          <div className="ml-[5%] px-[10%] h-full z-[10000]">
-            <img
-              src="/img/bot3d.svg"
-              alt="GenBot 3D model"
-              className="w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-4"
-            />
-            <h4 className="font-medium mb-8 text-3xl mt-[20px] md:text-5xl sm:text-3xl text-[#2B2B2B]">
-              Your Safety Partner
-            </h4>
-            <div className="w-[95%]">
-              <AnimatedText text={text2} />
-            </div>
-          </div>
-        </div>
-        <div className="w-full md:w-1/2 h-full flex justify-center items-center relative">
-          <img src="/img/gbot-text2.svg" className="w-[600px] z-[1]" alt="" />
-
+    <section className="bg-white text-black font-base z-100">
+      <div className="bg-white sticky z-[1000] h-[400vh]" ref={ref}>
+        <div className="sticky top-0 flex justify-center items-center w-full h-screen">
+          {/* G Bot Text */}
           <img
-            src="/img/gbot-sidec.png"
-            className="w-[400px] absolute top-0 left-0 z-[2] h-full"
-            style={{
-              transform: "translate(-50%, -50%)",
-              top: "50%",
-              left: "50%",
-            }}
-            alt=""
+            src="/img/gbot-text.png"
+            alt="G Bot Text"
+            className="absolute z-10 img2 transform"
           />
+
+          {/* Robot Images */}
+          {images.map((imgSrc, index) => (
+            <img
+              key={index}
+              src={imgSrc}
+              alt={`G Frame ${index + 1}`}
+              className={`absolute  max-w-[1900px] img h-[100vh]`}
+              style={{
+                opacity: index === currentIndex ? 1 : 0,
+                zIndex: index === currentIndex ? 20 : 10,
+                // transition: "opacity 0.3s ease-in-out",
+              }}
+            />
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
+
+export default GbotTwo;

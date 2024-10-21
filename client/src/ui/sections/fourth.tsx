@@ -1,19 +1,36 @@
 import { useIntersection } from "@/hooks/useIntersection";
-import { useViewportSize } from "@mantine/hooks";
 import anime from "animejs";
 import { useEffect } from "react";
 
-type Props = {
-  isVisible: boolean;
-};
-
-export const FlyGenBotSection = ({}: Props) => {
+const FlyGenBotSection = () => {
   const { entry, ref } = useIntersection({
-    threshold: 0.1,
+    threshold: 0,
   });
 
   useEffect(() => {
     const elems = document.querySelectorAll(".cards");
+    const genbotImage: any = document.querySelector(".genbot-image");
+
+    if (elems && genbotImage) {
+      genbotImage.style.opacity = 0;
+      genbotImage.style.transform = "translateY(-100px)";
+
+      elems.forEach((elem: any) => {
+        elem.style.opacity = 0;
+        elem.style.transform = "translateY(50px)";
+      });
+    }
+
+    if (!entry?.isIntersecting) return;
+
+    anime({
+      targets: genbotImage,
+      opacity: [0, 1],
+      translateY: [240, 0],
+      duration: 800,
+      easing: "easeOutQuad",
+      delay: 1100,
+    });
 
     setTimeout(() => {
       anime({
@@ -30,7 +47,6 @@ export const FlyGenBotSection = ({}: Props) => {
         duration: 2000,
         delay: 500,
       });
-
       anime({
         targets: elems[2],
         opacity: [0, 1],
@@ -45,7 +61,6 @@ export const FlyGenBotSection = ({}: Props) => {
         duration: 2000,
         delay: 1000,
       });
-
       anime({
         targets: elems[4],
         opacity: [0, 1],
@@ -53,7 +68,16 @@ export const FlyGenBotSection = ({}: Props) => {
         duration: 2000,
         delay: 1500,
       });
-    }, 200);
+    }, 300);
+
+    return () => {
+      anime({
+        targets: genbotImage,
+        translateX: [2400, 0],
+        duration: 800,
+        easing: "easeOutQuad",
+      });
+    };
   }, [entry]);
 
   const cardData = [
@@ -89,71 +113,48 @@ export const FlyGenBotSection = ({}: Props) => {
     },
   ];
 
-  const { width } = useViewportSize();
-
   return (
     <>
-      {width >= 768 ? (
-        <section
-          ref={ref}
-          className="bg-white relative text-black min-w-[85%] max-w-[85%] m-auto font-base min-h-screen flex justify-center items-center overflow-hidden"
-        >
-          <div className="w-full h-full absolute">
-            {cardData.map((card, index) => (
+      <section
+        ref={ref}
+        className="bg-white relative text-black min-w-[85%] max-w-[85%] m-auto font-base min-h-screen flex justify-center items-center overflow-hidden z-[100000]"
+      >
+        <div className="w-full h-full absolute">
+          {cardData.map((card, index) => (
+            <div
+              key={index}
+              className={`absolute ${card.className} hidden md:block cards opacity-0`}
+            >
               <div
-                key={index}
-                className={`absolute ${card.className} hidden md:block cards`}
+                className={`flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white`}
+                style={{
+                  boxShadow:
+                    "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
+                }}
               >
-                <div
-                  className="fly-genbot-card flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white"
-                  style={{
-                    boxShadow:
-                      "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
-                  }}
-                >
-                  <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
-                    <h1 className="text-xl font-normal mb-2 break-before-avoid">
-                      {card.heading}
-                    </h1>
+                <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
+                  <h1 className="text-xl font-normal mb-2 break-before-avoid">
+                    {card.heading}
+                  </h1>
 
-                    <p className="text-sm text-[#909090] leading-normal opacity-95">
-                      {card.subHeading}
-                    </p>
-                  </div>
+                  <p className="text-sm text-[#909090] leading-normal opacity-95">
+                    {card.subHeading}
+                  </p>
                 </div>
               </div>
-            ))}
-          </div>
-        </section>
-      ) : (
-        <section
-          ref={ref}
-          className={`relative bg-white text-black font-base flex justify-center items-center overflow-hidden z-[100] py-4 min-h-screen`}
-        >
-          <div className="w-full h-full flex flex-col gap-10 mx-6">
-            {cardData.map((card, index) => (
-              <div key={index} className={``}>
-                <div
-                  className="fly-genbot-card flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white shadow-md"
-                  style={{
-                    boxShadow: "rgb(255 202 0) 0px 2px 0px",
-                  }}
-                >
-                  <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
-                    <h1 className="text-lg md:text-xl lg:text-2xl font-medium mb-2 break-before-avoid">
-                      {card.heading}
-                    </h1>
+            </div>
+          ))}
+        </div>
 
-                    <p className="text-xs md:text-sm lg:text-base text-black leading-normal opacity-95">
-                      {card.subHeading}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
+        {/* Genbot image with opacity 0 for initial fade-in */}
+        <img
+          className="genbot-image opacity-0 scale-75"
+          src="/img/genbot-side.png"
+          alt="genbot image"
+        />
+      </section>
     </>
   );
 };
+
+export default FlyGenBotSection;

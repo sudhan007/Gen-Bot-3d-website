@@ -19,7 +19,7 @@ export const HeroSection = ({ loading }: Props) => {
           easing: "easeOutExpo",
           duration: 1000,
         });
-      }, 1500);
+      }, 1400);
     }
   }, [loading]);
 
@@ -35,19 +35,23 @@ export const HeroSection = ({ loading }: Props) => {
         muted
         loop
         className="absolute top-0 left-0 h-screen object-cover w-screen"
-        onLoad={() => {}}
+        preload="auto"
+        playsInline
+        onContextMenu={(e) => e.preventDefault()}
       >
         <source src={"/hero-1080.mp4"} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
-      <div className="text-white font-normal uppercase mx-[5%] leading-none z-10 absolute bottom-12 left-0">
-        <h1 className="text-[5.5vw] opacity-0">Advancing</h1>
-        <h1 className="text-[5.5vw] opacity-0">Safety Through</h1>
-        <h1 className="text-[5.5vw] opacity-0">
-          <span className="text-yellow">Innovation</span>
-        </h1>
-      </div>
+      {!loading && (
+        <div className="text-white font-normal uppercase mx-[5%] leading-none z-10 absolute bottom-12 left-0">
+          <h1 className="text-[5.5vw] opacity-0">Advancing</h1>
+          <h1 className="text-[5.5vw] opacity-0">Safety Through</h1>
+          <h1 className="text-[5.5vw] opacity-0">
+            <span className="text-yellow">Innovation</span>
+          </h1>
+        </div>
+      )}
 
       <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex justify-center pb-[10px]">
         <Icon icon={"bi:mouse"} fontSize={40} />
