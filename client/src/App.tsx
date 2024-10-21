@@ -1,42 +1,16 @@
 import { Navbar } from "@/ui/components/Navbar";
-import { useInViewport, useScrollIntoView } from "@mantine/hooks";
 import { motion } from "framer-motion";
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import useDisableKeyboardScroll from "./hooks/useDisableKeyScroll.tsx";
+import GenBot from "./ui/sections/genbot.tsx";
 import { HeroSection } from "./ui/sections/hero.tsx";
 
-const GenBot = React.lazy(() => import("./ui/sections/genbot.tsx"));
-
 function App() {
-  const [section, setSection] = useState<string>("section1");
   const [loading, setLoading] = useState(true);
   const [loadedAssets, setLoadedAssets] = useState(0);
   const [totalAssets, setTotalAssets] = useState(0);
   const [videoLoaded, setVideoLoaded] = useState(false);
-
-  const heroRef = useRef<HTMLDivElement>(null);
-  const genBotRef = useRef<HTMLDivElement>(null);
-
-  const { scrollIntoView: goToSecond, targetRef: secondRef } =
-    useScrollIntoView<HTMLDivElement>({
-      cancelable: false,
-      offset: 2,
-      duration: 1000,
-      onScrollFinish() {
-        setSection("section2");
-        console.log("section2");
-      },
-    });
-
-  const { scrollIntoView: gotoFirst, targetRef: firstRef } =
-    useScrollIntoView<HTMLDivElement>({
-      cancelable: false,
-      onScrollFinish() {
-        setSection("section1");
-        console.log("section1");
-      },
-    });
 
   useEffect(() => {
     const assets = document.querySelectorAll("img, video");
@@ -102,44 +76,11 @@ function App() {
 
   useDisableKeyboardScroll();
 
-  const { ref, inViewport } = useInViewport();
-  const { ref: infoRef } = useInViewport();
-
-  useEffect(() => {
-    if (inViewport && section === "section2") {
-      if (!genBotRef.current) return;
-      gotoFirst();
-    }
-  }, [inViewport]);
-
-  useEffect(() => {
-    const heroObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting && genBotRef.current) {
-          goToSecond();
-        }
-      },
-      { threshold: 0.97 }
-    );
-
-    if (heroRef.current) {
-      heroObserver.observe(heroRef.current);
-    }
-
-    return () => {
-      if (heroRef.current) {
-        heroObserver.unobserve(heroRef.current);
-        heroObserver.disconnect();
-        window.onscroll = null;
-      }
-    };
-  }, []);
-
   return (
     <div
-      onContextMenu={() => {
-        // e.preventDefault();
-        // return false;
+      onContextMenu={(e: any) => {
+        e.preventDefault();
+        return false;
       }}
     >
       {loading && (
@@ -155,25 +96,14 @@ function App() {
         </motion.div>
       )}
 
-      <div className={`w-screen ${isMobile ? "overflow-x-hidden" : ""}`}>
+      <motion.div
+        className={`w-screen ${isMobile ? "overflow-x-hidden" : ""}`}
+        transition={{ duration: 0.5 }}
+      >
         <Navbar {...{ loading }} />
-        <div ref={firstRef}>
-          <div ref={ref}>
-            <div ref={heroRef}>
-              <HeroSection {...{ loading }} />
-            </div>
-          </div>
-        </div>
-        <div ref={secondRef}>
-          <div ref={infoRef}>
-            <div ref={genBotRef}>
-              <Suspense fallback={<div>Loading...</div>}>
-                <GenBot onModelLoad={() => {}} />
-              </Suspense>
-            </div>
-          </div>
-        </div>
-      </div>
+        <HeroSection {...{ loading }} />
+        <GenBot onModelLoad={() => {}} />
+      </motion.div>
     </div>
   );
 }
