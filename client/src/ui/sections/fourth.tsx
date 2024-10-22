@@ -148,7 +148,7 @@ const FlyGenBotSection = () => {
 
         {/* Genbot image with opacity 0 for initial fade-in */}
         <img
-          className="genbot-image opacity-0 scale-75"
+          className="genbot-image opacity-0 scale-75 md:w-[530px] xl:w-[580px]"
           src="/img/genbot-side.png"
           alt="genbot image"
         />

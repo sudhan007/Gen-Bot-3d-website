@@ -1,7 +1,13 @@
 // @ts-nocheck
 
-import { fetchVideoAsBase64 } from "@/lib/utils";
-import { useViewportSize } from "@mantine/hooks";
+import { smoothScroll } from "@/lib/utils";
+import {
+  useIntersection,
+  useInViewport,
+  useViewportSize,
+} from "@mantine/hooks";
+import { useProgress } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 import {
   motion,
   useMotionValueEvent,
@@ -9,8 +15,10 @@ import {
   useTransform,
 } from "framer-motion";
 
-import { genbotIntro } from "@/lib/common";
-import { useEffect, useRef, useState } from "react";
+import { useLoader } from "@react-three/fiber";
+import { useEffect, useMemo, useRef, useState } from "react";
+import * as THREE from "three";
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { AnimatedText } from "../components/AnimatedText";
 import { Experience } from "./experiance";
 import { Footer } from "./footer";
@@ -20,36 +28,102 @@ import GBotOne from "./gbot-one-hero";
 import GbotThree from "./gbot-three";
 import GbotTwo from "./gbot-two";
 
+const GenBotModel = ({
+  startRobotMove,
+  robotScaleValue,
+  genbotFinalMoveActivate,
+  setGenbotFinalMoveActivate,
+  inFirstSection,
+  sectionProgress,
+  onModelLoad,
+}) => {
+  const fbx = useLoader(FBXLoader, "Genbot.fbx");
+  // const fbx = useFBX("Genbot.fbx");
+  const { progress } = useProgress();
+
+  const ref = useRef(null);
+
+  useEffect(() => {
+    console.log(progress);
+    if (progress === 100) {
+      // setTimeout(() => {
+      onModelLoad();
+      // }, 2000);
+    }
+  }, [progress]);
+
+  const startPos = useMemo(() => new THREE.Vector3(0, 0, -25), []);
+  const targetPos = useMemo(() => new THREE.Vector3(0, 0, -25), []);
+  const finalPos = useMemo(() => new THREE.Vector3(0, 6, -23), []);
+
+  const finalGenbotRotation = new THREE.Euler(3, 0, 0);
+
+  const scaleFactor = useMemo(() => 1, []);
+
+  useFrame((state, delta) => {
+    if (ref.current) {
+      const { position, scale, rotation } = ref.current;
+      const camera = state.camera;
+
+      const shrinkingFactor = 1.0 - delta * 8;
+      const expandingFactor = 1.0 + delta * 8;
+      const minScaleValue = 0.0000001;
+
+      if (!genbotFinalMoveActivate) {
+        position.lerp(startPos, delta * 6);
+        rotation.set(0, 0, 0);
+        scale.setScalar(robotScaleValue * scaleFactor);
+        camera.position.set(0, 0, 8);
+      } else if (genbotFinalMoveActivate) {
+        position.lerp(finalPos, delta * 6);
+        rotation.set(0, 0.8, 0);
+        camera.position.set(0, 7, 8);
+        scale.setScalar(robotScaleValue * scaleFactor);
+      }
+    }
+  });
+
+  return (
+    <primitive
+      ref={ref}
+      object={fbx}
+      scale={[scaleFactor, scaleFactor, scaleFactor]}
+    />
+  );
+};
+
+const initialGenBotSize = 0;
+const maxGenBotSize = 0.000144;
+
 type Props = {
   onModelLoad: any;
 };
 
 const GenBot = ({ onModelLoad }: Props) => {
-  // common states
-  const [robotScaleValue, setRobotScaleValue] = useState(0);
-  const [currentSection, setCurrentSection] = useState("section3");
+  const [startRobotMove, setStartRobotMove] = useState(false);
+  const [currentRobotPosition, setCurrentRobotPosition] = useState([0, 0.3, 0]);
+  const [robotScaleValue, setRobotScaleValue] = useState(initialGenBotSize);
+  const [robotRotationValue, setRobotRotationValue] = useState(0);
 
-  const [flybotActivate, setFlybotActivate] = useState(false);
-  const [botVisible, setBotVisible] = useState(true);
+  const [genbotFinalMoveActivate, setGenbotFinalMoveActivate] = useState(false);
 
-  // all refs
+  const [startRobotRotate, setStartRobotRotate] = useState(false);
+
   const secondContainerRef = useRef(null);
-  const thirdContainerRef = useRef(null);
-  // video ref
+  const thirdContainerOriginRef = useRef(null);
+  const fourthContainerOriginRef = useRef(null);
+  const fifthContainerOriginRef = useRef(null);
+  const sixthContainerOriginRef = useRef(null);
+  const seventhContainerOriginRef = useRef(null);
+  const eighthContainerOriginRef = useRef(null);
+
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // scroll progresss
   const { scrollYProgress } = useScroll({
     target: secondContainerRef,
-    layoutEffect: false,
   });
+  const sectionProgress = useTransform(scrollYProgress, [0.05, 1], [0, 1]);
 
-  const { scrollYProgress: sectionThreeScrollYProgress } = useScroll({
-    container: thirdContainerRef,
-  });
-
-  // transforms
-  const sectionProgress = useTransform(scrollYProgress, [0, 1], [0, 1]);
   const visibility = useTransform(
     scrollYProgress,
     [0, 0.2, 0.2, 1, 1],
@@ -60,7 +134,7 @@ const GenBot = ({ onModelLoad }: Props) => {
   const textOpacity = useTransform(sectionProgress, [0, 0.6], [1, 0]);
 
   const robotScale = useTransform(sectionProgress, [0, 1], [0.1, 1]);
-  const robotOpacity = useTransform(sectionProgress, [0.1, 1, 2], [0, 1, 0]);
+  const robotOpacity = useTransform(sectionProgress, [0.1, 1], [0, 1]);
 
   const robotRotation = useTransform(
     sectionProgress,
@@ -68,16 +142,64 @@ const GenBot = ({ onModelLoad }: Props) => {
     [0, Math.PI * 2]
   );
 
+  // Third Section Imports
+
+  const { entry, ref: thirdContainerRef } = useIntersection();
+  const { inViewport, ref: thirdViewPortRef } = useInViewport();
+
+  const { entry: flybotEntry, ref: fourthContainerRef } = useIntersection({
+    threshold: 0.1,
+  });
+
+  const { inViewport: fourthInViewPort, ref: fourthEntryRef } = useInViewport();
+
+  // fifth
+
+  const { entry: fifthEntry, ref: fifthContainerRef } = useIntersection({
+    threshold: 0.1,
+  });
+
+  const { inViewport: fifthInViewPort, ref: fifthEntryRef } = useInViewport();
+
+  // sixth
+
+  const { entry: sixthEntry, ref: sixthContainerRef } = useIntersection({});
+
+  const { inViewport: sixthInViewPort, ref: sixthEntryRef } = useInViewport();
+
+  //seventh
+
+  const { entry: seventhEntry, ref: seventhContainerRef } = useIntersection({});
+
+  const { inViewport: seventhInViewPort, ref: seventhEntryRef } =
+    useInViewport();
+
+  // eigth
+
+  const { entry: eighthEntry, ref: eighthContainerRef } = useIntersection();
+
+  const { inViewport: eighthInViewPort, ref: eighthEntryRef } = useInViewport();
+
+  const [currentSection, setCurrentSection] = useState("section3");
+
+  const { scrollYProgress: sectionThreeScrollYProgress } = useScroll({
+    target: thirdContainerOriginRef,
+    container: thirdContainerRef,
+  });
   const sectionProgress2 = useTransform(
     sectionThreeScrollYProgress,
     [0.05, 1],
     [0, 1]
   );
 
+  const [text] = useState(
+    "Meet Genbot, the semi humanoid robotic innovation with state-of-the-art features designed to excel in industrial and toxic environments, Genbot ensures human safety by working side by side, eliminating the need for humans to expose themselves to hazardous conditions."
+  );
+
   const textProgress = useTransform(
     sectionThreeScrollYProgress,
     [0, 1],
-    [-1, genbotIntro.length + 140]
+    [-1, text.length + 140]
   );
 
   const videoProgress = useTransform(
@@ -92,22 +214,145 @@ const GenBot = ({ onModelLoad }: Props) => {
     [0, Math.PI * 2]
   );
 
-  // video control base64
-  const [base64Video, setBase64Video] = useState(null);
+  const [glowIndex, setGlowIndex] = useState(-1);
+
+  // re scroll up
 
   useEffect(() => {
-    const loadVideo = async () => {
-      const videoData = await fetchVideoAsBase64("/input-encoded.mp4");
-      setBase64Video(videoData);
-    };
+    if (inViewport && currentSection === "section3") {
+      const containerHeight = secondContainerRef.current.offsetHeight - 100;
+      const scrollPosition = (200 / 300) * containerHeight;
 
-    loadVideo();
-  }, []);
+      smoothScroll(
+        secondContainerRef.current.offsetTop + scrollPosition - 100,
+        600,
+        () => {
+          setCurrentSection("section2");
 
-  const [glowIndex, setGlowIndex] = useState(-1);
+          setGenbotFinalMoveActivate(false);
+        }
+      );
+    }
+  }, [inViewport]);
+
+  useEffect(() => {
+    if (fourthInViewPort && currentSection === "section4") {
+      smoothScroll(thirdContainerOriginRef.current.offsetTop, 600, () => {
+        setCurrentSection("section3");
+      });
+    }
+  }, [fourthInViewPort]);
+
+  useEffect(() => {
+    if (fifthInViewPort && currentSection === "section6") {
+      const containerHeight = smoothScroll(
+        fifthContainerOriginRef.current.offsetTop,
+        600,
+        () => {
+          setCurrentSection("section5");
+        }
+      );
+    }
+  }, [fifthInViewPort]);
+
+  useEffect(() => {
+    if (sixthInViewPort && currentSection === "section7") {
+      smoothScroll(sixthContainerOriginRef.current.offsetTop, 600, () => {
+        setCurrentSection("section6");
+      });
+    }
+  }, [sixthInViewPort]);
+
+  useEffect(() => {
+    if (seventhInViewPort && currentSection === "section8") {
+      smoothScroll(seventhContainerOriginRef.current.offsetTop - 1, 600, () => {
+        setCurrentSection("section7");
+      });
+    }
+  }, [seventhInViewPort]);
+
+  // scroll to
+
+  useEffect(() => {
+    console.log(currentSection);
+  }, [currentSection]);
+
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      smoothScroll(thirdContainerOriginRef.current.offsetTop + 2, 600, () => {
+        setCurrentSection("section3");
+
+        setTimeout(() => {
+          setGenbotFinalMoveActivate(true);
+        }, 300);
+      });
+      setCurrentSection("section3");
+      setStartRobotMove(true);
+      setFlybotActivate(true);
+    } else {
+      setStartRobotMove(false);
+      setStartRobotRotate(false);
+    }
+
+    if (entry?.isIntersecting && currentSection == "section4") {
+      setCurrentSection("section3");
+      setStartRobotMove(true);
+      setFlybotActivate(false);
+    }
+  }, [entry]);
+
+  useEffect(() => {
+    if (flybotEntry?.isIntersecting) {
+      smoothScroll(fourthContainerOriginRef.current.offsetTop + 1, 600, () => {
+        setCurrentSection("section4");
+      });
+      setCurrentSection("section4");
+    }
+  }, [flybotEntry]);
+
+  useEffect(() => {
+    if (fifthEntry?.isIntersecting && currentSection === "section4") {
+      smoothScroll(fifthContainerOriginRef.current.offsetTop - 0.3, 600, () => {
+        setCurrentSection("section5");
+      });
+
+      setCurrentSection("section5");
+    }
+  }, [fifthEntry]);
+
+  // useEffect(() => {
+  //   if (sixthEntry?.isIntersecting && currentSection === "section5") {
+  //     smoothScroll(sixthContainerOriginRef.current.offsetTop, 600, () => {
+  //       setCurrentSection("section6");
+  //     });
+  //     setCurrentSection("section6");
+  //   }
+  // }, [sixthEntry]);
+
+  // useEffect(() => {
+  //   if (seventhEntry?.isIntersecting && currentSection === "section6") {
+  //     smoothScroll(seventhContainerOriginRef.current.offsetTop, 600, () => {
+  //       setCurrentSection("section7");
+  //     });
+  //     setCurrentSection("section7");
+  //   }
+  // }, [seventhEntry]);
+
+  // useEffect(() => {
+  //   if (eighthEntry?.isIntersecting && currentSection === "section7") {
+  //     smoothScroll(eighthContainerOriginRef.current.offsetTop, 600, () => {
+  //       setCurrentSection("section8");
+  //     });
+  //     setCurrentSection("section8");
+  //   }
+  // }, [eighthEntry]);
 
   useMotionValueEvent(robotScale, "change", (latest) => {
     setRobotScaleValue(latest);
+  });
+
+  useMotionValueEvent(robotRotation, "change", (latest) => {
+    setRobotRotationValue(latest);
   });
 
   useMotionValueEvent(videoProgress, "change", (latest) => {
@@ -115,46 +360,96 @@ const GenBot = ({ onModelLoad }: Props) => {
       const progress = videoProgress.get();
       videoRef.current.currentTime = progress;
     }
-
-    if (videoRef.current) {
-      if (!botVisible) {
-        setBotVisible(true);
-      }
-    }
   });
+
+  const [flybotActivate, setFlybotActivate] = useState(false);
+
+  const [botVisible, setBotVisible] = useState(true);
 
   const { width: vwidth } = useViewportSize();
 
   return (
     <div>
-      <section className="bg-lightbg text-white font-base h-[250vh] flex justify-center">
-        <motion.img
-          src="/img/genbot-text.svg"
-          className="fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto"
-          style={{
-            scale: textScale,
-            opacity: textOpacity,
-            zIndex: 10,
-            display: visibility,
+      <section className="min-w-[100vw]">
+        {/* <Canvas
+          className="mt-[10%] h-screen"
+          gl={{
+            antialias: true,
+            logarithmicDepthBuffer: true,
           }}
-        />
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            zIndex: 2,
+            overflow: "visible",
+          }}
+          camera={{
+            manual: false,
+          }}
+        >
+          {genbotFinalMoveActivate && (
+            <directionalLight position={[0, 30, 300]} intensity={3} />
+          )}
+          <directionalLight
+            position={[0, 0, 10]}
+            rotateOnAxis={([0, 1, 0], 90)}
+            intensity={1}
+            scale={10}
+          />
 
-        <motion.img
-          src="/genbot-front.png"
-          className={`fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto ${
-            botVisible ? "" : "hidden"
-          }`}
-          style={{
-            scale: robotScale,
-            opacity: robotOpacity,
-            zIndex: 10,
-          }}
-        />
+          <Suspense fallback={null}>
+            <mesh>
+              <GenBotModel
+                startRobotMove={startRobotMove}
+                // startRobotRotate={startRobotRotate}
+                robotScaleValue={robotScaleValue}
+                genbotFinalMoveActivate={genbotFinalMoveActivate}
+                setGenbotFinalMoveActivate={setGenbotFinalMoveActivate}
+                inFirstSection={entry && entry.isIntersecting}
+                sectionProgress={textProgress}
+                onModelLoad={onModelLoad}
+              />
+            </mesh>
+          </Suspense>
+        </Canvas> */}
       </section>
 
-      <div className="z-[100]">
-        <section>
-          <div className="font-base h-[400vh] bg-white sticky  z-[1000] top-0">
+      {/* thirdViewPortRef */}
+      <div ref={secondContainerRef}>
+        <section
+          className="bg-lightbg text-white font-base h-[250vh] flex justify-center"
+          ref={thirdViewPortRef}
+        >
+          <motion.img
+            src="/img/genbot-text.svg"
+            className="fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto"
+            style={{
+              scale: textScale,
+              opacity: textOpacity,
+              zIndex: 10,
+              display: visibility,
+            }}
+          />
+
+          <motion.img
+            src="/genbot-front.png"
+            className="fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto"
+            style={{
+              scale: robotScale,
+              opacity: robotOpacity,
+              zIndex: 10,
+            }}
+          />
+        </section>
+      </div>
+
+      <div ref={fourthEntryRef} className="z-[100]">
+        <section ref={thirdContainerOriginRef}>
+          <div
+            className="font-base h-[400vh] bg-white sticky  z-[1000] top-0"
+            ref={thirdContainerRef}
+          >
             <div className="sticky top-0 w-full flex md:flex-row bg-white">
               <div className="bg-lightbg w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0 py-[60px] pl-[2%]">
                 <div className="ml-[5%] bg-white px-[10%] h-full rounded-l-3xl shadow-lg z-[10000]">
@@ -167,12 +462,14 @@ const GenBot = ({ onModelLoad }: Props) => {
                     Your Safety Partner
                   </h4>
                   <div className="w-[95%]">
-                    <AnimatedText text={genbotIntro} />
+                    <AnimatedText text={text} />
                   </div>
                 </div>
               </div>
               <div className="w-full md:w-1/2 h-screen bg-lightbg overflow-hidden sticky top-0 hidden md:block z-[10000]">
                 <div className="h-full object-cover sticky top-0 py-[60px] pr-[10%] rounded-r-3xl shadow-xl">
+                  {" "}
+                  {/* added shadow-lg */}
                   <video
                     ref={videoRef}
                     muted
@@ -180,9 +477,7 @@ const GenBot = ({ onModelLoad }: Props) => {
                     className="object-cover h-full rounded-r-2xl shadow-lg"
                     preload="auto"
                   >
-                    {base64Video && (
-                      <source src={base64Video} type="video/webm" />
-                    )}
+                    <source src="/input-encoded.webm" type="video/webm" />
                   </video>
                 </div>
               </div>
@@ -191,16 +486,47 @@ const GenBot = ({ onModelLoad }: Props) => {
         </section>
       </div>
 
-      <div>
-        <FlyGenBotSection isVisible={flybotActivate} />
+      <div ref={fourthContainerOriginRef}>
+        <div ref={fourthContainerRef}>
+          <FlyGenBotSection isVisible={flybotActivate} />
+        </div>
       </div>
 
-      <div className="bg-black  w-screen h-screen">
-        <GBotOne />
+      <div
+        ref={fifthContainerOriginRef}
+        className="bg-black  w-screen h-screen"
+      >
+        <div ref={fifthEntryRef}>
+          <div ref={fifthContainerRef}>
+            <GBotOne />
+          </div>
+        </div>
       </div>
-      <GbotTwo />
-      <GbotThree />
-      <GbotFour />
+
+      <div ref={sixthContainerOriginRef}>
+        <div ref={sixthEntryRef}>
+          <div ref={sixthContainerRef}>
+            <GbotTwo />
+          </div>
+        </div>
+      </div>
+
+      <div ref={seventhContainerOriginRef}>
+        <div ref={seventhEntryRef}>
+          <div ref={seventhContainerRef}>
+            <GbotThree />
+          </div>
+        </div>
+      </div>
+
+      <div ref={eighthContainerOriginRef}>
+        <div ref={eighthEntryRef}>
+          <div ref={eighthContainerRef}>
+            <GbotFour />
+          </div>
+        </div>
+      </div>
+
       <Experience />
 
       <Footer />
