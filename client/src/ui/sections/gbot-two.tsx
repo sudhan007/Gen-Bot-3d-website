@@ -2,7 +2,7 @@ import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const GbotTwo = () => {
-  const totalImages = 200;
+  const totalImages = 100;
   const ref = useRef(null);
   const [images, setImages] = useState([]);
 
@@ -34,7 +34,7 @@ const GbotTwo = () => {
 
   return (
     <section className="bg-white text-black font-base z-100">
-      <div className="bg-white sticky z-[1000] h-[400vh]" ref={ref}>
+      <div className="bg-white sticky z-[1000] h-[900vh]" ref={ref}>
         <div className="sticky top-0 flex justify-center items-center w-full h-screen">
           {/* G Bot Text */}
           <img

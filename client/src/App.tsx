@@ -117,10 +117,10 @@ function App() {
   const totalScrolls = useRef(4);
 
   const currentScrollsSection3 = useRef(0);
-  const totalScrollsSection3 = useRef(4);
+  const totalScrollsSection3 = useRef(12);
 
   const currentScrollsSection6 = useRef(0);
-  const totalScrollsSection6 = useRef(4);
+  const totalScrollsSection6 = useRef(12);
 
   useEffect(() => {
     function handleScroll(e: WheelEvent) {
@@ -486,7 +486,7 @@ function App() {
         <Element name="section3">
           <div className="z-[100]">
             <section ref={thirdContainerOriginRef}>
-              <div className="font-base h-[400vh] bg-white sticky  z-[1000] top-0">
+              <div className="font-base h-[1200vh] bg-white sticky  z-[1000] top-0">
                 <div className="sticky top-0 w-full flex md:flex-row bg-white">
                   <div className="bg-lightbg w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0 py-[60px] pl-[2%]">
                     <div className="ml-[5%] bg-white px-[10%] h-full rounded-l-3xl shadow-lg z-[10000]">

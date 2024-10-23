@@ -62,10 +62,6 @@ export const GbotFour = () => {
 
   const scale = useTransform(scrollYProgress, [0, 1], [0, 80]);
 
-  useEffect(() => {
-    console.log(scale);
-  }, [scale.get()]);
-
   return (
     <div ref={scrollref}>
       <div className="font-base h-[100vh] bg-white relative z-[100]">
@@ -73,7 +69,7 @@ export const GbotFour = () => {
           <img
             src="/img/gbot-rightface.png"
             alt="G Bot"
-            className="h-screen absolute top-20"
+            className="h-screen absolute "
           />
           <div
             className="flex flex-col justify-center items-end gap-8 dad h-full"
@@ -81,7 +77,7 @@ export const GbotFour = () => {
               opacity: 1,
             }}
           >
-            <div className="flex flex-col justify-center items-end gap-10 mt-[10%]">
+            <div className="flex flex-col justify-center items-end gap-10 ">
               {cardData.map(({ heading, subHeading }, index) => (
                 <div
                   key={index}
