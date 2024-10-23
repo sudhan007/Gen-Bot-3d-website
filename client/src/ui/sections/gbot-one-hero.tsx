@@ -20,7 +20,7 @@ export default function GBotOne({ loading }: { loading: boolean }) {
 
   return (
     <section
-      className="h-[calc(100vh-80px)] bg-black text-white font-base flex flex-col justify-end hero-section relative"
+      className="h-[calc(100vh)] bg-black text-white font-base flex flex-col justify-end hero-section relative"
       style={{
         zIndex: 1000,
       }}

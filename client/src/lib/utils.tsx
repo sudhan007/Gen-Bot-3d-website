@@ -1,8 +1,5 @@
-const easeInOutQuad = (t: number, b: number, c: number, d: number) => {
-  t /= d / 2;
-  if (t < 1) return (c / 2) * t * t + b;
-  t--;
-  return (-c / 2) * (t * (t - 2) - 1) + b;
+const linear = (t: number, b: number, c: number, d: number) => {
+  return (c * t) / d + b;
 };
 
 export const smoothScroll = (
@@ -11,16 +8,17 @@ export const smoothScroll = (
   callback?: () => void
 ) => {
   const isMobile = /android|iphone|ipad/i.test(navigator.userAgent);
-  // const isDesktop = !isMobile;
+  const isDesktop = !isMobile;
 
-  if (!isMobile) {
+  duration = 600;
+  if (!isMobile && !isDesktop) {
     const start = window.pageYOffset;
     let startTime: number | null = null;
 
     const animation = (currentTime: number) => {
       if (startTime === null) startTime = currentTime;
       const timeElapsed = currentTime - startTime;
-      const run = easeInOutQuad(timeElapsed, start, end - start, duration);
+      const run = linear(timeElapsed, start, end - start, duration);
       window.scrollTo(0, run);
       if (timeElapsed < duration) requestAnimationFrame(animation);
     };
@@ -41,3 +39,6 @@ export const fetchVideoAsBase64 = async (url: string) => {
     reader.readAsDataURL(blob);
   });
 };
+
+export const genbotIntro =
+  "Meet Genbot, the semi humanoid robotic innovation with state-of-the-art features designed to excel in industrial and toxic environments, Genbot ensures human safety by working side by side, eliminating the need for humans to expose themselves to hazardous conditions.";
