@@ -1,6 +1,6 @@
 import { useIntersection } from "@/hooks/useIntersection";
 import anime from "animejs";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const FlyGenBotSection = () => {
   const { entry, ref } = useIntersection({
@@ -113,46 +113,106 @@ const FlyGenBotSection = () => {
     },
   ];
 
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
-      <section
-        ref={ref}
-        className="bg-white relative text-black min-w-[85%] max-w-[85%] m-auto font-base min-h-screen flex justify-center items-center overflow-hidden z-[100000]"
-      >
-        <div className="w-full h-full absolute">
-          {cardData.map((card, index) => (
-            <div
-              key={index}
-              className={`absolute ${card.className} hidden md:block cards opacity-0`}
-            >
+      {width > 800 ? (
+        <section
+          ref={ref}
+          className="bg-white relative text-black min-w-[85%] max-w-[85%] m-auto font-base min-h-screen flex justify-center items-center overflow-hidden z-[100000]"
+        >
+          <div className="w-full h-full absolute">
+            {cardData.map((card, index) => (
               <div
-                className={`flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white`}
-                style={{
-                  boxShadow:
-                    "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
-                }}
+                key={index}
+                className={`absolute ${card.className} hidden md:block cards opacity-0`}
               >
-                <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
-                  <h1 className="text-xl font-normal mb-2 break-before-avoid">
-                    {card.heading}
-                  </h1>
+                <div
+                  className={`flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white`}
+                  style={{
+                    boxShadow:
+                      "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
+                  }}
+                >
+                  <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
+                    <h1 className="text-xl font-normal mb-2 break-before-avoid">
+                      {card.heading}
+                    </h1>
 
-                  <p className="text-sm text-[#909090] leading-normal opacity-95">
-                    {card.subHeading}
-                  </p>
+                    <p className="text-sm text-[#909090] leading-normal opacity-95">
+                      {card.subHeading}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        {/* Genbot image with opacity 0 for initial fade-in */}
-        <img
-          className="genbot-image opacity-0 scale-75 md:w-[530px] xl:w-[580px]"
-          src="/img/genbot-side.png"
-          alt="genbot image"
-        />
-      </section>
+          {/* Genbot image with opacity 0 for initial fade-in */}
+          <img
+            className="genbot-image opacity-0 scale-75 md:w-[530px] xl:w-[580px]"
+            src="/img/genbot-side.png"
+            alt="genbot image"
+          />
+        </section>
+      ) : (
+        <section
+          ref={ref}
+          className="bg-lightbg relative text-black min-w-[85%] max-w-[100%] m-auto font-base min-h-screen  justify-center items-center overflow-hidden z-[100000]"
+        >
+          {/* Genbot image with opacity 0 for initial fade-in */}
+          <div style={{ alignItems: "center", justifyContent: "center" }}>
+            <img
+              className="  scale-75 md:w-[530px] xl:w-[580px]"
+              src="/img/onetwo.png"
+              alt="genbot image"
+              style={{ margin: "auto" }}
+            />
+            <img
+              className="  scale-75 md:w-[530px] xl:w-[580px]"
+              src="/img/oneone.png"
+              alt="genbot image"
+              style={{ margin: "auto", marginTop: -100 }}
+            />
+          </div>
+
+          <div className="w-full" style={{ padding : 15 }} >
+            {cardData.map((card, index) => (
+              <div
+                key={index}
+                className={` md:block cards opacity-0`}
+                style={{ marginBottom : 20 }}
+              >
+                <div
+                  className={`flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white`}
+                  style={{
+                    boxShadow:
+                      "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
+                  }}
+                >
+                  <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
+                    <h1 className="text-xl font-normal mb-2 break-before-avoid">
+                      {card.heading}
+                    </h1>
+
+                    <p className="text-sm text-[#909090] leading-normal opacity-95">
+                      {card.subHeading}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </>
   );
 };

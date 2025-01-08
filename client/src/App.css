@@ -134,6 +134,36 @@ body {
   unicode-range: U+0000-00FF;
 }
 
+@media (min-width: 1600px) and (max-width: 1750px) {
+ .oneone{
+   font-size: 54px !important;
+ }
+ .oneimg{
+  margin-top: 5% !important;
+ }
+ .onetwo{
+  font-size: 30px !important;
+ }
+ .twoone{
+  font-size: 54px !important;
+}
+.twoimg{
+ margin-top: 5% !important;
+}
+.twothree {
+  height: 87% !important;
+}
+.threeone{
+  font-size: 54px !important;
+}
+.threetwo{
+  font-size: 30px !important;
+}
+.fgbidcjk{
+  font-size: 30px !important;
+}
+}
+ 
 /* width */
 ::-webkit-scrollbar {
     width: 0px;
