@@ -1,4 +1,4 @@
-import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import { useScroll } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const Grnbotnotmis = () => {
@@ -23,15 +23,10 @@ const Grnbotnotmis = () => {
     return () => clearInterval(interval); // Cleanup on unmount
   }, [totalImages]);
 
+  //@ts-ignore
   const { scrollYProgress } = useScroll({
     target: ref,
   });
-
-  const sectionProgress = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, totalImages - 1]
-  );
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -46,20 +41,20 @@ const Grnbotnotmis = () => {
     const handleResize = () => setWidth(window.innerWidth);
 
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize); 
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <>
       {width > 800 ? (
-        <section className="bg-white text-black font-base z-100">
-          <div className="bg-white sticky z-[1000] h-[600vh]" ref={ref}>
-            <div className="sticky top-0 flex justify-center items-center w-full h-screen">
+        <section className='bg-white text-black font-base z-100'>
+          <div className='bg-white sticky z-[1000] h-[600vh]' ref={ref}>
+            <div className='sticky top-0 flex justify-center items-center w-full h-screen'>
               {/* G Bot Text */}
               <img
-                src="/img/gbot-text.png"
-                alt="G Bot Text"
-                className="absolute z-10 img2 transform"
+                src='/img/gbot-text.png'
+                alt='G Bot Text'
+                className='absolute z-10 img2 transform'
               />
 
               {/* Robot Images */}
@@ -75,23 +70,31 @@ const Grnbotnotmis = () => {
                     // transition: "opacity 0.3s ease-in-out",
                   }}
                 />
-              ))} 
+              ))}
             </div>
           </div>
         </section>
       ) : (
         <div
-          style={{ position: "sticky", zIndex: 100000 , paddingTop: 100 , paddingBottom  : 100 }}
-          className="bg-lightbg h-[75vh]"
-          
-        > 
-          <img style={{ top : '45%' , padding :  20 }} className="absolute" src="/img/gbot-text.png" alt="G Bot Text" />
-          <div className=" top-0 flex justify-center  w-full ">
+          style={{
+            position: "sticky",
+            zIndex: 100000,
+            paddingTop: 100,
+            paddingBottom: 100,
+          }}
+          className='bg-lightbg h-[75vh]'>
+          <img
+            style={{ top: "45%", padding: 20 }}
+            className='absolute'
+            src='/img/gbot-text.png'
+            alt='G Bot Text'
+          />
+          <div className=' top-0 flex justify-center  w-full '>
             {images.map((imgSrc, index) => (
               <img
                 key={index}
                 src={imgSrc}
-                alt={`G Frame ${index + 1}`} 
+                alt={`G Frame ${index + 1}`}
                 className={`absolute  max-w-[1200px] img `}
                 style={{
                   opacity: index === currentIndex ? 1 : 0,

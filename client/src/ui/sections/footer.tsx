@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Footer = () => {
   const links = [
@@ -43,27 +43,25 @@ export const Footer = () => {
     <>
       {width > 800 ? (
         <section
-          className="text-black font-base relative "
+          className='text-black font-base relative '
           style={{
             backgroundColor: "rgba(66, 71, 65, 1)",
             position: "relative",
             zIndex: 1000,
-          }}
-        >
-          <div className="mx-[5%]">
-            <div className=" py-[5%]">
-              <div className="grid grid-cols-[20%_20%_20%_40%] gap-4">
-                <div className="flex flex-col">
+          }}>
+          <div className='mx-[5%]'>
+            <div className=' py-[5%]'>
+              <div className='grid grid-cols-[20%_20%_20%_40%] gap-4'>
+                <div className='flex flex-col'>
                   {links[0].map((link) => {
                     return (
                       <p
                         key={link.name}
-                        className="mb-2 text-[rgba(255, 255, 255, 1)] text-2xl font-normal text-white cursor-pointer hover:opacity-70"
+                        className='mb-2 text-[rgba(255, 255, 255, 1)] text-2xl font-normal text-white cursor-pointer hover:opacity-70'
                         onClick={() => {
                           if (!link.url) return;
                           window.open(link.url, "_blank");
-                        }}
-                      >
+                        }}>
                         {link.name}
                       </p>
                     );
@@ -74,27 +72,24 @@ export const Footer = () => {
                   style={{
                     alignItems: "center",
                     justifyContent: "center",
-                  }}
-                >
+                  }}>
                   <p
                     style={{
                       color: "rgba(255, 255, 255, 1)",
                       fontSize: 24,
                       fontWeight: "400",
                     }}
-                    className="mb-2"
-                  >
+                    className='mb-2'>
                     Bandicoot
                   </p>
-                  <div className="flex">
+                  <div className='flex'>
                     <p
                       style={{
                         color: "rgba(255, 255, 255, 1)",
                         fontSize: 24,
                         fontWeight: "400",
                       }}
-                      className="mb-2"
-                    >
+                      className='mb-2'>
                       Bandicoot Mini
                     </p>
                     <div
@@ -108,16 +103,14 @@ export const Footer = () => {
                         borderRadius: 5,
                         marginLeft: 10,
                         marginTop: 5,
-                      }}
-                    >
+                      }}>
                       <p
                         style={{
                           color: "rgba(66, 71, 65, 1)",
                           fontSize: 10,
                           fontWeight: "500",
                           marginTop: 2,
-                        }}
-                      >
+                        }}>
                         NEW
                       </p>
                     </div>
@@ -129,19 +122,17 @@ export const Footer = () => {
                       fontSize: 24,
                       fontWeight: "400",
                     }}
-                    className="mb-2"
-                  >
+                    className='mb-2'>
                     Mobility Plus
                   </p>
-                  <div className="flex">
+                  <div className='flex'>
                     <p
                       style={{
                         color: "rgba(255, 255, 255, 1)",
                         fontSize: 24,
                         fontWeight: "400",
                       }}
-                      className="mb-2"
-                    >
+                      className='mb-2'>
                       G-Beetle
                     </p>
                     <div
@@ -155,29 +146,26 @@ export const Footer = () => {
                         borderRadius: 5,
                         marginLeft: 10,
                         marginTop: 5,
-                      }}
-                    >
+                      }}>
                       <p
                         style={{
                           color: "rgba(66, 71, 65, 1)",
                           fontSize: 10,
                           fontWeight: "400",
                           marginTop: 2,
-                        }}
-                      >
+                        }}>
                         BETA
                       </p>
                     </div>
                   </div>
-                  <div className="flex">
+                  <div className='flex'>
                     <p
                       style={{
                         color: "rgba(255, 255, 255, 1)",
                         fontSize: 24,
                         fontWeight: "400",
                       }}
-                      className="mb-2"
-                    >
+                      className='mb-2'>
                       Wilboar
                     </p>
                     <div
@@ -191,16 +179,14 @@ export const Footer = () => {
                         borderRadius: 5,
                         marginLeft: 10,
                         marginTop: 5,
-                      }}
-                    >
+                      }}>
                       <p
                         style={{
                           color: "rgba(66, 71, 65, 1)",
                           fontSize: 10,
                           fontWeight: "400",
                           marginTop: 2,
-                        }}
-                      >
+                        }}>
                         BETA
                       </p>
                     </div>
@@ -211,17 +197,15 @@ export const Footer = () => {
                   style={{
                     alignItems: "center",
                     justifyContent: "center",
-                  }}
-                >
-                  <div className="flex">
+                  }}>
+                  <div className='flex'>
                     <p
                       style={{
                         color: "rgba(255, 255, 255, 1)",
                         fontSize: 24,
                         fontWeight: "400",
                       }}
-                      className="mb-2"
-                    >
+                      className='mb-2'>
                       G-Crow
                     </p>
                     <div
@@ -235,16 +219,14 @@ export const Footer = () => {
                         borderRadius: 5,
                         marginLeft: 10,
                         marginTop: 5,
-                      }}
-                    >
+                      }}>
                       <p
                         style={{
                           color: "rgba(66, 71, 65, 1)",
                           fontSize: 10,
                           fontWeight: "500",
                           marginTop: 2,
-                        }}
-                      >
+                        }}>
                         NEW
                       </p>
                     </div>
@@ -255,8 +237,7 @@ export const Footer = () => {
                       fontSize: 24,
                       fontWeight: "400",
                     }}
-                    className="mb-2"
-                  >
+                    className='mb-2'>
                     G-Mammoth
                   </p>
                   <p
@@ -265,8 +246,7 @@ export const Footer = () => {
                       fontSize: 24,
                       fontWeight: "400",
                     }}
-                    className="mb-2"
-                  >
+                    className='mb-2'>
                     Genbot Series
                   </p>
                   <p
@@ -275,8 +255,7 @@ export const Footer = () => {
                       fontSize: 24,
                       fontWeight: "400",
                     }}
-                    className="mb-2"
-                  >
+                    className='mb-2'>
                     G bot Series
                   </p>
                 </div>
@@ -284,62 +263,57 @@ export const Footer = () => {
                 <div>
                   <div style={{ display: "flex" }}>
                     <a
-                      href="https://www.linkedin.com/company/genrobotics/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                      href='https://www.linkedin.com/company/genrobotics/'
+                      target='_blank'
+                      rel='noopener noreferrer'>
                       <img
-                        src="/img/li.svg"
-                        alt="GenBot 3D model"
-                        className="w-[200px] cursor-pointer"
+                        src='/img/li.svg'
+                        alt='GenBot 3D model'
+                        className='w-[200px] cursor-pointer'
                       />
                     </a>
 
                     <a
-                      href="https://www.facebook.com/genrobotics.org/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                      href='https://www.facebook.com/genrobotics.org/'
+                      target='_blank'
+                      rel='noopener noreferrer'>
                       <img
-                        src="/img/face.svg"
-                        alt="GenBot 3D model"
-                        className="w-[200px] cursor-pointer"
+                        src='/img/face.svg'
+                        alt='GenBot 3D model'
+                        className='w-[200px] cursor-pointer'
                       />
                     </a>
 
                     <a
-                      href="https://twitter.com/genrobotic/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                      href='https://twitter.com/genrobotic/'
+                      target='_blank'
+                      rel='noopener noreferrer'>
                       <img
-                        src="/img/tw.svg"
-                        alt="GenBot 3D model"
-                        className="w-[200px] cursor-pointer"
+                        src='/img/tw.svg'
+                        alt='GenBot 3D model'
+                        className='w-[200px] cursor-pointer'
                       />
                     </a>
 
                     <a
-                      href="https://www.instagram.com/genroboticinnovations/?hl=en"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                      href='https://www.instagram.com/genroboticinnovations/?hl=en'
+                      target='_blank'
+                      rel='noopener noreferrer'>
                       <img
-                        src="/img/insta.svg"
-                        alt="GenBot 3D model"
-                        className="w-[200px] cursor-pointer"
+                        src='/img/insta.svg'
+                        alt='GenBot 3D model'
+                        className='w-[200px] cursor-pointer'
                       />
                     </a>
 
                     <a
-                      href="https://www.youtube.com/@genroboticinnovations5113"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                      href='https://www.youtube.com/@genroboticinnovations5113'
+                      target='_blank'
+                      rel='noopener noreferrer'>
                       <img
-                        src="/img/you.svg"
-                        alt="GenBot 3D model"
-                        className="w-[200px] cursor-pointer"
+                        src='/img/you.svg'
+                        alt='GenBot 3D model'
+                        className='w-[200px] cursor-pointer'
                       />
                     </a>
                   </div>
@@ -355,7 +329,7 @@ export const Footer = () => {
               }}
             />
 
-            <div className="py-[2%]">
+            <div className='py-[2%]'>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <div>
                   <p
@@ -363,8 +337,7 @@ export const Footer = () => {
                       color: "rgba(255, 255, 255, 1)",
                       fontSize: 16,
                       fontWeight: "600",
-                    }}
-                  >
+                    }}>
                     © 2023 Genrobotics - All rights reserved
                   </p>
                 </div>
@@ -374,8 +347,7 @@ export const Footer = () => {
                       color: "rgba(255, 255, 255, 0.35)",
                       fontSize: 16,
                       fontWeight: "500",
-                    }}
-                  >
+                    }}>
                     Privacy Policy
                   </p>
                   <p
@@ -383,8 +355,7 @@ export const Footer = () => {
                       color: "rgba(255, 255, 255, 0.35)",
                       fontSize: 16,
                       fontWeight: "500",
-                    }}
-                  >
+                    }}>
                     Terms & Conditions
                   </p>
                   <p
@@ -392,8 +363,7 @@ export const Footer = () => {
                       color: "rgba(255, 255, 255, 0.35)",
                       fontSize: 16,
                       fontWeight: "500",
-                    }}
-                  >
+                    }}>
                     CSR
                   </p>
                 </div>
@@ -403,16 +373,15 @@ export const Footer = () => {
         </section>
       ) : (
         <section
-          className="text-black font-base relative "
+          className='text-black font-base relative '
           style={{
             backgroundColor: "rgba(66, 71, 65, 1)",
             position: "relative",
             zIndex: 1000,
-          }}
-        >
-          <div className="mx-[5%]">
-            <div className=" py-[5%]">
-              <div className="grid grid-cols-[50%_50%] gap-4">
+          }}>
+          <div className='mx-[5%]'>
+            <div className=' py-[5%]'>
+              <div className='grid grid-cols-[50%_50%] gap-4'>
                 {/* <div className="flex flex-col">
                   {links[0].map((link) => {
                     return (
@@ -434,29 +403,26 @@ export const Footer = () => {
                   style={{
                     alignItems: "center",
                     justifyContent: "center",
-                  }}
-                >
+                  }}>
                   <p
                     style={{
                       color: "rgba(255, 255, 255, 1)",
                       fontSize: 16,
                       fontWeight: "400",
                     }}
-                    className="mb-2"
-                  >
+                    className='mb-2'>
                     Home
                   </p>
-                  <div className="flex">
+                  <div className='flex'>
                     <p
                       style={{
                         color: "rgba(255, 255, 255, 1)",
                         fontSize: 16,
                         fontWeight: "400",
                       }}
-                      className="mb-2"
-                    >
+                      className='mb-2'>
                       Robotics & AI
-                    </p> 
+                    </p>
                   </div>
 
                   <p
@@ -465,29 +431,26 @@ export const Footer = () => {
                       fontSize: 16,
                       fontWeight: "400",
                     }}
-                    className="mb-2"
-                  >
+                    className='mb-2'>
                     Careers
-                  </p> 
+                  </p>
                 </div>
 
                 <div
                   style={{
                     alignItems: "center",
                     justifyContent: "center",
-                  }}
-                >
-                  <div className="flex">
+                  }}>
+                  <div className='flex'>
                     <p
                       style={{
                         color: "rgba(255, 255, 255, 1)",
                         fontSize: 16,
                         fontWeight: "400",
                       }}
-                      className="mb-2"
-                    >
+                      className='mb-2'>
                       Medical & Mobility
-                    </p> 
+                    </p>
                   </div>
                   <p
                     style={{
@@ -495,9 +458,8 @@ export const Footer = () => {
                       fontSize: 16,
                       fontWeight: "400",
                     }}
-                    className="mb-2"
-                  >
-                   Newsroom
+                    className='mb-2'>
+                    Newsroom
                   </p>
                   <p
                     style={{
@@ -505,78 +467,70 @@ export const Footer = () => {
                       fontSize: 16,
                       fontWeight: "400",
                     }}
-                    className="mb-2"
-                  >
+                    className='mb-2'>
                     Contact
-                  </p> 
+                  </p>
                 </div>
-
-                
               </div>
 
-               <div>
-                  <div style={{ display: "flex" , marginTop : 5 }}>
-                    <a
-                      href="https://www.linkedin.com/company/genrobotics/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img
-                        src="/img/li.svg"
-                        alt="GenBot 3D model"
-                        className="w-[200px] cursor-pointer"
-                      />
-                    </a>
+              <div>
+                <div style={{ display: "flex", marginTop: 5 }}>
+                  <a
+                    href='https://www.linkedin.com/company/genrobotics/'
+                    target='_blank'
+                    rel='noopener noreferrer'>
+                    <img
+                      src='/img/li.svg'
+                      alt='GenBot 3D model'
+                      className='w-[200px] cursor-pointer'
+                    />
+                  </a>
 
-                    <a
-                      href="https://www.facebook.com/genrobotics.org/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img
-                        src="/img/face.svg"
-                        alt="GenBot 3D model"
-                        className="w-[200px] cursor-pointer"
-                      />
-                    </a>
+                  <a
+                    href='https://www.facebook.com/genrobotics.org/'
+                    target='_blank'
+                    rel='noopener noreferrer'>
+                    <img
+                      src='/img/face.svg'
+                      alt='GenBot 3D model'
+                      className='w-[200px] cursor-pointer'
+                    />
+                  </a>
 
-                    <a
-                      href="https://twitter.com/genrobotic/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img
-                        src="/img/tw.svg"
-                        alt="GenBot 3D model"
-                        className="w-[200px] cursor-pointer"
-                      />
-                    </a>
+                  <a
+                    href='https://twitter.com/genrobotic/'
+                    target='_blank'
+                    rel='noopener noreferrer'>
+                    <img
+                      src='/img/tw.svg'
+                      alt='GenBot 3D model'
+                      className='w-[200px] cursor-pointer'
+                    />
+                  </a>
 
-                    <a
-                      href="https://www.instagram.com/genroboticinnovations/?hl=en"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img
-                        src="/img/insta.svg"
-                        alt="GenBot 3D model"
-                        className="w-[200px] cursor-pointer"
-                      />
-                    </a>
+                  <a
+                    href='https://www.instagram.com/genroboticinnovations/?hl=en'
+                    target='_blank'
+                    rel='noopener noreferrer'>
+                    <img
+                      src='/img/insta.svg'
+                      alt='GenBot 3D model'
+                      className='w-[200px] cursor-pointer'
+                    />
+                  </a>
 
-                    <a
-                      href="https://www.youtube.com/@genroboticinnovations5113"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img
-                        src="/img/you.svg"
-                        alt="GenBot 3D model"
-                        className="w-[200px] cursor-pointer"
-                      />
-                    </a>
-                  </div>
-                </div>  
+                  <a
+                    href='https://www.youtube.com/@genroboticinnovations5113'
+                    target='_blank'
+                    rel='noopener noreferrer'>
+                    <img
+                      src='/img/you.svg'
+                      alt='GenBot 3D model'
+                      className='w-[200px] cursor-pointer'
+                    />
+                  </a>
+                </div>
+              </div>
             </div>
 
             {/* <hr
@@ -587,17 +541,15 @@ export const Footer = () => {
               }}
             /> */}
 
-            <div className="py-[2%]">
+            <div className='py-[2%]'>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                
                 <div style={{ display: "flex", gap: 30 }}>
                   <p
                     style={{
                       color: "rgba(255, 255, 255, 0.35)",
                       fontSize: 16,
                       fontWeight: "500",
-                    }}
-                  >
+                    }}>
                     Privacy Policy
                   </p>
                   <p
@@ -605,8 +557,7 @@ export const Footer = () => {
                       color: "rgba(255, 255, 255, 0.35)",
                       fontSize: 16,
                       fontWeight: "500",
-                    }}
-                  >
+                    }}>
                     Terms & Conditions
                   </p>
                   <p
@@ -614,27 +565,25 @@ export const Footer = () => {
                       color: "rgba(255, 255, 255, 0.35)",
                       fontSize: 16,
                       fontWeight: "500",
-                    }}
-                  >
+                    }}>
                     CSR
                   </p>
                 </div>
               </div>
 
               <div>
-                  <p
-                    style={{
-                      color: "rgba(255, 255, 255, 1)",
-                      fontSize: 16,
-                      fontWeight: "500",
-                      marginTop : 20,
-                      textAlign : 'center',
-                      marginBottom : 20
-                    }}
-                  >
-                    © 2023 Genrobotics - All rights reserved
-                  </p>
-                </div>
+                <p
+                  style={{
+                    color: "rgba(255, 255, 255, 1)",
+                    fontSize: 16,
+                    fontWeight: "500",
+                    marginTop: 20,
+                    textAlign: "center",
+                    marginBottom: 20,
+                  }}>
+                  © 2023 Genrobotics - All rights reserved
+                </p>
+              </div>
             </div>
           </div>
         </section>

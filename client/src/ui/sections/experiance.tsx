@@ -1,9 +1,7 @@
-import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 export const Experience = () => {
   const totalImages = 250;
-  const ref = useRef(null);
   const [images, setImages] = useState([]);
 
   const [latest, setLatest] = useState(true);
@@ -43,11 +41,6 @@ export const Experience = () => {
   //   setCurrentIndex(clampedIndex);
   // });
 
-  const handleEnterDiv = () => {
-    console.log("User focused on the div!");
-    // Call your function here
-  };
-
   //  let hhh = () => {
   //   const interval = setInterval(() => {
   //     setLatest((prev) => {
@@ -70,6 +63,7 @@ export const Experience = () => {
   // }, [latest]);
 
   const divRef = useRef(null);
+  //@ts-ignore
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -126,30 +120,27 @@ export const Experience = () => {
   return (
     <>
       {width > 800 ? (
-        <section className="bg-white text-black font-base z-100">
+        <section className='bg-white text-black font-base z-100'>
           <div
-            className="  sticky z-[1000]  "
+            className='  sticky z-[1000]  '
             ref={divRef}
-            style={{ backgroundColor: "#424741", overflow: "hidden" }}
-          >
-            <div className="  px-[10%] ">
+            style={{ backgroundColor: "#424741", overflow: "hidden" }}>
+            <div className='  px-[10%] '>
               <div
-                className="mt-[80px]"
+                className='mt-[80px]'
                 style={{
                   display: "flex",
                   flexDirection: "row",
                   justifyContent: "space-between",
-                }}
-              >
+                }}>
                 <p
-                  className="threeone"
+                  className='threeone'
                   style={{
                     color: "#fff",
                     fontSize: 64,
                     fontWeight: "400",
                     fontFamily: "AktivGrotesk",
-                  }}
-                >
+                  }}>
                   EXPERIENCE THE{" "}
                   <span style={{ color: "#FCD902" }}>FUTURE TODAY</span>
                 </p>
@@ -162,28 +153,25 @@ export const Experience = () => {
                     justifyContent: "center",
                     paddingLeft: 100,
                     paddingRight: 100,
-                  }}
-                >
+                  }}>
                   <p
                     style={{ color: "#000", fontSize: "1.6rem" }}
-                    className="threetwo"
-                  >
+                    className='threetwo'>
                     what’s the hold
                   </p>
                 </div>
               </div>
 
-              <div className="mt-3">
+              <div className='mt-3'>
                 <p
-                  className="fgbidcjk"
+                  className='fgbidcjk'
                   style={{
                     color: "#fff",
                     fontSize: 40,
                     fontWeight: "400",
                     lineHeight: "3rem",
                     fontFamily: "AktivGrotesk",
-                  }}
-                >
+                  }}>
                   Explore the innovative solutions of Genbot and G Bot.
                   <br />
                   Embrace the future of technology and human-robot
@@ -194,7 +182,7 @@ export const Experience = () => {
                 </p>
               </div>
             </div>
-            <div className="sticky top-0 flex justify-center items-center w-full h-screen">
+            <div className='sticky top-0 flex justify-center items-center w-full h-screen'>
               {/* Robot Images */}
               {images.map((imgSrc, index) => (
                 <img
@@ -213,78 +201,69 @@ export const Experience = () => {
           </div>
         </section>
       ) : (
-        <section className="bg-white text-black font-base z-100">
+        <section className='bg-white text-black font-base z-100'>
           <div
-            className="  sticky z-[1000]  "
+            className='  sticky z-[1000]  '
             ref={divRef}
-            style={{ backgroundColor: "#424741", overflow: "hidden" }}
-          >
-            <div className="  px-[5%] ">
+            style={{ backgroundColor: "#424741", overflow: "hidden" }}>
+            <div className='  px-[5%] '>
               <div
-                className="mt-[80px]"
+                className='mt-[80px]'
                 style={{
-                  display: "flex", 
+                  display: "flex",
                   justifyContent: "center",
-                }}
-              >
+                }}>
                 <p
-                  className="threeone"
+                  className='threeone'
                   style={{
                     color: "#fff",
                     fontSize: 24,
                     fontWeight: "400",
                     fontFamily: "AktivGrotesk",
-                    textAlign : 'center'
-                  }}
-                >
-                  EXPERIENCE THE<br />
+                    textAlign: "center",
+                  }}>
+                  EXPERIENCE THE
+                  <br />
                   <span style={{ color: "#FCD902" }}>FUTURE TODAY</span>
                 </p>
-
-              
               </div>
 
-              <div className="mt-3">
+              <div className='mt-3'>
                 <p
-                  className="fgbidcjk"
+                  className='fgbidcjk'
                   style={{
                     color: "#fff",
                     fontSize: 15,
-                    fontWeight: "400", 
+                    fontWeight: "400",
                     fontFamily: "AktivGrotesk",
-                    textAlign : 'center'
-                  }}
-                >
-                  Explore the innovative solutions of Genbot and G Bot. 
-                  Embrace the future of technology and human-robot 
-                  interaction. Begin your journey to safer, more 
-                  efficient, and tech-driven possibilities today.
+                    textAlign: "center",
+                  }}>
+                  Explore the innovative solutions of Genbot and G Bot. Embrace
+                  the future of technology and human-robot interaction. Begin
+                  your journey to safer, more efficient, and tech-driven
+                  possibilities today.
                 </p>
               </div>
- 
-              <div
-                  style={{
-                    background: "#FCD902",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center", 
-                    marginTop : 20 ,
-                    padding : 10 ,
-                    width : '50%',
-                    margin : 'auto'
-                  }}
-                >
-                  <p
-                    style={{ color: "#000", fontSize: 15 }}
-                    className="threetwo"
-                  >
-                    what’s the hold
-                  </p>
-                </div> 
 
-             
+              <div
+                style={{
+                  background: "#FCD902",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 20,
+                  padding: 10,
+                  width: "50%",
+                  margin: "auto",
+                }}>
+                <p style={{ color: "#000", fontSize: 15 }} className='threetwo'>
+                  what’s the hold
+                </p>
+              </div>
             </div>
-            <div className="sticky top-0 flex justify-center items-center  h-screen" style={{ height : '32vh' }}>
+            <div
+              className='sticky top-0 flex justify-center items-center  h-screen'
+              style={{ height: "32vh" }}>
               {/* Robot Images */}
               {images.map((imgSrc, index) => (
                 <img

@@ -1,16 +1,11 @@
 import { useInViewport } from "@mantine/hooks";
 import anime from "animejs";
-import { useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 export const GbotFour = () => {
   const { inViewport, ref } = useInViewport();
 
   const scrollref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: scrollref,
-    offset: ["start end", "end start"],
-  });
 
   const [trigger, setTrigger] = useState(false);
 
@@ -60,8 +55,6 @@ export const GbotFour = () => {
     },
   ]);
 
-  const scale = useTransform(scrollYProgress, [0, 1], [0, 80]);
-
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -75,35 +68,33 @@ export const GbotFour = () => {
     <>
       {width > 800 ? (
         <div ref={scrollref}>
-          <div className="font-base h-[100vh] bg-white relative z-[100]">
-            <div className="sticky top-0 h-screen w-[60%] m-auto " ref={ref}>
+          <div className='font-base h-[100vh] bg-white relative z-[100]'>
+            <div className='sticky top-0 h-screen w-[60%] m-auto ' ref={ref}>
               <img
-                src="/img/gbot-rightface.png"
-                alt="G Bot"
-                className="h-screen absolute "
+                src='/img/gbot-rightface.png'
+                alt='G Bot'
+                className='h-screen absolute '
               />
               <div
-                className="flex flex-col justify-center items-end gap-8 dad h-full"
+                className='flex flex-col justify-center items-end gap-8 dad h-full'
                 style={{
                   opacity: 1,
-                }}
-              >
-                <div className="flex flex-col justify-center items-end gap-10 ">
+                }}>
+                <div className='flex flex-col justify-center items-end gap-10 '>
                   {cardData.map(({ heading, subHeading }, index) => (
                     <div
                       key={index}
-                      className="fly-genbot-card flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white"
+                      className='fly-genbot-card flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white'
                       style={{
                         boxShadow:
                           "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
-                      }}
-                    >
-                      <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
-                        <h1 className="text-lg font-normal mb-2 break-before-avoid capitalize">
+                      }}>
+                      <div className='w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]'>
+                        <h1 className='text-lg font-normal mb-2 break-before-avoid capitalize'>
                           {heading}
                         </h1>
 
-                        <p className="text-sm text-[#909090] leading-normal">
+                        <p className='text-sm text-[#909090] leading-normal'>
                           {subHeading}
                         </p>
                       </div>
@@ -116,35 +107,33 @@ export const GbotFour = () => {
         </div>
       ) : (
         <div ref={scrollref}>
-          <div className="font-base h-[80vh] bg-lightbg relative z-[100]">
-            <div className="sticky top-0 h-screen w-[90%] m-auto " ref={ref}>
+          <div className='font-base h-[80vh] bg-lightbg relative z-[100]'>
+            <div className='sticky top-0 h-screen w-[90%] m-auto ' ref={ref}>
               {/* <img
                 src="/img/gbot-rightface.png"
                 alt="G Bot"
                 className="h-screen absolute "
               /> */}
               <div
-                className="  justify-center items-end gap-8 dad h-full"
+                className='  justify-center items-end gap-8 dad h-full'
                 style={{
                   opacity: 1,
-                }}
-              >
-                <div className="flex flex-col justify-center items-end gap-10 ">
+                }}>
+                <div className='flex flex-col justify-center items-end gap-10 '>
                   {cardData.map(({ heading, subHeading }, index) => (
                     <div
                       key={index}
-                      className="fly-genbot-card flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white"
+                      className='fly-genbot-card flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white'
                       style={{
                         boxShadow:
                           "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
-                      }}
-                    >
-                      <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
-                        <h1 className="text-lg font-normal mb-2 break-before-avoid capitalize">
+                      }}>
+                      <div className='w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]'>
+                        <h1 className='text-lg font-normal mb-2 break-before-avoid capitalize'>
                           {heading}
                         </h1>
 
-                        <p className="text-sm text-[#909090] leading-normal">
+                        <p className='text-sm text-[#909090] leading-normal'>
                           {subHeading}
                         </p>
                       </div>

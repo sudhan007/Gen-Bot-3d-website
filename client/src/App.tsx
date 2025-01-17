@@ -6,7 +6,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { animateScroll, Element, Events, scroller } from "react-scroll";
+import { Element, Events, scroller } from "react-scroll";
 import "./App.css";
 import useDisableKeyboardScroll from "./hooks/useDisableKeyScroll.tsx";
 import { fetchVideoAsBase64, genbotIntro } from "./lib/utils.tsx";
@@ -109,18 +109,10 @@ function App() {
   }, [loadedAssets, totalAssets, videoLoaded, base64Video]);
 
   const [isMobile] = useState(window.innerWidth < 768);
-  const currentScrollY = useRef(0);
 
   const isScrolling = useRef(false);
 
   const currentScrolls = useRef(-1);
-  const totalScrolls = useRef(4);
-
-  const currentScrollsSection3 = useRef(0);
-  const totalScrollsSection3 = useRef(12);
-
-  const currentScrollsSection6 = useRef(0);
-  const totalScrollsSection6 = useRef(12);
 
   // useEffect(() => {
   //   function handleScroll(e: WheelEvent) {
@@ -406,7 +398,7 @@ function App() {
   });
 
   const videoRef = useRef<HTMLVideoElement>(null);
-
+  //@ts-ignore
   const scrollToSection = (_section: string) => {
     scroller.scrollTo(_section, {
       duration: 700,
@@ -446,10 +438,9 @@ function App() {
               animate={{ opacity: 1 }}
               transition={{ duration: 2, ease: "easeOut" }}
               exit={{ opacity: 0 }}
-              className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 z-[1000000]"
-            >
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <span className="loader"></span>
+              className='fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 z-[1000000]'>
+              <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
+                <span className='loader'></span>
               </div>
             </motion.div>
           )}
@@ -457,22 +448,21 @@ function App() {
           <div className={`w-screen ${isMobile ? "overflow-x-hidden" : ""}`}>
             <Navbar {...{ loading }} />
 
-            <Element name="section1">
+            <Element name='section1'>
               <HeroSection {...{ loading }} />
             </Element>
 
-            <Element name="section2">
+            <Element name='section2'>
               <div ref={secondContainerRef}>
-                <section className="bg-lightbg text-white font-base h-[400vh] flex justify-center">
+                <section className='bg-lightbg text-white font-base h-[400vh] flex justify-center'>
                   <div
-                    className="scroll-section marker1"
-                    id="marker"
-                    style={{ height: "100vh" }}
-                  ></div>
+                    className='scroll-section marker1'
+                    id='marker'
+                    style={{ height: "100vh" }}></div>
 
                   <motion.img
-                    src="/img/genbot-text.svg"
-                    className="fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto"
+                    src='/img/genbot-text.svg'
+                    className='fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto'
                     style={{
                       scale: textScale,
                       opacity: textOpacity,
@@ -482,8 +472,8 @@ function App() {
                   />
 
                   <motion.img
-                    src="/genbot-front.png"
-                    className="fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto"
+                    src='/genbot-front.png'
+                    className='fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto'
                     style={{
                       scale: robotScale,
                       opacity: robotOpacity,
@@ -494,40 +484,38 @@ function App() {
               </div>
             </Element>
 
-            <Element name="section3">
-              <div className="z-[100]">
+            <Element name='section3'>
+              <div className='z-[100]'>
                 <section ref={thirdContainerOriginRef}>
-                  <div className="font-base h-[1200vh] bg-white sticky  z-[1000] top-0">
-                    <div className="sticky top-0 w-full flex md:flex-row bg-white">
-                      <div className="bg-lightbg w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0 py-[60px] pl-[2%]">
-                        <div className="ml-[5%] bg-white px-[10%] h-full rounded-l-3xl shadow-lg z-[10000]">
+                  <div className='font-base h-[1200vh] bg-white sticky  z-[1000] top-0'>
+                    <div className='sticky top-0 w-full flex md:flex-row bg-white'>
+                      <div className='bg-lightbg w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0 py-[60px] pl-[2%]'>
+                        <div className='ml-[5%] bg-white px-[10%] h-full rounded-l-3xl shadow-lg z-[10000]'>
                           <img
-                            src="/img/bot3d.svg"
-                            alt="GenBot 3D model"
-                            className="w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-4 oneimg"
+                            src='/img/bot3d.svg'
+                            alt='GenBot 3D model'
+                            className='w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-4 oneimg'
                           />
                           <h4
                             style={{ fontSize: 64, fontWeight: 510 }}
-                            className="oneone mb-8 text-3xl mt-[20px] md:text-5xl sm:text-3xl text-[#2B2B2B]"
-                          >
+                            className='oneone mb-8 text-3xl mt-[20px] md:text-5xl sm:text-3xl text-[#2B2B2B]'>
                             Your Safety Partner
                           </h4>
-                          <div className="w-[95%]">
+                          <div className='w-[95%]'>
                             <AnimatedText text={genbotIntro} />
                           </div>
                         </div>
                       </div>
-                      <div className="w-full md:w-1/2 h-screen bg-lightbg overflow-hidden sticky top-0 hidden md:block z-[10000]">
-                        <div className="h-full object-cover sticky top-0 py-[60px] pr-[10%] rounded-r-3xl shadow-xl">
+                      <div className='w-full md:w-1/2 h-screen bg-lightbg overflow-hidden sticky top-0 hidden md:block z-[10000]'>
+                        <div className='h-full object-cover sticky top-0 py-[60px] pr-[10%] rounded-r-3xl shadow-xl'>
                           <video
                             ref={videoRef}
                             muted
                             controls={false}
-                            className="object-cover h-full rounded-r-2xl shadow-lg"
-                            preload="auto"
-                          >
+                            className='object-cover h-full rounded-r-2xl shadow-lg'
+                            preload='auto'>
                             {base64Video && (
-                              <source src={base64Video} type="video/mp4" />
+                              <source src={base64Video} type='video/mp4' />
                             )}
                           </video>
                         </div>
@@ -538,31 +526,31 @@ function App() {
               </div>
             </Element>
 
-            <Element name="section4">
+            <Element name='section4'>
               <FlyGenBotSection />
             </Element>
 
-            <Element name="section5">
+            <Element name='section5'>
               <GBotOne loading={loading} />
             </Element>
 
-            <Element name="section6">
+            <Element name='section6'>
               <GbotTwo />
             </Element>
 
-            <Element name="section7">
+            <Element name='section7'>
               <GbotThree />
             </Element>
 
-            <Element name="section8">
+            <Element name='section8'>
               <GbotFour />
             </Element>
 
-            <Element name="section9">
+            <Element name='section9'>
               <Experience />
             </Element>
 
-            <Element name="section10">
+            <Element name='section10'>
               <Footer />
             </Element>
           </div>
@@ -574,10 +562,9 @@ function App() {
               animate={{ opacity: 1 }}
               transition={{ duration: 2, ease: "easeOut" }}
               exit={{ opacity: 0 }}
-              className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 z-[1000000]"
-            >
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <span className="loader"></span>
+              className='fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 z-[1000000]'>
+              <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
+                <span className='loader'></span>
               </div>
             </motion.div>
           )}
@@ -585,22 +572,21 @@ function App() {
           <div className={`w-screen ${isMobile ? "overflow-x-hidden" : ""}`}>
             <Navbar {...{ loading }} />
 
-            <Element name="section1">
+            <Element name='section1'>
               <HeroSection {...{ loading }} />
             </Element>
 
-            <Element name="section2">
+            <Element name='section2'>
               <div ref={secondContainerRef}>
-                <section className="bg-lightbg text-white font-base h-[400vh] flex justify-center">
+                <section className='bg-lightbg text-white font-base h-[400vh] flex justify-center'>
                   <div
-                    className="scroll-section marker1"
-                    id="marker"
-                    style={{ height: "100vh" }}
-                  ></div>
+                    className='scroll-section marker1'
+                    id='marker'
+                    style={{ height: "100vh" }}></div>
 
                   <motion.img
-                    src="/img/genbot-text.svg"
-                    className="fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto"
+                    src='/img/genbot-text.svg'
+                    className='fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto'
                     style={{
                       scale: textScale,
                       opacity: textOpacity,
@@ -610,8 +596,8 @@ function App() {
                   />
 
                   <motion.img
-                    src="/genbot-front.png"
-                    className="fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto"
+                    src='/genbot-front.png'
+                    className='fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto'
                     style={{
                       scale: robotScale,
                       opacity: robotOpacity,
@@ -622,42 +608,43 @@ function App() {
               </div>
             </Element>
 
-            <Element name="section3">
-              <div className="z-[100]">
+            <Element name='section3'>
+              <div className='z-[100]'>
                 <section ref={thirdContainerOriginRef}>
-                  <div className="font-base  bg-white sticky  z-[1000] top-0">
-                    <div className="sticky top-0 w-full    ">
-                      <div className="bg-lightbg w-full items-start gap-4 sticky top-0 py-[20px] ">
-                        <div className="   px-[5%]   rounded-l-3xl  z-[10000]">
+                  <div className='font-base  bg-white sticky  z-[1000] top-0'>
+                    <div className='sticky top-0 w-full    '>
+                      <div className='bg-lightbg w-full items-start gap-4 sticky top-0 py-[20px] '>
+                        <div className='   px-[5%]   rounded-l-3xl  z-[10000]'>
                           <img
-                            src="/img/bot3d.svg"
-                            alt="GenBot 3D model"
-                            className="w-[110px]  md:w-[260px] sm:w-[200px] pb-4 oneimg"
+                            src='/img/bot3d.svg'
+                            alt='GenBot 3D model'
+                            className='w-[110px]  md:w-[260px] sm:w-[200px] pb-4 oneimg'
                           />
                           <h4
                             style={{ fontSize: 28, fontWeight: 510 }}
-                            className="oneone mb-4 text-3xl   md:text-5xl sm:text-3xl text-[#2B2B2B]"
-                          >
+                            className='oneone mb-4 text-3xl   md:text-5xl sm:text-3xl text-[#2B2B2B]'>
                             Your Safety Partner
                           </h4>
-                          <div className="w-[95%]">
+                          <div className='w-[95%]'>
                             <AnimatedText text={genbotIntro} />
                           </div>
                         </div>
                       </div>
-                      <div className="w-full   bg-lightbg overflow-hidden sticky top-0  md:block z-[10000]">
-                        <div className="h-full object-cover sticky top-0 p-[20px]  rounded-r-3xl  ">
+                      <div className='w-full   bg-lightbg overflow-hidden sticky top-0  md:block z-[10000]'>
+                        <div className='h-full object-cover sticky top-0 p-[20px]  rounded-r-3xl  '>
                           <video
                             muted
-                            className="object-cover h-full "
-                            preload="auto"
+                            className='object-cover h-full '
+                            preload='auto'
                             style={{ borderRadius: 15 }}
                             autoPlay
                             loop
                             playsInline
-                            onContextMenu={(e) => e.preventDefault()}
-                          >
-                            <source src={"/input-encoded.mp4"} type="video/mp4" />
+                            onContextMenu={(e) => e.preventDefault()}>
+                            <source
+                              src={"/input-encoded.mp4"}
+                              type='video/mp4'
+                            />
                           </video>
                         </div>
                       </div>
@@ -667,31 +654,31 @@ function App() {
               </div>
             </Element>
 
-            <Element name="section4">
+            <Element name='section4'>
               <FlyGenBotSection />
             </Element>
 
-            <Element name="section5">
+            <Element name='section5'>
               <GBotOne loading={loading} />
             </Element>
 
-            <Element name="section6">
+            <Element name='section6'>
               <GbotTwo />
             </Element>
 
-            <Element name="section7">
+            <Element name='section7'>
               <GbotThree />
             </Element>
 
-            <Element name="section8">
+            <Element name='section8'>
               <GbotFour />
             </Element>
 
-            <Element name="section9">
+            <Element name='section9'>
               <Experience />
             </Element>
 
-            <Element name="section10">
+            <Element name='section10'>
               <Footer />
             </Element>
           </div>
