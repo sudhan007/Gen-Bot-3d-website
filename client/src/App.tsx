@@ -28,23 +28,6 @@ function App() {
   const [section, setSection] = useState("section1");
   const [base64Video, setBase64Video] = useState(null);
 
-  let [ imnn , setImnn ] = useState('/genbot-front.png')
-  const totalImages = 200;
-  const [images, setImages] = useState([]);
-
-
-  useEffect(() => {
-    const preloadedImages: any = [];
-    for (let i = 40; i <= totalImages; i++) {
-      const paddedIndex = String(i).padStart(4, "0");
-      preloadedImages.push(`/rolls/${paddedIndex}.webp`);
-    }
-
-    console.log(preloadedImages, "preloadedImages");
-    setImages(preloadedImages); 
-  }, []);
-
-
   useEffect(() => {
     const assets = document.querySelectorAll("img, video");
     setTotalAssets(assets.length);
@@ -393,29 +376,8 @@ function App() {
   const textScale = useTransform(sectionProgress, [0, 1], [1, 0.1]);
   const textOpacity = useTransform(sectionProgress, [0, 0.6], [1, 0]);
 
-  let robotScales = useTransform(sectionProgress, [0, 1], [1, 300]);
-
-  
   const robotScale = useTransform(sectionProgress, [0, 1], [0.1, 1]);
   const robotOpacity = useTransform(sectionProgress, [0.1, 1], [0, 1]);
-
-
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-
-  //     let fff = Math.floor(robotScales.current)
-
-  //     let finddd = images[fff]
-
-  //     setImnn(finddd)
-
-  //     console.log(fff , 'robotScalerobotScale') 
-  //   }, 1000 / 24); // 1000ms / 24 = ~41.67ms per call
-
-  //   return () => clearInterval(interval); // Cleanup on unmount
-  // }, []);
- 
 
   const visibility = useTransform(
     scrollYProgress,
@@ -478,9 +440,7 @@ function App() {
   return (
     <>
       {width > 800 ? (
-        <div onClick={()=>{ 
-          console.log(imnn)
-        }}>
+        <div>
           {loading && (
             <motion.div
               animate={{ opacity: 1 }}
@@ -522,7 +482,7 @@ function App() {
                   />
 
                   <motion.img
-                    src={imnn}
+                    src="/genbot-front.png"
                     className="fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto"
                     style={{
                       scale: robotScale,
@@ -530,31 +490,6 @@ function App() {
                       zIndex: 10,
                     }}
                   />
-
-
-                  
-{/* {images.map((imgSrc, index) => {
-
-index = index+40
-
-console.log('ooooooooooooooo', index)
-
-return(
-    <img
-      key={index}
-      src={imgSrc}
-      alt={`G Frame ${index + 1}`}
-      className={` absolute `}
-      style={{
-        opacity: index === currentIndex ? 1 : 0,
-        zIndex: index === currentIndex ? 20 : 10,
-        // transition: "opacity 0.3s ease-in-out",
-      }}
-    />
-  )})} */}
-
-
-
                 </section>
               </div>
             </Element>
@@ -673,26 +608,16 @@ return(
                       display: visibility,
                     }}
                   />
-                  
-                    <motion.img
-                      src="/genbot-front.png"
-                      className="fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto"
-                      style={{
-                        scale: robotScale,
-                        opacity: robotOpacity,
-                        zIndex: 10,
-                      }}
-                    /> 
-                 
 
-
-
-
-
-
-
-
-
+                  <motion.img
+                    src="/genbot-front.png"
+                    className="fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto"
+                    style={{
+                      scale: robotScale,
+                      opacity: robotOpacity,
+                      zIndex: 10,
+                    }}
+                  />
                 </section>
               </div>
             </Element>
