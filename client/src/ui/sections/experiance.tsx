@@ -194,7 +194,7 @@ export const Experience = () => {
                 </p>
               </div>
             </div>
-            <div className="sticky top-0 flex justify-center items-center w-full h-screen">
+            <div style={{ marginTop : -290 }} className="sticky top-0 flex justify-center items-center w-full h-screen">
               {/* Robot Images */}
               {images.map((imgSrc, index) => (
                 <img

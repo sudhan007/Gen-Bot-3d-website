@@ -45,8 +45,8 @@ const GbotTwo = () => {
   return (
     <>
       {width > 800 ? (
-        <section className="bg-white text-black font-base z-100">
-          <div className="bg-white sticky z-[1000] h-[600vh]" ref={ref}>
+        <section style={{ backgroundColor : "#EEEEEA" }}  className="  text-black font-base z-100"> 
+          <div className=" sticky z-[1000] h-[600vh]" style={{ backgroundColor : "#EEEEEA" }} ref={ref}>
             <div className="sticky top-0 flex justify-center items-center w-full h-screen">
               {/* G Bot Text */}
               <img

@@ -56,7 +56,7 @@ export default function GBotOne({ loading }: { loading: boolean }) {
       </div> */}
 
           <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex justify-center pb-[10px]">
-            <Icon icon={"bi:mouse"} fontSize={40} />
+            {/* <Icon icon={"bi:mouse"} fontSize={40} /> */}
           </div>
         </section>
       ) : (

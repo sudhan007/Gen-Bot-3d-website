@@ -127,7 +127,8 @@ const FlyGenBotSection = () => {
       {width > 800 ? (
         <section
           ref={ref}
-          className="bg-white relative text-black min-w-[85%] max-w-[85%] m-auto font-base min-h-screen flex justify-center items-center overflow-hidden z-[100000]"
+          style={{ backgroundColor : "#EEEEEA" }}
+          className="  relative text-black min-w-[85%] max-w-[85%] m-auto font-base min-h-screen flex justify-center items-center overflow-hidden z-[100000]"
         >
           <div className="w-full h-full absolute">
             {cardData.map((card, index) => (
@@ -158,14 +159,15 @@ const FlyGenBotSection = () => {
 
           {/* Genbot image with opacity 0 for initial fade-in */}
           <img
-            className="genbot-image opacity-0 scale-75 md:w-[530px] xl:w-[580px]"
-            src="/img/genbot-side.png"
+            className="genbot-image opacity-0 scale-75 md:w-[530px] xl:w-[770px]"
+            src="/img/shadowws.png"
             alt="genbot image"
           />
         </section>
       ) : (
         <section
           ref={ref}
+          style={{ backgroundColor : "#EEEEEA" }}
           className="bg-lightbg relative text-black min-w-[85%] max-w-[100%] m-auto font-base min-h-screen  justify-center items-center overflow-hidden z-[100000]"
         >
           {/* Genbot image with opacity 0 for initial fade-in */}

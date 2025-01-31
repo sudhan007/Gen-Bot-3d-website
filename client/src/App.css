@@ -29,6 +29,9 @@ body {
     font-style: normal;
     unicode-range: U+0000-00FF;
 }
+#root{
+  background-color : #EEEEEA;
+}
 
 @font-face {
     font-family: "AktivGrotesk";
@@ -137,6 +140,7 @@ body {
 @media (min-width: 1600px) and (max-width: 1750px) {
  .oneone{
    font-size: 54px !important;
+   font-family: "SFpro" !important;
  }
  .oneimg{
   margin-top: 5% !important;

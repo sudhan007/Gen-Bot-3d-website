@@ -1,4 +1,5 @@
 import { AnimatedText } from "../components/AnimatedText";
+import { AnimatedTexts } from "../components/AnimatedTexts";
 import { useEffect, useRef, useState } from "react";
 
 const GbotThree = () => {
@@ -49,7 +50,7 @@ const GbotThree = () => {
   }, []);
 
   const handleDivEnter = () => {
-    console.log("Div entered the screen!");
+    console.log("Div entered the screen! lo l");
     // Add your logic here
     for (let i = 0; i < totalImages; i++) {
       setTimeout(() => {
@@ -87,15 +88,15 @@ const GbotThree = () => {
                   className="w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-4 twoimg"
                 />
                 <h4
-                  style={{ fontSize: 64, fontWeight: "510" }}
+                  style={{ fontSize: 64, fontWeight: "610" , fontFamily : "SFpro"  }}
                   className="twoone font-medium mb-8 text-3xl mt-[20px] md:text-5xl sm:text-3xl text-[#2B2B2B]"
                 >
-                  The Future Of Human-
+                  The Future Of Human- 
                   <br />
                   Robot Interaction
                 </h4>
                 <div className="w-[95%]">
-                  <AnimatedText text={text2} />
+                  <AnimatedTexts text={text2} />
                 </div>
               </div>
             </div>
@@ -148,7 +149,7 @@ const GbotThree = () => {
                   className="w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-2 twoimg"
                 />
                 <h4
-                  style={{ fontSize: 28, fontWeight: "510" }}
+                  style={{ fontSize: 28, fontWeight: "510" , fontFamily : "SFpro"   }}
                   className="twoone font-medium mb-4 text-3xl  md:text-5xl sm:text-3xl text-[#2B2B2B]"
                 >
                   The Future Of Human-

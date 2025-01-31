@@ -28,6 +28,23 @@ function App() {
   const [section, setSection] = useState("section1");
   const [base64Video, setBase64Video] = useState(null);
 
+  let [ imnn , setImnn ] = useState('/genbot-front.png')
+  const totalImages = 200;
+  const [images, setImages] = useState([]);
+
+
+  useEffect(() => {
+    const preloadedImages: any = [];
+    for (let i = 40; i <= totalImages; i++) {
+      const paddedIndex = String(i).padStart(4, "0");
+      preloadedImages.push(`/rolls/${paddedIndex}.webp`);
+    }
+
+    console.log(preloadedImages, "preloadedImages");
+    setImages(preloadedImages); 
+  }, []);
+
+
   useEffect(() => {
     const assets = document.querySelectorAll("img, video");
     setTotalAssets(assets.length);
@@ -376,8 +393,29 @@ function App() {
   const textScale = useTransform(sectionProgress, [0, 1], [1, 0.1]);
   const textOpacity = useTransform(sectionProgress, [0, 0.6], [1, 0]);
 
+  let robotScales = useTransform(sectionProgress, [0, 1], [1, 300]);
+
+  
   const robotScale = useTransform(sectionProgress, [0, 1], [0.1, 1]);
   const robotOpacity = useTransform(sectionProgress, [0.1, 1], [0, 1]);
+
+
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+
+  //     let fff = Math.floor(robotScales.current)
+
+  //     let finddd = images[fff]
+
+  //     setImnn(finddd)
+
+  //     console.log(fff , 'robotScalerobotScale') 
+  //   }, 1000 / 24); // 1000ms / 24 = ~41.67ms per call
+
+  //   return () => clearInterval(interval); // Cleanup on unmount
+  // }, []);
+ 
 
   const visibility = useTransform(
     scrollYProgress,
@@ -440,7 +478,9 @@ function App() {
   return (
     <>
       {width > 800 ? (
-        <div>
+        <div onClick={()=>{ 
+          console.log(imnn)
+        }}>
           {loading && (
             <motion.div
               animate={{ opacity: 1 }}
@@ -463,7 +503,7 @@ function App() {
 
             <Element name="section2">
               <div ref={secondContainerRef}>
-                <section className="bg-lightbg text-white font-base h-[400vh] flex justify-center">
+                <section className="bg-lightbg text-white  h-[400vh] flex justify-center">
                   <div
                     className="scroll-section marker1"
                     id="marker"
@@ -482,7 +522,7 @@ function App() {
                   />
 
                   <motion.img
-                    src="/genbot-front.png"
+                    src={imnn}
                     className="fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto"
                     style={{
                       scale: robotScale,
@@ -490,6 +530,31 @@ function App() {
                       zIndex: 10,
                     }}
                   />
+
+
+                  
+{/* {images.map((imgSrc, index) => {
+
+index = index+40
+
+console.log('ooooooooooooooo', index)
+
+return(
+    <img
+      key={index}
+      src={imgSrc}
+      alt={`G Frame ${index + 1}`}
+      className={` absolute `}
+      style={{
+        opacity: index === currentIndex ? 1 : 0,
+        zIndex: index === currentIndex ? 20 : 10,
+        // transition: "opacity 0.3s ease-in-out",
+      }}
+    />
+  )})} */}
+
+
+
                 </section>
               </div>
             </Element>
@@ -497,7 +562,7 @@ function App() {
             <Element name="section3">
               <div className="z-[100]">
                 <section ref={thirdContainerOriginRef}>
-                  <div className="font-base h-[1200vh] bg-white sticky  z-[1000] top-0">
+                  <div className=" h-[1200vh] bg-white sticky  z-[1000] top-0">
                     <div className="sticky top-0 w-full flex md:flex-row bg-white">
                       <div className="bg-lightbg w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0 py-[60px] pl-[2%]">
                         <div className="ml-[5%] bg-white px-[10%] h-full rounded-l-3xl shadow-lg z-[10000]">
@@ -507,7 +572,7 @@ function App() {
                             className="w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-4 oneimg"
                           />
                           <h4
-                            style={{ fontSize: 64, fontWeight: 510 }}
+                            style={{ fontSize: 64, fontWeight: '610' , fontFamily : "SFpro" }}
                             className="oneone mb-8 text-3xl mt-[20px] md:text-5xl sm:text-3xl text-[#2B2B2B]"
                           >
                             Your Safety Partner
@@ -591,7 +656,7 @@ function App() {
 
             <Element name="section2">
               <div ref={secondContainerRef}>
-                <section className="bg-lightbg text-white font-base h-[400vh] flex justify-center">
+                <section className="bg-lightbg text-white  h-[400vh] flex justify-center">
                   <div
                     className="scroll-section marker1"
                     id="marker"
@@ -608,16 +673,26 @@ function App() {
                       display: visibility,
                     }}
                   />
+                  
+                    <motion.img
+                      src="/genbot-front.png"
+                      className="fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto"
+                      style={{
+                        scale: robotScale,
+                        opacity: robotOpacity,
+                        zIndex: 10,
+                      }}
+                    /> 
+                 
 
-                  <motion.img
-                    src="/genbot-front.png"
-                    className="fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto"
-                    style={{
-                      scale: robotScale,
-                      opacity: robotOpacity,
-                      zIndex: 10,
-                    }}
-                  />
+
+
+
+
+
+
+
+
                 </section>
               </div>
             </Element>
@@ -625,7 +700,7 @@ function App() {
             <Element name="section3">
               <div className="z-[100]">
                 <section ref={thirdContainerOriginRef}>
-                  <div className="font-base  bg-white sticky  z-[1000] top-0">
+                  <div className="  bg-white sticky  z-[1000] top-0">
                     <div className="sticky top-0 w-full    ">
                       <div className="bg-lightbg w-full items-start gap-4 sticky top-0 py-[20px] ">
                         <div className="   px-[5%]   rounded-l-3xl  z-[10000]">

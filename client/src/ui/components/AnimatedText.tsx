@@ -45,8 +45,8 @@ export const AnimatedText = ({ text }: { text: string }) => {
           className="mt-[10px] text-[calc(0.6rem+1vw)] font-sfpro font-semibold text-[#2B2B2B] onetwo"
           style={{
             lineHeight: "40px",
-            fontSize: 36,
-            fontWeight: "400",
+            fontSize: 26,
+            fontWeight: "400",  fontFamily : "SFpro"
           }}
         >
           {text.split("").map((char: string, index: number) => (
@@ -67,7 +67,7 @@ export const AnimatedText = ({ text }: { text: string }) => {
           style={{
             lineHeight: "25px",
             fontSize: 16,
-            fontWeight: "400",
+            fontWeight: "400", fontFamily : "SFpro"
           }}
         >
           {text.split("").map((char: string, index: number) => (
