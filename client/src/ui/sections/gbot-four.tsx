@@ -2,15 +2,15 @@ import { useInViewport } from "@mantine/hooks";
 import anime from "animejs";
 import { useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-
+import { useMotionValueEvent, } from "framer-motion";
 export const GbotFour = () => {
   const { inViewport, ref } = useInViewport();
 
   const scrollref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: scrollref,
-    offset: ["start end", "end start"],
-  });
+  // const { scrollYProgress } = useScroll({
+  //   target: scrollref,
+  //   offset: ["start end", "end start"],
+  // });
 
   const [trigger, setTrigger] = useState(false);
 
@@ -26,7 +26,6 @@ export const GbotFour = () => {
     anime({
       targets: elems,
       translateY: [-100, 0],
-      opacity: [0, 1],
       duration: 1400,
       easing: "easeInOutExpo",
       delay: anime.stagger(100),
@@ -34,7 +33,7 @@ export const GbotFour = () => {
   }, [trigger]);
 
   const [cardData] = useState([
-    { 
+    {
       heading: "Hazardous Environment Compatibility",
       subHeading:
         "Designed to excel in toxic and hazardous settings, Genbot ensures human safety.",
@@ -68,6 +67,33 @@ export const GbotFour = () => {
 
   const [latest, setLatest] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
+
+
+  const refs = useRef(null);
+
+
+  const { scrollYProgress } = useScroll({
+    target: refs,
+  });
+
+  const sectionProgress = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, 160]
+  );
+  const [visibleIndex, setVisibleIndex] = useState(-1);
+
+  useMotionValueEvent(sectionProgress, "change", (latest) => {
+
+    const newIndex = Math.min(Math.floor(latest / (160 / cardData.length)), cardData.length - 1);
+    console.log('', newIndex)
+    setVisibleIndex(newIndex);
+  });
+
+  useMotionValueEvent(sectionProgress, "change", (latest) => {
+    const clampedIndex = Math.min(Math.floor(latest), 160);
+    setCurrentIndex(clampedIndex);
+  });
 
   useEffect(() => {
     const preloadedImages: any = [];
@@ -118,87 +144,172 @@ export const GbotFour = () => {
 
   const handleDivEnter = () => {
     console.log("Div entered the screen!");
+
+    const values = localStorage.getItem("keyName2");
+    console.log("Div entered the screen! lolllllllllllllllllllllllllllllllllllllllllllllll");
     // Add your logic here
+    if (values) {
+      return
+    }
+
+    localStorage.setItem("keyName2", "value");
     for (let i = 0; i < totalImages; i++) {
       setTimeout(() => {
         console.log(i, "i");
         setCurrentIndex(i);
       }, i * 24); // 1ms gap per iteration
+
+
     }
   };
 
   return (
     <>
       {width > 800 ? (
-        <div ref={scrollref}>
-          <div style={{ backgroundColor : "#EEEEEA" }}  className="font-base h-[100vh] bg-white relative z-[100]">
+        // <div ref={scrollref}>
+        //   <div style={{ backgroundColor : "#EEEEEA" }}  className="font-base h-[100vh] bg-white relative z-[100]">
 
-            <div style={{  marginLeft : -160 }} >
-            {images.map((imgSrc, index) => {
+        //     <div style={{  marginLeft : -260 }} >
+        //     {images.map((imgSrc, index) => {
 
-              index = index+40
+        //       index = index+40
 
-              console.log('ooooooooooooooo', index)
+        //       console.log('ooooooooooooooo', index)
 
-              return(
-                  <img
-                    key={index}
-                    src={imgSrc}
-                    alt={`G Frame ${index + 1}`}
-                    className={` absolute `}
-                    style={{
-                      opacity: index === currentIndex ? 1 : 0,
-                      zIndex: index === currentIndex ? 20 : 10,
-                      // transition: "opacity 0.3s ease-in-out",
-                    }}
-                  />
-                )})}
+        //       return(
+        //           <img
+        //             key={index}
+        //             src={imgSrc}
+        //             alt={`G Frame ${index + 1}`}
+        //             className={` absolute `}
+        //             style={{
+        //               opacity: index === currentIndex ? 1 : 0,
+        //               zIndex: index === currentIndex ? 20 : 10,
+        //               // transition: "opacity 0.3s ease-in-out",
+        //             }}
+        //           />
+        //         )})}
 
-            </div>
+        //     </div>
 
-            <div className="sticky top-0 h-screen w-[90%] m-auto " ref={ref}>
-              {/* <img
-                src="/img/gbot-rightface.png"
-                alt="G Bot" 
-                className="h-screen absolute "
+        //     <div className="sticky top-0 h-screen w-[90%] m-auto " ref={ref}>
+        //       {/* <img
+        //         src="/img/gbot-rightface.png"
+        //         alt="G Bot" 
+        //         className="h-screen absolute "
+        //       /> */}
+
+
+
+
+
+        //       <div
+        //         className="flex flex-col justify-center items-end gap-8 dad h-full"
+        //         style={{
+        //           opacity: 1,
+        //         }}
+        //       >
+        //         <div className="flex flex-col justify-center items-end gap-10 " style={{ marginRight : '10%' }}>
+        //           {cardData.map(({ heading, subHeading }, index) => (
+        //             <div
+        //               key={index}
+        //               className="fly-genbot-card flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white"
+        //               style={{
+        //                 boxShadow:
+        //                   "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
+        //               }}
+        //             >
+        //               <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
+        //                 <h1 className="text-lg font-normal mb-2 break-before-avoid capitalize">
+        //                   {heading}
+        //                 </h1>
+
+        //                 <p className="text-sm text-[#909090] leading-normal">
+        //                   {subHeading}
+        //                 </p>
+        //               </div>
+        //             </div>
+        //           ))}
+        //         </div>
+        //       </div>
+        //     </div>
+        //   </div>
+        // </div>
+
+
+        <div className="z-[100]">
+          <section >
+            <div ref={refs} className=" h-[1200vh]  sticky  z-[1000] top-0">
+              <div className="sticky top-0 w-full flex md:flex-row ">
+                <div  style={{ marginLeft :  200 }} className=" sticky top-0 flex justify-center items-center w-full h-screen">
+                  {/* G Bot Text */}
+                  {/* <img
+                src="/img/gbot-text.png"
+                alt="G Bot Text"
+                className="absolute z-10 img2 transform"
               /> */}
 
-
-              
-
-
-              <div
-                className="flex flex-col justify-center items-end gap-8 dad h-full"
-                style={{
-                  opacity: 1,
-                }}
-              >
-                <div className="flex flex-col justify-center items-end gap-10 ">
-                  {cardData.map(({ heading, subHeading }, index) => (
-                    <div
+                  {/* Robot Images */}
+                  {images.map((imgSrc, index) => (
+                    <img
                       key={index}
-                      className="fly-genbot-card flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white"
+                      src={imgSrc}
+                      alt={`G Frame ${index + 1}`}
+                      className={`absolute  max-w-[1900px] img h-[100vh]`}
                       style={{
-                        boxShadow:
-                          "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
+                        opacity: index === currentIndex ? 1 : 0,
+                        zIndex: index === currentIndex ? 20 : 10,
+                        // transition: "opacity 0.3s ease-in-out",
                       }}
-                    >
-                      <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
-                        <h1 className="text-lg font-normal mb-2 break-before-avoid capitalize">
-                          {heading}
-                        </h1>
-
-                        <p className="text-sm text-[#909090] leading-normal">
-                          {subHeading}
-                        </p>
-                      </div>
-                    </div>
+                    />
                   ))}
                 </div>
+
+ 
+                <div style={{  padding  : 65}} className="w-full  h-screen bg-lightbg overflow-hidden sticky top-0 hidden md:block z-[10000]">
+                  <div className="h-full object-cover sticky top-0 py-[60px] pr-[10%] rounded-r-3xl  ">
+                    <div className="sticky top-0 h-screen  m-auto " ref={ref}>
+
+                      <div
+                        className="flex flex-col  items-center gap-8 dad h-full"
+
+                      >
+                        <div className="flex flex-col justify-left items-end gap-10 " style={{ marginRight: '10%' }}>
+                          {cardData.map(({ heading, subHeading }, index) => (
+                            <div
+                              key={index}
+                              className={` transition-opacity fly-genbot-card flex flex-col duration-700 ease-out items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border
+                                 bg-white ${index <= visibleIndex ? "opacity-100" : "opacity-0"
+                                }`}
+                              style={{
+                                boxShadow:
+                                  "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px"
+                              }}
+                            >
+                              <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
+                                <h1 className="text-lg font-normal mb-2 break-before-avoid capitalize">
+                                  {heading}
+                                </h1>
+
+                                <p className="text-sm text-[#909090] leading-normal">
+                                  {subHeading}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
               </div>
             </div>
-          </div>
+          </section>
         </div>
+
+
       ) : (
         <div ref={scrollref}>
           <div className="font-base h-[80vh] bg-lightbg relative z-[100]">

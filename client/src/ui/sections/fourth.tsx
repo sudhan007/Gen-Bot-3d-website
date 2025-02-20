@@ -1,10 +1,37 @@
 import { useIntersection } from "@/hooks/useIntersection";
+import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import anime from "animejs";
-import { useEffect, useState } from "react";
+import { useEffect, useState , useRef } from "react";
+import { animateScroll, Element, Events, scroller } from "react-scroll"; 
 
 const FlyGenBotSection = () => {
   const { entry, ref } = useIntersection({
     threshold: 0,
+  });
+
+    const refs = useRef(null);
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const { scrollYProgress } = useScroll({
+    target: refs,
+  });
+
+  const sectionProgress = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, 100]
+  );
+  const [visibleIndex, setVisibleIndex] = useState(-1);
+
+  useMotionValueEvent(sectionProgress, "change", (latest) => {
+    const newIndex = Math.min(Math.floor(latest / (100 / cardData.length)), cardData.length - 1);
+    setVisibleIndex(newIndex);
+  });
+
+  useMotionValueEvent(sectionProgress, "change", (latest) => {
+    const clampedIndex = Math.min(Math.floor(latest), 100);
+    setCurrentIndex(clampedIndex);
   });
 
   useEffect(() => {
@@ -29,44 +56,44 @@ const FlyGenBotSection = () => {
       translateY: [240, 0],
       duration: 800,
       easing: "easeOutQuad",
-      delay: 1100,
+      delay: 200,
     });
 
     setTimeout(() => {
       anime({
         targets: elems[0],
         opacity: [0, 1],
-        translateY: [50, 0],
+        translateY: [50, 0], 
         duration: 2000,
-        delay: 500,
+        delay: 200,
       });
       anime({
         targets: elems[1],
         opacity: [0, 1],
         translateY: [50, 0],
         duration: 2000,
-        delay: 500,
+        delay: 100,
       });
       anime({
         targets: elems[2],
         opacity: [0, 1],
         translateY: [50, 0],
         duration: 2000,
-        delay: 1000,
+        delay: 200,
       });
       anime({
         targets: elems[3],
         opacity: [0, 1],
         translateY: [50, 0],
         duration: 2000,
-        delay: 1000,
+        delay: 200,
       });
       anime({
         targets: elems[4],
         opacity: [0, 1],
         translateY: [50, 0],
         duration: 2000,
-        delay: 1500,
+        delay: 300,
       });
     }, 300);
 
@@ -74,7 +101,7 @@ const FlyGenBotSection = () => {
       anime({
         targets: genbotImage,
         translateX: [2400, 0],
-        duration: 800,
+        duration: 200,
         easing: "easeOutQuad",
       });
     };
@@ -85,7 +112,7 @@ const FlyGenBotSection = () => {
       heading: "Hazardous Environment Compatibility",
       subHeading:
         "Designed to excel in toxic and hazardous settings, Genbot ensures human safety.",
-      className: "lg:top-[15%] lg:left-[13%] md:top-[10%] md:left-[5%]",
+      className: `lg:top-[15%] lg:left-[13%] md:top-[10%] md:left-[5%]`,
     },
     {
       heading: "Real-Time Data Analysis",
@@ -109,7 +136,7 @@ const FlyGenBotSection = () => {
       heading: "Multi-Terrain Traversal",
       subHeading:
         "Genbot's advanced tracks enable it to navigate a wide range of terrains with ease.",
-      className: "lg:left-[71%] lg:top-[69%] md:left-[24%] md:top-[60%]",
+      className: "lg:left-[60%] lg:top-[60%] md:left-[24%] md:top-[60%]",
     },
   ];
 
@@ -122,48 +149,68 @@ const FlyGenBotSection = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return (
+  return ( 
     <>
       {width > 800 ? (
-        <section
-          ref={ref}
-          style={{ backgroundColor : "#EEEEEA" }}
-          className="  relative text-black min-w-[85%] max-w-[85%] m-auto font-base min-h-screen flex justify-center items-center overflow-hidden z-[100000]"
-        >
-          <div className="w-full h-full absolute">
-            {cardData.map((card, index) => (
-              <div
-                key={index}
-                className={`absolute ${card.className} hidden md:block cards opacity-0`}
-              >
-                <div
-                  className={`flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white`}
-                  style={{
-                    boxShadow:
-                      "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
-                  }}
-                >
-                  <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
-                    <h1 className="text-xl font-normal mb-2 break-before-avoid">
-                      {card.heading}
-                    </h1>
 
-                    <p className="text-sm text-[#909090] leading-normal opacity-95">
-                      {card.subHeading}
-                    </p>
-                  </div>
-                </div>
+
+        <Element name="section3">
+          <div className="z-[100]">
+            <section  ref={ref} >
+              <div  ref={refs} className=" h-[600vh] bg-white sticky  z-[1000] top-0">
+                <div className="sticky top-0 w-full flex md:flex-row " style={{ backgroundColor : "#EEEEEA" }}>
+
+
+                  <section
+                   
+                    style={{ backgroundColor : "#EEEEEA" }}
+                    className="  relative text-black min-w-[85%] max-w-[85%] m-auto font-base min-h-screen flex justify-center items-center overflow-hidden z-[100000]"
+                  >
+                    <div className="w-full h-full absolute">
+                      {cardData.map((card, index) => (
+                        <div
+                          onClick={()=>{
+                            console.log(currentIndex , 'currentIndexcurrentIndex')
+                          }}
+                          key={index}
+                      className={`absolute transition-opacity duration-700 ease-out ${card.className} ${
+                        index <= visibleIndex ? "opacity-100" : "opacity-0"
+                      }`} 
+                        >
+                          <div
+                            className={`flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white`}
+                            style={{
+                              boxShadow:
+                                "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
+                            }}
+                          >
+                            <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
+                              <h1 className="text-xl font-normal mb-2 break-before-avoid">
+                                {card.heading}
+                              </h1>
+
+                              <p className="text-sm text-[#909090] leading-normal opacity-95">
+                                {card.subHeading}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                  {/* Genbot image with opacity 0 for initial fade-in */}
+                  <img
+                    className="genbot-image opacity-0 scale-75 md:w-[530px] xl:w-[770px]"
+                    src="/img/shadowws.png"
+                    alt="genbot image"
+                  />
+                </section>
               </div>
-            ))}
+            </div>
+          </section>
           </div>
+        </Element>
 
-          {/* Genbot image with opacity 0 for initial fade-in */}
-          <img
-            className="genbot-image opacity-0 scale-75 md:w-[530px] xl:w-[770px]"
-            src="/img/shadowws.png"
-            alt="genbot image"
-          />
-        </section>
       ) : (
         <section
           ref={ref}

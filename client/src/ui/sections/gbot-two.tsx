@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Grnbotnotmis from "./grnbotnotmis";
 
 const GbotTwo = () => {
-  const totalImages = 100;
+  const totalImages = 238;
   const ref = useRef(null);
   const [images, setImages] = useState([]);
 
@@ -11,7 +11,7 @@ const GbotTwo = () => {
     const preloadedImages: any = [];
     for (let i = 1; i <= totalImages; i++) {
       const paddedIndex = String(i).padStart(4, "0");
-      preloadedImages.push(`/gbot/${paddedIndex}.png`);
+      preloadedImages.push(`/gbot/${paddedIndex}.webp`);
     }
     setImages(preloadedImages);
   }, [totalImages]);

@@ -53,16 +53,16 @@ export const HeroSection = ({ loading }: Props) => {
         playsInline
         onContextMenu={(e) => e.preventDefault()}
       >
-        <source src={"/hero-1080.mp4"} type="video/mp4" />
+        <source src={"/genhead.mp4"} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
       {!loading && (
         <div className="text-white font-normal uppercase mx-[5%] leading-none z-10 absolute bottom-12 left-0">
-          <h1 style={{ fontFamily : 'AktivGrotesk' , fontSize : 128 , fontWeight : '400' } } className="text-[5.5vw] opacity-0">Advancing</h1>
-          <h1 style={{ fontFamily : 'AktivGrotesk' , fontSize : 128 , fontWeight : '400'} } className="text-[5.5vw] opacity-0">Safety Through</h1>
+          <h1 style={{ fontFamily : 'AktivGrotesk' , fontSize : 100 , fontWeight : '400' } } className="text-[5.5vw] opacity-0">Advancing</h1>
+          <h1 style={{ fontFamily : 'AktivGrotesk' , fontSize : 100 , fontWeight : '400'} } className="text-[5.5vw] opacity-0">Safety Through</h1>
           <h1 className="text-[5.5vw] opacity-0">
-            <span style={{ fontFamily : 'AktivGrotesk' , fontSize : 128 , fontWeight : '400'} } className="text-yellow">Innovation</span>
+            <span style={{ fontFamily : 'AktivGrotesk' , fontSize : 100 , fontWeight : '400'} } className="text-yellow">Innovation</span>
           </h1>
         </div>
       )}

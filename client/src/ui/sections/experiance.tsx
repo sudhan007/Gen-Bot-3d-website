@@ -6,6 +6,8 @@ export const Experience = () => {
 
   const [latest, setLatest] = useState(true);
 
+  let [ one , setOne ] = useState(false)
+
   useEffect(() => {
     const preloadedImages: any = [];
     for (let i = 1; i <= totalImages; i++) {
@@ -72,6 +74,10 @@ export const Experience = () => {
         if (entry.isIntersecting) {
           setIsVisible(true);
           handleDivEnter(); // Call your function when div enters the screen
+        }else {
+          setIsVisible(false);
+          setOne(true)
+          console.log("leave entered the screen!"); // Call when div leaves the screen
         }
       },
       { threshold: 0.1 } // Adjust threshold as needed
@@ -89,23 +95,30 @@ export const Experience = () => {
   }, []);
 
   const handleDivEnter = () => {
-    console.log("Div entered the screen!");
-
+   
+    const values = localStorage.getItem("keyName");
+    console.log("Div entered the screen! lolllllllllllllllllllllllllllllllllllllllllllllll");
     // Add your logic here
+    if(values){
+      return
+    } 
 
-    if (latest === true) {
-      setLatest(false);
-      setTimeout(() => {
-        setLatest(true);
-        console.log("Hello World!");
-      }, 8000);
+    localStorage.setItem("keyName", "value");
+
+       
       for (let i = 0; i < totalImages; i++) {
+        setOne(true)
+
         setTimeout(() => {
           console.log(i, "i");
           setCurrentIndex(i);
         }, i * 24); // 1ms gap per iteration
-      }
-    }
+
+       
+        // if (i === totalImages-2 ){
+        //   localStorage.removeItem("myData");
+        // }
+      } 
   };
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -120,12 +133,12 @@ export const Experience = () => {
   return (
     <>
       {width > 800 ? (
-        <section className='bg-white text-black font-base z-100'>
+        <section className='bg-white text-black font-base z-100'  >
           <div
             className='  sticky z-[1000]  '
             ref={divRef}
             style={{ backgroundColor: "#424741", overflow: "hidden" }}>
-            <div className='  px-[10%] '>
+            <div className='  px-[7%] '>
               <div
                 className='mt-[80px]'
                 style={{
@@ -151,13 +164,17 @@ export const Experience = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    paddingLeft: 100,
-                    paddingRight: 100,
+                    paddingLeft: 60,
+                    paddingRight: 60,
+                    marginTop : 13 , height : 64 ,
+
                   }}>
                   <p
-                    style={{ color: "#000", fontSize: "1.6rem" }}
+                    style={{ color: "#000",  fontSize: 36,
+                      fontWeight: "400",
+                      fontFamily: "AktivGrotesk",lineHeight: "120%", marginTop : 6 }}
                     className='threetwo'>
-                    what’s the hold
+                   WHAT'S THE HOLD
                   </p>
                 </div>
               </div>
@@ -167,10 +184,11 @@ export const Experience = () => {
                   className='fgbidcjk'
                   style={{
                     color: "#fff",
-                    fontSize: 40,
+                    fontSize: 32,
                     fontWeight: "400",
-                    lineHeight: "3rem",
+                    lineHeight: "127%",
                     fontFamily: "AktivGrotesk",
+                    textTransform : "uppercase"
                   }}>
                   Explore the innovative solutions of Genbot and G Bot.
                   <br />
@@ -237,6 +255,7 @@ export const Experience = () => {
                     fontWeight: "400",
                     fontFamily: "AktivGrotesk",
                     textAlign: "center",
+                    textTransform : "uppercase"
                   }}>
                   Explore the innovative solutions of Genbot and G Bot. Embrace
                   the future of technology and human-robot interaction. Begin
@@ -256,8 +275,10 @@ export const Experience = () => {
                   width: "50%",
                   margin: "auto",
                 }}>
-                <p style={{ color: "#000", fontSize: 15 }} className='threetwo'>
-                  what’s the hold
+                <p style={{ color: "#000",  fontSize: 26,
+                    fontWeight: "400",
+                    fontFamily: "AktivGrotesk", }} className='threetwo'>
+                  WHAT'S THE HOLD
                 </p>
               </div>
             </div>

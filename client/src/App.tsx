@@ -18,7 +18,8 @@ import { GbotFour } from "./ui/sections/gbot-four.tsx";
 import GBotOne from "./ui/sections/gbot-one-hero.tsx";
 import GbotThree from "./ui/sections/gbot-three.tsx";
 import GbotTwo from "./ui/sections/gbot-two.tsx";
-import { HeroSection } from "./ui/sections/hero.tsx";
+import { HeroSection } from "./ui/sections/hero.tsx"; 
+import Twofive from "./ui/sections/gbot-twofive.tsx"; 
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -27,6 +28,31 @@ function App() {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [section, setSection] = useState("section1");
   const [base64Video, setBase64Video] = useState(null);
+  const [glowIndex, setGlowIndex] = useState(-1);
+  const thirdContainerOriginRef = useRef(null);
+
+  useEffect(()=>{
+    localStorage.removeItem("keyName");
+    localStorage.removeItem("keyName2");
+  },[])
+ 
+
+ 
+
+  const { scrollYProgress: sectionThreeScrollYProgressone } = useScroll({
+    target: thirdContainerOriginRef,
+  });
+
+
+  const textProgress = useTransform(
+    sectionThreeScrollYProgressone,
+    [0, 1],
+    [-1, genbotIntro.length  ]
+  );
+
+  useMotionValueEvent(textProgress, "change", (latest) => {
+    setGlowIndex(Math.floor(latest));
+  });
 
   useEffect(() => {
     const assets = document.querySelectorAll("img, video");
@@ -386,7 +412,7 @@ function App() {
   );
 
   // fourth section
-  const thirdContainerOriginRef = useRef(null);
+
 
   const { scrollYProgress: sectionThreeScrollYProgress } = useScroll({
     target: thirdContainerOriginRef,
@@ -462,7 +488,7 @@ function App() {
             </Element>
 
             <Element name="section2">
-              <div ref={secondContainerRef}>
+              {/* <div ref={secondContainerRef}>
                 <section className="bg-lightbg text-white  h-[400vh] flex justify-center">
                   <div
                     className="scroll-section marker1"
@@ -491,7 +517,10 @@ function App() {
                     }}
                   />
                 </section>
-              </div>
+              </div> */}
+
+<Twofive   />
+
             </Element>
 
             <Element name="section3">
@@ -513,7 +542,23 @@ function App() {
                             Your Safety Partner
                           </h4>
                           <div className="w-[95%]">
-                            <AnimatedText text={genbotIntro} />
+
+                          <motion.p className="mt-[10px] text-3xl leading-relaxed font-normal sm:text-xl" style={{lineHeight: "40px",
+            fontSize: 26,
+            fontWeight: "400",  fontFamily : "SFpro"}}>
+                            {genbotIntro.split("").map((char, index) => (
+                              <motion.span
+                                key={index}
+                                initial={{ opacity: 0.01 }}
+                                animate={{ opacity: index <= glowIndex ? 1 : 0.2 }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                {char}
+                              </motion.span>
+                            ))}
+                          </motion.p>
+
+                            {/* <AnimatedText text={genbotIntro} /> */}
                           </div>
                         </div>
                       </div>
@@ -542,9 +587,7 @@ function App() {
               <FlyGenBotSection />
             </Element>
 
-            <Element name="section5">
-              <GBotOne loading={loading} />
-            </Element>
+             
 
             <Element name="section6">
               <GbotTwo />
@@ -556,6 +599,9 @@ function App() {
 
             <Element name="section8">
               <GbotFour />
+            </Element>
+            <Element name="section5">
+              <GBotOne loading={loading} />
             </Element>
 
             <Element name="section9">
