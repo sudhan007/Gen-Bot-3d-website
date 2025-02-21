@@ -31,7 +31,7 @@ const Twofive = () => {
     [0, totalImages - 1]
   );
 
-  const textImageScale = useTransform(scrollYProgress, [0, 1], [1, 0.5]);
+  const textImageScale = useTransform(scrollYProgress, [0, 0.8], [1, 0.5]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
