@@ -1,15 +1,15 @@
 import { useIntersection } from "@/hooks/useIntersection";
-import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import anime from "animejs";
-import { useEffect, useState , useRef } from "react";
-import { animateScroll, Element, Events, scroller } from "react-scroll"; 
+import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { Element } from "react-scroll";
 
 const FlyGenBotSection = () => {
   const { entry, ref } = useIntersection({
     threshold: 0,
   });
 
-    const refs = useRef(null);
+  const refs = useRef(null);
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -17,15 +17,14 @@ const FlyGenBotSection = () => {
     target: refs,
   });
 
-  const sectionProgress = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, 100]
-  );
+  const sectionProgress = useTransform(scrollYProgress, [0, 1], [0, 100]);
   const [visibleIndex, setVisibleIndex] = useState(-1);
 
   useMotionValueEvent(sectionProgress, "change", (latest) => {
-    const newIndex = Math.min(Math.floor(latest / (100 / cardData.length)), cardData.length - 1);
+    const newIndex = Math.min(
+      Math.floor(latest / (100 / cardData.length)),
+      cardData.length - 1
+    );
     setVisibleIndex(newIndex);
   });
 
@@ -63,7 +62,7 @@ const FlyGenBotSection = () => {
       anime({
         targets: elems[0],
         opacity: [0, 1],
-        translateY: [50, 0], 
+        translateY: [50, 0],
         duration: 2000,
         delay: 200,
       });
@@ -149,33 +148,39 @@ const FlyGenBotSection = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return ( 
+  return (
     <>
       {width > 800 ? (
-
-
         <Element name="section3">
           <div className="z-[100]">
-            <section  ref={ref} >
-              <div  ref={refs} className=" h-[600vh] bg-white sticky  z-[1000] top-0">
-                <div className="sticky top-0 w-full flex md:flex-row " style={{ backgroundColor : "#EEEEEA" }}>
-
-
+            <section ref={ref}>
+              <div
+                ref={refs}
+                className=" h-[300vh] bg-white sticky  z-[1000] top-0"
+              >
+                <div
+                  className="sticky top-0 w-full flex md:flex-row "
+                  style={{ backgroundColor: "#EEEEEA" }}
+                >
                   <section
-                   
-                    style={{ backgroundColor : "#EEEEEA" }}
+                    style={{ backgroundColor: "#EEEEEA" }}
                     className="  relative text-black min-w-[85%] max-w-[85%] m-auto font-base min-h-screen flex justify-center items-center overflow-hidden z-[100000]"
                   >
                     <div className="w-full h-full absolute">
                       {cardData.map((card, index) => (
                         <div
-                          onClick={()=>{
-                            console.log(currentIndex , 'currentIndexcurrentIndex')
+                          onClick={() => {
+                            console.log(
+                              currentIndex,
+                              "currentIndexcurrentIndex"
+                            );
                           }}
                           key={index}
-                      className={`absolute transition-opacity duration-700 ease-out ${card.className} ${
-                        index <= visibleIndex ? "opacity-100" : "opacity-0"
-                      }`} 
+                          className={`absolute transition-opacity duration-700 ease-out ${
+                            card.className
+                          } ${
+                            index <= visibleIndex ? "opacity-100" : "opacity-0"
+                          }`}
                         >
                           <div
                             className={`flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white`}
@@ -198,42 +203,40 @@ const FlyGenBotSection = () => {
                       ))}
                     </div>
 
-                  {/* Genbot image with opacity 0 for initial fade-in */}
-                  <img
-                    className="genbot-image opacity-0 scale-75 md:w-[530px] xl:w-[770px]"
-                    src="/img/shadowws.png"
-                    alt="genbot image"
-                  />
-                </section>
+                    {/* Genbot image with opacity 0 for initial fade-in */}
+                    <img
+                      className="genbot-image opacity-0 scale-75 md:w-[530px] xl:w-[770px]"
+                      src="/img/shadowws.png"
+                      alt="genbot image"
+                    />
+                  </section>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
           </div>
         </Element>
-
       ) : (
         <section
           ref={ref}
-          style={{ backgroundColor : "#EEEEEA" ,}}
+          style={{ backgroundColor: "#EEEEEA" }}
           className="bg-lightbg relative text-black min-w-[85%] max-w-[100%] m-auto font-base min-h-screen  justify-center items-center overflow-hidden z-[100000]"
         >
           {/* Genbot image with opacity 0 for initial fade-in */}
           <div style={{ alignItems: "center", justifyContent: "center" }}>
-           
             <img
               className="  scale-75 md:w-[530px] xl:w-[580px]"
               src="/img/shadowws.png"
               alt="genbot image"
-              style={{ margin: "auto",  }}
+              style={{ margin: "auto" }}
             />
           </div>
 
-          <div className="w-full" style={{ padding : 15 }} >
+          <div className="w-full" style={{ padding: 15 }}>
             {cardData.map((card, index) => (
               <div
                 key={index}
                 className={` md:block cards opacity-0`}
-                style={{ marginBottom : 20 }}
+                style={{ marginBottom: 20 }}
               >
                 <div
                   className={`flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white`}

@@ -34,7 +34,7 @@ const GbotTwo = () => {
   });
 
   const [width, setWidth] = useState(window.innerWidth);
-  
+
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
 
@@ -45,8 +45,15 @@ const GbotTwo = () => {
   return (
     <>
       {width > 800 ? (
-        <section style={{ backgroundColor : "#EEEEEA" }}  className="  text-black font-base z-100"> 
-          <div className=" sticky z-[1000] h-[600vh]" style={{ backgroundColor : "#EEEEEA" }} ref={ref}>
+        <section
+          style={{ backgroundColor: "#EEEEEA" }}
+          className="  text-black font-base z-100"
+        >
+          <div
+            className=" sticky z-[1000] h-[300vh]"
+            style={{ backgroundColor: "#EEEEEA" }}
+            ref={ref}
+          >
             <div className="sticky top-0 flex justify-center items-center w-full h-screen">
               {/* G Bot Text */}
               <img

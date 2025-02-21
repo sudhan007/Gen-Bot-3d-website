@@ -1,94 +1,59 @@
-import { AnimatedText } from "../components/AnimatedText";
-import { AnimatedTexts } from "../components/AnimatedTexts";
-import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useMotionValueEvent,
   useScroll,
   useTransform,
 } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { AnimatedText } from "../components/AnimatedText";
 
 const GbotThree = () => {
+  const totalImages = 80;
   const text2 =
     "Get acquainted with G bot. A humanoid robot empowered by AI, redefining collaboration with humans. Designed to work seamlessly alongside humans, G bot is more than just a robotic assistant: it's the future of technological partnership.";
 
-  const [images, setImages] = useState([]);
-
+  const thirdContainerOriginbot = useRef(null);
+  const [images, setImages] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [glowIndex, setGlowIndex] = useState(-1);
-  const thirdContainerOriginbot = useRef(null);
 
-   const { scrollYProgress: sectionThreeScrollYProgressone } = useScroll({
-      target: thirdContainerOriginbot,
-    });
-  
-  
-    const textProgress = useTransform(
-      sectionThreeScrollYProgressone,
-      [0, 1],
-      [-1, text2.length  ]
-    );
-  
-    useMotionValueEvent(textProgress, "change", (latest) => {
-      setGlowIndex(Math.floor(latest));
-    });
+  const { scrollYProgress } = useScroll({
+    target: thirdContainerOriginbot,
+    offset: ["start end", "end start"],
+  });
 
-    
+  const imageIndex = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, totalImages - 1]
+  );
+
+  const textProgress = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [-1, text2.length]
+  );
+
   useEffect(() => {
-    const preloadedImages: any = [];
-    for (let i = 1; i <= totalImages; i++) {
-      const paddedIndex = String(i).padStart(4, "0");
-      preloadedImages.push(`/turn/${paddedIndex}.webp`);
-    }
-
-    console.log(preloadedImages, "preloadedImages");
+    const preloadedImages = Array.from(
+      { length: totalImages },
+      (_, i) => `/turn/${String(i + 1).padStart(4, "0")}.webp`
+    );
     setImages(preloadedImages);
-    setCurrentIndex(0);
   }, []);
 
-  const totalImages = 80;
-  const divRef = useRef(null);
-  //@ts-ignore
-  const [isVisible, setIsVisible] = useState(false);
+  useMotionValueEvent(imageIndex, "change", (latest) => {
+    const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
+    if (clampedIndex !== currentIndex) setCurrentIndex(clampedIndex);
+  });
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          handleDivEnter(); // Call your function when div enters the screen
-        }
-      },
-      { threshold: 0.1 } // Adjust threshold as needed
-    );
-
-    if (divRef.current) {
-      observer.observe(divRef.current);
-    }
-
-    return () => {
-      if (divRef.current) {
-        observer.unobserve(divRef.current);
-      }
-    };
-  }, []);
-
-  const handleDivEnter = () => {
-    console.log("Div entered the screen! lo l");
-    // Add your logic here
-    for (let i = 0; i < totalImages; i++) {
-      setTimeout(() => {
-        console.log(i, "i");
-        setCurrentIndex(i);
-      }, i * 24); // 1ms gap per iteration
-    }
-  };
+  useMotionValueEvent(textProgress, "change", (latest) => {
+    setGlowIndex(Math.floor(latest));
+  });
 
   const [width, setWidth] = useState(window.innerWidth);
-
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -96,148 +61,130 @@ const GbotThree = () => {
   return (
     <>
       {width > 800 ? (
-
         <div className="z-[100]">
-          <section ref={thirdContainerOriginbot} >
-            <div className=" h-[1200vh]   sticky  z-[1000] top-0" style={{backgroundColor: "#EEEEEA"}}>
-              <div ref={divRef} className="sticky top-0 w-full flex md:flex-row  ">
-
-
-                <div className=' w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0   pl-[2%]'>
-                  <div className='ml-[5%] px-[10%] h-full z-[10000]'>
+          <section ref={thirdContainerOriginbot}>
+            <div
+              className="h-[300vh] sticky top-0 z-[1000]"
+              style={{ backgroundColor: "#EEEEEA" }}
+            >
+              <div className="sticky top-0 w-full flex md:flex-row">
+                <div className="w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 pl-[2%]">
+                  <div className="ml-[5%] px-[10%] h-full z-[10000]">
                     <img
-                      src='/img/gbot3d.svg'
-                      alt='GenBot 3D model'
-                      className='w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-4 twoimg'
+                      src="/img/gbot3d.svg"
+                      alt="GenBot 3D model"
+                      className="w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-4 twoimg"
                     />
                     <h4
-                      style={{ fontSize: 64, fontWeight: "610", fontFamily: "SFpro" }}
                       className="twoone font-medium mb-8 text-3xl mt-[20px] md:text-5xl sm:text-3xl text-[#2B2B2B]"
+                      style={{
+                        fontSize: 64,
+                        fontWeight: "610",
+                        fontFamily: "SFpro",
+                      }}
                     >
-                      The Future Of Human-
-                      <br />
+                      The Future Of Human- <br />
                       Robot Interaction
                     </h4>
                     <div className="w-[95%]">
-                      {/* <AnimatedTexts text={text2} /> */}
-
-                      <motion.p className="mt-[10px] text-3xl leading-relaxed font-normal sm:text-xl" style={{lineHeight: "40px",
-            fontSize: 26,
-            fontWeight: "400",  fontFamily : "SFpro"}}>
-                            {text2.split("").map((char, index) => (
-                              <motion.span
-                                key={index}
-                                initial={{ opacity: 0.01 }}
-                                animate={{ opacity: index <= glowIndex ? 1 : 0.2 }}
-                                transition={{ duration: 0.3 }}
-                              >
-                                {char}
-                              </motion.span>
-                            ))}
-                          </motion.p>
+                      <motion.p
+                        className="mt-[10px] text-3xl leading-relaxed font-normal sm:text-xl"
+                        style={{
+                          lineHeight: "40px",
+                          fontSize: 26,
+                          fontWeight: "400",
+                          fontFamily: "SFpro",
+                        }}
+                      >
+                        {text2.split("").map((char, index) => (
+                          <motion.span
+                            key={index}
+                            initial={{ opacity: 0.01 }}
+                            animate={{ opacity: index <= glowIndex ? 1 : 0.2 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            {char}
+                          </motion.span>
+                        ))}
+                      </motion.p>
                     </div>
                   </div>
                 </div>
-                <div className='twothree w-full md:w-1/2 h-full flex justify-center items-center relative mt-5'>
+
+                <div className="twothree w-full md:w-1/2 h-full flex justify-center items-center relative mt-5">
                   <img
-                    src='/img/gbot-text2.png'
-                    className='w-[600px] z-[1]'
-                    alt=''
+                    src="/img/gbot-text2.png"
+                    className="w-[600px] z-[1]"
+                    alt=""
                   />
 
-                  {/* Robot Images */}
                   {images.map((imgSrc, index) => (
                     <img
                       key={index}
                       src={imgSrc}
                       alt={`G Frame ${index + 1}`}
-                      className={`absolute `}
+                      className="absolute"
                       style={{
                         opacity: index === currentIndex ? 1 : 0,
                         zIndex: index === currentIndex ? 20 : 10,
-                        // transition: "opacity 0.3s ease-in-out",
                       }}
                     />
                   ))}
-
-                  {/* <img
-            src="/img/gbot-rightface.png"
-            className="w-[300px] absolute top-0 left-0 z-[2] h-full"
-            style={{
-              transform: "translate(-50%, -50%) scaleX(-1)", // Add scaleX(-1) to flip it horizontally
-              top: "50%",
-              left: "50%",
-            }}
-            alt=""
-          /> */}
                 </div>
-
-
               </div>
             </div>
           </section>
         </div>
       ) : (
-        <div
-          className='font-base h-[90vh] bg-lightbg relative z-[101]'
-          ref={divRef}>
-          <div className='sticky top-0  w-full  md:flex-row'>
-            <div className=' w-full md:w-1/2  flex flex-col justify-start items-start gap-4 sticky top-0 py-[60px] '>
-              <div className=' px-[5%] h-full z-[10000]'>
+        <div className="font-base h-[90vh] bg-lightbg relative z-[101]">
+          <div className="sticky top-0 w-full md:flex-row">
+            <div className="w-full md:w-1/2 flex flex-col justify-start items-start gap-4 py-[60px]">
+              <div className="px-[5%] h-full z-[10000]">
                 <img
-                  src='/img/gbot3d.svg'
-                  alt='GenBot 3D model'
-                  className='w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-2 twoimg'
+                  src="/img/gbot3d.svg"
+                  alt="GenBot 3D model"
+                  className="w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-2 twoimg"
                 />
                 <h4
-                  style={{ fontSize: 28, fontWeight: "510", fontFamily: "SFpro" }}
-                  className="twoone font-medium mb-4 text-3xl  md:text-5xl sm:text-3xl text-[#2B2B2B]"
+                  className="twoone font-medium mb-4 text-3xl md:text-5xl sm:text-3xl text-[#2B2B2B]"
+                  style={{
+                    fontSize: 28,
+                    fontWeight: "510",
+                    fontFamily: "SFpro",
+                  }}
                 >
-                  The Future Of Human-
-                  <br />
+                  The Future Of Human- <br />
                   Robot Interaction
                 </h4>
-                <div className='w-[95%]'>
+                <div className="w-[95%]">
                   <AnimatedText text={text2} />
                 </div>
               </div>
             </div>
+
             <div
-              className='twothree w-full md:w-1/2 h-full flex justify-center items-center relative'
-              style={{ alignItems: "end", justifyContent: "end", padding: 15 }}>
+              className="twothree w-full md:w-1/2 h-full flex justify-center items-center relative"
+              style={{ alignItems: "end", justifyContent: "end", padding: 15 }}
+            >
               <img
-                src='/img/gbot-text2.png'
-                className='w-[600px] z-[1]'
-                alt=''
+                src="/img/gbot-text2.png"
+                className="w-[600px] z-[1]"
+                alt=""
                 style={{ width: "70%" }}
               />
-
-              {/* Robot Images */}
               {images.map((imgSrc, index) => (
                 <img
                   key={index}
                   src={imgSrc}
                   alt={`G Frame ${index + 1}`}
-                  className={`absolute `}
+                  className="absolute"
                   style={{
                     opacity: index === currentIndex ? 1 : 0,
                     zIndex: index === currentIndex ? 20 : 10,
                     left: 100,
-                    // transition: "opacity 0.3s ease-in-out",
                   }}
                 />
               ))}
-
-              {/* <img
-            src="/img/gbot-rightface.png"
-            className="w-[300px] absolute top-0 left-0 z-[2] h-full"
-            style={{
-              transform: "translate(-50%, -50%) scaleX(-1)", // Add scaleX(-1) to flip it horizontally
-              top: "50%",
-              left: "50%",
-            }}
-            alt=""
-          /> */}
             </div>
           </div>
         </div>

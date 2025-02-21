@@ -6,7 +6,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { animateScroll, Element, Events, scroller } from "react-scroll";
+import { Element, Events, scroller } from "react-scroll";
 import "./App.css";
 import useDisableKeyboardScroll from "./hooks/useDisableKeyScroll.tsx";
 import { fetchVideoAsBase64, genbotIntro } from "./lib/utils.tsx";
@@ -18,8 +18,8 @@ import { GbotFour } from "./ui/sections/gbot-four.tsx";
 import GBotOne from "./ui/sections/gbot-one-hero.tsx";
 import GbotThree from "./ui/sections/gbot-three.tsx";
 import GbotTwo from "./ui/sections/gbot-two.tsx";
-import { HeroSection } from "./ui/sections/hero.tsx"; 
-import Twofive from "./ui/sections/gbot-twofive.tsx"; 
+import Twofive from "./ui/sections/gbot-twofive.tsx";
+import { HeroSection } from "./ui/sections/hero.tsx";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -31,23 +31,19 @@ function App() {
   const [glowIndex, setGlowIndex] = useState(-1);
   const thirdContainerOriginRef = useRef(null);
 
-  useEffect(()=>{
+  useEffect(() => {
     localStorage.removeItem("keyName");
     localStorage.removeItem("keyName2");
-  },[])
- 
-
- 
+  }, []);
 
   const { scrollYProgress: sectionThreeScrollYProgressone } = useScroll({
     target: thirdContainerOriginRef,
   });
 
-
   const textProgress = useTransform(
     sectionThreeScrollYProgressone,
     [0, 1],
-    [-1, genbotIntro.length  ]
+    [-1, genbotIntro.length]
   );
 
   useMotionValueEvent(textProgress, "change", (latest) => {
@@ -413,7 +409,6 @@ function App() {
 
   // fourth section
 
-
   const { scrollYProgress: sectionThreeScrollYProgress } = useScroll({
     target: thirdContainerOriginRef,
   });
@@ -519,14 +514,13 @@ function App() {
                 </section>
               </div> */}
 
-<Twofive   />
-
+              <Twofive />
             </Element>
 
             <Element name="section3">
               <div className="z-[100]">
                 <section ref={thirdContainerOriginRef}>
-                  <div className=" h-[1200vh] bg-white sticky  z-[1000] top-0">
+                  <div className=" h-[500vh] bg-white sticky  z-[1000] top-0">
                     <div className="sticky top-0 w-full flex md:flex-row bg-white">
                       <div className="bg-lightbg w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0 py-[60px] pl-[2%]">
                         <div className="ml-[5%] bg-white px-[10%] h-full rounded-l-3xl shadow-lg z-[10000]">
@@ -536,27 +530,38 @@ function App() {
                             className="w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-4 oneimg"
                           />
                           <h4
-                            style={{ fontSize: 64, fontWeight: '610' , fontFamily : "SFpro" }}
+                            style={{
+                              fontSize: 64,
+                              fontWeight: "610",
+                              fontFamily: "SFpro",
+                            }}
                             className="oneone mb-8 text-3xl mt-[20px] md:text-5xl sm:text-3xl text-[#2B2B2B]"
                           >
                             Your Safety Partner
                           </h4>
                           <div className="w-[95%]">
-
-                          <motion.p className="mt-[10px] text-3xl leading-relaxed font-normal sm:text-xl" style={{lineHeight: "40px",
-            fontSize: 26,
-            fontWeight: "400",  fontFamily : "SFpro"}}>
-                            {genbotIntro.split("").map((char, index) => (
-                              <motion.span
-                                key={index}
-                                initial={{ opacity: 0.01 }}
-                                animate={{ opacity: index <= glowIndex ? 1 : 0.2 }}
-                                transition={{ duration: 0.3 }}
-                              >
-                                {char}
-                              </motion.span>
-                            ))}
-                          </motion.p>
+                            <motion.p
+                              className="mt-[10px] text-3xl leading-relaxed font-normal sm:text-xl"
+                              style={{
+                                lineHeight: "40px",
+                                fontSize: 26,
+                                fontWeight: "400",
+                                fontFamily: "SFpro",
+                              }}
+                            >
+                              {genbotIntro.split("").map((char, index) => (
+                                <motion.span
+                                  key={index}
+                                  initial={{ opacity: 0.01 }}
+                                  animate={{
+                                    opacity: index <= glowIndex ? 1 : 0.2,
+                                  }}
+                                  transition={{ duration: 0.3 }}
+                                >
+                                  {char}
+                                </motion.span>
+                              ))}
+                            </motion.p>
 
                             {/* <AnimatedText text={genbotIntro} /> */}
                           </div>
@@ -586,8 +591,6 @@ function App() {
             <Element name="section4">
               <FlyGenBotSection />
             </Element>
-
-             
 
             <Element name="section6">
               <GbotTwo />
@@ -703,7 +706,10 @@ function App() {
                             playsInline
                             onContextMenu={(e) => e.preventDefault()}
                           >
-                            <source src={"/input-encoded.mp4"} type="video/mp4" />
+                            <source
+                              src={"/input-encoded.mp4"}
+                              type="video/mp4"
+                            />
                           </video>
                         </div>
                       </div>
@@ -716,8 +722,6 @@ function App() {
             <Element name="section4">
               <FlyGenBotSection />
             </Element>
-
-           
 
             <Element name="section6">
               <GbotTwo />

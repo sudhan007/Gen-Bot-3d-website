@@ -1,4 +1,9 @@
-import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Grnbotnotmis from "./grnbotnotmis";
 
@@ -26,6 +31,8 @@ const Twofive = () => {
     [0, totalImages - 1]
   );
 
+  const textImageScale = useTransform(scrollYProgress, [0, 1], [1, 0.5]);
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useMotionValueEvent(sectionProgress, "change", (latest) => {
@@ -34,7 +41,7 @@ const Twofive = () => {
   });
 
   const [width, setWidth] = useState(window.innerWidth);
-  
+
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
 
@@ -45,27 +52,32 @@ const Twofive = () => {
   return (
     <>
       {width > 800 ? (
-        <section style={{ backgroundColor : "#EEEEEA" }}  className="  text-black font-base z-100"> 
-          <div className=" sticky z-[1000] h-[600vh]" style={{ backgroundColor : "#EEEEEA" }} ref={ref}>
+        <section
+          style={{ backgroundColor: "#EEEEEA" }}
+          className="text-black font-base z-100"
+        >
+          <div
+            className="sticky z-[1000] h-[400vh]"
+            style={{ backgroundColor: "#EEEEEA" }}
+            ref={ref}
+          >
             <div className="sticky top-0 flex justify-center items-center w-full h-screen">
-              {/* G Bot Text */}
-              <img
+              <motion.img
                 src="/twoback.png"
                 alt="G Bot Text"
-                className="absolute z-10 img2 transform"
+                className="absolute z-10 img2"
+                style={{ scale: textImageScale }}
               />
 
-              {/* Robot Images */}
               {images.map((imgSrc, index) => (
                 <img
                   key={index}
                   src={imgSrc}
                   alt={`G Frame ${index + 1}`}
-                  className={`absolute  max-w-[1900px] img h-[100vh]`}
+                  className="absolute max-w-[1900px] img h-[100vh]"
                   style={{
                     opacity: index === currentIndex ? 1 : 0,
                     zIndex: index === currentIndex ? 20 : 10,
-                    // transition: "opacity 0.3s ease-in-out",
                   }}
                 />
               ))}

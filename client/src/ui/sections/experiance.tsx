@@ -1,131 +1,44 @@
+import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 export const Experience = () => {
   const totalImages = 250;
-  const [images, setImages] = useState([]);
-
-  const [latest, setLatest] = useState(true);
-
-  let [ one , setOne ] = useState(false)
-
-  useEffect(() => {
-    const preloadedImages: any = [];
-    for (let i = 1; i <= totalImages; i++) {
-      const paddedIndex = String(i).padStart(4, "0");
-      preloadedImages.push(`/bottom/${paddedIndex}.webp`);
-    }
-
-    console.log(preloadedImages, "preloadedImages");
-    setImages(preloadedImages);
-    setCurrentIndex(0);
-  }, []);
-
-  // const { scrollYProgress } = useScroll({
-  //   target: ref,
-  // });
-
-  // const sectionProgress = useTransform(
-  //   scrollYProgress,
-  //   [0, 1],
-  //   [0, totalImages - 1]
-  // );
-
+  const [images, setImages] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const containerRef = useRef(null);
 
-  // setTimeout(() => {
-  //   const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
-  //   setCurrentIndex(clampedIndex);
-  // }, 100);
+  // Initialize scroll tracking
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"], // Maps full section scroll to animation
+  });
 
-  // useMotionValueEvent(sectionProgress, "change", (latest) => {
+  // Map scroll progress to image index
+  const imageIndex = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, totalImages - 1]
+  );
 
-  //   const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
-  //   setCurrentIndex(clampedIndex);
-  // });
-
-  //  let hhh = () => {
-  //   const interval = setInterval(() => {
-  //     setLatest((prev) => {
-  //       if (prev < totalImages) {
-  //         return prev + 1;
-  //       } else {
-  //         clearInterval(interval); // Stop when it reaches 100
-  //         return prev;
-  //       }
-  //     });
-  //   }, 100); // 100ms interval
-
-  //   return () => clearInterval(interval); // Cleanup on unmount
-  //  }
-
-  // useEffect(() => {
-  //   const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
-  //   console.log(clampedIndex, "clampedIndex");
-  //   setCurrentIndex(clampedIndex);
-  // }, [latest]);
-
-  const divRef = useRef(null);
-  //@ts-ignore
-  const [isVisible, setIsVisible] = useState(false);
-
+  // Preload images on mount
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          handleDivEnter(); // Call your function when div enters the screen
-        }else {
-          setIsVisible(false);
-          setOne(true)
-          console.log("leave entered the screen!"); // Call when div leaves the screen
-        }
-      },
-      { threshold: 0.1 } // Adjust threshold as needed
+    const preloadedImages = Array.from(
+      { length: totalImages },
+      (_, i) => `/bottom/${String(i + 1).padStart(4, "0")}.webp`
     );
-
-    if (divRef.current) {
-      observer.observe(divRef.current);
-    }
-
-    return () => {
-      if (divRef.current) {
-        observer.unobserve(divRef.current);
-      }
-    };
+    setImages(preloadedImages);
   }, []);
 
-  const handleDivEnter = () => {
-   
-    const values = localStorage.getItem("keyName");
-    console.log("Div entered the screen! lolllllllllllllllllllllllllllllllllllllllllllllll");
-    // Add your logic here
-    if(values){
-      return
-    } 
+  // Update currentIndex based on scroll progress (throttled)
+  useMotionValueEvent(imageIndex, "change", (latest) => {
+    const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
+    if (clampedIndex !== currentIndex) setCurrentIndex(clampedIndex);
+  });
 
-    localStorage.setItem("keyName", "value");
-
-       
-      for (let i = 0; i < totalImages; i++) {
-        setOne(true)
-
-        setTimeout(() => {
-          console.log(i, "i");
-          setCurrentIndex(i);
-        }, i * 24); // 1ms gap per iteration
-
-       
-        // if (i === totalImages-2 ){
-        //   localStorage.removeItem("myData");
-        // }
-      } 
-  };
-
+  // Handle responsive width
   const [width, setWidth] = useState(window.innerWidth);
-
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -133,85 +46,49 @@ export const Experience = () => {
   return (
     <>
       {width > 800 ? (
-        <section className='bg-white text-black font-base z-100'  >
+        <section className="bg-white text-black font-base z-100">
           <div
-            className='  sticky z-[1000]  '
-            ref={divRef}
-            style={{ backgroundColor: "#424741", overflow: "hidden" }}>
-            <div className='  px-[7%] '>
-              <div
-                className='mt-[80px]'
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}>
-                <p
-                  className='threeone'
-                  style={{
-                    color: "#fff",
-                    fontSize: 64,
-                    fontWeight: "400",
-                    fontFamily: "AktivGrotesk",
-                  }}>
+            ref={containerRef}
+            className="sticky z-[1000]"
+            style={{ backgroundColor: "#424741", overflow: "hidden" }}
+          >
+            <div className="px-[10%]">
+              <div className="mt-[80px] flex justify-between">
+                <p className="threeone text-white text-[64px] font-[400] font-['AktivGrotesk']">
                   EXPERIENCE THE{" "}
-                  <span style={{ color: "#FCD902" }}>FUTURE TODAY</span>
+                  <span className="text-[#FCD902]">FUTURE TODAY</span>
                 </p>
-
-                <div
-                  style={{
-                    background: "#FCD902",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    paddingLeft: 60,
-                    paddingRight: 60,
-                    marginTop : 13 , height : 64 ,
-
-                  }}>
-                  <p
-                    style={{ color: "#000",  fontSize: 36,
-                      fontWeight: "400",
-                      fontFamily: "AktivGrotesk",lineHeight: "120%", marginTop : 6 }}
-                    className='threetwo'>
-                   WHAT'S THE HOLD
+                <div className="bg-[#FCD902] flex items-center justify-center px-24 py-4">
+                  <p className="text-black text-[1.6rem] threetwo">
+                    WHAT'S THE HOLD
                   </p>
                 </div>
               </div>
 
-              <div className='mt-3'>
-                <p
-                  className='fgbidcjk'
-                  style={{
-                    color: "#fff",
-                    fontSize: 32,
-                    fontWeight: "400",
-                    lineHeight: "127%",
-                    fontFamily: "AktivGrotesk",
-                    textTransform : "uppercase"
-                  }}>
-                  Explore the innovative solutions of Genbot and G Bot.
-                  <br />
-                  Embrace the future of technology and human-robot
-                  <br />
-                  interaction. Begin your journey to safer, more
-                  <br />
-                  efficient, and tech-driven possibilities today.
-                </p>
+              <div className="mt-3 text-white text-[36px] font-[400] leading-[3rem] font-['AktivGrotesk'] uppercase">
+                Explore the innovative solutions of Genbot and G Bot.
+                <br />
+                Embrace the future of technology and human-robot
+                <br />
+                interaction. Begin your journey to safer, more
+                <br />
+                efficient, and tech-driven possibilities today.
               </div>
             </div>
-            <div style={{ marginTop : -290 }} className="sticky top-0 flex justify-center items-center w-full h-screen">
-              {/* Robot Images */}
+
+            <div
+              className="sticky top-0 flex justify-center items-center w-full h-screen"
+              style={{ marginTop: -300 }}
+            >
               {images.map((imgSrc, index) => (
                 <img
                   key={index}
                   src={imgSrc}
-                  alt={`G Frame ${index + 1}`}
-                  className={`absolute `}
+                  alt={`Frame ${index + 1}`}
+                  className="absolute"
                   style={{
                     opacity: index === currentIndex ? 1 : 0,
                     zIndex: index === currentIndex ? 20 : 10,
-                    // transition: "opacity 0.3s ease-in-out",
                   }}
                 />
               ))}
@@ -219,83 +96,42 @@ export const Experience = () => {
           </div>
         </section>
       ) : (
-        <section className='bg-white text-black font-base z-100'>
+        <section className="bg-white text-black font-base z-100">
           <div
-            className='  sticky z-[1000]  '
-            ref={divRef}
-            style={{ backgroundColor: "#424741", overflow: "hidden" }}>
-            <div className='  px-[5%] '>
-              <div
-                className='mt-[80px]'
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}>
-                <p
-                  className='threeone'
-                  style={{
-                    color: "#fff",
-                    fontSize: 24,
-                    fontWeight: "400",
-                    fontFamily: "AktivGrotesk",
-                    textAlign: "center",
-                  }}>
-                  EXPERIENCE THE
-                  <br />
-                  <span style={{ color: "#FCD902" }}>FUTURE TODAY</span>
-                </p>
-              </div>
+            ref={containerRef}
+            className="sticky z-[1000]"
+            style={{ backgroundColor: "#424741", overflow: "hidden" }}
+          >
+            <div className="px-[5%] text-center">
+              <p className="threeone text-white text-[24px] font-[400] font-['AktivGrotesk']">
+                EXPERIENCE THE <br />
+                <span className="text-[#FCD902]">FUTURE TODAY</span>
+              </p>
 
-              <div className='mt-3'>
-                <p
-                  className='fgbidcjk'
-                  style={{
-                    color: "#fff",
-                    fontSize: 15,
-                    fontWeight: "400",
-                    fontFamily: "AktivGrotesk",
-                    textAlign: "center",
-                    textTransform : "uppercase"
-                  }}>
-                  Explore the innovative solutions of Genbot and G Bot. Embrace
-                  the future of technology and human-robot interaction. Begin
-                  your journey to safer, more efficient, and tech-driven
-                  possibilities today.
-                </p>
-              </div>
+              <p className="text-white text-[15px] font-[400] font-['AktivGrotesk'] mt-3">
+                Explore the innovative solutions of Genbot and G Bot. Embrace
+                the future of technology and human-robot interaction. Begin your
+                journey to safer, more efficient, and tech-driven possibilities
+                today.
+              </p>
 
-              <div
-                style={{
-                  background: "#FCD902",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginTop: 20,
-                  padding: 10,
-                  width: "50%",
-                  margin: "auto",
-                }}>
-                <p style={{ color: "#000",  fontSize: 16,
-                    fontWeight: "400",
-                    fontFamily: "AktivGrotesk", }} className='threetwo'>
+              <div className="bg-[#FCD902] flex items-center justify-center mt-5 px-10 py-2 w-[50%] mx-auto">
+                <p className="text-black text-[15px] threetwo uppercase">
                   WHAT'S THE HOLD
                 </p>
               </div>
             </div>
-            <div
-              className='sticky top-0 flex justify-center items-center  h-screen'
-              style={{ height: "32vh" }}>
-              {/* Robot Images */}
+
+            <div className="sticky top-0 flex justify-center items-center h-[32vh]">
               {images.map((imgSrc, index) => (
                 <img
                   key={index}
                   src={imgSrc}
-                  alt={`G Frame ${index + 1}`}
-                  className={`absolute `}
+                  alt={`Frame ${index + 1}`}
+                  className="absolute"
                   style={{
                     opacity: index === currentIndex ? 1 : 0,
                     zIndex: index === currentIndex ? 20 : 10,
-                    // transition: "opacity 0.3s ease-in-out",
                   }}
                 />
               ))}

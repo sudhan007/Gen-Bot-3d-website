@@ -1,8 +1,7 @@
 import { useInViewport } from "@mantine/hooks";
 import anime from "animejs";
-import { useScroll, useTransform } from "framer-motion";
+import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { useMotionValueEvent, } from "framer-motion";
 export const GbotFour = () => {
   const { inViewport, ref } = useInViewport();
 
@@ -60,33 +59,27 @@ export const GbotFour = () => {
   ]);
 
   const totalImages = 200;
-  const divRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
   const [images, setImages] = useState([]);
 
-  const [latest, setLatest] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-
   const refs = useRef(null);
-
 
   const { scrollYProgress } = useScroll({
     target: refs,
   });
 
-  const sectionProgress = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, 160]
-  );
+  const sectionProgress = useTransform(scrollYProgress, [0, 1], [0, 160]);
   const [visibleIndex, setVisibleIndex] = useState(-1);
 
   useMotionValueEvent(sectionProgress, "change", (latest) => {
-
-    const newIndex = Math.min(Math.floor(latest / (160 / cardData.length)), cardData.length - 1);
-    console.log('', newIndex)
+    const newIndex = Math.min(
+      Math.floor(latest / (160 / cardData.length)),
+      cardData.length - 1
+    );
+    console.log("", newIndex);
     setVisibleIndex(newIndex);
   });
 
@@ -107,16 +100,15 @@ export const GbotFour = () => {
     setCurrentIndex(0);
   }, []);
 
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          handleDivEnter(); // Call your function when div enters the screen
+          handleDivEnter();
         }
       },
-      { threshold: 0.1 } // Adjust threshold as needed
+      { threshold: 0.1 }
     );
 
     if (scrollref.current) {
@@ -129,7 +121,6 @@ export const GbotFour = () => {
       }
     };
   }, []);
-
 
   const scale = useTransform(scrollYProgress, [0, 1], [0, 80]);
 
@@ -146,20 +137,16 @@ export const GbotFour = () => {
     console.log("Div entered the screen!");
 
     const values = localStorage.getItem("keyName2");
-    console.log("Div entered the screen! lolllllllllllllllllllllllllllllllllllllllllllllll");
-    // Add your logic here
+
     if (values) {
-      return
+      return;
     }
 
     localStorage.setItem("keyName2", "value");
     for (let i = 0; i < totalImages; i++) {
       setTimeout(() => {
-        console.log(i, "i");
         setCurrentIndex(i);
-      }, i * 24); // 1ms gap per iteration
-
-
+      }, i * 24);
     }
   };
 
@@ -195,13 +182,9 @@ export const GbotFour = () => {
         //     <div className="sticky top-0 h-screen w-[90%] m-auto " ref={ref}>
         //       {/* <img
         //         src="/img/gbot-rightface.png"
-        //         alt="G Bot" 
+        //         alt="G Bot"
         //         className="h-screen absolute "
         //       /> */}
-
-
-
-
 
         //       <div
         //         className="flex flex-col justify-center items-end gap-8 dad h-full"
@@ -236,19 +219,14 @@ export const GbotFour = () => {
         //   </div>
         // </div>
 
-
         <div className="z-[100]">
-          <section >
-            <div ref={refs} className=" h-[1200vh]  sticky  z-[1000] top-0">
+          <section>
+            <div ref={refs} className=" h-[500vh]  sticky  z-[1000] top-0">
               <div className="sticky top-0 w-full flex md:flex-row ">
-                <div  style={{ marginLeft :  200 }} className=" sticky top-0 flex justify-center items-center w-full h-screen">
-                  {/* G Bot Text */}
-                  {/* <img
-                src="/img/gbot-text.png"
-                alt="G Bot Text"
-                className="absolute z-10 img2 transform"
-              /> */}
-
+                <div
+                  style={{ marginLeft: 200 }}
+                  className=" sticky top-0 flex justify-center items-center w-full h-screen"
+                >
                   {/* Robot Images */}
                   {images.map((imgSrc, index) => (
                     <img
@@ -265,25 +243,29 @@ export const GbotFour = () => {
                   ))}
                 </div>
 
- 
-                <div style={{  padding  : 65}} className="w-full  h-screen bg-lightbg overflow-hidden sticky top-0 hidden md:block z-[10000]">
+                <div
+                  style={{ padding: 65 }}
+                  className="w-full  h-screen bg-lightbg overflow-hidden sticky top-0 hidden md:block z-[10000]"
+                >
                   <div className="h-full object-cover sticky top-0 py-[60px] pr-[10%] rounded-r-3xl  ">
                     <div className="sticky top-0 h-screen  m-auto " ref={ref}>
-
-                      <div
-                        className="flex flex-col  items-center gap-8 dad h-full"
-
-                      >
-                        <div className="flex flex-col justify-left items-end gap-10 " style={{ marginRight: '10%' }}>
+                      <div className="flex flex-col  items-center gap-8 dad h-full">
+                        <div
+                          className="flex flex-col justify-left items-end gap-10 "
+                          style={{ marginRight: "10%" }}
+                        >
                           {cardData.map(({ heading, subHeading }, index) => (
                             <div
                               key={index}
                               className={` transition-opacity fly-genbot-card flex flex-col duration-700 ease-out items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border
-                                 bg-white ${index <= visibleIndex ? "opacity-100" : "opacity-0"
-                                }`}
+                                 bg-white ${
+                                   index <= visibleIndex
+                                     ? "opacity-100"
+                                     : "opacity-0"
+                                 }`}
                               style={{
                                 boxShadow:
-                                  "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px"
+                                  "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
                               }}
                             >
                               <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
@@ -302,17 +284,21 @@ export const GbotFour = () => {
                     </div>
                   </div>
                 </div>
-
-
               </div>
             </div>
           </section>
         </div>
-
-
       ) : (
-        <div ref={scrollref} >
-          <div className="font-base h-[80vh] bg-lightbg relative z-[100]  " style={{ paddingTop : 70 , paddingBottom : 50  , backgroundColor : '#EEEEEA' , height : '94vh'}}>
+        <div ref={scrollref}>
+          <div
+            className="font-base h-[80vh] bg-lightbg relative z-[100]  "
+            style={{
+              paddingTop: 70,
+              paddingBottom: 50,
+              backgroundColor: "#EEEEEA",
+              height: "94vh",
+            }}
+          >
             <div className="sticky top-0 h-screen w-[90%] m-auto " ref={ref}>
               {/* <img
                 src="/img/gbot-rightface.png"
@@ -325,7 +311,10 @@ export const GbotFour = () => {
                   opacity: 1,
                 }}
               >
-                <div className="flex flex-col justify-center items-end gap-10 " style={{ }}>
+                <div
+                  className="flex flex-col justify-center items-end gap-10 "
+                  style={{}}
+                >
                   {cardData.map(({ heading, subHeading }, index) => (
                     <div
                       key={index}
