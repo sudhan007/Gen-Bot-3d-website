@@ -2,7 +2,7 @@ import { useScroll } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const Grnbotnotmis = () => {
-  const totalImages = 100;
+  const totalImages = 238;
   const ref = useRef(null);
   const [images, setImages] = useState([]);
 
@@ -10,7 +10,7 @@ const Grnbotnotmis = () => {
     const preloadedImages: any = [];
     for (let i = 1; i <= totalImages; i++) {
       const paddedIndex = String(i).padStart(4, "0");
-      preloadedImages.push(`/gbot/${paddedIndex}.png`);
+      preloadedImages.push(`/gbot/${paddedIndex}.webp`);
     }
     setImages(preloadedImages);
   }, []);

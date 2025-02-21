@@ -717,9 +717,7 @@ function App() {
               <FlyGenBotSection />
             </Element>
 
-            <Element name="section5">
-              <GBotOne loading={loading} />
-            </Element>
+           
 
             <Element name="section6">
               <GbotTwo />
@@ -732,7 +730,9 @@ function App() {
             <Element name="section8">
               <GbotFour />
             </Element>
-
+            <Element name="section5">
+              <GBotOne loading={loading} />
+            </Element>
             <Element name="section9">
               <Experience />
             </Element>

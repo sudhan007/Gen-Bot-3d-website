@@ -214,22 +214,17 @@ const FlyGenBotSection = () => {
       ) : (
         <section
           ref={ref}
-          style={{ backgroundColor : "#EEEEEA" }}
+          style={{ backgroundColor : "#EEEEEA" ,}}
           className="bg-lightbg relative text-black min-w-[85%] max-w-[100%] m-auto font-base min-h-screen  justify-center items-center overflow-hidden z-[100000]"
         >
           {/* Genbot image with opacity 0 for initial fade-in */}
           <div style={{ alignItems: "center", justifyContent: "center" }}>
+           
             <img
               className="  scale-75 md:w-[530px] xl:w-[580px]"
-              src="/img/onetwo.png"
+              src="/img/shadowws.png"
               alt="genbot image"
-              style={{ margin: "auto" }}
-            />
-            <img
-              className="  scale-75 md:w-[530px] xl:w-[580px]"
-              src="/img/oneone.png"
-              alt="genbot image"
-              style={{ margin: "auto", marginTop: -100 }}
+              style={{ margin: "auto",  }}
             />
           </div>
 

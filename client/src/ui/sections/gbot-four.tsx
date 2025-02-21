@@ -311,8 +311,8 @@ export const GbotFour = () => {
 
 
       ) : (
-        <div ref={scrollref}>
-          <div className="font-base h-[80vh] bg-lightbg relative z-[100]">
+        <div ref={scrollref} >
+          <div className="font-base h-[80vh] bg-lightbg relative z-[100]  " style={{ paddingTop : 70 , paddingBottom : 50  , backgroundColor : '#EEEEEA' , height : '94vh'}}>
             <div className="sticky top-0 h-screen w-[90%] m-auto " ref={ref}>
               {/* <img
                 src="/img/gbot-rightface.png"
@@ -325,7 +325,7 @@ export const GbotFour = () => {
                   opacity: 1,
                 }}
               >
-                <div className="flex flex-col justify-center items-end gap-10 ">
+                <div className="flex flex-col justify-center items-end gap-10 " style={{ }}>
                   {cardData.map(({ heading, subHeading }, index) => (
                     <div
                       key={index}

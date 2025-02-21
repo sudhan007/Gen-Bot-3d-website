@@ -275,7 +275,7 @@ export const Experience = () => {
                   width: "50%",
                   margin: "auto",
                 }}>
-                <p style={{ color: "#000",  fontSize: 26,
+                <p style={{ color: "#000",  fontSize: 16,
                     fontWeight: "400",
                     fontFamily: "AktivGrotesk", }} className='threetwo'>
                   WHAT'S THE HOLD

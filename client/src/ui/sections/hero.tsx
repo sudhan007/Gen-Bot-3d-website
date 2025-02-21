@@ -88,7 +88,7 @@ export const HeroSection = ({ loading }: Props) => {
       playsInline
       onContextMenu={(e) => e.preventDefault()}
     >
-      <source src={"/hero-1080.mp4"} type="video/mp4" />
+      <source src={"/genhead.mp4"} type="video/mp4" />
       Your browser does not support the video tag.
     </video>
 
