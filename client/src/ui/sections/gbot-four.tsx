@@ -245,13 +245,13 @@ export const GbotFour = () => {
 
                 <div
                   style={{ padding: 65 }}
-                  className="w-full  h-screen bg-lightbg overflow-hidden sticky top-0 hidden md:block z-[10000]"
+                  className="w-full  h-screen bg-lightbg overflow-hidden sticky top-0 hidden md:block z-[10000] paddgay"
                 >
-                  <div className="h-full object-cover sticky top-0 py-[60px] pr-[10%] rounded-r-3xl  ">
+                  <div className="h-full object-cover sticky top-0 py-[60px] pr-[10%] rounded-r-3xl  paddgaytwo">
                     <div className="sticky top-0 h-screen  m-auto " ref={ref}>
                       <div className="flex flex-col  items-center gap-8 dad h-full">
                         <div
-                          className="flex flex-col justify-left items-end gap-10 "
+                          className="flex flex-col justify-left items-end gap-10 paddgaythree"
                           style={{ marginRight: "10%" }}
                         >
                           {cardData.map(({ heading, subHeading }, index) => (

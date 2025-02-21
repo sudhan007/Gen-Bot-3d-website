@@ -58,14 +58,14 @@ export const Experience = () => {
                   EXPERIENCE THE{" "}
                   <span className="text-[#FCD902]">FUTURE TODAY</span>
                 </p>
-                <div className="bg-[#FCD902] flex items-center justify-center px-24 py-4">
+                <div className="bg-[#FCD902] flex items-center justify-center px-24 py-4 expppppp">
                   <p className="text-black text-[1.6rem] threetwo">
                     WHAT'S THE HOLD
                   </p>
                 </div>
               </div>
 
-              <div className="mt-3 text-white text-[36px] font-[400] leading-[3rem] font-['AktivGrotesk'] uppercase">
+              <div className="mt-3 text-white text-[36px] font-[400] leading-[3rem] font-['AktivGrotesk'] uppercase   uppercaseok ">
                 Explore the innovative solutions of Genbot and G Bot.
                 <br />
                 Embrace the future of technology and human-robot

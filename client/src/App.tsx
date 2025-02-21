@@ -483,16 +483,47 @@ function App() {
             </Element>
 
             <Element name="section2">
+              {/* <div ref={secondContainerRef}>
+                <section className="bg-lightbg text-white  h-[400vh] flex justify-center">
+                  <div
+                    className="scroll-section marker1"
+                    id="marker"
+                    style={{ height: "100vh" }}
+                  ></div>
+
+                  <motion.img
+                    src="/img/genbot-text.svg"
+                    className="fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto"
+                    style={{
+                      scale: textScale,
+                      opacity: textOpacity,
+                      zIndex: 10,
+                      display: visibility,
+                    }}
+                  />
+
+                  <motion.img
+                    src="/genbot-front.png"
+                    className="fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto"
+                    style={{
+                      scale: robotScale,
+                      opacity: robotOpacity,
+                      zIndex: 10,
+                    }}
+                  />
+                </section>
+              </div> */}
+
               <Twofive />
             </Element>
 
             <Element name="section3">
               <div className="z-[100]">
                 <section ref={thirdContainerOriginRef}>
-                  <div className="h-[500vh] bg-white sticky z-[1000] top-0">
-                    <div className="sticky top-0 w-full flex flex-col md:flex-row bg-white">
+                  <div className=" h-[600vh] bg-white sticky  z-[1000] top-0">
+                    <div className="sticky top-0 w-full flex md:flex-row bg-white">
                       <div className="bg-lightbg w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0 py-[60px] pl-[2%]">
-                        <div className="ml-[5%] bg-white px-[10%] h-full rounded-l-3xl shadow-lg z-[10000] overflow-hidden">
+                        <div className="ml-[5%] bg-white px-[10%] h-full rounded-l-3xl shadow-lg z-[10000]">
                           <img
                             src="/img/bot3d.svg"
                             alt="GenBot 3D model"
@@ -500,19 +531,21 @@ function App() {
                           />
                           <h4
                             style={{
-                              fontSize: "clamp(1.5rem, 4vw, 4rem)",
+                              fontSize: 64,
                               fontWeight: "610",
                               fontFamily: "SFpro",
                             }}
-                            className="oneone mb-8 mt-[20px] text-[#2B2B2B]"
+                            className="oneone mb-8 text-3xl mt-[20px] md:text-5xl sm:text-3xl text-[#2B2B2B] thisisassclassstwo"
                           >
                             Your Safety Partner
                           </h4>
                           <div className="w-[95%]">
                             <motion.p
-                              className="mt-[10px] text-xl md:text-2xl lg:text-3xl leading-relaxed font-normal"
+                              className="mt-[10px] text-3xl leading-relaxed font-normal sm:text-xl thisisassclasss"
                               style={{
-                                lineHeight: "1.5",
+                                lineHeight: "40px",
+                                fontSize: 26,
+                                fontWeight: "400",
                                 fontFamily: "SFpro",
                               }}
                             >
@@ -529,6 +562,8 @@ function App() {
                                 </motion.span>
                               ))}
                             </motion.p>
+
+                            {/* <AnimatedText text={genbotIntro} /> */}
                           </div>
                         </div>
                       </div>

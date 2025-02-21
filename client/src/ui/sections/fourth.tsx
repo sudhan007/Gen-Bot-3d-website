@@ -111,31 +111,35 @@ const FlyGenBotSection = () => {
       heading: "Hazardous Environment Compatibility",
       subHeading:
         "Designed to excel in toxic and hazardous settings, Genbot ensures human safety.",
-      className: `lg:top-[15%] lg:left-[13%] md:top-[10%] md:left-[5%]`,
+      className: `lg:top-[15%] lg:left-[13%] md:top-[10%] md:left-[5%] coolbotonoe`,
     },
     {
       heading: "Real-Time Data Analysis",
       subHeading:
         "Genbot's AI analyzes data in real-time for informed decision-making.",
-      className: "lg:top-[7%] lg:right-[20%] md:top-[10%] md:right-[5%]",
+      className:
+        "lg:top-[7%] lg:right-[20%] md:top-[10%] md:right-[5%] coolbototwo",
     },
     {
       heading: "Advanced Sensors",
       subHeading:
         "Equipped with state-of-the-art sensors for precise and safe navigation.",
-      className: "lg:bottom-[55%] lg:right-[12%] md:bottom-[10%] md:right-[5%]",
+      className:
+        "lg:bottom-[55%] lg:right-[12%] md:bottom-[10%] md:right-[5%] coolbotthree",
     },
     {
       heading: "Human-Robot Collaboration",
       subHeading:
         "Genbot works seamlessly alongside humans, reducing their exposure to risky conditions.",
-      className: "lg:bottom-[45%] lg:left-[10%] md:bottom-[10%] md:left-[5%]",
+      className:
+        "lg:bottom-[45%] lg:left-[10%] md:bottom-[10%] md:left-[5%] coolbotfour",
     },
     {
       heading: "Multi-Terrain Traversal",
       subHeading:
         "Genbot's advanced tracks enable it to navigate a wide range of terrains with ease.",
-      className: "lg:left-[60%] lg:top-[60%] md:left-[24%] md:top-[60%]",
+      className:
+        "lg:left-[60%] lg:top-[60%] md:left-[24%] md:top-[60%] coolbotofive",
     },
   ];
 

@@ -3,127 +3,127 @@
 @tailwind utilities;
 
 body {
-    overflow-x: hidden;
-  }
-
-@font-face {
-    font-family: "AktivGrotesk";
-    src: url('/fonts/AktivGrotesk-Black.ttf') format('truetype');
-    font-weight: 900;
-    font-style: normal;
-    unicode-range: U+0000-00FF;
+  overflow-x: hidden;
 }
 
 @font-face {
-    font-family: "AktivGrotesk";
-    src: url('/fonts/AktivGrotesk-BlackItalic.ttf') format('truetype');
-    font-weight: 900;
-    font-style: italic;
-    unicode-range: U+0000-00FF;
+  font-family: "AktivGrotesk";
+  src: url("/fonts/AktivGrotesk-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  unicode-range: U+0000-00FF;
 }
 
 @font-face {
-    font-family: "AktivGrotesk";
-    src: url('/fonts/AktivGrotesk-Bold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
-    unicode-range: U+0000-00FF;
-}
-#root{
-  background-color : #EEEEEA;
+  font-family: "AktivGrotesk";
+  src: url("/fonts/AktivGrotesk-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+  unicode-range: U+0000-00FF;
 }
 
 @font-face {
-    font-family: "AktivGrotesk";
-    src: url('/fonts/AktivGrotesk-BoldItalic.ttf') format('truetype');
-    font-weight: 700;
-    font-style: italic;
-    unicode-range: U+0000-00FF;
+  font-family: "AktivGrotesk";
+  src: url("/fonts/AktivGrotesk-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  unicode-range: U+0000-00FF;
+}
+#root {
+  background-color: #eeeeea;
 }
 
 @font-face {
-    font-family: "AktivGrotesk";
-    src: url('/fonts/AktivGrotesk-Hairline.ttf') format('truetype');
-    font-weight: 100;
-    font-style: normal;
-    unicode-range: U+0000-00FF;
+  font-family: "AktivGrotesk";
+  src: url("/fonts/AktivGrotesk-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  unicode-range: U+0000-00FF;
 }
 
 @font-face {
-    font-family: "AktivGrotesk";
-    src: url('/fonts/AktivGrotesk-HairlineItalic.ttf') format('truetype');
-    font-weight: 100;
-    font-style: italic;
-    unicode-range: U+0000-00FF;
+  font-family: "AktivGrotesk";
+  src: url("/fonts/AktivGrotesk-Hairline.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  unicode-range: U+0000-00FF;
 }
 
 @font-face {
-    font-family: "AktivGrotesk";
-    src: url('/fonts/AktivGrotesk-Light.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
-    unicode-range: U+0000-00FF;
+  font-family: "AktivGrotesk";
+  src: url("/fonts/AktivGrotesk-HairlineItalic.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic;
+  unicode-range: U+0000-00FF;
 }
 
 @font-face {
-    font-family: "AktivGrotesk";
-    src: url('/fonts/AktivGrotesk-LightItalic.ttf') format('truetype');
-    font-weight: 300;
-    font-style: italic;
-    unicode-range: U+0000-00FF;
+  font-family: "AktivGrotesk";
+  src: url("/fonts/AktivGrotesk-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  unicode-range: U+0000-00FF;
 }
 
 @font-face {
-    font-family: "AktivGrotesk";
-    src: url('/fonts/AktivGrotesk-Medium.ttf') format('truetype');
-    font-weight: 500;
-    font-style: normal;
-    unicode-range: U+0000-00FF;
+  font-family: "AktivGrotesk";
+  src: url("/fonts/AktivGrotesk-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  unicode-range: U+0000-00FF;
 }
 
 @font-face {
-    font-family: "AktivGrotesk";
-    src: url('/fonts/AktivGrotesk-MediumItalic.ttf') format('truetype');
-    font-weight: 500;
-    font-style: italic;
-    unicode-range: U+0000-00FF;
+  font-family: "AktivGrotesk";
+  src: url("/fonts/AktivGrotesk-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  unicode-range: U+0000-00FF;
 }
 
 @font-face {
-    font-family: "AktivGrotesk";
-    src: url('/fonts/AktivGrotesk-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-    unicode-range: U+0000-00FF;
+  font-family: "AktivGrotesk";
+  src: url("/fonts/AktivGrotesk-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  unicode-range: U+0000-00FF;
 }
 
 @font-face {
-    font-family: "AktivGrotesk";
-    src: url('/fonts/AktivGrotesk-Italic.ttf') format('truetype');
-    font-weight: 400;
-    font-style: italic;
-    unicode-range: U+0000-00FF;
+  font-family: "AktivGrotesk";
+  src: url("/fonts/AktivGrotesk-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  unicode-range: U+0000-00FF;
 }
 
 @font-face {
-    font-family: "AktivGrotesk";
-    src: url('/fonts/AktivGrotesk-XBold.ttf') format('truetype');
-    font-weight: 600;
-    font-style: normal;
-    unicode-range: U+0000-00FF;
+  font-family: "AktivGrotesk";
+  src: url("/fonts/AktivGrotesk-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  unicode-range: U+0000-00FF;
 }
 
 @font-face {
-    font-family: "AktivGrotesk";
-    src: url('/fonts/AktivGrotesk-BoldItalic.ttf') format('truetype');
-    font-weight: 600;
-    font-style: italic;
-    unicode-range: U+0000-00FF;
+  font-family: "AktivGrotesk";
+  src: url("/fonts/AktivGrotesk-XBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  unicode-range: U+0000-00FF;
+}
+
+@font-face {
+  font-family: "AktivGrotesk";
+  src: url("/fonts/AktivGrotesk-BoldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+  unicode-range: U+0000-00FF;
 }
 
 @font-face {
   font-family: "SFpro";
-  src: url('/fonts/SF-Pro-Text-Regular.otf');
+  src: url("/fonts/SF-Pro-Text-Regular.otf");
   font-weight: 400;
   font-style: normal;
   unicode-range: U+0000-00FF;
@@ -131,97 +131,136 @@ body {
 
 @font-face {
   font-family: "SFpro";
-  src: url('/fonts/SF-Pro-Text-RegularItalic.otf');
+  src: url("/fonts/SF-Pro-Text-RegularItalic.otf");
   font-weight: 400;
   font-style: italic;
   unicode-range: U+0000-00FF;
 }
 
 @media (min-width: 1600px) and (max-width: 1750px) {
- .oneone{
-   font-size: 54px !important;
-   font-family: "SFpro" !important;
- }
- .oneimg{
-  margin-top: 5% !important;
- }
- .onetwo{
-  font-size: 30px !important;
- }
- .twoone{
-  font-size: 54px !important;
+  .oneone {
+    font-size: 54px !important;
+    font-family: "SFpro" !important;
+  }
+  .oneimg {
+    margin-top: 5% !important;
+  }
+  .onetwo {
+    font-size: 30px !important;
+  }
+  .twoone {
+    font-size: 54px !important;
+  }
+  .twoimg {
+    margin-top: 5% !important;
+  }
+  .twothree {
+    height: 87% !important;
+  }
+  .threeone {
+    font-size: 54px !important;
+  }
+  .threetwo {
+    font-size: 30px !important;
+  }
+  .fgbidcjk {
+    font-size: 30px !important;
+  }
 }
-.twoimg{
- margin-top: 5% !important;
-}
-.twothree {
-  height: 87% !important;
-}
-.threeone{
-  font-size: 54px !important;
-}
-.threetwo{
-  font-size: 30px !important;
-}
-.fgbidcjk{
-  font-size: 30px !important;
-}
-}
- 
+
 /* width */
 ::-webkit-scrollbar {
-    width: 0px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-    border-radius: 10px;
-  }
+  width: 0px;
+}
 
-  /* Disable scrolling while loading */
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  border-radius: 10px;
+}
+
+/* Disable scrolling while loading */
 body.loading {
-    overflow: hidden;
+  overflow: hidden;
+}
+
+.loader {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: block;
+  margin: 15px auto;
+  position: relative;
+  color: #fff;
+  box-sizing: border-box;
+  animation: animloader 1s linear infinite alternate;
+}
+
+@keyframes animloader {
+  0% {
+    box-shadow: -38px -12px, -14px 0, 14px 0, 38px 0;
   }
-  
-  .loader {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    display: block;
-    margin:15px auto;
-    position: relative;
-    color: #FFF;
-    box-sizing: border-box;
-    animation: animloader 1s linear infinite alternate;
+  33% {
+    box-shadow: -38px 0px, -14px -12px, 14px 0, 38px 0;
   }
-  
-  @keyframes animloader {
-    0% {
-      box-shadow: -38px -12px ,  -14px 0,  14px 0, 38px 0;
-    }
-    33% {
-      box-shadow: -38px 0px, -14px -12px,  14px 0, 38px 0;
-    }
-    66% {
-      box-shadow: -38px 0px , -14px 0, 14px -12px, 38px 0;
-    }
-    100% {
-      box-shadow: -38px 0 , -14px 0, 14px 0 , 38px -12px;
-    }
+  66% {
+    box-shadow: -38px 0px, -14px 0, 14px -12px, 38px 0;
   }
-  
-    
-  
-   
-    
+  100% {
+    box-shadow: -38px 0, -14px 0, 14px 0, 38px -12px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 2200px) and (min-resolution: 1.25dppx) {
+  .text-container {
+    font-size: 1rem;
+  }
+  .thisisassclasss {
+    font-size: 20px !important;
+  }
+  .thisisassclassstwo {
+    font-size: 40px !important;
+  }
+  .coolbotonoe {
+    left: 8% !important;
+  }
+  .coolbototwo {
+    right: 9% !important;
+  }
+  .coolbotthree {
+    right: 6% !important;
+  }
+  .coolbotfour {
+    left: 6% !important;
+  }
+  .coolbotofive {
+    left: 63% !important;
+  }
+  .paddgay {
+    padding-top: 23px !important;
+  }
+  .paddgaytwo {
+    padding-top: 0px !important;
+  }
+  .paddgaythree {
+    gap: 2rem !important;
+  }
+  .expppppp {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    width: 400px !important;
+  }
+  .uppercaseok {
+    font-size: 20px !important;
+  }
+}
