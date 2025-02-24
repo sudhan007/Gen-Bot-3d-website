@@ -76,7 +76,7 @@ const GbotThree = () => {
                       className="w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-4 twoimg"
                     />
                     <h4
-                      className="twoone font-medium mb-8 text-3xl mt-[20px] md:text-5xl sm:text-3xl text-[#2B2B2B]"
+                      className="twoone font-medium mb-8 text-3xl mt-[20px] md:text-5xl sm:text-3xl text-[#2B2B2B]  textgenfi"
                       style={{
                         fontSize: 64,
                         fontWeight: "610",
@@ -88,7 +88,7 @@ const GbotThree = () => {
                     </h4>
                     <div className="w-[95%]">
                       <motion.p
-                        className="mt-[10px] text-3xl leading-relaxed font-normal sm:text-xl"
+                        className="mt-[10px] text-3xl leading-relaxed font-normal sm:text-xl textgenfiff"
                         style={{
                           lineHeight: "40px",
                           fontSize: 26,
@@ -114,7 +114,7 @@ const GbotThree = () => {
                 <div className="twothree w-full md:w-1/2 h-full flex justify-center items-center relative mt-5">
                   <img
                     src="/img/gbot-text2.png"
-                    className="w-[600px] z-[1]"
+                    className="w-[600px] z-[1] dgbrdfgdezrfxgf"
                     alt=""
                   />
 

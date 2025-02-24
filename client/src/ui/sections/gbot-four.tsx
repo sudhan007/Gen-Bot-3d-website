@@ -257,7 +257,8 @@ export const GbotFour = () => {
                           {cardData.map(({ heading, subHeading }, index) => (
                             <div
                               key={index}
-                              className={` transition-opacity fly-genbot-card flex flex-col duration-700 ease-out items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border
+                              className={` transition-opacity fly-genbot-card flex flex-col duration-700 ease-out items-center 
+                                justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border
                                  bg-white ${
                                    index <= visibleIndex
                                      ? "opacity-100"
@@ -268,7 +269,7 @@ export const GbotFour = () => {
                                   "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
                               }}
                             >
-                              <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
+                              <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B] hahabot">
                                 <h1 className="text-lg font-normal mb-2 break-before-avoid capitalize">
                                   {heading}
                                 </h1>

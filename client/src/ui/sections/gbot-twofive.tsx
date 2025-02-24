@@ -31,7 +31,7 @@ const Twofive = () => {
     [0, totalImages - 1]
   );
 
-  const textImageScale = useTransform(scrollYProgress, [0, 0.8], [1, 0.5]);
+  const textImageScale = useTransform(scrollYProgress, [0, 0.5], [1.1, 0.3]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -65,11 +65,15 @@ const Twofive = () => {
               <motion.img
                 src="/twoback.png"
                 alt="G Bot Text"
-                className="absolute z-10 img2"
-                style={{ scale: textImageScale }}
+                className="absolute z-10 img2 finfffffffffffffffff"
+                style={{ scale: textImageScale , zIndex : 50 }}
               />
 
-              {images.map((imgSrc, index) => (
+              {images.map((imgSrc, index) => {
+                
+                console.log(index , currentIndex , 'currentIndexcurrentIndexcurrentIndexcurrentIndex' )
+                
+                return(
                 <img
                   key={index}
                   src={imgSrc}
@@ -77,10 +81,10 @@ const Twofive = () => {
                   className="absolute max-w-[1900px] img h-[100vh]"
                   style={{
                     opacity: index === currentIndex ? 1 : 0,
-                    zIndex: index === currentIndex ? 20 : 10,
+                    zIndex: index  ,
                   }}
                 />
-              ))}
+              )})}
             </div>
           </div>
         </section>

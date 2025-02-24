@@ -46,55 +46,61 @@ export const Experience = () => {
   return (
     <>
       {width > 800 ? (
-        <section className="bg-white text-black font-base z-100">
-          <div
-            ref={containerRef}
-            className="sticky z-[1000]"
-            style={{ backgroundColor: "#424741", overflow: "hidden" }}
-          >
-            <div className="px-[10%]">
-              <div className="mt-[80px] flex justify-between">
-                <p className="threeone text-white text-[64px] font-[400] font-['AktivGrotesk']">
-                  EXPERIENCE THE{" "}
-                  <span className="text-[#FCD902]">FUTURE TODAY</span>
-                </p>
-                <div className="bg-[#FCD902] flex items-center justify-center px-24 py-4 expppppp">
-                  <p className="text-black text-[1.6rem] threetwo">
-                    WHAT'S THE HOLD
-                  </p>
+
+
+        <div className="z-[100]" style={{ backgroundColor : "#525652" , paddingTop : 40 }}>
+          <section ref={containerRef}>
+            <div className=" h-[1000vh]  sticky  z-[1000] top-0">
+              <div className="sticky top-0 w-full ">
+                <div className="px-[10%]">
+                  <div className="mt-[80px] flex justify-between">
+                    <p className="threeone text-white text-[64px] font-[400] font-['AktivGrotesk']  findthewayss">
+                      EXPERIENCE THE{" "}
+                      <span className="text-[#FCD902]">FUTURE TODAY</span>
+                    </p>
+                    <div className="bg-[#FCD902] flex items-center justify-center px-24 py-4 expppppp">
+                      <p className="text-black text-[1.6rem] threetwo">
+                        WHAT'S THE HOLD
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-3 text-white text-[36px] font-[400] leading-[3rem] font-['AktivGrotesk'] uppercase   uppercaseok ">
+                    Explore the innovative solutions of Genbot and G Bot.
+                    <br />
+                    Embrace the future of technology and human-robot
+                    <br />
+                    interaction. Begin your journey to safer, more
+                    <br />
+                    efficient, and tech-driven possibilities today.
+                  </div>
+                </div>
+
+                <div
+                  className="sticky top-0 flex justify-center items-center w-full h-screen fgnfrthdfx"
+                  style={{ marginTop: -300 }}
+                >
+                  {images.map((imgSrc, index) => (
+                    <img
+                      key={index}
+                      src={imgSrc}
+                      alt={`Frame ${index + 1}`}
+                      className="absolute"
+                      style={{
+                        opacity: index === currentIndex ? 1 : 0,
+                        zIndex: index === currentIndex ? 20 : 10,
+                      }}
+                    />
+                  ))}
                 </div>
               </div>
-
-              <div className="mt-3 text-white text-[36px] font-[400] leading-[3rem] font-['AktivGrotesk'] uppercase   uppercaseok ">
-                Explore the innovative solutions of Genbot and G Bot.
-                <br />
-                Embrace the future of technology and human-robot
-                <br />
-                interaction. Begin your journey to safer, more
-                <br />
-                efficient, and tech-driven possibilities today.
-              </div>
             </div>
+          </section>
+        </div>
 
-            <div
-              className="sticky top-0 flex justify-center items-center w-full h-screen"
-              style={{ marginTop: -300 }}
-            >
-              {images.map((imgSrc, index) => (
-                <img
-                  key={index}
-                  src={imgSrc}
-                  alt={`Frame ${index + 1}`}
-                  className="absolute"
-                  style={{
-                    opacity: index === currentIndex ? 1 : 0,
-                    zIndex: index === currentIndex ? 20 : 10,
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
+
+
+
       ) : (
         <section className="bg-white text-black font-base z-100">
           <div
