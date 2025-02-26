@@ -31,14 +31,29 @@ const Twofive = () => {
     [0, totalImages - 1]
   );
 
+  const sectionProgressnew = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, 101 - 1]
+  );
+
   const textImageScale = useTransform(scrollYProgress, [0, 0.5], [1.1, 0.3]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndexnew, setCurrentIndexnew] = useState(0);
+  const [currentIndexnews, setCurrentIndexnews] = useState(0);
 
   useMotionValueEvent(sectionProgress, "change", (latest) => {
     const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
     setCurrentIndex(clampedIndex);
   });
+
+  useMotionValueEvent(sectionProgressnew, "change", (latest) => {
+    const clampedIndex = Math.min(Math.floor(latest), 101 - 1);
+    setCurrentIndexnew(clampedIndex);
+    setCurrentIndexnews(101 -  clampedIndex )
+  });
+
 
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -66,12 +81,12 @@ const Twofive = () => {
                 src="/twoback.png"
                 alt="G Bot Text"
                 className="absolute z-10 img2 finfffffffffffffffff"
-                style={{ scale: textImageScale , zIndex : 50 }}
+                style={{ scale: textImageScale , zIndex : 50 , opacity : currentIndexnews / 100 }}
               />
 
               {images.map((imgSrc, index) => {
                 
-                console.log(index , currentIndex , 'currentIndexcurrentIndexcurrentIndexcurrentIndex' )
+                console.log(index , currentIndexnew , 'currentIndexcurrentIndexcurrentIndexcurrentIndex' )
                 
                 return(
                 <img
@@ -80,7 +95,7 @@ const Twofive = () => {
                   alt={`G Frame ${index + 1}`}
                   className="absolute max-w-[1900px] img h-[100vh]"
                   style={{
-                    opacity: index === currentIndex ? 1 : 0,
+                    opacity: index === currentIndex ? currentIndexnew/100 : 0,
                     zIndex: index  ,
                   }}
                 />

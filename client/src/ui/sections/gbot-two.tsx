@@ -50,7 +50,7 @@ const GbotTwo = () => {
           className="  text-black font-base z-100"
         >
           <div
-            className=" sticky z-[1000] h-[300vh]"
+            className=" sticky z-[1000] h-[800vh]"
             style={{ backgroundColor: "#EEEEEA" }}
             ref={ref}
           >

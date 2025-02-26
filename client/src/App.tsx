@@ -47,7 +47,7 @@ function App() {
   );
 
   useMotionValueEvent(textProgress, "change", (latest) => {
-    setGlowIndex(Math.floor(latest));
+    setGlowIndex(Math.floor(latest) + 25 );
   });
 
   useEffect(() => {

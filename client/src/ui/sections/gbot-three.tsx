@@ -31,7 +31,7 @@ const GbotThree = () => {
   const textProgress = useTransform(
     scrollYProgress,
     [0, 1],
-    [-1, text2.length]
+    [1, text2.length + 40]
   );
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const GbotThree = () => {
   });
 
   useMotionValueEvent(textProgress, "change", (latest) => {
-    setGlowIndex(Math.floor(latest));
+    setGlowIndex(Math.floor(latest)  );
   });
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -64,7 +64,7 @@ const GbotThree = () => {
         <div className="z-[100]">
           <section ref={thirdContainerOriginbot}>
             <div
-              className="h-[300vh] sticky top-0 z-[1000]"
+              className="h-[800vh] sticky top-0 z-[1000]"
               style={{ backgroundColor: "#EEEEEA" }}
             >
               <div className="sticky top-0 w-full flex md:flex-row">

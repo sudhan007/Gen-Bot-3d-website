@@ -59,8 +59,8 @@ export const HeroSection = ({ loading }: Props) => {
 
       {!loading && (
         <div className="text-white font-normal uppercase mx-[5%] leading-none z-10 absolute bottom-12 left-0">
-          <h1 style={{ fontFamily : 'AktivGrotesk' , fontSize : 100 , fontWeight : '400' } } className="text-[5.5vw] opacity-0">Advancing</h1>
-          <h1 style={{ fontFamily : 'AktivGrotesk' , fontSize : 100 , fontWeight : '400'} } className="text-[5.5vw] opacity-0">Safety Through</h1>
+          <h1 style={{ fontFamily : 'AktivGrotesk' , fontSize : 80 , fontWeight : '400' } } className="text-[5.5vw] opacity-0">Advancing</h1>
+          <h1 style={{ fontFamily : 'AktivGrotesk' , fontSize : 80 , fontWeight : '400'} } className="text-[5.5vw] opacity-0">Safety Through</h1>
           <h1 className="text-[5.5vw] opacity-0">
             <span style={{ fontFamily : 'AktivGrotesk' , fontSize : 100 , fontWeight : '400'} } className="text-yellow">Innovation</span>
           </h1>
