@@ -174,30 +174,29 @@ const FlyGenBotSection = () => {
                       {cardData.map((card, index) => (
                         <div
                           onClick={() => {
-                            console.log(
-                              currentIndex,
-                              "currentIndexcurrentIndex"
-                            );
+                            console.log(currentIndex, "currentIndexcurrentIndex");
                           }}
                           key={index}
-                          className={`absolute transition-opacity duration-700 ease-out ${
-                            card.className
-                          } ${
-                            index <= visibleIndex ? "opacity-100" : "opacity-0"
-                          }`}
+                          className={`absolute transition-all duration-700 ease-out ${card.className
+                            } ${index <= visibleIndex
+                              ? "opacity-100 translate-y-0"
+                              : "opacity-0 translate-y-[-60px]"
+                            }`}
                         >
                           <div
-                            className={`flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white`}
+                            className="flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white"
                             style={{
                               boxShadow:
                                 "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
                             }}
                           >
                             <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
-                              <h1 style={{ fontWeight : '700' }} className="text-xl font-normal mb-2 break-before-avoid">
+                              <h1
+                                style={{ fontWeight: "700" }}
+                                className="text-xl font-normal mb-2 break-before-avoid"
+                              >
                                 {card.heading}
                               </h1>
-
                               <p className="text-sm text-[#909090] leading-normal opacity-95">
                                 {card.subHeading}
                               </p>
@@ -205,6 +204,7 @@ const FlyGenBotSection = () => {
                           </div>
                         </div>
                       ))}
+
                     </div>
 
                     {/* Genbot image with opacity 0 for initial fade-in */}

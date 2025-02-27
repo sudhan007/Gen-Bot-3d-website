@@ -254,32 +254,34 @@ export const GbotFour = () => {
                           className="flex flex-col justify-left items-end gap-10 paddgaythree"
                           style={{ marginRight: "10%" }}
                         >
-                          {cardData.map(({ heading, subHeading }, index) => (
-                            <div
-                              key={index}
-                              className={` transition-opacity fly-genbot-card flex flex-col duration-700 ease-out items-center 
-                                justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border
-                                 bg-white ${
-                                   index <= visibleIndex
-                                     ? "opacity-100"
-                                     : "opacity-0"
-                                 }`}
-                              style={{
-                                boxShadow:
-                                  "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
-                              }}
-                            >
-                              <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B] hahabot">
-                                <h1 style={{ fontWeight : '700' }} className="text-lg font-normal mb-2 break-before-avoid capitalize">
-                                  {heading}
-                                </h1>
+                        {cardData.map(({ heading, subHeading }, index) => (
+  <div
+    key={index}
+    className={`transition-all duration-700 ease-out fly-genbot-card flex flex-col items-center 
+      justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white 
+      ${
+        index <= visibleIndex
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-5"
+      }`}
+    style={{
+      boxShadow:
+        "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
+    }}
+  >
+    <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B] hahabot">
+      <h1
+        style={{ fontWeight: "700" }}
+        className="text-lg font-normal mb-2 break-before-avoid capitalize"
+      >
+        {heading}
+      </h1>
 
-                                <p className="text-sm text-[#909090] leading-normal">
-                                  {subHeading}
-                                </p>
-                              </div>
-                            </div>
-                          ))}
+      <p className="text-sm text-[#909090] leading-normal">{subHeading}</p>
+    </div>
+  </div>
+))}
+
                         </div>
                       </div>
                     </div>
