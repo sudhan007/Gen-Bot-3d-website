@@ -160,7 +160,7 @@ const FlyGenBotSection = () => {
             <section ref={ref}>
               <div
                 ref={refs}
-                className=" h-[800vh] bg-white sticky  z-[1000] top-0"
+                className=" h-[500vh] bg-white sticky  z-[1000] top-0"
               >
                 <div
                   className="sticky top-0 w-full flex md:flex-row "

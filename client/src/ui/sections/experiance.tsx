@@ -102,10 +102,10 @@ export const Experience = () => {
 
 
       ) : (
-        <section className="bg-white text-black font-base z-100">
+        <section className="bg-white text-black font-base z-100 ">
           <div
             ref={containerRef}
-            className="sticky z-[1000]"
+            className="sticky z-[1000] "
             style={{ backgroundColor: "#424741", overflow: "hidden" }}
           >
             <div className="px-[5%] text-center">

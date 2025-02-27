@@ -221,7 +221,7 @@ export const GbotFour = () => {
 
         <div className="z-[100]">
           <section>
-            <div ref={refs} className=" h-[700vh]  sticky  z-[1000] top-0">
+            <div ref={refs} className=" h-[500vh]  sticky  z-[1000] top-0">
               <div className="sticky top-0 w-full flex md:flex-row ">
                 <div
                   style={{ marginLeft: 200 }}
