@@ -194,7 +194,7 @@ const FlyGenBotSection = () => {
                             }}
                           >
                             <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
-                              <h1 className="text-xl font-normal mb-2 break-before-avoid">
+                              <h1 style={{ fontWeight : '700' }} className="text-xl font-normal mb-2 break-before-avoid">
                                 {card.heading}
                               </h1>
 

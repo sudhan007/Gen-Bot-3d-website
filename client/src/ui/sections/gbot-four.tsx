@@ -270,7 +270,7 @@ export const GbotFour = () => {
                               }}
                             >
                               <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B] hahabot">
-                                <h1 className="text-lg font-normal mb-2 break-before-avoid capitalize">
+                                <h1 style={{ fontWeight : '700' }} className="text-lg font-normal mb-2 break-before-avoid capitalize">
                                   {heading}
                                 </h1>
 
