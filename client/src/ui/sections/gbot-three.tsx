@@ -127,6 +127,7 @@ const GbotThree = () => {
                       style={{
                         opacity: index === currentIndex ? 1 : 0,
                         zIndex: index === currentIndex ? 20 : 10,
+                        maxWidth : '170%' 
                       }}
                     />
                   ))}

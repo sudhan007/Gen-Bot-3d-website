@@ -58,7 +58,7 @@ export const GbotFour = () => {
     },
   ]);
 
-  const totalImages = 200;
+  const totalImages = 160;
   const [isVisible, setIsVisible] = useState(false);
 
   const [images, setImages] = useState([]);
@@ -77,7 +77,7 @@ export const GbotFour = () => {
   useMotionValueEvent(sectionProgress, "change", (latest) => {
     const newIndex = Math.min(
       Math.floor(latest / (160 / cardData.length)),
-      cardData.length 
+      cardData.length
     );
     console.log("", newIndex);
     setVisibleIndex(newIndex - .9);
@@ -90,9 +90,9 @@ export const GbotFour = () => {
 
   useEffect(() => {
     const preloadedImages: any = [];
-    for (let i = 40; i <= totalImages; i++) {
+    for (let i = 0; i <= totalImages; i++) {
       const paddedIndex = String(i).padStart(4, "0");
-      preloadedImages.push(`/walks/WALK${paddedIndex}.webp`);
+      preloadedImages.push(`/walks/${paddedIndex}.webp`);
     }
 
     console.log(preloadedImages, "preloadedImages");
@@ -254,33 +254,32 @@ export const GbotFour = () => {
                           className="flex flex-col justify-left items-end gap-10 paddgaythree"
                           style={{ marginRight: "10%" }}
                         >
-                        {cardData.map(({ heading, subHeading }, index) => (
-  <div
-    key={index}
-    className={`transition-all duration-700 ease-out fly-genbot-card flex flex-col items-center 
+                          {cardData.map(({ heading, subHeading }, index) => (
+                            <div
+                              key={index}
+                              className={`transition-all duration-700 ease-out fly-genbot-card flex flex-col items-center 
       justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white 
-      ${
-        index <= visibleIndex
-          ? "opacity-100 translate-y-0"
-          : "opacity-0 translate-y-5"
-      }`}
-    style={{
-      boxShadow:
-        "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
-    }}
-  >
-    <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B] hahabot">
-      <h1
-        style={{ fontWeight: "700" }}
-        className="text-lg font-normal mb-2 break-before-avoid capitalize"
-      >
-        {heading}
-      </h1>
+      ${index <= visibleIndex
+                                  ? "opacity-100 translate-y-5"
+                                  : "opacity-0 translate-y-0"
+                                }`}
+                              style={{
+                                boxShadow:
+                                  "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
+                              }}
+                            >
+                              <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B] hahabot">
+                                <h1
+                                  style={{ fontWeight: "700" }}
+                                  className="text-lg font-normal mb-2 break-before-avoid capitalize"
+                                >
+                                  {heading}
+                                </h1>
 
-      <p className="text-sm text-[#909090] leading-normal">{subHeading}</p>
-    </div>
-  </div>
-))}
+                                <p className="text-sm text-[#909090] leading-normal">{subHeading}</p>
+                              </div>
+                            </div>
+                          ))}
 
                         </div>
                       </div>

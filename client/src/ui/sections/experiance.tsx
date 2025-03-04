@@ -5,6 +5,7 @@ export const Experience = () => {
   const totalImages = 250;
   const [images, setImages] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndexval, setCurrentIndexval] = useState(0);
   const containerRef = useRef(null);
 
   // Initialize scroll tracking
@@ -32,7 +33,12 @@ export const Experience = () => {
   // Update currentIndex based on scroll progress (throttled)
   useMotionValueEvent(imageIndex, "change", (latest) => {
     const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
-    if (clampedIndex !== currentIndex) setCurrentIndex(clampedIndex);
+    if (clampedIndex !== currentIndex) {
+      setCurrentIndex(clampedIndex) 
+    };
+    if (clampedIndex !== currentIndexval) { 
+      setCurrentIndexval(clampedIndex+100)
+    };
   });
 
   // Handle responsive width
@@ -48,7 +54,7 @@ export const Experience = () => {
       {width > 800 ? (
 
 
-        <div className="z-[100]" style={{ backgroundColor : "#525652" , paddingTop : 40 }}>
+        <div className="z-[100]" style={{ backgroundColor: "#525652", paddingTop: 40 }}>
           <section ref={containerRef}>
             <div className=" h-[1000vh]  sticky  z-[1000] top-0">
               <div className="sticky top-0 w-full ">
@@ -102,45 +108,46 @@ export const Experience = () => {
 
 
       ) : (
-        <section className="bg-white text-black font-base z-100 ">
-          <div
-            ref={containerRef}
-            className="sticky z-[1000] "
-            style={{ backgroundColor: "#424741", overflow: "hidden" }}
+        <section className="bg-white text-black font-base z-100  " ref={containerRef} >
+          <div 
+            className="  sticky  z-[1000] top-0 "
+            style={{ backgroundColor: "#424741", overflow: "hidden", paddingTop: 50 }}
           >
-            <div className="px-[5%] text-center">
-              <p className="threeone text-white text-[24px] font-[400] font-['AktivGrotesk']">
-                EXPERIENCE THE <br />
-                <span className="text-[#FCD902]">FUTURE TODAY</span>
-              </p>
-
-              <p className="text-white text-[15px] font-[400] font-['AktivGrotesk'] mt-3">
-                Explore the innovative solutions of Genbot and G Bot. Embrace
-                the future of technology and human-robot interaction. Begin your
-                journey to safer, more efficient, and tech-driven possibilities
-                today.
-              </p>
-
-              <div className="bg-[#FCD902] flex items-center justify-center mt-5 px-10 py-2 w-[50%] mx-auto">
-                <p className="text-black text-[15px] threetwo uppercase">
-                  WHAT'S THE HOLD
+            <div className="sticky top-0 w-full">
+              <div className="px-[5%] text-center">
+                <p className="threeone text-white text-[24px] font-[400] font-['AktivGrotesk']">
+                  EXPERIENCE THE <br />
+                  <span className="text-[#FCD902]">FUTURE TODAY</span>
                 </p>
-              </div>
-            </div>
 
-            <div className="sticky top-0 flex justify-center items-center h-[32vh]">
-              {images.map((imgSrc, index) => (
-                <img
-                  key={index}
-                  src={imgSrc}
-                  alt={`Frame ${index + 1}`}
-                  className="absolute"
-                  style={{
-                    opacity: index === currentIndex ? 1 : 0,
-                    zIndex: index === currentIndex ? 20 : 10,
-                  }}
-                />
-              ))}
+                <p className="text-white text-[15px] font-[400] font-['AktivGrotesk'] mt-3">
+                  Explore the innovative solutions of Genbot and G Bot. Embrace
+                  the future of technology and human-robot interaction. Begin your
+                  journey to safer, more efficient, and tech-driven possibilities
+                  today.
+                </p>
+
+                <div className="bg-[#FCD902] flex items-center justify-center mt-5 px-10 py-2 w-[50%] mx-auto">
+                  <p className="text-black text-[15px] threetwo uppercase">
+                    WHAT'S THE HOLD
+                  </p>
+                </div>
+              </div>
+
+              <div className="sticky top-0 flex justify-center items-center h-[32vh]">
+                {images.map((imgSrc, index) => (
+                  <img
+                    key={index}
+                    src={imgSrc}
+                    alt={`Frame ${index + 1}`}
+                    className="absolute"
+                    style={{
+                      opacity: index === currentIndexval ? 1 : 0,
+                      zIndex: index === currentIndexval ? 20 : 10,
+                    }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </section>
