@@ -112,6 +112,7 @@ const FlyGenBotSection = () => {
       subHeading:
         "Designed to excel in toxic and hazardous settings, Genbot ensures human safety.",
       className: `lg:top-[15%] lg:left-[13%] md:top-[10%] md:left-[5%] coolbotonoe`,
+      ind : 1
     },
     {
       heading: "Real-Time Data Analysis",
@@ -119,6 +120,7 @@ const FlyGenBotSection = () => {
         "Genbot's AI analyzes data in real-time for informed decision-making.",
       className:
         "lg:top-[7%] lg:right-[20%] md:top-[10%] md:right-[5%] coolbototwo",
+        ind : 2
     },
     {
       heading: "Advanced Sensors",
@@ -126,6 +128,7 @@ const FlyGenBotSection = () => {
         "Equipped with state-of-the-art sensors for precise and safe navigation.",
       className:
         "lg:bottom-[55%] lg:right-[12%] md:bottom-[10%] md:right-[5%] coolbotthree",
+        ind : 3
     },
     {
       heading: "Human-Robot Collaboration",
@@ -133,6 +136,7 @@ const FlyGenBotSection = () => {
         "Genbot works seamlessly alongside humans, reducing their exposure to risky conditions.",
       className:
         "lg:bottom-[45%] lg:left-[10%] md:bottom-[10%] md:left-[5%] coolbotfour",
+        ind : 4
     },
     {
       heading: "Multi-Terrain Traversal",
@@ -140,6 +144,7 @@ const FlyGenBotSection = () => {
         "Genbot's advanced tracks enable it to navigate a wide range of terrains with ease.",
       className:
         "lg:left-[60%] lg:top-[60%] md:left-[24%] md:top-[60%] coolbotofive",
+        ind : 4
     },
   ];
 
@@ -178,7 +183,7 @@ const FlyGenBotSection = () => {
                           }}
                           key={index}
                           className={`absolute transition-all duration-700 ease-out ${card.className
-                            } ${index <= visibleIndex
+                            } ${card.ind <= visibleIndex 
                               ? "opacity-100 translate-y-0"
                               : "opacity-0 translate-y-[-60px]"
                             }`}

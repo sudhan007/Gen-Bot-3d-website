@@ -91,10 +91,11 @@ export const Experience = () => {
                       key={index}
                       src={imgSrc}
                       alt={`Frame ${index + 1}`}
-                      className="absolute"
+                      className="absolute macccc"
                       style={{
                         opacity: index === currentIndex ? 1 : 0,
                         zIndex: index === currentIndex ? 20 : 10,
+                         maxWidth : '83%'
                       }}
                     />
                   ))}

@@ -71,12 +71,12 @@ export const GbotFour = () => {
     target: refs,
   });
 
-  const sectionProgress = useTransform(scrollYProgress, [0, 1], [0, 160]);
+  const sectionProgress = useTransform(scrollYProgress, [0, 1], [0, 120]);
   const [visibleIndex, setVisibleIndex] = useState(-1);
 
   useMotionValueEvent(sectionProgress, "change", (latest) => {
     const newIndex = Math.min(
-      Math.floor(latest / (160 / cardData.length)),
+      Math.floor(latest / (120 / cardData.length)),
       cardData.length
     );
     console.log("", newIndex);
@@ -84,13 +84,13 @@ export const GbotFour = () => {
   });
 
   useMotionValueEvent(sectionProgress, "change", (latest) => {
-    const clampedIndex = Math.min(Math.floor(latest), 160);
+    const clampedIndex = Math.min(Math.floor(latest), 120);
     setCurrentIndex(clampedIndex);
   });
 
   useEffect(() => {
     const preloadedImages: any = [];
-    for (let i = 0; i <= totalImages; i++) {
+    for (let i = 40 ; i <= totalImages; i++) {
       const paddedIndex = String(i).padStart(4, "0");
       preloadedImages.push(`/walks/${paddedIndex}.webp`);
     }
@@ -259,10 +259,8 @@ export const GbotFour = () => {
                               key={index}
                               className={`transition-all duration-700 ease-out fly-genbot-card flex flex-col items-center 
       justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white 
-      ${index <= visibleIndex
-                                  ? "opacity-100 translate-y-5"
-                                  : "opacity-0 translate-y-0"
-                                }`}
+      ${index <= visibleIndex ? "opacity-100 translate-y-0" : "opacity-0 translate-y-negative"}
+`}
                               style={{
                                 boxShadow:
                                   "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",

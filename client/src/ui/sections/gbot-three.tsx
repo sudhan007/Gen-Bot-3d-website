@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatedText } from "../components/AnimatedText";
 
 const GbotThree = () => {
-  const totalImages = 80;
+  const totalImages = 111;
   const text2 =
     "Get acquainted with G bot. A humanoid robot empowered by AI, redefining collaboration with humans. Designed to work seamlessly alongside humans, G bot is more than just a robotic assistant: it's the future of technological partnership.";
 
