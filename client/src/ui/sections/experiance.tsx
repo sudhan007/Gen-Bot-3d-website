@@ -56,7 +56,7 @@ export const Experience = () => {
 
         <div className="z-[100]" style={{ backgroundColor: "#525652", paddingTop: 40 }}>
           <section ref={containerRef}>
-            <div className=" h-[1000vh]  sticky  z-[1000] top-0">
+            <div className=" h-[700vh]  sticky  z-[1000] top-0">
               <div className="sticky top-0 w-full ">
                 <div className="px-[10%]">
                   <div className="mt-[80px] flex justify-between">
