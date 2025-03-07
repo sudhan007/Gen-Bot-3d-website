@@ -58,9 +58,9 @@ export const Experience = () => {
           <section ref={containerRef}>
             <div className=" h-[700vh]  sticky  z-[1000] top-0">
               <div className="sticky top-0 w-full ">
-                <div className="px-[10%]">
-                  <div className="mt-[80px] flex justify-between">
-                    <p className="threeone text-white text-[64px] font-[400] font-['AktivGrotesk']  findthewayss">
+                <div className="px-[5%]">
+                  <div className="mt-[30px] flex justify-between">
+                    <p className="threeone text-white text-[50px] font-[400] font-['AktivGrotesk']  findthewayss">
                       EXPERIENCE THE{" "}
                       <span className="text-[#FCD902]">FUTURE TODAY</span>
                     </p>
@@ -71,7 +71,7 @@ export const Experience = () => {
                     </div>
                   </div>
 
-                  <div className="mt-3 text-white text-[36px] font-[400] leading-[3rem] font-['AktivGrotesk'] uppercase   uppercaseok ">
+                  <div className="mt-1 text-white text-[28px] font-[400]   font-['AktivGrotesk'] uppercase   uppercaseok ">
                     Explore the innovative solutions of Genbot and G Bot.
                     <br />
                     Embrace the future of technology and human-robot
@@ -84,7 +84,7 @@ export const Experience = () => {
 
                 <div
                   className="sticky top-0 flex justify-center items-center w-full h-screen fgnfrthdfx"
-                  style={{ marginTop: -300 }}
+                  style={{ marginTop: -320 }}
                 >
                   {images.map((imgSrc, index) => (
                     <img
@@ -95,7 +95,7 @@ export const Experience = () => {
                       style={{
                         opacity: index === currentIndex ? 1 : 0,
                         zIndex: index === currentIndex ? 20 : 10,
-                         maxWidth : '83%'
+                         maxWidth : '100%'
                       }}
                     />
                   ))}
