@@ -368,6 +368,13 @@ body.loading {
   }
 }
 
+
+@media (min-width: 768px) and (max-width: 2200px) and (min-resolution: .9dppx) {
+  .macccc{
+    width: 110% !important ;
+  }
+}
+
 .expppppp { 
   height: 62px !important;
   margin-top: 13px !important;
