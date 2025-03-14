@@ -41,7 +41,7 @@ const Twofive = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentIndexnew, setCurrentIndexnew] = useState(0);
-  const [currentIndexnews, setCurrentIndexnews] = useState(0);
+  const [currentIndexnews, setCurrentIndexnews] = useState(101);
 
   useMotionValueEvent(sectionProgress, "change", (latest) => {
     const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
@@ -81,12 +81,12 @@ const Twofive = () => {
                 src="/twoback.png"
                 alt="G Bot Text"
                 className="absolute z-10 img2 finfffffffffffffffff"
-                style={{ scale: textImageScale , zIndex : 50 , opacity : currentIndexnews / 100 }}
+                style={{ scale: textImageScale , zIndex : 50 , opacity : currentIndexnews === 101 ? '1' : currentIndexnews / 100 }}
               />
 
               {images.map((imgSrc, index) => {
                 
-                console.log(index , currentIndexnew , 'currentIndexcurrentIndexcurrentIndexcurrentIndex' )
+                console.log(  currentIndexnews , 'currentIndexcurrentIndexcurrentIndexcurrentIndex' )
                 
                 return(
                 <img

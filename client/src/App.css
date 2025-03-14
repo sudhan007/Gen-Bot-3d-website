@@ -378,6 +378,11 @@ body.loading {
 .expppppp { 
   height: 62px !important;
   margin-top: 13px !important;
+    
+}
+.wrapper{
+  width: 200px !important;
+  height: 10px !important;
 }
 .findthewayss{
   margin-top : 5px  ;
@@ -394,4 +399,22 @@ body.loading {
 }
 .translate-y-negative {
   transform: translateY(-60px);
+}
+
+.wrapper { 
+
+}
+
+.container {
+  background-color: pink;
+}
+
+.barCompleted {
+  background-color: lightblue; 
+}
+
+.label {
+  font-size: 10px;
+  color: white;
+  font-weight : '600' ;
 }
