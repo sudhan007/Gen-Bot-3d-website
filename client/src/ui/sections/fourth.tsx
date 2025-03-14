@@ -144,7 +144,10 @@ const FlyGenBotSection = () => {
         "Genbot's advanced tracks enable it to navigate a wide range of terrains with ease.",
       className:
         "lg:left-[60%] lg:top-[60%] md:left-[24%] md:top-[60%] coolbotofive",
-        ind : 4
+        ind : 5
+    },
+    { 
+        ind : 6
     },
   ];
 

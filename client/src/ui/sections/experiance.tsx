@@ -65,7 +65,7 @@ export const Experience = () => {
                       <span className="text-[#FCD902]">FUTURE TODAY</span>
                     </p>
                     <div className="bg-[#FCD902] flex items-center justify-center px-24 py-4 expppppp">
-                      <p className="text-black text-[1.6rem] threetwo">
+                      <p className="text-black text-[1.6rem] threetwo" style={{ fontFamily : 'AktivGrotesk' }} >
                         WHAT'S THE HOLD
                       </p>
                     </div>

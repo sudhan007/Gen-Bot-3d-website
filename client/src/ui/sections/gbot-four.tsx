@@ -56,6 +56,38 @@ export const GbotFour = () => {
       heading: "Adaptive Learning",
       subHeading: "G Bot continuously learns and adapts to user needs.",
     },
+    { 
+    },
+    { 
+    },
+  ]);
+
+  
+  const [cardDatass] = useState([
+    {
+      heading: "Hazardous Environment Compatibility",
+      subHeading:
+        "Designed to excel in toxic and hazardous settings, Genbot ensures human safety.",
+    },
+    {
+      heading: "Security and Privacy",
+      subHeading:
+        "G Bot ensures the utmost security and privacy in interactions.",
+    },
+    {
+      heading: "AI Empowerment",
+      subHeading:
+        "G Bot is equipped with cutting-edge AI technology, making it a versatile and intelligent companion.",
+    },
+    {
+      heading: "Friendly Interface",
+      subHeading:
+        "G Bot offers a friendly and approachable interface for easy communication and collaboration.",
+    },
+    {
+      heading: "Adaptive Learning",
+      subHeading: "G Bot continuously learns and adapts to user needs.",
+    }, 
   ]);
 
   const totalImages = 160;
@@ -235,7 +267,7 @@ export const GbotFour = () => {
                       alt={`G Frame ${index + 1}`}
                       className={`absolute  max-w-[1900px] img h-[100vh]`}
                       style={{
-                        opacity: index === currentIndex ? 1 : 0,
+                        opacity: index === currentIndex  ? 1 : 0,
                         zIndex: index === currentIndex ? 20 : 10,
                         // transition: "opacity 0.3s ease-in-out",
                       }}
@@ -258,9 +290,9 @@ export const GbotFour = () => {
                             <div
                               key={index}
                               className={`transition-all duration-700 ease-out fly-genbot-card flex flex-col items-center 
-      justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white 
-      ${index <= visibleIndex ? "opacity-100 translate-y-0" : "opacity-0 translate-y-negative"}
-`}
+                                      justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white 
+                                      ${index <= visibleIndex && heading ? "opacity-100 translate-y-0" : "opacity-0 translate-y-negative"}
+                                `}
                               style={{
                                 boxShadow:
                                   "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
@@ -315,7 +347,7 @@ export const GbotFour = () => {
                   className="flex flex-col justify-center items-end gap-10 "
                   style={{}}
                 >
-                  {cardData.map(({ heading, subHeading }, index) => (
+                  {cardDatass.map(({ heading, subHeading }, index) => (
                     <div
                       key={index}
                       className="fly-genbot-card flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white"
