@@ -32,7 +32,7 @@ const Twofive = () => {
   );
 
   const sectionProgressnew = useTransform(
-    scrollYProgress,
+    scrollYProgress ,
     [0, 1],
     [0, 101 - 1]
   );
