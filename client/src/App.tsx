@@ -145,7 +145,7 @@ function App() {
 
     console.log(loadedAssets, totalAssets, videoLoaded, 'loadedAssets, totalAssets, videoLoaded, base64Video')
  
-    if ( videoLoaded   ) {
+    if ( videoLoaded  && loading === true ) {
 
       // window.scrollTo(0, 0);
       window.scrollTo(0, 0);
