@@ -144,7 +144,7 @@ function App() {
   useEffect(() => {
 
     console.log(loadedAssets, totalAssets, videoLoaded, base64Video, 'loadedAssets, totalAssets, videoLoaded, base64Video')
-    if (loadedAssets >= totalAssets && totalAssets > 0  && base64Video ) {
+    if (loadedAssets >= totalAssets && totalAssets > 0   ) {
       setLoading(false);
       setProgressstate(true)
       window.scrollTo(0, 0);
@@ -166,7 +166,7 @@ function App() {
       //   setLoading(false);
       // }, 1000);
     }
-  }, [loadedAssets, totalAssets, videoLoaded, base64Video]);
+  }, [loadedAssets, totalAssets, videoLoaded]);
 
   const [isMobile] = useState(window.innerWidth < 768);  
  
