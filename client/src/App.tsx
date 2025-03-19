@@ -24,7 +24,7 @@ import { HeroSection } from "./ui/sections/hero.tsx";
 
 
 function App() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [loadedAssets, setLoadedAssets] = useState(0);
   const [totalAssets, setTotalAssets] = useState(0);
   const [videoLoaded, setVideoLoaded] = useState(false); 
@@ -141,36 +141,36 @@ function App() {
     }
   }, [loading]);
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   console.log(loadedAssets, totalAssets, videoLoaded, 'loadedAssets, totalAssets, videoLoaded, base64Video')
+    console.log(loadedAssets, totalAssets, videoLoaded, 'loadedAssets, totalAssets, videoLoaded, base64Video')
  
-  //   if (loadedAssets >= totalAssets && videoLoaded   ) {
+    if ( videoLoaded   ) {
 
-  //     // window.scrollTo(0, 0);
-
+      // window.scrollTo(0, 0);
+      window.scrollTo(0, 0);
       
-  //     setTimeout(() => {
+      setTimeout(() => {
         
-  //       // setProgress(100)
-  //     window.scrollTo(0, 0);
-         
-  //     }, 500);
+        // setProgress(100)
+    
+        setLoading(false);
+      }, 500);
 
        
-  //     setLoading(false);
-  //     setProgressstate(true)
+      
+      // setProgressstate(true)
      
 
-  //     // setTimeout(() => {
+      // setTimeout(() => {
         
        
         
-  //     //   // setPeddd(100)
-  //     //   setLoading(false);
-  //     // }, 1000);
-  //   }
-  // }, [loadedAssets, totalAssets, videoLoaded]);
+      //   // setPeddd(100)
+      //   setLoading(false);
+      // }, 1000);
+    }
+  }, [  videoLoaded]);
 
   const [isMobile] = useState(window.innerWidth < 768);  
  
