@@ -90,8 +90,7 @@ export const GbotFour = () => {
     }, 
   ]);
 
-  const totalImages = 160;
-  const [isVisible, setIsVisible] = useState(false);
+  const totalImages = 160; 
 
   const [images, setImages] = useState([]);
 
@@ -135,8 +134,7 @@ export const GbotFour = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
+        if (entry.isIntersecting) { 
           handleDivEnter();
         }
       },
@@ -153,8 +151,7 @@ export const GbotFour = () => {
       }
     };
   }, []);
-
-  const scale = useTransform(scrollYProgress, [0, 1], [0, 80]);
+ 
 
   const [width, setWidth] = useState(window.innerWidth);
 

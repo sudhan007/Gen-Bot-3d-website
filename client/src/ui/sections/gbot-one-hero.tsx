@@ -1,4 +1,4 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
+
 import anime from "animejs/lib/anime.es.js";
 import { useEffect, useState } from "react";
 
