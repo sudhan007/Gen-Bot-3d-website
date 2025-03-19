@@ -6,7 +6,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { Element, Events, scroller } from "react-scroll";
+import { Element,  } from "react-scroll";
 import "./App.css";
 import useDisableKeyboardScroll from "./hooks/useDisableKeyScroll.tsx";
 import { fetchVideoAsBase64, genbotIntro } from "./lib/utils.tsx";
@@ -27,8 +27,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [loadedAssets, setLoadedAssets] = useState(0);
   const [totalAssets, setTotalAssets] = useState(0);
-  const [videoLoaded, setVideoLoaded] = useState(false);
-  const [section, setSection] = useState("section1");
+  const [videoLoaded, setVideoLoaded] = useState(false); 
   const [base64Video, setBase64Video] = useState(null);
   const [glowIndex, setGlowIndex] = useState(-1);
   const thirdContainerOriginRef = useRef(null);
@@ -146,286 +145,32 @@ function App() {
 
     console.log(loadedAssets, totalAssets, videoLoaded, base64Video, 'loadedAssets, totalAssets, videoLoaded, base64Video')
     if (loadedAssets >= totalAssets && totalAssets > 0  && base64Video ) {
-
+      setLoading(false);
       setProgressstate(true)
-
-      setTimeout(() => {
-        
-        setProgress(100)
       window.scrollTo(0, 0);
+      // setTimeout(() => {
+        
+      //   setProgress(100)
+      // window.scrollTo(0, 0);
          
-      }, 500);
+      // }, 500);
 
        
      
 
-      setTimeout(() => {
+      // setTimeout(() => {
         
        
         
-        // setPeddd(100)
-        setLoading(false);
-      }, 1000);
+      //   // setPeddd(100)
+      //   setLoading(false);
+      // }, 1000);
     }
   }, [loadedAssets, totalAssets, videoLoaded, base64Video]);
 
-  const [isMobile] = useState(window.innerWidth < 768);
-  const currentScrollY = useRef(0);
-
-  const isScrolling = useRef(false);
-
-  const currentScrolls = useRef(-1);
-  const totalScrolls = useRef(4);
-
-  const currentScrollsSection3 = useRef(0);
-  const totalScrollsSection3 = useRef(12);
-
-  const currentScrollsSection6 = useRef(0);
-  const totalScrollsSection6 = useRef(12);
-
-  // useEffect(() => {
-  //   function handleScroll(e: WheelEvent) {
-  //     e.preventDefault();
-
-  //     if (isScrolling.current) {
-  //       console.log("Scrolling is already in progress, ignoring event.");
-  //       return; // Prevent further scrolling during animation
-  //     }
-
-  //     console.log(`Current Section: ${section}, Scroll Direction: ${e.deltaY}`);
-
-  //     console.log(
-  //       `Current Scrolls => ${currentScrolls.current}, Total => ${totalScrolls.current}`
-  //     );
-
-  //     currentScrollY.current = window.scrollY;
-
-  //     // Section 1 to Section 2
-  //     if (section === "section1" && e.deltaY > 0) {
-  //       console.log("Scrolling down from Section 1 to Section 2.");
-  //       scrollToSection("section2");
-
-  //       // Section 2 to Section 1
-  //     } else if (
-  //       section === "section2" &&
-  //       e.deltaY < 0 &&
-  //       currentScrolls.current === 0
-  //     ) {
-  //       console.log("Scrolling up from Section 2 to Section 1.");
-  //       scrollToSection("section1");
-
-  //       // Section 2 scrolling down
-  //     } else if (
-  //       section === "section2" &&
-  //       e.deltaY > 0 &&
-  //       currentScrolls.current < totalScrolls.current - 1
-  //     ) {
-  //       currentScrolls.current++;
-  //       isScrolling.current = true;
-  //       console.log(
-  //         `Scrolling down in Section 2: Current Scrolls ${currentScrolls.current}`
-  //       );
-
-  //       animateScroll.scrollMore(window.innerHeight, {
-  //         duration: 700,
-  //         smooth: "easeInOutQuad",
-  //         onComplete: () => {
-  //           isScrolling.current = false;
-  //           console.log("Finished scrolling down in Section 2.");
-  //         },
-  //       });
-
-  //       // Section 2 scrolling up
-  //     } else if (
-  //       section === "section2" &&
-  //       e.deltaY < 0 &&
-  //       currentScrolls.current > 0
-  //     ) {
-  //       currentScrolls.current--;
-  //       isScrolling.current = true;
-  //       console.log(
-  //         `Scrolling up in Section 2: Current Scrolls ${currentScrolls.current}`
-  //       );
-
-  //       animateScroll.scrollTo(window.scrollY - window.innerHeight, {
-  //         duration: 700,
-  //         smooth: "easeInOutQuad",
-  //         onComplete: () => {
-  //           isScrolling.current = false;
-  //           console.log("Finished scrolling up in Section 2.");
-  //         },
-  //       });
-
-  //       // Transition from Section 2 to Section 3
-  //     } else if (
-  //       section === "section2" &&
-  //       e.deltaY > 0 &&
-  //       currentScrolls.current === totalScrolls.current - 1
-  //     ) {
-  //       console.log("Transitioning from Section 2 to Section 3.");
-  //       scrollToSection("section3");
-
-  //       // Section 3 scrolling down
-  //     } else if (
-  //       section === "section3" &&
-  //       e.deltaY > 0 &&
-  //       currentScrollsSection3.current < totalScrollsSection3.current - 1
-  //     ) {
-  //       currentScrollsSection3.current++;
-  //       isScrolling.current = true;
-  //       console.log(
-  //         `Scrolling down in Section 3: Current Scrolls ${currentScrollsSection3.current}`
-  //       );
-
-  //       animateScroll.scrollMore(window.innerHeight, {
-  //         duration: 700,
-  //         smooth: "easeInOutQuad",
-  //         onComplete: () => {
-  //           isScrolling.current = false;
-  //           console.log("Finished scrolling down in Section 3.");
-  //         },
-  //       });
-
-  //       // Section 3 scrolling up
-  //     } else if (
-  //       section === "section3" &&
-  //       e.deltaY < 0 &&
-  //       currentScrollsSection3.current > 0
-  //     ) {
-  //       currentScrollsSection3.current--;
-  //       isScrolling.current = true;
-  //       console.log(
-  //         `Scrolling up in Section 3: Current Scrolls ${currentScrollsSection3.current}`
-  //       );
-
-  //       animateScroll.scrollTo(window.scrollY - window.innerHeight, {
-  //         duration: 700,
-  //         smooth: "easeInOutQuad",
-  //         onComplete: () => {
-  //           isScrolling.current = false;
-  //           console.log("Finished scrolling up in Section 3.");
-  //         },
-  //       });
-
-  //       // If at the top of section 3, scroll to section 2
-  //     } else if (
-  //       section === "section3" &&
-  //       e.deltaY < 0 &&
-  //       currentScrollsSection3.current === 0
-  //     ) {
-  //       console.log("Scrolling up from Section 3 to Section 2.");
-  //       scrollToSection("section2");
-  //       currentScrolls.current = 0;
-
-  //       // Transition from Section 3 to Section 4
-  //     } else if (
-  //       section === "section3" &&
-  //       e.deltaY > 0 &&
-  //       currentScrollsSection3.current === totalScrollsSection3.current - 1
-  //     ) {
-  //       console.log("Transitioning from Section 3 to Section 4.");
-  //       scrollToSection("section4");
-
-  //       // Section 4 scrolling down to section 5
-  //     } else if (section === "section4" && e.deltaY > 0) {
-  //       console.log("Scrolling down from Section 4 to Section 5.");
-  //       scrollToSection("section5");
-
-  //       // Section 4 scrolling up to section 3
-  //     } else if (section === "section4" && e.deltaY < 0) {
-  //       console.log("Scrolling up from Section 4 to Section 3.");
-  //       scrollToSection("section3");
-  //       currentScrollsSection3.current = 0;
-
-  //       // Section 5 scrolling up to section 4
-  //     } else if (section === "section5" && e.deltaY < 0) {
-  //       console.log("Scrolling up from Section 5 to Section 4.");
-  //       scrollToSection("section4");
-  //     } else if (section === "section5" && e.deltaY > 0) {
-  //       console.log("Scrolling down from Section 5 to Section 6.");
-  //       scrollToSection("section6");
-  //     } else if (
-  //       section === "section6" &&
-  //       e.deltaY > 0 &&
-  //       currentScrollsSection6.current < totalScrollsSection6.current - 1
-  //     ) {
-  //       currentScrollsSection6.current++;
-  //       isScrolling.current = true;
-  //       console.log(
-  //         `Scrolling down in Section 6: Current Scrolls ${currentScrollsSection6.current}`
-  //       );
-  //       animateScroll.scrollMore(window.innerHeight, {
-  //         duration: 700,
-  //         smooth: "easeInOutQuad",
-  //         onComplete: () => {
-  //           isScrolling.current = false;
-  //           console.log("Finished scrolling down in Section 6.");
-  //         },
-  //       });
-  //     } else if (
-  //       section === "section6" &&
-  //       e.deltaY < 0 &&
-  //       currentScrollsSection6.current > 0
-  //     ) {
-  //       currentScrollsSection6.current--;
-  //       isScrolling.current = true;
-  //       console.log(
-  //         `Scrolling up in Section 6: Current Scrolls ${currentScrollsSection6.current}`
-  //       );
-  //       animateScroll.scrollTo(window.scrollY - window.innerHeight, {
-  //         duration: 700,
-  //         smooth: "easeInOutQuad",
-  //         onComplete: () => {
-  //           isScrolling.current = false;
-  //           console.log("Finished scrolling up in Section 6.");
-  //         },
-  //       });
-  //     } else if (
-  //       section === "section6" &&
-  //       e.deltaY < 0 &&
-  //       currentScrollsSection6.current === 0
-  //     ) {
-  //       console.log("Scrolling up from Section 6 to Section 5.");
-  //       scrollToSection("section5");
-  //     } else if (
-  //       section === "section6" &&
-  //       e.deltaY > 0 &&
-  //       currentScrollsSection6.current === totalScrollsSection6.current - 1
-  //     ) {
-  //       console.log("Scrolling down from Section 6 to Section 7.");
-  //       scrollToSection("section7");
-  //     } else if (section === "section7" && e.deltaY > 0) {
-  //       console.log("Scrolling down from Section 7 to Section 8.");
-  //       scrollToSection("section8");
-  //     } else if (section === "section7" && e.deltaY < 0) {
-  //       console.log("Scrolling up from Section 7 to Section 6.");
-  //       currentScrollsSection6.current = 0;
-  //       scrollToSection("section6");
-  //     } else if (section === "section8" && e.deltaY > 0) {
-  //       console.log("Scrolling down from Section 8 to Section 9.");
-  //       scrollToSection("section9");
-  //     } else if (section === "section8" && e.deltaY < 0) {
-  //       console.log("Scrolling up from Section 8 to Section 7.");
-  //       scrollToSection("section7");
-  //     } else if (section === "section9" && e.deltaY > 0) {
-  //       console.log("Scrolling down from Section 9 to Section 10.");
-  //       scrollToSection("section10");
-  //     } else if (section === "section9" && e.deltaY < 0) {
-  //       console.log("Scrolling up from Section 9 to Section 8.");
-  //       scrollToSection("section8");
-  //     } else if (section === "section10" && e.deltaY < 0) {
-  //       console.log("Scrolling up from Section 10 to Section 9.");
-  //       scrollToSection("section9");
-  //     }
-  //   }
-
-  //   window.addEventListener("wheel", handleScroll, { passive: false });
-
-  //   return () => {
-  //     window.removeEventListener("wheel", handleScroll);
-  //   };
-  // }, [section]);
-
+  const [isMobile] = useState(window.innerWidth < 768);  
+ 
+ 
   // third section
   const secondContainerRef = useRef(null);
 
@@ -467,24 +212,7 @@ function App() {
 
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const scrollToSection = (_section: string) => {
-    scroller.scrollTo(_section, {
-      duration: 700,
-      smooth: "easeInOutQuad",
-    });
-    Events.scrollEvent.register("end", function () {
-      setSection(_section);
-      isScrolling.current = false;
-
-      if (_section == "section1") {
-        currentScrolls.current = 0;
-      }
-
-      if (_section == "section3" && section == "section4") {
-        currentScrolls.current = 0;
-      }
-    });
-  };
+  
 
   useDisableKeyboardScroll();
 
