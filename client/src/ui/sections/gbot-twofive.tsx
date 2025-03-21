@@ -86,7 +86,7 @@ const Twofive = () => {
 
               {images.map((imgSrc, index) => {
                 
-                console.log(  currentIndexnews , 'currentIndexcurrentIndexcurrentIndexcurrentIndex' )
+                // console.log(  currentIndexnews , 'currentIndexcurrentIndexcurrentIndexcurrentIndex' )
                 
                 return(
                 <img

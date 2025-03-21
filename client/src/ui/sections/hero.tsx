@@ -1,7 +1,9 @@
 // import hero from "@/assets/videos/hero-1080.mp4";
+import _axios from "@/lib/_axios";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import anime from "animejs/lib/anime.es.js";
 import { useEffect , useState } from "react";
+import {  useQuery } from "@tanstack/react-query";
 
 type Props = {
   loading: boolean;
@@ -23,7 +25,20 @@ export const HeroSection = ({ loading }: Props) => {
     }
   }, [loading]);
 
+  const { data } = useQuery({
+    queryKey: ["homeContent"],
+    queryFn: async () => {
+      return _axios.get(`/homepage/content`);
+    },
+  });
 
+  // console.log(data?.data.data.content)
+  const content = data?.data.data.content || "";
+  const words = content.split(" ");
+
+  const firstWord = words[0] || "";
+  const lastWord = words[words.length - 1] || "";
+  const middleWords = words.slice(1, -1).join(" ");
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -59,10 +74,10 @@ export const HeroSection = ({ loading }: Props) => {
 
       {!loading && (
         <div className="text-white font-normal uppercase mx-[5%] leading-none z-10 absolute bottom-12 left-0">
-          <h1 style={{ fontFamily : 'AktivGrotesk' , fontSize : 80 , fontWeight : '400' } } className="text-[5.5vw] opacity-0">Advancing</h1>
-          <h1 style={{ fontFamily : 'AktivGrotesk' , fontSize : 80 , fontWeight : '400'} } className="text-[5.5vw] opacity-0">Safety Through</h1>
+          <h1 style={{ fontFamily : 'AktivGrotesk' , fontSize : 80 , fontWeight : '400' } } className="text-[5.5vw] opacity-0">{firstWord}</h1>
+          <h1 style={{ fontFamily : 'AktivGrotesk' , fontSize : 80 , fontWeight : '400'} } className="text-[5.5vw] opacity-0">{middleWords}</h1>
           <h1 className="text-[5.5vw] opacity-0">
-            <span style={{ fontFamily : 'AktivGrotesk' , fontSize : 100 , fontWeight : '400'} } className="text-yellow">Innovation</span>
+            <span style={{ fontFamily : 'AktivGrotesk' , fontSize : 100 , fontWeight : '400'} } className="text-yellow">{lastWord}</span>
           </h1>
         </div>
       )}
@@ -94,10 +109,10 @@ export const HeroSection = ({ loading }: Props) => {
 
     {!loading && (
       <div className="text-white font-normal uppercase mx-[5%] leading-none z-10 absolute bottom-12 left-0">
-        <h1 style={{ fontFamily : 'AktivGrotesk' , fontSize : 44 , fontWeight : '400' } } className="text-[5.5vw] opacity-0">Advancing</h1>
-        <h1 style={{ fontFamily : 'AktivGrotesk' , fontSize : 44 , fontWeight : '400'} } className="text-[5.5vw] opacity-0">Safety Through</h1>
+        <h1 style={{ fontFamily : 'AktivGrotesk' , fontSize : 44 , fontWeight : '400' } } className="text-[5.5vw] opacity-0">{firstWord}</h1>
+        <h1 style={{ fontFamily : 'AktivGrotesk' , fontSize : 44 , fontWeight : '400'} } className="text-[5.5vw] opacity-0">{middleWords}</h1>
         <h1 className="text-[5.5vw] opacity-0">
-          <span style={{ fontFamily : 'AktivGrotesk' , fontSize : 44 , fontWeight : '400'} } className="text-yellow">Innovation</span>
+          <span style={{ fontFamily : 'AktivGrotesk' , fontSize : 44 , fontWeight : '400'} } className="text-yellow">{lastWord}</span>
         </h1>
       </div>
     )}

@@ -1,10 +1,17 @@
+import _axios from "@/lib/_axios";
 import { useInViewport } from "@mantine/hooks";
+import { useQuery } from "@tanstack/react-query";
 import anime from "animejs";
 import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 export const GbotFour = () => {
   const { inViewport, ref } = useInViewport();
-
+  const { data } = useQuery({
+    queryKey: ["robotfeaturesContent"],
+    queryFn: async () => {
+      return _axios.get(`/robotfeatures/content`);
+    },
+  });
   const scrollref = useRef(null);
   // const { scrollYProgress } = useScroll({
   //   target: scrollref,
@@ -31,64 +38,66 @@ export const GbotFour = () => {
     });
   }, [trigger]);
 
-  const [cardData] = useState([
+
+  // console.log(data?.data.data)
+  const cardData =[
     {
-      heading: "Hazardous Environment Compatibility",
+      heading: `${data?.data?.data[0].title}`,
       subHeading:
-        "Designed to excel in toxic and hazardous settings, Genbot ensures human safety.",
+      `${data?.data.data[0].content}`,
     },
     {
-      heading: "Security and Privacy",
+      heading: `${data?.data.data[1].title}`,
       subHeading:
-        "G Bot ensures the utmost security and privacy in interactions.",
+      `${data?.data.data[1].content}`,
     },
     {
-      heading: "AI Empowerment",
+      heading: `${data?.data.data[2].title}`,
       subHeading:
-        "G Bot is equipped with cutting-edge AI technology, making it a versatile and intelligent companion.",
+      `${data?.data.data[2].content}`,
     },
     {
-      heading: "Friendly Interface",
+      heading: `${data?.data.data[3].title}`,
       subHeading:
-        "G Bot offers a friendly and approachable interface for easy communication and collaboration.",
+      `${data?.data.data[3].content}`,
     },
     {
-      heading: "Adaptive Learning",
-      subHeading: "G Bot continuously learns and adapts to user needs.",
+      heading: `${data?.data.data[4].title}`,
+      subHeading:`${data?.data.data[4].content}`,
     },
     { 
     },
     { 
     },
-  ]);
+  ];
 
   
-  const [cardDatass] = useState([
+  const cardDatass = [
     {
-      heading: "Hazardous Environment Compatibility",
+      heading: `${data?.data.data[0].title}`,
       subHeading:
-        "Designed to excel in toxic and hazardous settings, Genbot ensures human safety.",
+      `${data?.data.data[0].content}`,
     },
     {
-      heading: "Security and Privacy",
+      heading: `${data?.data.data[1].title}`,
       subHeading:
-        "G Bot ensures the utmost security and privacy in interactions.",
+      `${data?.data.data[1].content}`,
     },
     {
-      heading: "AI Empowerment",
+      heading: `${data?.data.data[2].title}`,
       subHeading:
-        "G Bot is equipped with cutting-edge AI technology, making it a versatile and intelligent companion.",
+      `${data?.data.data[2].content}`,
     },
     {
-      heading: "Friendly Interface",
+      heading: `${data?.data.data[3].title}`,
       subHeading:
-        "G Bot offers a friendly and approachable interface for easy communication and collaboration.",
+      `${data?.data.data[3].content}`,
     },
     {
-      heading: "Adaptive Learning",
-      subHeading: "G Bot continuously learns and adapts to user needs.",
-    }, 
-  ]);
+      heading: `${data?.data.data[4].title}`,
+      subHeading:`${data?.data.data[4].content}`,
+    },
+  ];
 
   const totalImages = 160; 
 

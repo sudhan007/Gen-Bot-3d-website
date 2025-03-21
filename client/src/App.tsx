@@ -20,6 +20,8 @@ import GbotThree from "./ui/sections/gbot-three.tsx";
 import GbotTwo from "./ui/sections/gbot-two.tsx";
 import Twofive from "./ui/sections/gbot-twofive.tsx";
 import { HeroSection } from "./ui/sections/hero.tsx";
+import { useQuery } from "@tanstack/react-query";
+import _axios from "./lib/_axios.ts";
 
 
 
@@ -69,6 +71,16 @@ function App() {
     setGlowIndex(Math.floor(latest) + 25);
   });
 
+
+  const { data } = useQuery({
+    queryKey: ["aboutContent"],
+    queryFn: async () => {
+      return _axios.get(`/aboutpage/content`);
+    },
+  });
+
+  // console.log(data?.data.data.content)
+  
   useEffect(() => {
     const assets = document.querySelectorAll("img, video");
     setTotalAssets(assets.length);
@@ -361,7 +373,7 @@ function App() {
                             fontFamily: "SFpro",
                           }}
                         >
-                          {genbotIntro.split("").map((char, index) => (
+                          {data?.data.data.content.split("").map((char, index) => (
                             <motion.span
                               key={index}
                               initial={{ opacity: 0.01 }}

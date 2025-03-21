@@ -1,4 +1,6 @@
 import { useIntersection } from "@/hooks/useIntersection";
+import _axios from "@/lib/_axios";
+import { useQuery } from "@tanstack/react-query";
 import anime from "animejs";
 import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
@@ -17,6 +19,14 @@ const FlyGenBotSection = () => {
     target: refs,
   });
 
+  const { data } = useQuery({
+    queryKey: ["fourthContent"],
+    queryFn: async () => {
+      return _axios.get(`/roboticintelligence/content`);
+    },
+  });
+
+  // console.log(data?.data.data)
   const sectionProgress = useTransform(scrollYProgress, [0, 1], [0, 100]);
   const [visibleIndex, setVisibleIndex] = useState(-1);
 
@@ -108,40 +118,40 @@ const FlyGenBotSection = () => {
 
   const cardData = [
     {
-      heading: "Hazardous Environment Compatibility",
+      heading: `${data?.data.data[0].title}`,
       subHeading:
-        "Designed to excel in toxic and hazardous settings, Genbot ensures human safety.",
+      `${data?.data.data[0].content}`,
       className: `lg:top-[15%] lg:left-[13%] md:top-[10%] md:left-[5%] coolbotonoe`,
       ind : 1
     },
     {
-      heading: "Real-Time Data Analysis",
+      heading: `${data?.data.data[1].title}`,
       subHeading:
-        "Genbot's AI analyzes data in real-time for informed decision-making.",
+      `${data?.data.data[1].content}`,
       className:
         "lg:top-[7%] lg:right-[20%] md:top-[10%] md:right-[5%] coolbototwo",
         ind : 2
     },
     {
-      heading: "Advanced Sensors",
+      heading: `${data?.data.data[2].title}`,
       subHeading:
-        "Equipped with state-of-the-art sensors for precise and safe navigation.",
+      `${data?.data.data[2].content}`,
       className:
         "lg:bottom-[55%] lg:right-[12%] md:bottom-[10%] md:right-[5%] coolbotthree",
         ind : 3
     },
     {
-      heading: "Human-Robot Collaboration",
+      heading: `${data?.data.data[3].title}`,
       subHeading:
-        "Genbot works seamlessly alongside humans, reducing their exposure to risky conditions.",
+      `${data?.data.data[3].content}`,
       className:
         "lg:bottom-[45%] lg:left-[10%] md:bottom-[10%] md:left-[5%] coolbotfour",
         ind : 4
     },
     {
-      heading: "Multi-Terrain Traversal",
+      heading: `${data?.data.data[4].title}`,
       subHeading:
-        "Genbot's advanced tracks enable it to navigate a wide range of terrains with ease.",
+      `${data?.data.data[4].content}`,
       className:
         "lg:left-[60%] lg:top-[60%] md:left-[24%] md:top-[60%] coolbotofive",
         ind : 5

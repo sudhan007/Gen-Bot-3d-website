@@ -6,11 +6,11 @@ import {
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { AnimatedText } from "../components/AnimatedText";
+import { useQuery } from "@tanstack/react-query";
+import _axios from "@/lib/_axios";
 
 const GbotThree = () => {
   const totalImages = 111;
-  const text2 =
-    "Get acquainted with G bot. A humanoid robot empowered by AI, redefining collaboration with humans. Designed to work seamlessly alongside humans, G bot is more than just a robotic assistant: it's the future of technological partnership.";
 
   const thirdContainerOriginbot = useRef(null);
   const [images, setImages] = useState<string[]>([]);
@@ -21,6 +21,16 @@ const GbotThree = () => {
     target: thirdContainerOriginbot,
     offset: ["start end", "end start"],
   });
+
+  const { data } = useQuery({
+    queryKey: ["humanrobotContent"],
+    queryFn: async () => {
+      return _axios.get(`/humanrobot/content`);
+    },
+  });
+  // console.log(data?.data.data)
+  const text2 =
+  data?.data.data.content||""
 
   const imageIndex = useTransform(
     scrollYProgress,
@@ -83,8 +93,7 @@ const GbotThree = () => {
                         fontFamily: "SFpro",
                       }}
                     >
-                      The Future Of Human- <br />
-                      Robot Interaction
+                      {data?.data.data.title}
                     </h4>
                     <div className="w-[95%]">
                       <motion.p
@@ -156,6 +165,7 @@ const GbotThree = () => {
                 >
                   The Future Of Human- <br />
                   Robot Interaction
+                  {data?.data.data.title ||""}
                 </h4>
                 <div className="w-[95%]">
                   <AnimatedText text={text2} />

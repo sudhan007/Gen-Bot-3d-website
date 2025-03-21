@@ -1,3 +1,5 @@
+import _axios from "@/lib/_axios";
+import { useQuery } from "@tanstack/react-query";
 import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
@@ -29,6 +31,18 @@ export const Experience = () => {
     );
     setImages(preloadedImages);
   }, []);
+  const { data } = useQuery({
+    queryKey: ["futuretechContent"],
+    queryFn: async () => {
+      return _axios.get(`/futuretech/content`);
+    },
+  });
+  console.log(data?.data.data)
+  const content = data?.data.data.title || "";
+  const words = content.split(" ");
+
+  const firstWord = words[0]+" "+words[1] || "";
+  const lastWord =words[words.length - 2]+" "+ words[words.length - 1] || "";
 
   // Update currentIndex based on scroll progress (throttled)
   useMotionValueEvent(imageIndex, "change", (latest) => {
@@ -61,8 +75,8 @@ export const Experience = () => {
                 <div className="px-[5%]">
                   <div className="mt-[30px] flex justify-between">
                     <p className="threeone text-white text-[50px] font-[400] font-['AktivGrotesk']  findthewayss">
-                      EXPERIENCE THE{" "}
-                      <span className="text-[#FCD902]">FUTURE TODAY</span>
+                      {firstWord}{" "}
+                      <span className="text-[#FCD902]">{lastWord}</span>
                     </p>
                     <div className="bg-[#FCD902] flex items-center justify-center px-24 py-4 expppppp">
                       <p className="text-black text-[1.6rem] threetwo" style={{ fontFamily : 'AktivGrotesk' }} >
@@ -71,14 +85,15 @@ export const Experience = () => {
                     </div>
                   </div>
 
-                  <div className="mt-1 text-white text-[28px] font-[400]   font-['AktivGrotesk'] uppercase   uppercaseok ">
-                    Explore the innovative solutions of Genbot and G Bot.
+                  <div className="mt-1 text-white text-[28px] font-[400] w-2/3  font-['AktivGrotesk'] uppercase   uppercaseok ">
+                    {/* Explore the innovative solutions of Genbot and G Bot.
                     <br />
                     Embrace the future of technology and human-robot
                     <br />
                     interaction. Begin your journey to safer, more
                     <br />
-                    efficient, and tech-driven possibilities today.
+                    efficient, and tech-driven possibilities today. */}
+                    {data?.data.data.content}
                   </div>
                 </div>
 
