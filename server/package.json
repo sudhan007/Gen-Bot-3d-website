@@ -2,19 +2,18 @@
   "name": "server",
   "version": "1.0.50",
   "scripts": {
-    "start": "bun run src/index.ts",
+    "start": "bun run src/setup.ts",
     "dev": "bun run --watch src/setup.ts",
     "build": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile server src/index.ts"
   },
   "dependencies": {
-    "@elysiajs/cors": "^1.0.5",
-    "@elysiajs/swagger": "^1.0.5",
+    "@elysiajs/cors": "^1.2.0",
+    "@elysiajs/swagger": "^1.2.2",
     "elysia": "latest",
-    "mongoose": "^8.5.1"
+    "mongoose": "^8.12.1"
   },
   "devDependencies": {
-    "bun-types": "latest",
-
+    "bun-types": "latest"
   },
   "module": "src/index.js"
 }
