@@ -6,7 +6,7 @@ import { RootRouter } from "./controller/root";
 
 export const app = new Elysia();
 
-app.use(cors());
+
 
 try {
   await mongoose.connect(process.env.MONGO_URI as string, {
@@ -16,7 +16,7 @@ try {
 } catch (error: any) {
   console.log(error.message);
 }
-
+app.use(cors());
 app.use(RootRouter);
 
 //Swagger
