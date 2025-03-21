@@ -68,7 +68,7 @@ function App() {
   );
 
   useMotionValueEvent(textProgress, "change", (latest) => {
-    setGlowIndex(Math.floor(latest) + 25);
+    setGlowIndex(Math.floor(latest) );
   });
 
 
@@ -349,7 +349,7 @@ function App() {
                   <div className="bg-lightbg w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0 py-[60px] pl-[2%]">
                     <div className="ml-[5%] bg-white px-[10%] h-full rounded-l-3xl shadow-lg z-[10000]">
                       <img
-                        src="/img/bot3d.svg"
+                        src="/img/bot3d.png"
                         alt="GenBot 3D model"
                         className="w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-4 oneimg"
                       />
@@ -503,7 +503,7 @@ function App() {
                   <div className="bg-lightbg w-full items-start gap-4 sticky top-0 py-[20px] ">
                     <div className="   px-[5%]   rounded-l-3xl  z-[10000]">
                       <img
-                        src="/img/bot3d.svg"
+                        src="/img/bot3d.png"
                         alt="GenBot 3D model"
                         className="w-[110px]  md:w-[260px] sm:w-[200px] pb-4 oneimg"
                       />

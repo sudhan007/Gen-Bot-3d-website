@@ -81,7 +81,7 @@ const GbotThree = () => {
                 <div className="w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 pl-[2%]">
                   <div className="ml-[5%] px-[10%] h-full z-[10000]">
                     <img
-                      src="/img/gbot3d.svg"
+                      src="/img/gbot3d.png"
                       alt="GenBot 3D model"
                       className="w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-4 twoimg"
                     />
@@ -151,7 +151,7 @@ const GbotThree = () => {
             <div className="w-full md:w-1/2 flex flex-col justify-start items-start gap-4 py-[60px]">
               <div className="px-[5%] h-full z-[10000]">
                 <img
-                  src="/img/gbot3d.svg"
+                  src="/img/gbot3d.png"
                   alt="GenBot 3D model"
                   className="w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-2 twoimg"
                 />
