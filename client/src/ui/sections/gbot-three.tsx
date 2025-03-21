@@ -40,8 +40,8 @@ const GbotThree = () => {
 
   const textProgress = useTransform(
     scrollYProgress,
-    [0, 1],
-    [1, text2.length + 40]
+    [0.1, 1.1],
+    [-1, text2.length + 79]
   );
 
   useEffect(() => {
@@ -105,7 +105,7 @@ const GbotThree = () => {
                           fontFamily: "SFpro",
                         }}
                       >
-                        {text2.split("").map((char, index) => (
+                        { `${text2}`.split("").map((char, index) => (
                           <motion.span
                             key={index}
                             initial={{ opacity: 0.01 }}

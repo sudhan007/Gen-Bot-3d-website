@@ -19,7 +19,7 @@ export function LoginForm() {
     ) {
       localStorage.setItem("isLogin", "true");
       toast.success("Login Successful");
-      navigate("/dashboard");
+      navigate("/admin/dashboard");
     } else {
       toast.error("Login Failed");
     }
@@ -27,7 +27,7 @@ export function LoginForm() {
 
   useEffect(() => {
     if (localStorage.getItem("isLogin") == "true") {
-      navigate("/dashboard");
+      navigate("/admin/dashboard");
     }
   }, []);
   return (

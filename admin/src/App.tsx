@@ -44,12 +44,12 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<LoginForm />} />
+          <Route path='/admin/' element={<LoginForm />} />
           <Route
-            path='/dashboard'
+            path='/admin/dashboard'
             element={<RootLayout children={<Dashboard />} />}
           />
-          <Route path='/layout/:type' element={<LayoutRouter />} />
+          <Route path='/admin/layout/:type' element={<LayoutRouter />} />
         </Routes>
       </BrowserRouter>
     </>
