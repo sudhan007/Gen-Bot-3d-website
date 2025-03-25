@@ -279,6 +279,75 @@ export const Footer = () => {
                   >
                     G bot Series
                   </p>
+
+
+                  <p
+                    style={{
+                      color: "rgba(255, 255, 255, 1)",
+                      fontSize: 24,
+                      fontWeight: "400",
+                    }}
+                    className="mb-2"
+                  >
+                    Clean Tech
+                  </p>
+
+
+                  <p
+                    style={{
+                      color: "rgba(255, 255, 255, 1)",
+                      fontSize: 24,
+                      fontWeight: "400",
+                    }}
+                    className="mb-2"
+                  >
+                    Medical and Mobility
+                  </p>
+
+
+                  <p
+                    style={{
+                      color: "rgba(255, 255, 255, 1)",
+                      fontSize: 24,
+                      fontWeight: "400",
+                    }}
+                    className="mb-2"
+                  >
+                    Genrobotics
+                  </p>
+                  <p
+                    style={{
+                      color: "rgba(255, 255, 255, 1)",
+                      fontSize: 24,
+                      fontWeight: "400",
+                    }}
+                    className="mb-2"
+                  >
+                    Clean Tech
+                  </p>
+
+                  <p
+                    style={{
+                      color: "rgba(255, 255, 255, 1)",
+                      fontSize: 24,
+                      fontWeight: "400",
+                    }}
+                    className="mb-2"
+                  >
+                    Medical and Mobility
+                  </p>
+
+                  <p
+                    style={{
+                      color: "rgba(255, 255, 255, 1)",
+                      fontSize: 24,
+                      fontWeight: "400",
+                    }}
+                    className="mb-2"
+                  >
+                    Genrobotics
+                  </p>
+
                 </div>
 
                 <div>

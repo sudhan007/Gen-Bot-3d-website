@@ -427,9 +427,9 @@ function App() {
         <Element name="section8">
           <GbotFour />
         </Element>
-        <Element name="section5">
+        {/* <Element name="section5">
           <GBotOne loading={loading} />
-        </Element>
+        </Element> */}
 
         <Element name="section9">
           <Experience />
@@ -558,9 +558,9 @@ function App() {
         <Element name="section8">
           <GbotFour />
         </Element>
-        <Element name="section5">
+        {/* <Element name="section5">
           <GBotOne loading={loading} />
-        </Element>
+        </Element> */}
         <Element name="section9">
           <Experience />
         </Element>
