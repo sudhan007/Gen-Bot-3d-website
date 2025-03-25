@@ -55,6 +55,10 @@ const GbotTwo = () => {
             ref={ref}
           >
             <div className="sticky top-0 flex justify-center items-center w-full h-screen">
+
+            <p style={{ width : '100%' , color : '#2B2B2B' , textAlign : 'center' , fontSize : 64 , marginBottom : 50 , alignItems : 'baseline' , height : '100vh' , 
+              justifyContent : 'left' , display : 'flex' , marginTop : '23vh' , paddingLeft : '15%'
+              }} >Introducing</p>
               {/* G Bot Text */}
               <img
                 src="/img/gbot-text.png"

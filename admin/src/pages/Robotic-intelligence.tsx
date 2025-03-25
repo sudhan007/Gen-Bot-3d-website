@@ -32,14 +32,16 @@ const formSchema = z.object({
         content: z.string().min(1, { message: "Content is required" }),
       })
     )
-    .length(5, { message: "Exactly 5 records are required" }),
+    .length(7, { message: "Exactly 7 records are required" }), // Changed from 5 to 7
 });
 
 const Roboticintelligence = () => {
+
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      records: Array(5).fill({ title: "", content: "" }),
+      records: Array(7).fill({ title: "", content: "" }), // Changed from 5 to 7
     },
   });
 
@@ -76,9 +78,14 @@ const Roboticintelligence = () => {
 
   useEffect(() => {
     if (data?.data?.data?.length > 0) {
-      form.setValue("records", data?.data?.data);
+      form.setValue(
+        "records",
+        data?.data?.data.length >= 7
+          ? data?.data?.data
+          : [...data?.data?.data, ...Array(7 - data?.data?.data.length).fill({ title: "", content: "" })]
+      );
     } else {
-      form.setValue("records", Array(5).fill({ title: "", content: "" }));
+      form.setValue("records", Array(7).fill({ title: "", content: "" })); // Changed from 5 to 7
     }
   }, [data, form]);
 

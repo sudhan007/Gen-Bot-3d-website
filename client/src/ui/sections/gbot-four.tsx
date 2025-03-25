@@ -40,66 +40,124 @@ export const GbotFour = () => {
 
 
   // console.log(data?.data.data)
-  const cardData =[
+  // const cardData =[
+  //   {
+  //     heading: `${data?.data?.data[0].title}`,
+  //     subHeading:
+  //     `${data?.data.data[0].content}`,
+  //   },
+  //   {
+  //     heading: `${data?.data.data[1].title}`,
+  //     subHeading:
+  //     `${data?.data.data[1].content}`,
+  //   },
+  //   {
+  //     heading: `${data?.data.data[2].title}`,
+  //     subHeading:
+  //     `${data?.data.data[2].content}`,
+  //   },
+  //   {
+  //     heading: `${data?.data.data[3].title}`,
+  //     subHeading:
+  //     `${data?.data.data[3].content}`,
+  //   },
+  //   {
+  //     heading: `${data?.data.data[4].title}`,
+  //     subHeading:`${data?.data.data[4].content}`,
+  //   },
+  //   { 
+  //   },
+  //   { 
+  //   },
+  // ];
+
+  const cardData = [
     {
-      heading: `${data?.data?.data[0].title}`,
-      subHeading:
-      `${data?.data.data[0].content}`,
+      heading: `${data?.data?.data[0].title || ''}`,
+      bottom: 0
     },
     {
-      heading: `${data?.data.data[1].title}`,
-      subHeading:
-      `${data?.data.data[1].content}`,
+      heading: `${data?.data?.data[1]?.title || ''}`,
+      bottom: 0
     },
     {
-      heading: `${data?.data.data[2].title}`,
-      subHeading:
-      `${data?.data.data[2].content}`,
+      heading: `${data?.data?.data[2]?.title || ''}`,
+      bottom: 0
     },
     {
-      heading: `${data?.data.data[3].title}`,
-      subHeading:
-      `${data?.data.data[3].content}`,
+      heading: `${data?.data?.data[3]?.title || ''}`,
+      bottom: 0
     },
     {
-      heading: `${data?.data.data[4].title}`,
-      subHeading:`${data?.data.data[4].content}`,
+      heading: `${data?.data?.data[4]?.title || ''}`,
+      bottom: 0
     },
-    { 
+    {
+      heading: `${data?.data?.data[5]?.title || ''}`,
+      bottom: 0
     },
-    { 
+    {
+      heading: `${data?.data?.data[6]?.title || ''}`,
+      bottom: 0
+    },
+    {
+      heading: `${data?.data?.data[7]?.title || ''}`,
+      bottom: 0
+    },
+    {
+      heading:`${data?.data?.data[8]?.title || ''}`,
+      bottom: 0
+    },
+    {
+      heading: `${data?.data?.data[9]?.title || ''}`,
+      bottom: 0
+    },
+    {
+      heading: `${data?.data?.data[10]?.title || ''}`,
+      bottom: 0
+    },
+    {
+      heading: `${data?.data?.data[11]?.title || ''}`,
+      bottom: 0
+    },
+    {
+      heading: `${data?.data?.data[12]?.title || ''}`,
+      bottom: 1
+    },
+    {
+    },
+    {
     },
   ];
-
-  
   const cardDatass = [
     {
       heading: `${data?.data.data[0].title}`,
       subHeading:
-      `${data?.data.data[0].content}`,
+        `${data?.data.data[0].content}`,
     },
     {
       heading: `${data?.data.data[1].title}`,
       subHeading:
-      `${data?.data.data[1].content}`,
+        `${data?.data.data[1].content}`,
     },
     {
       heading: `${data?.data.data[2].title}`,
       subHeading:
-      `${data?.data.data[2].content}`,
+        `${data?.data.data[2].content}`,
     },
     {
       heading: `${data?.data.data[3].title}`,
       subHeading:
-      `${data?.data.data[3].content}`,
+        `${data?.data.data[3].content}`,
     },
     {
       heading: `${data?.data.data[4].title}`,
-      subHeading:`${data?.data.data[4].content}`,
+      subHeading: `${data?.data.data[4].content}`,
     },
+
   ];
 
-  const totalImages = 160; 
+  const totalImages = 160;
 
   const [images, setImages] = useState([]);
 
@@ -130,7 +188,7 @@ export const GbotFour = () => {
 
   useEffect(() => {
     const preloadedImages: any = [];
-    for (let i = 40 ; i <= totalImages; i++) {
+    for (let i = 40; i <= totalImages; i++) {
       const paddedIndex = String(i).padStart(4, "0");
       preloadedImages.push(`/walks/${paddedIndex}.webp`);
     }
@@ -143,7 +201,7 @@ export const GbotFour = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) { 
+        if (entry.isIntersecting) {
           handleDivEnter();
         }
       },
@@ -160,7 +218,7 @@ export const GbotFour = () => {
       }
     };
   }, []);
- 
+
 
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -273,7 +331,7 @@ export const GbotFour = () => {
                       alt={`G Frame ${index + 1}`}
                       className={`absolute  max-w-[1900px] img h-[100vh]`}
                       style={{
-                        opacity: index === currentIndex  ? 1 : 0,
+                        opacity: index === currentIndex ? 1 : 0,
                         zIndex: index === currentIndex ? 20 : 10,
                         // transition: "opacity 0.3s ease-in-out",
                       }}
@@ -282,39 +340,73 @@ export const GbotFour = () => {
                 </div>
 
                 <div
-                  style={{ padding: 65 }}
+                  style={{ paddingTop: 15, paddingBottom: 15, paddingRight: 65, paddingLeft: 65 }}
                   className="w-full  h-screen bg-lightbg overflow-hidden sticky top-0 hidden md:block z-[10000] paddgay"
                 >
-                  <div className="h-full object-cover sticky top-0 py-[60px] pr-[10%] rounded-r-3xl  paddgaytwo">
+                  <div className="h-full object-cover sticky top-0   pr-[10%] rounded-r-3xl  paddgaytwo" >
                     <div className="sticky top-0 h-screen  m-auto " ref={ref}>
                       <div className="flex flex-col  items-center gap-8 dad h-full">
                         <div
-                          className="flex flex-col justify-left items-end gap-10 paddgaythree"
-                          style={{ marginRight: "10%" }}
+                          className="flex flex-col justify-left items-end   paddgaythree"
+                          style={{ marginRight: "10%", gap: '.6rem' }}
                         >
-                          {cardData.map(({ heading, subHeading }, index) => (
-                            <div
-                              key={index}
-                              className={`transition-all duration-700 ease-out fly-genbot-card flex flex-col items-center 
+                          <p style={{ color: "#2B2B2B", fontSize: 30, width: '100%', textAlign: 'center' }}>Applications of GBOT</p>
+                          {cardData.map(({ heading, bottom }, index) => (
+
+                            <>
+                              {
+                                bottom === 0 ?
+
+                                  <div
+                                    key={index}
+                                    className={`transition-all duration-700 ease-out fly-genbot-card flex flex-col items-center 
                                       justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white 
                                       ${index <= visibleIndex && heading ? "opacity-100 translate-y-0" : "opacity-0 translate-y-negative"}
                                 `}
-                              style={{
-                                boxShadow:
-                                  "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
-                              }}
-                            >
-                              <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B] hahabot">
-                                <h1
-                                  style={{ fontWeight: "700" }}
-                                  className="text-lg font-normal mb-2 break-before-avoid capitalize"
-                                >
-                                  {heading}
-                                </h1>
+                                    style={{
+                                      boxShadow:
+                                        "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
+                                    }}
+                                  >
+                                    <div className="w-full h-full flex flex-col p-3   bg-white rounded-xl text-[#2B2B2B] hahabot">
+                                      <p
+                                        style={{ fontWeight: "700", fontSize: 13, marginBottom: 0 , textTransform : 'uppercase' }}
+                                        className="text-lg font-normal mb-2 break-before-avoid capitalize"
+                                      >
+                                        {heading}
+                                      </p>
 
-                                <p className="text-sm text-[#909090] leading-normal">{subHeading}</p>
-                              </div>
-                            </div>
+                                      {/* <p className="text-sm text-[#909090] leading-normal">{subHeading}</p> */}
+                                    </div>
+                                  </div>
+
+                                  :
+
+                                  <div
+                                    key={index}
+                                    className={`transition-all duration-700 ease-out fly-genbot-card flex flex-col items-center 
+                                      justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-black 
+                                      ${index <= visibleIndex && heading ? "opacity-100 translate-y-0" : "opacity-0 translate-y-negative"}
+                                `}
+                                    
+                                  >
+                                    <div className="w-full h-full flex flex-col p-3  text-[#fff] hahabot">
+                                      <p
+                                        style={{ fontWeight: "700", fontSize: 13, marginBottom: 0 , textAlign : 'center' , textTransform : 'uppercase' }}
+                                        className="text-lg font-normal   break-before-avoid capitalize"
+                                      >
+                                        {heading}
+                                      </p>
+
+                                      {/* <p className="text-sm text-[#909090] leading-normal">{subHeading}</p> */}
+                                    </div>
+                                  </div>
+
+                              }
+
+
+                            </>
+
                           ))}
 
                         </div>

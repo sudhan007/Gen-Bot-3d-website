@@ -76,12 +76,29 @@ const Twofive = () => {
             style={{ backgroundColor: "#EEEEEA" }}
             ref={ref}
           >
+
+
+
+
+           
+
+
+
+
             <div className="sticky top-0 flex justify-center items-center w-full h-screen">
+
+
+            <p style={{ color : '#2B2B2B' , textAlign : 'center' , fontSize : 64 , marginBottom : 50 , alignItems : 'baseline' , height : '100vh' , 
+              justifyContent : 'center' , display : 'flex' , marginTop : '14vh'
+              }} >Introducing</p>
+
+
+
               <motion.img
                 src="/twoback.png"
                 alt="G Bot Text"
                 className="absolute z-10 img2 finfffffffffffffffff"
-                style={{ scale: textImageScale , zIndex : 50 , opacity : currentIndexnews === 101 ? '1' : currentIndexnews / 100 }}
+                style={{ scale: textImageScale , zIndex : 50 , opacity : currentIndexnews === 101 ? '1' : currentIndexnews / 100 , height : '65vh' }}
               />
 
               {images.map((imgSrc, index) => {
@@ -93,7 +110,7 @@ const Twofive = () => {
                   key={index}
                   src={imgSrc}
                   alt={`G Frame ${index + 1}`}
-                  className="absolute max-w-[1900px] img h-[100vh]"
+                  className="absolute max-w-[1900px] img h-[74vh]"
                   style={{
                     opacity: index === currentIndex ? currentIndexnew/100 : 0,
                     zIndex: index  ,

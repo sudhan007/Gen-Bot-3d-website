@@ -121,7 +121,7 @@ const FlyGenBotSection = () => {
       heading: `${data?.data.data[0].title}`,
       subHeading:
       `${data?.data.data[0].content}`,
-      className: `lg:top-[15%] lg:left-[13%] md:top-[10%] md:left-[5%] coolbotonoe`,
+      className: `lg:top-[6%] lg:left-[8%] md:top-[10%] md:left-[5%] coolbotonoe`,
       ind : 1
     },
     {
@@ -129,7 +129,7 @@ const FlyGenBotSection = () => {
       subHeading:
       `${data?.data.data[1].content}`,
       className:
-        "lg:top-[7%] lg:right-[20%] md:top-[10%] md:right-[5%] coolbototwo",
+        "lg:top-[7%] lg:right-[13%] md:top-[10%] md:right-[5%] coolbototwo",
         ind : 2
     },
     {
@@ -137,7 +137,7 @@ const FlyGenBotSection = () => {
       subHeading:
       `${data?.data.data[2].content}`,
       className:
-        "lg:bottom-[55%] lg:right-[12%] md:bottom-[10%] md:right-[5%] coolbotthree",
+        "lg:bottom-[56%] lg:right-[8%] md:bottom-[10%] md:right-[5%] coolbotthree",
         ind : 3
     },
     {
@@ -145,7 +145,7 @@ const FlyGenBotSection = () => {
       subHeading:
       `${data?.data.data[3].content}`,
       className:
-        "lg:bottom-[45%] lg:left-[10%] md:bottom-[10%] md:left-[5%] coolbotfour",
+        "lg:bottom-[45%] lg:left-[8%] md:bottom-[10%] md:left-[5%] coolbotfour",
         ind : 4
     },
     {
@@ -153,11 +153,27 @@ const FlyGenBotSection = () => {
       subHeading:
       `${data?.data.data[4].content}`,
       className:
-        "lg:left-[60%] lg:top-[60%] md:left-[24%] md:top-[60%] coolbotofive",
+        "lg:left-[67%] lg:top-[54%] md:left-[24%] md:top-[60%] coolbotofive",
         ind : 5
     },
-    { 
+    {
+      heading: `${data?.data?.data[5]?.title || ''}`,
+      subHeading:
+      `${data?.data?.data[5]?.content || ''}`,
+      className:
+        "lg:left-[58%] lg:top-[77%] md:left-[24%] md:top-[60%] coolbotofive",
         ind : 6
+    },
+    {
+      heading: `${data?.data?.data[6]?.title || ''}`,
+      subHeading:
+      `${data?.data?.data[6]?.content || ''}`,
+      className:
+        "lg:top-[77%] lg:left-[19%] md:bottom-[10%] md:left-[5%] coolbotfour",
+        ind : 7
+    },
+    { 
+        ind : 8
     },
   ];
 

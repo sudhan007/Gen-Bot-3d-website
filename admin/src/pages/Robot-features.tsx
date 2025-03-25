@@ -5,7 +5,7 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
+// import { Textarea } from "@/components/ui/textarea";
 import {
   Form,
   FormControl,
@@ -29,17 +29,17 @@ const formSchema = z.object({
     .array(
       z.object({
         title: z.string().min(1, { message: "Title is required" }),
-        content: z.string().min(1, { message: "Content is required" }),
+        content: z.string().default("test"), // Set default value as "test"
       })
     )
-    .length(5, { message: "Exactly 5 records are required" }),
+    .length(13, { message: "Exactly 13 records are required" }),
 });
 
 const Robotfeatures = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      records: Array(5).fill({ title: "", content: "" }),
+      records: Array(13).fill({ title: "", content: "test" }),
     },
   });
 
@@ -76,9 +76,14 @@ const Robotfeatures = () => {
 
   useEffect(() => {
     if (data?.data?.data?.length > 0) {
-      form.setValue("records", data?.data?.data);
+      form.setValue(
+        "records",
+        data?.data?.data.length >= 13
+          ? data?.data?.data
+          : [...data?.data?.data, ...Array(13 - data?.data?.data.length).fill({ title: "", content: "" })]
+      );
     } else {
-      form.setValue("records", Array(5).fill({ title: "", content: "" }));
+      form.setValue("records", Array(13).fill({ title: "", content: "" })); // Changed from 5 to 7
     }
   }, [data, form]);
 
@@ -115,23 +120,7 @@ const Robotfeatures = () => {
                           </FormItem>
                         )}
                       />
-                      <FormField
-                        control={form.control}
-                        name={`records.${index}.content`}
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Content {index + 1}</FormLabel>
-                            <FormControl>
-                              <Textarea
-                                className='w-full focus-visible:ring-transparent'
-                                placeholder='About Section Content'
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+              
                     </div>
                   ))}
                   <Button type='submit'>Save All</Button>
