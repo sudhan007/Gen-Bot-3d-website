@@ -11,9 +11,10 @@ const Twofive = () => {
   const totalImages = 300;
   const ref = useRef(null);
   const [images, setImages] = useState([]);
+  const [checkval, setCheckval] = useState(true);
 
   useEffect(() => {
-    const preloadedImages: any = [];
+    const preloadedImages = [];
     for (let i = 1; i <= totalImages; i++) {
       const paddedIndex = String(i).padStart(4, "0");
       preloadedImages.push(`/rolls/${paddedIndex}.webp`);
@@ -32,7 +33,7 @@ const Twofive = () => {
   );
 
   const sectionProgressnew = useTransform(
-    scrollYProgress ,
+    scrollYProgress,
     [0, 1],
     [0, 101 - 1]
   );
@@ -43,25 +44,58 @@ const Twofive = () => {
   const [currentIndexnew, setCurrentIndexnew] = useState(0);
   const [currentIndexnews, setCurrentIndexnews] = useState(101);
 
-  useMotionValueEvent(sectionProgress, "change", (latest) => {
+  useMotionValueEvent(sectionProgress, "change", async (latest) => {
     const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
+    if (clampedIndex === 299) {
+      await localStorage.setItem('testfine', '1');
+    }
     setCurrentIndex(clampedIndex);
   });
 
   useMotionValueEvent(sectionProgressnew, "change", (latest) => {
     const clampedIndex = Math.min(Math.floor(latest), 101 - 1);
     setCurrentIndexnew(clampedIndex);
-    setCurrentIndexnews(101 -  clampedIndex )
+    setCurrentIndexnews(101 - clampedIndex);
   });
-
 
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const handleEnter = async () => {
+    let findvals = await localStorage.getItem('testfine');
+    if (findvals === "1") {
+      setCheckval(false);
+    }
+  };
+
+  const handleFocus = () => {
+    console.log("Div focused!");
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          handleFocus();
+        }
+      });
+    });
+
+    const element = document.getElementById("gjgjjjgjjgjgj");
+    if (element) {
+      observer.observe(element);
+    }
+
+    return () => {
+      if (element) {
+        observer.unobserve(element);
+      }
+    };
   }, []);
 
   return (
@@ -70,53 +104,52 @@ const Twofive = () => {
         <section
           style={{ backgroundColor: "#EEEEEA" }}
           className="text-black font-base z-100"
+          id="gjgjjjgjjgjgj"
         >
           <div
-            className="sticky z-[1000] h-[400vh]"
+            className={checkval === true ? "sticky z-[1000] h-[400vh]" : "sticky z-[1000]"}
             style={{ backgroundColor: "#EEEEEA" }}
             ref={ref}
           >
-
-
-
-
-           
-
-
-
-
             <div className="sticky top-0 flex justify-center items-center w-full h-screen">
-
-
-            <p style={{ color : '#2B2B2B' , textAlign : 'center' , fontSize : 64 , marginBottom : 50 , alignItems : 'baseline' , height : '100vh' , 
-              justifyContent : 'center' , display : 'flex' , marginTop : '14vh'
-              }} >Introducing</p>
-
-
-
+              <p
+                style={{
+                  color: '#2B2B2B',
+                  textAlign: 'center',
+                  fontSize: 47,
+                  marginBottom: 50,
+                  alignItems: 'baseline',
+                  height: '100vh',
+                  justifyContent: 'center',
+                  display: 'flex',
+                  marginTop: '18vh',
+                }}
+              >
+                Introducing
+              </p>
               <motion.img
                 src="/twoback.png"
                 alt="G Bot Text"
                 className="absolute z-10 img2 finfffffffffffffffff"
-                style={{ scale: textImageScale , zIndex : 50 , opacity : currentIndexnews === 101 ? '1' : currentIndexnews / 100 , height : '65vh' }}
+                style={{
+                  scale: textImageScale,
+                  zIndex: 50,
+                  opacity: currentIndexnews === 101 ? '1' : currentIndexnews / 100,
+                  height: '65vh',
+                }}
               />
-
-              {images.map((imgSrc, index) => {
-                
-                // console.log(  currentIndexnews , 'currentIndexcurrentIndexcurrentIndexcurrentIndex' )
-                
-                return(
+              {images.map((imgSrc, index) => (
                 <img
                   key={index}
                   src={imgSrc}
                   alt={`G Frame ${index + 1}`}
                   className="absolute max-w-[1900px] img h-[74vh]"
                   style={{
-                    opacity: index === currentIndex ? currentIndexnew/100 : 0,
-                    zIndex: index  ,
+                    opacity: index === currentIndex ? currentIndexnew / 100 : 0,
+                    zIndex: index,
                   }}
                 />
-              )})}
+              ))}
             </div>
           </div>
         </section>

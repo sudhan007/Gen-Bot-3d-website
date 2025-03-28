@@ -191,7 +191,7 @@ body {
 
 /* Disable scrolling while loading */
 body.loading {
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .loader {
@@ -221,7 +221,52 @@ body.loading {
   }
 }
 
-@media (min-width: 768px) and (max-width: 2200px) and (min-resolution: 1.25dppx) {
+
+
+
+@media (min-width: 768px) and (max-width: 6000px) and (min-resolution: .75dppx) {
+  .finffffffffffffff{
+    margin-top: 41vh !important;
+    padding-left: 24% !important;
+  }
+} 
+@media (min-width: 768px) and (max-width: 6000px) and (min-resolution: .9dppx) {
+  .macccc{
+    width: 110% !important ;
+  }
+  .fgnfrthdfx{
+    margin-top: -290px !important;
+  }
+  .finffffffffffffff{
+    margin-top: 32vh !important;
+    padding-left: 19% !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 6000px) and (min-resolution: 1dppx) {
+  .macccc{
+    margin-top : 88px  ;
+  }
+  .finffffffffffffff{
+    margin-top: 23vh !important;
+    padding-left: 15% !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 6000px) and (min-resolution: 1.1dppx) {
+  .paddgay{
+    padding : 0px !important;
+  }
+  .macccc{
+    margin-top : 10px !important;
+  }
+  .finffffffffffffff{
+    margin-top: 18vh !important;
+    padding-left: 11% !important
+  }
+}
+
+
+@media (min-width: 768px) and (max-width: 6000px) and (min-resolution: 1.25dppx) {
   .text-container {
     font-size: 1rem;
   }
@@ -271,15 +316,95 @@ body.loading {
   .uppercaseok {
     line-height: 2rem !important;
   }
-  .finfffffffffffffffff{
-    width: 530px !important;
+  
+
+  .paddgaythree{
+    gap: 8px !important;
   }
- 
+  .whuuudhdbuh{
+    font-size : 8px !important
+  }
+  .hahabot{
+    padding : 6px !important
+  }
+  .dhgiudiu{
+    margin-top : 8vh !important;
+    padding-left: 6% !important;
+  }
 .fgnfrthdfx{
-  margin-top : -240px !important;
+  margin-top : -206px !important;
+}
+.fineeeetextone{
+  font-size : 1rem !important;
+}
+.fineeeetexttwo{
+  font-size : .675rem !important;
+}
+.macccc{
+  margin-top : 0px !important;
+}
+.fineebrrrr{
+  width: 335px !important; 
+}
+.coolbotthree {
+  right: 1% !important;
+  bottom: 54% !important;
+}
+.coolbotfourf {
+  top : 78% !important;
+}
+.coolbotofivesss {
+  right: 1% !important;
+  left: unset !important;
+}
+.fineebrrrrfunn{ 
+  box-shadow: rgb(255, 202, 0) 0px 3px 0px, rgb(0 0 0 / 0%) 12px 18px 20px 4px !important;
 }
 }
-@media (min-width: 768px) and (max-width: 2200px) and (min-resolution: 1.5dppx) {
+
+
+@media (min-width: 768px) and (max-width: 6000px) and (min-resolution: 1.5dppx) {
+  .fineebrrrr{
+    width: 280px !important; 
+  }
+  .coolbotthree {
+    right: 2% !important;
+    bottom: 51% !important;
+  } 
+ 
+  .fineebrrrrfunn{ 
+    box-shadow: rgb(255, 202, 0) 0px 3px 0px, rgb(0 0 0 / 0%) 12px 18px 20px 4px !important;
+  }
+  .yhhhhhhhhh{
+    font-size : 17px !important
+  }
+  .macccc{
+    margin-top : 0px !important;
+  }
+  .fineebrrrr{
+    box-shadow: rgb(255, 202, 0) 0px 3px 0px, rgb(247 242 242 / 0%) 12px 18px 20px 4px;
+  }
+  .dhgiudiu{
+    margin-top : 9vh !important;
+    font-size : 35px !important;
+    padding-left: 0% !important;
+  }
+  .paddgaythree{
+    gap: 7px !important;
+  }
+  .tjhtyjhtgndfg{
+    min-width : 95% !important;
+  }
+  .whuuudhdbuh{
+    font-size : 8px !important
+  }
+  .coolbotfourf{
+    left: 12% !important;
+    top: 75% !important;
+  }
+  .hahabot{
+    padding : 3px !important
+  }
   .dgbrdfgdezrfxgf{
     width: 450px !important;
   }
@@ -308,18 +433,14 @@ body.loading {
     max-width: 100% !important;
   }
   .coolbotonoe {
-    left: 0% !important;
+    left: 6% !important;
   }
   .coolbototwo {
-    right: 1% !important;
-  }
-  .coolbotthree {
-    top: 30% !important;
-    right: 0% !important;
-  }
+    right: 11% !important;
+  } 
   .coolbotfour {
     top: 40% !important;
-    left: 0% !important;
+    left : 6% !important;
   }
   .coolbotofive {
     left: 63% !important;
@@ -329,10 +450,7 @@ body.loading {
   }
   .paddgaytwo {
     padding-top: 0px !important; 
-  }
-  .paddgaythree {
-    gap: 10px !important;
-  }
+  } 
   .expppppp {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
@@ -340,40 +458,54 @@ body.loading {
   }
   .uppercaseok {
     line-height: 2rem !important;
-  }
-  .hahabot{
-    padding : 15px !important;
-  }
+  } 
   .findthewayss{
     font-size : 35px !important;
   }
   .fgnfrthdfx{
-    margin-top : -210px !important;
+    margin-top : -194px !important;
   }
-  .finfffffffffffffffff{
-    width: 450px !important;
+  .fineeeetextone{
+    font-size : .8rem !important;
+  }
+  .fineeeetexttwo{
+    font-size : .675rem !important;
+  }
+  .finfffffffffffffffff{ 
+    height: 60vh !important;
   }
   .findthewayss{
     margin-top : 12px !important;
   }
-
-}
-
-@media (min-width: 768px) and (max-width: 2200px) and (min-resolution: 1.1dppx) {
-  .paddgay{
-    padding : 0px !important;
-  }
-  .finfffffffffffffffff{
-    width: 600px  ;
+  .coolbotofivesss {
+    right: 2% !important;
+    left: unset !important;
   }
 }
 
 
-@media (min-width: 768px) and (max-width: 2200px) and (min-resolution: .9dppx) {
-  .macccc{
-    width: 110% !important ;
-  }
+
+
+
+
+
+@media (min-width: 1100px) and (max-width: 1500px) and (min-resolution: 1.5dppx) {
+  .dhgiudiu {
+    margin-top: 29vh !important;
+    font-size: 35px !important;
+    padding-left: 1% !important;
 }
+.hahabot {
+  padding: 10px !important;
+}
+}
+
+
+
+
+
+
+
 
 .expppppp { 
   height: 62px !important;

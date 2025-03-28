@@ -6,6 +6,7 @@ const GbotTwo = () => {
   const totalImages = 238;
   const ref = useRef(null);
   const [images, setImages] = useState([]);
+  const [currentIndexdata, setCurrentIndexdata] = useState(true);
 
   useEffect(() => {
     const preloadedImages: any = [];
@@ -29,7 +30,17 @@ const GbotTwo = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useMotionValueEvent(sectionProgress, "change", (latest) => {
+    
     const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
+    console.log(clampedIndex , 'sectionProgresssectionProgresssectionProgresssectionProgresssectionProgress')
+
+    if(clampedIndex === 236 || clampedIndex ===235 || clampedIndex === 234 || clampedIndex === 233 || clampedIndex === 232 ) {
+      localStorage.setItem('testfinefour' , '1')
+      setTimeout(() => {
+        setCurrentIndexdata(false);
+      }, 2000);
+      
+    }
     setCurrentIndex(clampedIndex);
   });
 
@@ -42,23 +53,70 @@ const GbotTwo = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleThisIsEventHidFocus = async () => {
+
+    let findvals = await localStorage.getItem('testfinefour');
+    if (findvals === "1") {
+      setCurrentIndexdata(false);
+    }else{
+      setCurrentIndexdata(true)
+    }
+    console.log("Element with id 'thisisseventhid' is in view!");
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          handleThisIsEventHidFocus();
+        }
+      });
+    });
+
+    const element = document.getElementById("thisisseventhid");
+    if (element) {
+      observer.observe(element);
+    }
+
+    return () => {
+      if (element) {
+        observer.unobserve(element);
+      }
+    };
+  }, []);
+
   return (
     <>
       {width > 800 ? (
         <section
           style={{ backgroundColor: "#EEEEEA" }}
-          className="  text-black font-base z-100"
+          className="text-black font-base z-100"
+          id="thisisseventhid"
         >
           <div
-            className=" sticky z-[1000] h-[800vh]"
+            className={currentIndexdata === true ? "sticky z-[1000] h-[800vh]" :  "sticky z-[1000] " }
             style={{ backgroundColor: "#EEEEEA" }}
             ref={ref}
           >
             <div className="sticky top-0 flex justify-center items-center w-full h-screen">
-
-            <p style={{ width : '100%' , color : '#2B2B2B' , textAlign : 'center' , fontSize : 64 , marginBottom : 50 , alignItems : 'baseline' , height : '100vh' , 
-              justifyContent : 'left' , display : 'flex' , marginTop : '23vh' , paddingLeft : '15%'
-              }} >Introducing</p>
+              <p
+                style={{
+                  width: '100%',
+                  color: '#2B2B2B',
+                  textAlign: 'center',
+                  fontSize: 64,
+                  marginBottom: 50,
+                  alignItems: 'baseline',
+                  height: '100vh',
+                  justifyContent: 'left',
+                  display: 'flex',
+                  marginTop: '23vh',
+                  paddingLeft: '15%',
+                }}
+                className="dhgiudiu finffffffffffffff"
+              >
+                Introducing
+              </p>
               {/* G Bot Text */}
               <img
                 src="/img/gbot-text.png"
@@ -72,11 +130,10 @@ const GbotTwo = () => {
                   key={index}
                   src={imgSrc}
                   alt={`G Frame ${index + 1}`}
-                  className={`absolute  max-w-[1900px] img h-[100vh]`}
+                  className={`absolute max-w-[1900px] img h-[100vh]`}
                   style={{
                     opacity: index === currentIndex ? 1 : 0,
                     zIndex: index === currentIndex ? 20 : 10,
-                    // transition: "opacity 0.3s ease-in-out",
                   }}
                 />
               ))}

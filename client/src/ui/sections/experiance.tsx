@@ -1,7 +1,8 @@
 import _axios from "@/lib/_axios";
 import { useQuery } from "@tanstack/react-query";
 import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
+import { Element } from "react-scroll";
 
 export const Experience = () => {
   const totalImages = 250;
@@ -9,6 +10,10 @@ export const Experience = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentIndexval, setCurrentIndexval] = useState(0);
   const containerRef = useRef(null);
+  const prevIndexRef = useRef(0);
+  const scrollRef = useRef(null);
+  const animationFrameRef = useRef(null);
+  const isScrollingBack = useRef(false);
 
   // Initialize scroll tracking
   const { scrollYProgress } = useScroll({
@@ -31,68 +36,121 @@ export const Experience = () => {
     );
     setImages(preloadedImages);
   }, []);
+
   const { data } = useQuery({
     queryKey: ["futuretechContent"],
     queryFn: async () => {
       return _axios.get(`/futuretech/content`);
     },
   });
-  console.log(data?.data.data)
+
   const content = data?.data.data.title || "";
   const words = content.split(" ");
 
-  const firstWord = words[0]+" "+words[1] || "";
-  const lastWord =words[words.length - 2]+" "+ words[words.length - 1] || "";
+  const firstWord = words[0] + " " + words[1] || "";
+  const lastWord = words[words.length - 2] + " " + words[words.length - 1] || "";
 
-  // Update currentIndex based on scroll progress (throttled)
-  useMotionValueEvent(imageIndex, "change", (latest) => {
-    const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
-    if (clampedIndex !== currentIndex) {
-      setCurrentIndex(clampedIndex) 
-    };
-    if (clampedIndex !== currentIndexval) { 
-      setCurrentIndexval(clampedIndex+100)
-    };
-  });
+  const maxIndexRef = useRef(0); // Track the max index reached
+  const prevScrollRef = useRef(0);
 
-  // Handle responsive width
-  const [width, setWidth] = useState(window.innerWidth);
+  const scrollToSection = (id) => {
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    const startPosition = window.scrollY;
+    const targetPosition = target.getBoundingClientRect().top + window.scrollY;
+    const distance = targetPosition - startPosition;
+    const duration = 3000;
+    let startTime = null;
+
+    const animateScroll = (currentTime) => {
+      if (!startTime) startTime = currentTime;
+      const elapsedTime = currentTime - startTime;
+      const progress = Math.min(elapsedTime / duration, 1); // Ensure progress doesn't exceed 1
+
+      // Smooth easing function (easeInOutQuad)
+      const easedProgress = progress < 0.5
+        ? 2 * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+      window.scrollTo(0, startPosition + distance * easedProgress);
+
+      if (elapsedTime < duration) {
+        requestAnimationFrame(animateScroll);
+      }
+    };
+
+    requestAnimationFrame(animateScroll);
+  };
+
+  // Debounced scroll handler
+  const handleScroll = useCallback(() => {
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+
+    animationFrameRef.current = requestAnimationFrame(() => {
+      const latest = imageIndex.get();
+      const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
+
+      if (latest < prevScrollRef.current && !isScrollingBack.current) {
+        isScrollingBack.current = true;
+        scrollToSection("plzzzscrolllllllllllllllllll");
+        console.log(scrollYProgress, "Scrolling Back!");
+      } else if (latest >= prevScrollRef.current && isScrollingBack.current) {
+        isScrollingBack.current = false;
+      }
+
+      if (latest <= 0) {
+        // Reset when fully scrolled up
+        setCurrentIndex(0);
+        maxIndexRef.current = 0;
+      } else if (clampedIndex > maxIndexRef.current) {
+        setCurrentIndex(clampedIndex);
+        setCurrentIndexval(clampedIndex + 70);
+        maxIndexRef.current = clampedIndex;
+      }
+
+      // Update the previous scroll position
+      prevScrollRef.current = latest;
+    });
+  }, [imageIndex, scrollYProgress]);
+
+  // Attach scroll event listener
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
+
+  // Handle responsiveness
+  const [width, setWidth] = useState(window.innerWidth);
 
   return (
     <>
       {width > 800 ? (
-
-
-        <div className="z-[100]" style={{ backgroundColor: "#525652", paddingTop: 40 }}>
+        <div className="z-[100]" style={{ backgroundColor: "#525652", paddingTop: 40 }}  >
           <section ref={containerRef}>
-            <div className=" h-[700vh]  sticky  z-[1000] top-0">
-              <div className="sticky top-0 w-full ">
+            <div className="h-[700vh] sticky z-[1000] top-0">
+              <div className="sticky top-0 w-full">
                 <div className="px-[5%]">
                   <div className="mt-[30px] flex justify-between">
-                    <p className="threeone text-white text-[50px] font-[400] font-['AktivGrotesk']  findthewayss">
+                    <p className="threeone text-white text-[50px] font-[400] font-['AktivGrotesk'] findthewayss">
                       {firstWord}{" "}
                       <span className="text-[#FCD902]">{lastWord}</span>
                     </p>
                     <div className="bg-[#FCD902] flex items-center justify-center px-24 py-4 expppppp">
-                      <p className="text-black text-[1.6rem] threetwo" style={{ fontFamily : 'AktivGrotesk' }} >
+                      <p className="text-black text-[1.6rem] threetwo" style={{ fontFamily: 'AktivGrotesk' }}>
                         WHAT'S THE HOLD
                       </p>
                     </div>
                   </div>
 
-                  <div className="mt-1 text-white text-[28px] font-[400] w-2/3  font-['AktivGrotesk'] uppercase   uppercaseok ">
-                    {/* Explore the innovative solutions of Genbot and G Bot.
-                    <br />
-                    Embrace the future of technology and human-robot
-                    <br />
-                    interaction. Begin your journey to safer, more
-                    <br />
-                    efficient, and tech-driven possibilities today. */}
+                  <div className="mt-1 text-white text-[28px] font-[400] w-2/3 font-['AktivGrotesk'] uppercase uppercaseok">
                     {data?.data.data.content}
                   </div>
                 </div>
@@ -110,7 +168,7 @@ export const Experience = () => {
                       style={{
                         opacity: index === currentIndex ? 1 : 0,
                         zIndex: index === currentIndex ? 20 : 10,
-                         maxWidth : '100%'
+                        maxWidth: '100%'
                       }}
                     />
                   ))}
@@ -119,14 +177,10 @@ export const Experience = () => {
             </div>
           </section>
         </div>
-
-
-
-
       ) : (
-        <section className="bg-white text-black font-base z-100  " ref={containerRef} >
-          <div 
-            className="  sticky  z-[1000] top-0 "
+        <section className="bg-white text-black font-base z-100" ref={containerRef}>
+          <div
+            className="sticky z-[1000] top-0"
             style={{ backgroundColor: "#424741", overflow: "hidden", paddingTop: 50 }}
           >
             <div className="sticky top-0 w-full">
@@ -143,7 +197,7 @@ export const Experience = () => {
                   today.
                 </p>
 
-                <div className="bg-[#FCD902] flex items-center justify-center mt-5 px-10 py-2 w-[50%] mx-auto">
+                <div className="bg-[#FCD902] flex items-center justify-center mt-5 px-10 py-2 w-[63%] mx-auto">
                   <p className="text-black text-[15px] threetwo uppercase">
                     WHAT'S THE HOLD
                   </p>

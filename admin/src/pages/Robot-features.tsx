@@ -90,7 +90,7 @@ const Robotfeatures = () => {
   return (
     <>
       <div className='px-20 py-10 '>
-        <div className='h-[calc(100vh-200px)] robotic-intelligence overflow-y-scroll'>
+        <div className='h-[calc(100vh-200px)] robotic-intelligence overflow-y-scroll' style={{ border : '1px solid #dbdbdb' }}>
           <Card x-chunk='dashboard-04-chunk-1'>
             <CardHeader>
               <CardTitle>Robot Features</CardTitle>

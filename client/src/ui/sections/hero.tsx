@@ -82,7 +82,7 @@ export const HeroSection = ({ loading }: Props) => {
         </div>
       )}
 
-      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex justify-center pb-[10px]">
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex justify-center pb-[10px]" style={{ paddingBottom : 44 }}>
         <Icon icon={"bi:mouse"} fontSize={40} />
       </div>
     </section>
@@ -108,7 +108,7 @@ export const HeroSection = ({ loading }: Props) => {
     </video>
 
     {!loading && (
-      <div className="text-white font-normal uppercase mx-[5%] leading-none z-10 absolute bottom-12 left-0">
+      <div className="text-white font-normal uppercase mx-[5%] leading-none z-10 absolute   left-0" style={{ bottom : '6rem' }}>
         <h1 style={{ fontFamily : 'AktivGrotesk' , fontSize : 44 , fontWeight : '400' } } className="text-[5.5vw] opacity-0">{firstWord}</h1>
         <h1 style={{ fontFamily : 'AktivGrotesk' , fontSize : 44 , fontWeight : '400'} } className="text-[5.5vw] opacity-0">{middleWords}</h1>
         <h1 className="text-[5.5vw] opacity-0">
@@ -117,7 +117,7 @@ export const HeroSection = ({ loading }: Props) => {
       </div>
     )}
 
-    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex justify-center pb-[10px]">
+    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex justify-center  " style={{ paddingBottom : '44px' }}>
       <Icon icon={"bi:mouse"} fontSize={40} />
     </div>
   </section>

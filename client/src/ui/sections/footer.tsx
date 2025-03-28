@@ -54,7 +54,7 @@ export const Footer = () => {
             <div className=" py-[5%]">
               <div className="grid grid-cols-[20%_20%_20%_40%] gap-4">
                 <div className="flex flex-col">
-                  {links[0].map((link) => {
+                  {/* {links[0].map((link) => {
                     return (
                       <p
                         key={link.name}
@@ -67,7 +67,43 @@ export const Footer = () => {
                         {link.name}
                       </p>
                     );
-                  })}
+                  })} */}
+
+
+<p
+                    style={{
+                      color: "rgba(255, 255, 255, 1)",
+                      fontSize: 24,
+                      fontWeight: "400",
+                    }}
+                    className="mb-2"
+                  >
+                    Clean Tech
+                  </p>
+
+                  <p
+                    style={{
+                      color: "rgba(255, 255, 255, 1)",
+                      fontSize: 24,
+                      fontWeight: "400",
+                    }}
+                    className="mb-2"
+                  >
+                    Medical and Mobility
+                  </p>
+
+                  <p
+                    style={{
+                      color: "rgba(255, 255, 255, 1)",
+                      fontSize: 24,
+                      fontWeight: "400",
+                    }}
+                    className="mb-2"
+                  >
+                    Genrobotics
+                  </p>
+
+
                 </div>
 
                 <div
@@ -76,7 +112,9 @@ export const Footer = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <p
+
+
+                  {/* <p
                     style={{
                       color: "rgba(255, 255, 255, 1)",
                       fontSize: 24,
@@ -132,8 +170,8 @@ export const Footer = () => {
                     className="mb-2"
                   >
                     Mobility Plus
-                  </p>
-                  <div className="flex">
+                  </p> */}
+                  {/* <div className="flex">
                     <p
                       style={{
                         color: "rgba(255, 255, 255, 1)",
@@ -204,7 +242,7 @@ export const Footer = () => {
                         BETA
                       </p>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div
@@ -213,7 +251,7 @@ export const Footer = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <div className="flex">
+                  {/* <div className="flex">
                     <p
                       style={{
                         color: "rgba(255, 255, 255, 1)",
@@ -346,7 +384,7 @@ export const Footer = () => {
                     className="mb-2"
                   >
                     Genrobotics
-                  </p>
+                  </p> */}
 
                 </div>
 
@@ -505,7 +543,7 @@ export const Footer = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <p
+                  {/* <p
                     style={{
                       color: "rgba(255, 255, 255, 1)",
                       fontSize: 16,
@@ -537,7 +575,44 @@ export const Footer = () => {
                     className="mb-2"
                   >
                     Careers
+                  </p> */}
+
+
+<p
+                    style={{
+                      color: "rgba(255, 255, 255, 1)",
+                      fontSize: 16,
+                      fontWeight: "400",
+                    }}
+                    className="mb-2"
+                  >
+                    Clean Tech
                   </p>
+
+                  <p
+                    style={{
+                      color: "rgba(255, 255, 255, 1)",
+                      fontSize: 16,
+                      fontWeight: "400",
+                    }}
+                    className="mb-2"
+                  >
+                    Medical and Mobility
+                  </p>
+
+                  <p
+                    style={{
+                      color: "rgba(255, 255, 255, 1)",
+                      fontSize: 16,
+                      fontWeight: "400",
+                    }}
+                    className="mb-2"
+                  >
+                    Genrobotics
+                  </p>
+
+
+
                 </div>
 
                 <div
@@ -546,7 +621,7 @@ export const Footer = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <div className="flex">
+                  {/* <div className="flex">
                     <p
                       style={{
                         color: "rgba(255, 255, 255, 1)",
@@ -578,6 +653,20 @@ export const Footer = () => {
                   >
                     Contact
                   </p>
+
+                  <p
+                    style={{
+                      color: "rgba(255, 255, 255, 1)",
+                      fontSize: 16,
+                      fontWeight: "400",
+                    }}
+                    className="mb-2"
+                  >
+                    Genrobotics
+                  </p> */}
+
+
+                 
                 </div>
               </div>
 

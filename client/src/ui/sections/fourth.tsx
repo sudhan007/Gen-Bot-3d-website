@@ -14,6 +14,7 @@ const FlyGenBotSection = () => {
   const refs = useRef(null);
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndexfine, setCurrentIndexfine] = useState(true);
 
   const { scrollYProgress } = useScroll({
     target: refs,
@@ -26,7 +27,6 @@ const FlyGenBotSection = () => {
     },
   });
 
-  // console.log(data?.data.data)
   const sectionProgress = useTransform(scrollYProgress, [0, 1], [0, 100]);
   const [visibleIndex, setVisibleIndex] = useState(-1);
 
@@ -39,7 +39,18 @@ const FlyGenBotSection = () => {
   });
 
   useMotionValueEvent(sectionProgress, "change", (latest) => {
+
+    
     const clampedIndex = Math.min(Math.floor(latest), 100);
+    console.log(clampedIndex , 'clampedIndexclampedIndexclampedIndexclampedIndexclampedIndexclampedIndex')
+
+    if(clampedIndex === 99 || clampedIndex === 98 || clampedIndex === 97 ) {
+      localStorage.setItem('testfinethree' , '1')
+      setTimeout(() => {
+        setCurrentIndexfine(false);
+      }, 1000);
+      
+    }
     setCurrentIndex(clampedIndex);
   });
 
@@ -119,61 +130,48 @@ const FlyGenBotSection = () => {
   const cardData = [
     {
       heading: `${data?.data.data[0].title}`,
-      subHeading:
-      `${data?.data.data[0].content}`,
-      className: `lg:top-[6%] lg:left-[8%] md:top-[10%] md:left-[5%] coolbotonoe`,
-      ind : 1
+      subHeading: `${data?.data.data[0].content}`,
+      className: `lg:top-[6%] lg:left-[8%] md:top-[10%] md:left-[5%] z-10 coolbotonoe `,
+      ind: 1,
     },
     {
       heading: `${data?.data.data[1].title}`,
-      subHeading:
-      `${data?.data.data[1].content}`,
-      className:
-        "lg:top-[7%] lg:right-[13%] md:top-[10%] md:right-[5%] coolbototwo",
-        ind : 2
+      subHeading: `${data?.data.data[1].content}`,
+      className: "lg:top-[7%] lg:right-[17%] md:top-[10%] md:right-[5%] z-10 coolbototwo ",
+      ind: 2,
     },
     {
       heading: `${data?.data.data[2].title}`,
-      subHeading:
-      `${data?.data.data[2].content}`,
-      className:
-        "lg:bottom-[56%] lg:right-[8%] md:bottom-[10%] md:right-[5%] coolbotthree",
-        ind : 3
+      subHeading: `${data?.data.data[2].content}`,
+      className: "lg:bottom-[56%] lg:right-[8%] md:bottom-[10%] md:right-[5%] z-10  coolbotthree",
+      ind: 3,
     },
     {
       heading: `${data?.data.data[3].title}`,
-      subHeading:
-      `${data?.data.data[3].content}`,
-      className:
-        "lg:bottom-[45%] lg:left-[8%] md:bottom-[10%] md:left-[5%] coolbotfour",
-        ind : 4
+      subHeading: `${data?.data.data[3].content}`,
+      className: "lg:bottom-[45%] lg:left-[8%] md:bottom-[10%] md:left-[5%] z-10 coolbotfour",
+      ind: 4,
     },
     {
       heading: `${data?.data.data[4].title}`,
-      subHeading:
-      `${data?.data.data[4].content}`,
-      className:
-        "lg:left-[67%] lg:top-[54%] md:left-[24%] md:top-[60%] coolbotofive",
-        ind : 5
+      subHeading: `${data?.data.data[4].content}`,
+      className: "lg:left-[67%] lg:top-[54%] md:left-[24%] md:top-[60%] z-10  coolbotofive coolbotofivesss",
+      ind: 5,
     },
     {
       heading: `${data?.data?.data[5]?.title || ''}`,
-      subHeading:
-      `${data?.data?.data[5]?.content || ''}`,
-      className:
-        "lg:left-[58%] lg:top-[77%] md:left-[24%] md:top-[60%] coolbotofive",
-        ind : 6
+      subHeading: `${data?.data?.data[5]?.content || ''}`,
+      className: "lg:left-[58%] lg:top-[77%] md:left-[24%] md:top-[60%] z-10 coolbotofive",
+      ind: 6,
     },
     {
       heading: `${data?.data?.data[6]?.title || ''}`,
-      subHeading:
-      `${data?.data?.data[6]?.content || ''}`,
-      className:
-        "lg:top-[77%] lg:left-[19%] md:bottom-[10%] md:left-[5%] coolbotfour",
-        ind : 7
+      subHeading: `${data?.data?.data[6]?.content || ''}`,
+      className: "lg:top-[77%] lg:left-[19%] md:bottom-[10%] md:left-[5%] z-10  coolbotfourf",
+      ind: 7,
     },
-    { 
-        ind : 8
+    {
+      ind: 8,
     },
   ];
 
@@ -186,15 +184,48 @@ const FlyGenBotSection = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleHifFocus =async () => {
+
+    let findvals = await localStorage.getItem('testfinethree');
+    if (findvals === "1") {
+      setCurrentIndexfine(false);
+    }else{
+      setCurrentIndexfine(true)
+    }
+
+    console.log("Element with id 'hifhhhhhhhhhhhhhhhh' is in view!");
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          handleHifFocus();
+        }
+      });
+    });
+
+    const element = document.getElementById("hifhhhhhhhhhhhhhhhh");
+    if (element) {
+      observer.observe(element);
+    }
+
+    return () => {
+      if (element) {
+        observer.unobserve(element);
+      }
+    };
+  }, []);
+
   return (
     <>
       {width > 800 ? (
-        <Element name="section3">
+        <Element name="section3" id="hifhhhhhhhhhhhhhhhh">
           <div className="z-[100]">
             <section ref={ref}>
               <div
                 ref={refs}
-                className=" h-[500vh] bg-white sticky  z-[1000] top-0"
+                className={  currentIndexfine === true ?" h-[500vh] bg-white sticky  z-[1000] top-0" : "  bg-white sticky  z-[1000] top-0" }
               >
                 <div
                   className="sticky top-0 w-full flex md:flex-row "
@@ -202,7 +233,7 @@ const FlyGenBotSection = () => {
                 >
                   <section
                     style={{ backgroundColor: "#EEEEEA" }}
-                    className="  relative text-black min-w-[85%] max-w-[85%] m-auto font-base min-h-screen flex justify-center items-center overflow-hidden z-[100000]"
+                    className="  relative text-black min-w-[85%] max-w-[85%] m-auto font-base min-h-screen flex justify-center items-center overflow-hidden z-[100000] tjhtyjhtgndfg"
                   >
                     <div className="w-full h-full absolute">
                       {cardData.map((card, index) => (
@@ -212,13 +243,13 @@ const FlyGenBotSection = () => {
                           }}
                           key={index}
                           className={`absolute transition-all duration-700 ease-out ${card.className
-                            } ${card.ind <= visibleIndex 
+                            } ${card.ind <= visibleIndex
                               ? "opacity-100 translate-y-0"
                               : "opacity-0 translate-y-[-60px]"
                             }`}
                         >
                           <div
-                            className="flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white"
+                            className="flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[320px] rounded-xl border bg-white fineebrrrr fineebrrrrfunn"
                             style={{
                               boxShadow:
                                 "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
@@ -226,19 +257,18 @@ const FlyGenBotSection = () => {
                           >
                             <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
                               <h1
-                                style={{ fontWeight: "700" }}
-                                className="text-xl font-normal mb-2 break-before-avoid"
+                                style={{ fontWeight: "700", marginBottom: '.3rem' }}
+                                className="text-xl font-normal mb-2 break-before-avoid fineeeetextone"
                               >
                                 {card.heading}
                               </h1>
-                              <p className="text-sm text-[#909090] leading-normal opacity-95">
+                              <p className="text-sm text-[#909090] leading-normal opacity-95 fineeeetexttwo" style={{ lineHeight: '17px' }}>
                                 {card.subHeading}
                               </p>
                             </div>
                           </div>
                         </div>
                       ))}
-
                     </div>
 
                     {/* Genbot image with opacity 0 for initial fade-in */}
@@ -273,7 +303,7 @@ const FlyGenBotSection = () => {
             {cardData.map((card, index) => (
               <div
                 key={index}
-                className={` md:block cards opacity-0`}
+                className={` md:block cards ${card.ind === 8 ? 'opacity-0' : ""}`}
                 style={{ marginBottom: 20 }}
               >
                 <div
