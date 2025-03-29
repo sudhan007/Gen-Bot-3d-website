@@ -59,7 +59,7 @@ const GbotThree = () => {
     if(clampedIndex === 110 || clampedIndex ===109 || clampedIndex === 108  ) {
       localStorage.setItem('testfinefive' , '1')
       setTimeout(() => {
-        setCurrentIndexfine(false);
+        // setCurrentIndexfine(false);
       }, 1000);
       
     }

@@ -62,6 +62,7 @@ export const Navbar = ({ loading }: Props) => {
       localStorage.removeItem('testfinefour')
       localStorage.removeItem('testfinefive')
       localStorage.removeItem('testfinesix')
+      localStorage.removeItem('testfinenine')
       console.log("Function triggered when div enters!");
     };
 

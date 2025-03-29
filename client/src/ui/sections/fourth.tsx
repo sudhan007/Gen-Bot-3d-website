@@ -47,7 +47,7 @@ const FlyGenBotSection = () => {
     if(clampedIndex === 99 || clampedIndex === 98 || clampedIndex === 97 ) {
       localStorage.setItem('testfinethree' , '1')
       setTimeout(() => {
-        setCurrentIndexfine(false);
+        // setCurrentIndexfine(false);
       }, 1000);
       
     }

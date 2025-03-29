@@ -14,7 +14,7 @@ export const Experience = () => {
   const scrollRef = useRef(null);
   const animationFrameRef = useRef(null);
   const isScrollingBack = useRef(false);
-
+  const [imagesone, setImagesone] = useState(true);
   // Initialize scroll tracking
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -95,7 +95,8 @@ export const Experience = () => {
 
       if (latest < prevScrollRef.current && !isScrollingBack.current) {
         isScrollingBack.current = true;
-        scrollToSection("plzzzscrolllllllllllllllllll");
+
+        // scrollToSection("plzzzscrolllllllllllllllllll");
         console.log(scrollYProgress, "Scrolling Back!");
       } else if (latest >= prevScrollRef.current && isScrollingBack.current) {
         isScrollingBack.current = false;
@@ -110,6 +111,17 @@ export const Experience = () => {
         setCurrentIndexval(clampedIndex + 70);
         maxIndexRef.current = clampedIndex;
       }
+
+
+      if(latest > 227 && latest< 228.9 ) {
+        localStorage.setItem('testfinenine' , '1')
+        setTimeout(() => {
+          // setImagesone(false);
+        }, 1000);
+        
+      }
+
+      console.log(latest , 'latestlatestlatestlatestlatestlatestlatestlatestlatestlatestlatestlatestlatest')
 
       // Update the previous scroll position
       prevScrollRef.current = latest;
@@ -130,12 +142,45 @@ export const Experience = () => {
   // Handle responsiveness
   const [width, setWidth] = useState(window.innerWidth);
 
+  const handleThisIsFinallllFocus = async () => {
+
+    let findvals = await localStorage.getItem('testfinenine');
+    if (findvals === "1") {
+      setImagesone(false);
+    }else{
+      setImagesone(true)
+    }
+
+    console.log("Element with id 'thisisfinallll' is in view!");
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          handleThisIsFinallllFocus();
+        }
+      });
+    });
+
+    const element = document.getElementById("thisisfinallll");
+    if (element) {
+      observer.observe(element);
+    }
+
+    return () => {
+      if (element) {
+        observer.unobserve(element);
+      }
+    };
+  }, []);
+
   return (
     <>
       {width > 800 ? (
-        <div className="z-[100]" style={{ backgroundColor: "#525652", paddingTop: 40 }}  >
+        <div className="z-[100]" style={{ backgroundColor: "#525652", paddingTop: 40 }} id='thisisfinallll'>
           <section ref={containerRef}>
-            <div className="h-[700vh] sticky z-[1000] top-0">
+            <div className={ imagesone === true ? "h-[700vh] sticky z-[1000] top-0" : "  sticky z-[1000] top-0" }>
               <div className="sticky top-0 w-full">
                 <div className="px-[5%]">
                   <div className="mt-[30px] flex justify-between">
@@ -225,3 +270,5 @@ export const Experience = () => {
     </>
   );
 };
+
+export default Experience;

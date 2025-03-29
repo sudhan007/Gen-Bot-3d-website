@@ -37,7 +37,7 @@ const GbotTwo = () => {
     if(clampedIndex === 236 || clampedIndex ===235 || clampedIndex === 234 || clampedIndex === 233 || clampedIndex === 232 ) {
       localStorage.setItem('testfinefour' , '1')
       setTimeout(() => {
-        setCurrentIndexdata(false);
+        // setCurrentIndexdata(false);
       }, 2000);
       
     }

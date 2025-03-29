@@ -93,7 +93,7 @@ export const GbotFour = () => {
     if(newIndex === 14  ) {
       localStorage.setItem('testfinesix' , '1')
       setTimeout(() => {
-        setTriggerone(false);
+        // setTriggerone(false);
       }, 1000);
       
     }

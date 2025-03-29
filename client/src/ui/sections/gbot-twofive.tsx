@@ -46,8 +46,12 @@ const Twofive = () => {
 
   useMotionValueEvent(sectionProgress, "change", async (latest) => {
     const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
+
     if (clampedIndex === 299) {
       await localStorage.setItem('testfine', '1');
+      setTimeout(() => {
+        // setCheckval(false);
+      }, 2000);
     }
     setCurrentIndex(clampedIndex);
   });
@@ -73,7 +77,15 @@ const Twofive = () => {
     }
   };
 
-  const handleFocus = () => {
+  const handleFocus = async() => {
+
+    let findvals = await localStorage.getItem('testfine');
+    if (findvals === "1") {
+      setCheckval(false);
+    }else{
+      setCheckval(true)
+    }
+
     console.log("Div focused!");
   };
 
@@ -104,7 +116,7 @@ const Twofive = () => {
         <section
           style={{ backgroundColor: "#EEEEEA" }}
           className="text-black font-base z-100"
-          id="gjgjjjgjjgjgj"
+          
         >
           <div
             className={checkval === true ? "sticky z-[1000] h-[400vh]" : "sticky z-[1000]"}
@@ -123,7 +135,7 @@ const Twofive = () => {
                   justifyContent: 'center',
                   display: 'flex',
                   marginTop: '18vh',
-                }}
+                }}id="gjgjjjgjjgjgj"
               >
                 Introducing
               </p>

@@ -190,7 +190,7 @@ function App() {
       if( videoRef.current.currentTime  > 29 && videoRef.current.currentTime < 29.999 ) {
         localStorage.setItem('testfinetwo' , '1')
         setTimeout(() => {
-          setEnteroneid(false);
+          // setEnteroneid(false);
         }, 1000);
         
       }
