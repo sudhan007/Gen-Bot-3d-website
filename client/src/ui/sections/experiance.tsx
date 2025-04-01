@@ -1,8 +1,7 @@
 import _axios from "@/lib/_axios";
 import { useQuery } from "@tanstack/react-query";
-import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
-import { useEffect, useRef, useState, useCallback } from "react";
-import { Element } from "react-scroll";
+import { useScroll, useTransform } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export const Experience = () => {
   const totalImages = 250;
@@ -12,6 +11,9 @@ export const Experience = () => {
   const containerRef = useRef(null);
   const prevIndexRef = useRef(0);
   const scrollRef = useRef(null);
+
+
+
   const animationFrameRef = useRef(null);
   const isScrollingBack = useRef(false);
   const [imagesone, setImagesone] = useState(true);
@@ -113,15 +115,6 @@ export const Experience = () => {
       }
 
 
-      if(latest > 227 && latest< 228.9 ) {
-        localStorage.setItem('testfinenine' , '1')
-        setTimeout(() => {
-          // setImagesone(false);
-        }, 1000);
-        
-      }
-
-      console.log(latest , 'latestlatestlatestlatestlatestlatestlatestlatestlatestlatestlatestlatestlatest')
 
       // Update the previous scroll position
       prevScrollRef.current = latest;
@@ -147,7 +140,7 @@ export const Experience = () => {
     let findvals = await localStorage.getItem('testfinenine');
     if (findvals === "1") {
       setImagesone(false);
-    }else{
+    } else {
       setImagesone(true)
     }
 
@@ -180,7 +173,7 @@ export const Experience = () => {
       {width > 800 ? (
         <div className="z-[100]" style={{ backgroundColor: "#525652", paddingTop: 40 }} id='thisisfinallll'>
           <section ref={containerRef}>
-            <div className={ imagesone === true ? "h-[700vh] sticky z-[1000] top-0" : "  sticky z-[1000] top-0" }>
+            <div className={imagesone === true ? "h-[700vh] sticky z-[1000] top-0" : "  sticky z-[1000] top-0"}>
               <div className="sticky top-0 w-full">
                 <div className="px-[5%]">
                   <div className="mt-[30px] flex justify-between">

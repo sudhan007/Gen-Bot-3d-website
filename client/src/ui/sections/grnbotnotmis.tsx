@@ -52,7 +52,7 @@ const Grnbotnotmis = () => {
             <div className='sticky top-0 flex justify-center items-center w-full h-screen'>
               {/* G Bot Text */}
 
-            
+
               <img
                 src='/img/gbot-text.png'
                 alt='G Bot Text'
@@ -80,13 +80,14 @@ const Grnbotnotmis = () => {
         <div
           style={{
             position: "sticky",
-            zIndex: 100000, 
-            paddingBottom: 100,   
+            zIndex: 100000,
+            paddingBottom: 100,
           }}
           className='bg-lightbg h-[75vh]'>
 
-<p style={{ width : '100%' , color : '#2B2B2B' , fontSize : 20 , fontWeight : '700' , marginLeft :  20
-              }}  className="">Introducing</p>
+          <p style={{
+            width: '100%', color: '#2B2B2B', fontSize: 20, fontWeight: '700', marginLeft: 20
+          }} className="">Introducing</p>
           <img
             style={{ top: "45%", padding: 20 }}
             className='absolute'
@@ -100,7 +101,7 @@ const Grnbotnotmis = () => {
                 src={imgSrc}
                 alt={`G Frame ${index + 1}`}
                 className={`absolute  max-w-[1200px] img `}
-                style={{ 
+                style={{
                   opacity: index === currentIndex ? 1 : 0,
                   zIndex: index === currentIndex ? 20 : 10,
                   // transition: "opacity 0.3s ease-in-out",

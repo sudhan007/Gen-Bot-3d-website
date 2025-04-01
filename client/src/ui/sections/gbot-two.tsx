@@ -30,16 +30,16 @@ const GbotTwo = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useMotionValueEvent(sectionProgress, "change", (latest) => {
-    
-    const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
-    console.log(clampedIndex , 'sectionProgresssectionProgresssectionProgresssectionProgresssectionProgress')
 
-    if(clampedIndex === 236 || clampedIndex ===235 || clampedIndex === 234 || clampedIndex === 233 || clampedIndex === 232 ) {
-      localStorage.setItem('testfinefour' , '1')
+    const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
+    console.log(clampedIndex, 'sectionProgresssectionProgresssectionProgresssectionProgresssectionProgress')
+
+    if (clampedIndex === 236 || clampedIndex === 235 || clampedIndex === 234 || clampedIndex === 233 || clampedIndex === 232) {
+
       setTimeout(() => {
         // setCurrentIndexdata(false);
       }, 2000);
-      
+
     }
     setCurrentIndex(clampedIndex);
   });
@@ -58,7 +58,7 @@ const GbotTwo = () => {
     let findvals = await localStorage.getItem('testfinefour');
     if (findvals === "1") {
       setCurrentIndexdata(false);
-    }else{
+    } else {
       setCurrentIndexdata(true)
     }
     console.log("Element with id 'thisisseventhid' is in view!");
@@ -94,7 +94,7 @@ const GbotTwo = () => {
           id="thisisseventhid"
         >
           <div
-            className={currentIndexdata === true ? "sticky z-[1000] h-[800vh]" :  "sticky z-[1000] " }
+            className={currentIndexdata === true ? "sticky z-[1000] h-[800vh]" : "sticky z-[1000] "}
             style={{ backgroundColor: "#EEEEEA" }}
             ref={ref}
           >
@@ -104,7 +104,7 @@ const GbotTwo = () => {
                   width: '100%',
                   color: '#2B2B2B',
                   textAlign: 'center',
-                  fontSize: 64,
+                  fontSize: 48,
                   marginBottom: 50,
                   alignItems: 'baseline',
                   height: '100vh',
@@ -113,7 +113,7 @@ const GbotTwo = () => {
                   marginTop: '23vh',
                   paddingLeft: '15%',
                 }}
-                className="dhgiudiu finffffffffffffff"
+                className="dhgiudiu finffffffffffffff font-sfpro uppercase font-bold leading-loose tracking-[12px]"
               >
                 Introducing
               </p>

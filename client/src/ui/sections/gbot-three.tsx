@@ -1,3 +1,5 @@
+import _axios from "@/lib/_axios";
+import { useQuery } from "@tanstack/react-query";
 import {
   motion,
   useMotionValueEvent,
@@ -6,8 +8,6 @@ import {
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { AnimatedText } from "../components/AnimatedText";
-import { useQuery } from "@tanstack/react-query";
-import _axios from "@/lib/_axios";
 
 const GbotThree = () => {
   const totalImages = 111;
@@ -54,14 +54,14 @@ const GbotThree = () => {
 
   useMotionValueEvent(imageIndex, "change", (latest) => {
     const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
-    console.log(clampedIndex , 'clampedIndexclampedIndexclampedIndexclampedIndexclampedIndexclampedIndex')
+    console.log(clampedIndex, 'clampedIndexclampedIndexclampedIndexclampedIndexclampedIndexclampedIndex')
 
-    if(clampedIndex === 110 || clampedIndex ===109 || clampedIndex === 108  ) {
-      localStorage.setItem('testfinefive' , '1')
+    if (clampedIndex === 110 || clampedIndex === 109 || clampedIndex === 108) {
+
       setTimeout(() => {
         // setCurrentIndexfine(false);
       }, 1000);
-      
+
     }
     if (clampedIndex !== currentIndex) setCurrentIndex(clampedIndex);
   });
@@ -83,7 +83,7 @@ const GbotThree = () => {
     let findvals = await localStorage.getItem('testfinefive');
     if (findvals === "1") {
       setCurrentIndexfine(false);
-    }else{
+    } else {
       setCurrentIndexfine(true)
     }
 
@@ -117,7 +117,7 @@ const GbotThree = () => {
         <div className="z-[100]" id="scrollrtgdss">
           <section ref={thirdContainerOriginbot}>
             <div
-              className={ currentIndexfine === true ? "h-[800vh] sticky top-0 z-[1000]" :  " sticky top-0 z-[1000]" }
+              className={currentIndexfine === true ? "h-[800vh] sticky top-0 z-[1000]" : " sticky top-0 z-[1000]"}
               style={{ backgroundColor: "#EEEEEA" }}
             >
               <div className="sticky top-0 w-full flex md:flex-row">

@@ -14,7 +14,7 @@ const Twofive = () => {
   const [checkval, setCheckval] = useState(true);
 
   useEffect(() => {
-    const preloadedImages = [];
+    const preloadedImages: any = [];
     for (let i = 1; i <= totalImages; i++) {
       const paddedIndex = String(i).padStart(4, "0");
       preloadedImages.push(`/rolls/${paddedIndex}.webp`);
@@ -48,7 +48,6 @@ const Twofive = () => {
     const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
 
     if (clampedIndex === 299) {
-      await localStorage.setItem('testfine', '1');
       setTimeout(() => {
         // setCheckval(false);
       }, 2000);
@@ -70,19 +69,14 @@ const Twofive = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleEnter = async () => {
-    let findvals = await localStorage.getItem('testfine');
-    if (findvals === "1") {
-      setCheckval(false);
-    }
-  };
 
-  const handleFocus = async() => {
+
+  const handleFocus = async () => {
 
     let findvals = await localStorage.getItem('testfine');
     if (findvals === "1") {
       setCheckval(false);
-    }else{
+    } else {
       setCheckval(true)
     }
 
@@ -116,7 +110,7 @@ const Twofive = () => {
         <section
           style={{ backgroundColor: "#EEEEEA" }}
           className="text-black font-base z-100"
-          
+
         >
           <div
             className={checkval === true ? "sticky z-[1000] h-[400vh]" : "sticky z-[1000]"}
@@ -128,14 +122,15 @@ const Twofive = () => {
                 style={{
                   color: '#2B2B2B',
                   textAlign: 'center',
-                  fontSize: 47,
+                  fontSize: 51,
                   marginBottom: 50,
                   alignItems: 'baseline',
                   height: '100vh',
                   justifyContent: 'center',
                   display: 'flex',
                   marginTop: '18vh',
-                }}id="gjgjjjgjjgjgj"
+                }} id="gjgjjjgjjgjgj"
+                className="font-sfpro uppercase font-bold leading-loose tracking-[12px]"
               >
                 Introducing
               </p>

@@ -332,4 +332,3 @@ const GenBot = ({ onModelLoad, base64Video }: Props) => {
   );
 };
 
-export default GenBot;

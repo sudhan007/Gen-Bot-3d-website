@@ -52,58 +52,19 @@ export const Footer = () => {
         >
           <div className="mx-[5%]">
             <div className=" py-[5%]">
-              <div className="grid grid-cols-[20%_20%_20%_40%] gap-4">
-                <div className="flex flex-col">
-                  {/* {links[0].map((link) => {
-                    return (
-                      <p
-                        key={link.name}
-                        className="mb-2 text-[rgba(255, 255, 255, 1)] text-2xl font-normal text-white cursor-pointer hover:opacity-70"
-                        onClick={() => {
-                          if (!link.url) return;
-                          window.open(link.url, "_blank");
-                        }}
-                      >
-                        {link.name}
-                      </p>
-                    );
-                  })} */}
-
-
-<p
-                    style={{
-                      color: "rgba(255, 255, 255, 1)",
-                      fontSize: 24,
-                      fontWeight: "400",
-                    }}
-                    className="mb-2"
-                  >
+              <div className="flex justify-between">
+                <div className="flex gap-12 items-center mt-4">
+                  <p className="text-white text-[26px] md:text-[26px] font-normal mb-2 text-nowrap cursor-pointer">
                     Clean Tech
                   </p>
 
-                  <p
-                    style={{
-                      color: "rgba(255, 255, 255, 1)",
-                      fontSize: 24,
-                      fontWeight: "400",
-                    }}
-                    className="mb-2"
-                  >
+                  <p className="text-white text-[26px] md:text-[26px] font-normal mb-2 text-nowrap cursor-pointer">
                     Medical and Mobility
                   </p>
 
-                  <p
-                    style={{
-                      color: "rgba(255, 255, 255, 1)",
-                      fontSize: 24,
-                      fontWeight: "400",
-                    }}
-                    className="mb-2"
-                  >
+                  <p className="text-white text-[26px] md:text-[26px] font-normal mb-2 text-nowrap cursor-pointer">
                     Genrobotics
                   </p>
-
-
                 </div>
 
                 <div
@@ -111,282 +72,7 @@ export const Footer = () => {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
-                >
-
-
-                  {/* <p
-                    style={{
-                      color: "rgba(255, 255, 255, 1)",
-                      fontSize: 24,
-                      fontWeight: "400",
-                    }}
-                    className="mb-2"
-                  >
-                    Bandicoot
-                  </p>
-                  <div className="flex">
-                    <p
-                      style={{
-                        color: "rgba(255, 255, 255, 1)",
-                        fontSize: 24,
-                        fontWeight: "400",
-                      }}
-                      className="mb-2"
-                    >
-                      Bandicoot Mini
-                    </p>
-                    <div
-                      style={{
-                        width: 57,
-                        height: 24,
-                        backgroundColor: "rgba(221, 199, 88, 1)",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        display: "flex",
-                        borderRadius: 5,
-                        marginLeft: 10,
-                        marginTop: 5,
-                      }}
-                    >
-                      <p
-                        style={{
-                          color: "rgba(66, 71, 65, 1)",
-                          fontSize: 10,
-                          fontWeight: "500",
-                          marginTop: 2,
-                        }}
-                      >
-                        NEW
-                      </p>
-                    </div>
-                  </div>
-
-                  <p
-                    style={{
-                      color: "rgba(255, 255, 255, 1)",
-                      fontSize: 24,
-                      fontWeight: "400",
-                    }}
-                    className="mb-2"
-                  >
-                    Mobility Plus
-                  </p> */}
-                  {/* <div className="flex">
-                    <p
-                      style={{
-                        color: "rgba(255, 255, 255, 1)",
-                        fontSize: 24,
-                        fontWeight: "400",
-                      }}
-                      className="mb-2"
-                    >
-                      G-Beetle
-                    </p>
-                    <div
-                      style={{
-                        width: 57,
-                        height: 24,
-                        backgroundColor: "rgba(255, 172, 5, 1)",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        display: "flex",
-                        borderRadius: 5,
-                        marginLeft: 10,
-                        marginTop: 5,
-                      }}
-                    >
-                      <p
-                        style={{
-                          color: "rgba(66, 71, 65, 1)",
-                          fontSize: 10,
-                          fontWeight: "400",
-                          marginTop: 2,
-                        }}
-                      >
-                        BETA
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex">
-                    <p
-                      style={{
-                        color: "rgba(255, 255, 255, 1)",
-                        fontSize: 24,
-                        fontWeight: "400",
-                      }}
-                      className="mb-2"
-                    >
-                      Wilboar
-                    </p>
-                    <div
-                      style={{
-                        width: 57,
-                        height: 24,
-                        backgroundColor: "rgba(255, 172, 5, 1)",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        display: "flex",
-                        borderRadius: 5,
-                        marginLeft: 10,
-                        marginTop: 5,
-                      }}
-                    >
-                      <p
-                        style={{
-                          color: "rgba(66, 71, 65, 1)",
-                          fontSize: 10,
-                          fontWeight: "400",
-                          marginTop: 2,
-                        }}
-                      >
-                        BETA
-                      </p>
-                    </div>
-                  </div> */}
-                </div>
-
-                <div
-                  style={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  {/* <div className="flex">
-                    <p
-                      style={{
-                        color: "rgba(255, 255, 255, 1)",
-                        fontSize: 24,
-                        fontWeight: "400",
-                      }}
-                      className="mb-2"
-                    >
-                      G-Crow
-                    </p>
-                    <div
-                      style={{
-                        width: 57,
-                        height: 24,
-                        backgroundColor: "rgba(221, 199, 88, 1)",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        display: "flex",
-                        borderRadius: 5,
-                        marginLeft: 10,
-                        marginTop: 5,
-                      }}
-                    >
-                      <p
-                        style={{
-                          color: "rgba(66, 71, 65, 1)",
-                          fontSize: 10,
-                          fontWeight: "500",
-                          marginTop: 2,
-                        }}
-                      >
-                        NEW
-                      </p>
-                    </div>
-                  </div>
-                  <p
-                    style={{
-                      color: "rgba(255, 255, 255, 1)",
-                      fontSize: 24,
-                      fontWeight: "400",
-                    }}
-                    className="mb-2"
-                  >
-                    G-Mammoth
-                  </p>
-                  <p
-                    style={{
-                      color: "rgba(255, 255, 255, 1)",
-                      fontSize: 24,
-                      fontWeight: "400",
-                    }}
-                    className="mb-2"
-                  >
-                    Genbot Series
-                  </p>
-                  <p
-                    style={{
-                      color: "rgba(255, 255, 255, 1)",
-                      fontSize: 24,
-                      fontWeight: "400",
-                    }}
-                    className="mb-2"
-                  >
-                    G bot Series
-                  </p>
-
-
-                  <p
-                    style={{
-                      color: "rgba(255, 255, 255, 1)",
-                      fontSize: 24,
-                      fontWeight: "400",
-                    }}
-                    className="mb-2"
-                  >
-                    Clean Tech
-                  </p>
-
-
-                  <p
-                    style={{
-                      color: "rgba(255, 255, 255, 1)",
-                      fontSize: 24,
-                      fontWeight: "400",
-                    }}
-                    className="mb-2"
-                  >
-                    Medical and Mobility
-                  </p>
-
-
-                  <p
-                    style={{
-                      color: "rgba(255, 255, 255, 1)",
-                      fontSize: 24,
-                      fontWeight: "400",
-                    }}
-                    className="mb-2"
-                  >
-                    Genrobotics
-                  </p>
-                  <p
-                    style={{
-                      color: "rgba(255, 255, 255, 1)",
-                      fontSize: 24,
-                      fontWeight: "400",
-                    }}
-                    className="mb-2"
-                  >
-                    Clean Tech
-                  </p>
-
-                  <p
-                    style={{
-                      color: "rgba(255, 255, 255, 1)",
-                      fontSize: 24,
-                      fontWeight: "400",
-                    }}
-                    className="mb-2"
-                  >
-                    Medical and Mobility
-                  </p>
-
-                  <p
-                    style={{
-                      color: "rgba(255, 255, 255, 1)",
-                      fontSize: 24,
-                      fontWeight: "400",
-                    }}
-                    className="mb-2"
-                  >
-                    Genrobotics
-                  </p> */}
-
-                </div>
+                ></div>
 
                 <div>
                   <div style={{ display: "flex" }}>
@@ -519,72 +205,15 @@ export const Footer = () => {
         >
           <div className="mx-[5%]">
             <div className=" py-[5%]">
-              <div className="grid grid-cols-[50%_50%] gap-4">
-                {/* <div className="flex flex-col">
-                  {links[0].map((link) => {
-                    return (
-                      <p
-                        key={link.name}
-                        className="mb-2 text-[rgba(255, 255, 255, 1)] text-2xl font-normal text-white cursor-pointer hover:opacity-70"
-                        onClick={() => {
-                          if (!link.url) return;
-                          window.open(link.url, "_blank");
-                        }}
-                      >
-                        {link.name}
-                      </p>
-                    );
-                  })}
-                </div> */}
-
-                <div
-                  style={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  {/* <p
-                    style={{
-                      color: "rgba(255, 255, 255, 1)",
-                      fontSize: 16,
-                      fontWeight: "400",
-                    }}
-                    className="mb-2"
-                  >
-                    Home
-                  </p>
-                  <div className="flex">
-                    <p
-                      style={{
-                        color: "rgba(255, 255, 255, 1)",
-                        fontSize: 16,
-                        fontWeight: "400",
-                      }}
-                      className="mb-2"
-                    >
-                      Robotics & AI
-                    </p>
-                  </div>
-
+              <div className="">
+                <div className="grid grid-cols-2">
                   <p
                     style={{
                       color: "rgba(255, 255, 255, 1)",
-                      fontSize: 16,
+                      fontSize: 21,
                       fontWeight: "400",
                     }}
-                    className="mb-2"
-                  >
-                    Careers
-                  </p> */}
-
-
-<p
-                    style={{
-                      color: "rgba(255, 255, 255, 1)",
-                      fontSize: 16,
-                      fontWeight: "400",
-                    }}
-                    className="mb-2"
+                    className="mb-6"
                   >
                     Clean Tech
                   </p>
@@ -592,10 +221,10 @@ export const Footer = () => {
                   <p
                     style={{
                       color: "rgba(255, 255, 255, 1)",
-                      fontSize: 16,
+                      fontSize: 21,
                       fontWeight: "400",
                     }}
-                    className="mb-2"
+                    className="mb-6"
                   >
                     Medical and Mobility
                   </p>
@@ -603,16 +232,14 @@ export const Footer = () => {
                   <p
                     style={{
                       color: "rgba(255, 255, 255, 1)",
-                      fontSize: 16,
+                      fontSize: 21,
+
                       fontWeight: "400",
                     }}
                     className="mb-2"
                   >
                     Genrobotics
                   </p>
-
-
-
                 </div>
 
                 <div
@@ -664,9 +291,6 @@ export const Footer = () => {
                   >
                     Genrobotics
                   </p> */}
-
-
-                 
                 </div>
               </div>
 

@@ -1,4 +1,5 @@
 import { Navbar } from "@/ui/components/Navbar";
+import { useQuery } from "@tanstack/react-query";
 import {
   motion,
   useMotionValueEvent,
@@ -9,19 +10,17 @@ import { useEffect, useRef, useState } from "react";
 import { Element } from "react-scroll";
 import "./App.css";
 import useDisableKeyboardScroll from "./hooks/useDisableKeyScroll.tsx";
+import _axios from "./lib/_axios.ts";
 import { fetchVideoAsBase64, genbotIntro } from "./lib/utils.tsx";
 import { AnimatedText } from "./ui/components/AnimatedText.tsx";
 import { Experience } from "./ui/sections/experiance.tsx";
 import { Footer } from "./ui/sections/footer.tsx";
 import FlyGenBotSection from "./ui/sections/fourth.tsx";
 import { GbotFour } from "./ui/sections/gbot-four.tsx";
-import GBotOne from "./ui/sections/gbot-one-hero.tsx";
 import GbotThree from "./ui/sections/gbot-three.tsx";
 import GbotTwo from "./ui/sections/gbot-two.tsx";
 import Twofive from "./ui/sections/gbot-twofive.tsx";
 import { HeroSection } from "./ui/sections/hero.tsx";
-import { useQuery } from "@tanstack/react-query";
-import _axios from "./lib/_axios.ts";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -33,8 +32,7 @@ function App() {
   const thirdContainerOriginRef = useRef(null);
   const [progress, setProgress] = useState(0);
   const [progressstate, setProgressstate] = useState(false);
-
-  const [enteroneid, setEnteroneid] = useState(true); 
+  const [enteroneid, setEnteroneid] = useState(true);
 
   useEffect(() => {
     if (progressstate === false) {
@@ -183,18 +181,14 @@ function App() {
   );
 
   useMotionValueEvent(videoProgress, "change", () => {
-
-    
     if (videoRef.current) {
+      if (videoRef.current.currentTime > 29 && videoRef.current.currentTime < 29.999) {
 
-      if( videoRef.current.currentTime  > 29 && videoRef.current.currentTime < 29.999 ) {
-        localStorage.setItem('testfinetwo' , '1')
         setTimeout(() => {
           // setEnteroneid(false);
         }, 1000);
-        
       }
-      console.log(videoRef.current.currentTime , 'progressprogressprogressprogress')
+      console.log(videoRef.current.currentTime, 'progressprogressprogressprogress')
       const progress = videoProgress.get();
       videoRef.current.currentTime = progress;
     }
@@ -212,13 +206,11 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleThisIsTheIdFocus =async () => {
-   
-    let findvals = await localStorage.getItem('testfinetwo');
-    console.log( findvals , 'gggdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd')
+  const handleThisIsTheIdFocus = async () => {
+    let findvals = localStorage.getItem('testfinetwo');
     if (findvals === "1") {
       setEnteroneid(false);
-    }else{
+    } else {
       setEnteroneid(true);
     }
   };
@@ -241,6 +233,31 @@ function App() {
       if (element) {
         observer.unobserve(element);
       }
+    };
+  }, []);
+
+  const setCurrentSection = (sectionId: string) => {
+    localStorage.setItem('currentSec', sectionId);
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setCurrentSection(entry.target.id);
+        }
+      });
+    });
+
+    const sections = document.querySelectorAll('[id^="section"]');
+    sections.forEach((section) => {
+      observer.observe(section);
+    });
+
+    return () => {
+      sections.forEach((section) => {
+        observer.unobserve(section);
+      });
     };
   }, []);
 
@@ -301,18 +318,18 @@ function App() {
           <div className={`w-screen ${isMobile ? "overflow-x-hidden" : ""}`}>
             <Navbar {...{ loading }} />
 
-            <Element name="section1">
+            <Element name="section1" id="section1">
               <HeroSection {...{ loading }} />
             </Element>
 
-            <Element name="section2">
+            <Element name="section2" id="section2">
               <Twofive />
             </Element>
 
-            <Element name="section3">
+            <Element name="section3" id="section3">
               <div className="z-[100]" id='thisistheidd'>
                 <section ref={thirdContainerOriginRef}>
-                  <div className={enteroneid === true ?  " h-[600vh] bg-white sticky  z-[1000] top-0" : " bg-white sticky  z-[1000] top-0" }>
+                  <div className={enteroneid === true ? " h-[600vh] bg-white sticky  z-[1000] top-0" : " bg-white sticky  z-[1000] top-0"}>
                     <div className="sticky top-0 w-full flex md:flex-row bg-white">
                       <div className="bg-lightbg w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0 py-[60px] pl-[2%]">
                         <div className="ml-[5%] bg-white px-[10%] h-full rounded-l-3xl shadow-lg z-[10000]">
@@ -331,7 +348,7 @@ function App() {
                                 fontFamily: "SFpro",
                               }}
                             >
-                              {data?.data.data.content.split("").map((char, index) => (
+                              {data?.data.data.content.split("").map((char: any, index: any) => (
                                 <motion.span
                                   key={index}
                                   initial={{ opacity: 0.01 }}
@@ -368,27 +385,27 @@ function App() {
               </div>
             </Element>
 
-            <Element name="section4">
+            <Element name="section4" id="section4">
               <FlyGenBotSection />
             </Element>
 
-            <Element name="section6">
+            <Element name="section6" id="section6">
               <GbotTwo />
             </Element>
 
-            <Element name="section7">
+            <Element name="section7" id="section7">
               <GbotThree />
             </Element>
 
-            <Element name="section8">
+            <Element name="section8" id="section8">
               <GbotFour />
             </Element>
 
-            <Element name="section9">
+            <Element name="section9" id="section9">
               <Experience />
             </Element>
 
-            <Element name="section10">
+            <Element name="section10" id="section10">
               <Footer />
             </Element>
           </div>
@@ -398,11 +415,11 @@ function App() {
           <div className={`w-screen ${isMobile ? "overflow-x-hidden" : ""}`}>
             <Navbar {...{ loading }} />
 
-            <Element name="section1">
+            <Element name="section1" id="section1">
               <HeroSection {...{ loading }} />
             </Element>
 
-            <Element name="section2">
+            <Element name="section2" id="section2">
               <div ref={secondContainerRef}>
                 <section className="bg-lightbg text-white  h-[400vh] flex justify-center">
                   <div
@@ -411,7 +428,7 @@ function App() {
                     style={{ height: "100vh" }}
                   ></div>
 
-                  <p style={{ color: "#2B2B2B", fontSize: 20, textAlign: 'center', position: 'fixed', top: '23%', fontWeight: '500' }}>Introducing</p>
+                  <p className="font-sfpro" style={{ color: "#2B2B2B", fontSize: 20, textAlign: 'center', position: 'fixed', top: '23%', fontWeight: '500' }}>Introducing</p>
 
                   <motion.img
                     src="/img/genbot-text.svg"
@@ -437,7 +454,7 @@ function App() {
               </div>
             </Element>
 
-            <Element name="section3">
+            <Element name="section3" id="section3">
               <div className="z-[100]">
                 <section ref={thirdContainerOriginRef}>
                   <div className="  bg-white sticky  z-[1000] top-0">
@@ -461,7 +478,7 @@ function App() {
                             className="  "
                             preload="auto"
                             style={{ borderRadius: 15 }}
-                            autoPlay 
+                            autoPlay
                             loop
                             playsInline
                             onContextMenu={(e) => e.preventDefault()}
@@ -479,27 +496,27 @@ function App() {
               </div>
             </Element>
 
-            <Element name="section4">
+            <Element name="section4" id="section4">
               <FlyGenBotSection />
             </Element>
 
-            <Element name="section6">
+            <Element name="section6" id="section6">
               <GbotTwo />
             </Element>
 
-            <Element name="section7">
+            <Element name="section7" id="section7">
               <GbotThree />
             </Element>
 
-            <Element name="section8">
+            <Element name="section8" id="section8">
               <GbotFour />
             </Element>
 
-            <Element name="section9">
+            <Element name="section9" id="section9">
               <Experience />
             </Element>
 
-            <Element name="section10">
+            <Element name="section10" id="section10">
               <Footer />
             </Element>
           </div>
