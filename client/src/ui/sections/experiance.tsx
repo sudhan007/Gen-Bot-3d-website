@@ -12,8 +12,6 @@ export const Experience = () => {
   const prevIndexRef = useRef(0);
   const scrollRef = useRef(null);
 
-
-
   const animationFrameRef = useRef(null);
   const isScrollingBack = useRef(false);
   const [imagesone, setImagesone] = useState(true);
@@ -50,42 +48,44 @@ export const Experience = () => {
   const words = content.split(" ");
 
   const firstWord = words[0] + " " + words[1] || "";
-  const lastWord = words[words.length - 2] + " " + words[words.length - 1] || "";
+  const lastWord =
+    words[words.length - 2] + " " + words[words.length - 1] || "";
 
   const maxIndexRef = useRef(0); // Track the max index reached
   const prevScrollRef = useRef(0);
 
-  const scrollToSection = (id) => {
-    const target = document.getElementById(id);
-    if (!target) return;
+  // const scrollToSection = (id) => {
+  //   const target = document.getElementById(id);
+  //   if (!target) return;
 
-    const startPosition = window.scrollY;
-    const targetPosition = target.getBoundingClientRect().top + window.scrollY;
-    const distance = targetPosition - startPosition;
-    const duration = 3000;
-    let startTime = null;
+  //   const startPosition = window.scrollY;
+  //   const targetPosition = target.getBoundingClientRect().top + window.scrollY;
+  //   const distance = targetPosition - startPosition;
+  //   const duration = 3000;
+  //   let startTime = null;
 
-    const animateScroll = (currentTime) => {
-      if (!startTime) startTime = currentTime;
-      const elapsedTime = currentTime - startTime;
-      const progress = Math.min(elapsedTime / duration, 1); // Ensure progress doesn't exceed 1
+  //   const animateScroll = (currentTime) => {
+  //     if (!startTime) startTime = currentTime;
+  //     const elapsedTime = currentTime - startTime;
+  //     const progress = Math.min(elapsedTime / duration, 1); // Ensure progress doesn't exceed 1
 
-      // Smooth easing function (easeInOutQuad)
-      const easedProgress = progress < 0.5
-        ? 2 * progress * progress
-        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+  //     // Smooth easing function (easeInOutQuad)
+  //     const easedProgress = progress < 0.5
+  //       ? 2 * progress * progress
+  //       : 1 - Math.pow(-2 * progress + 2, 2) / 2;
 
-      window.scrollTo(0, startPosition + distance * easedProgress);
+  //     window.scrollTo(0, startPosition + distance * easedProgress);
 
-      if (elapsedTime < duration) {
-        requestAnimationFrame(animateScroll);
-      }
-    };
+  //     if (elapsedTime < duration) {
+  //       requestAnimationFrame(animateScroll);
+  //     }
+  //   };
 
-    requestAnimationFrame(animateScroll);
-  };
+  //   requestAnimationFrame(animateScroll);
+  // };
 
   // Debounced scroll handler
+
   const handleScroll = useCallback(() => {
     if (animationFrameRef.current) {
       cancelAnimationFrame(animationFrameRef.current);
@@ -95,31 +95,46 @@ export const Experience = () => {
       const latest = imageIndex.get();
       const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
 
-      if (latest < prevScrollRef.current && !isScrollingBack.current) {
-        isScrollingBack.current = true;
+      setCurrentIndex(Math.min(clampedIndex, totalImages - 1));
+      setCurrentIndexval(Math.min(clampedIndex + 70, totalImages - 1));
+      maxIndexRef.current = clampedIndex;
 
-        // scrollToSection("plzzzscrolllllllllllllllllll");
-        console.log(scrollYProgress, "Scrolling Back!");
-      } else if (latest >= prevScrollRef.current && isScrollingBack.current) {
-        isScrollingBack.current = false;
-      }
-
-      if (latest <= 0) {
-        // Reset when fully scrolled up
-        setCurrentIndex(0);
-        maxIndexRef.current = 0;
-      } else if (clampedIndex > maxIndexRef.current) {
-        setCurrentIndex(clampedIndex);
-        setCurrentIndexval(clampedIndex + 70);
-        maxIndexRef.current = clampedIndex;
-      }
-
-
-
-      // Update the previous scroll position
       prevScrollRef.current = latest;
     });
-  }, [imageIndex, scrollYProgress]);
+  }, [imageIndex]);
+
+  // const handleScroll = useCallback(() => {
+  //   if (animationFrameRef.current) {
+  //     cancelAnimationFrame(animationFrameRef.current);
+  //   }
+
+  //   animationFrameRef.current = requestAnimationFrame(() => {
+  //     const latest = imageIndex.get();
+  //     const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
+
+  //     // if (latest < prevScrollRef.current && !isScrollingBack.current) {
+  //     //   isScrollingBack.current = true;
+
+  //     //   // scrollToSection("plzzzscrolllllllllllllllllll");
+  //     //   console.log(scrollYProgress, "Scrolling Back!");
+  //     // } else if (latest >= prevScrollRef.current && isScrollingBack.current) {
+  //     //   isScrollingBack.current = false;
+  //     // }
+
+  //     // if (latest <= 0) {
+  //     //   // Reset when fully scrolled up
+  //     //   setCurrentIndex(0);
+  //     //   maxIndexRef.current = 0;
+  //     // } else if (clampedIndex > maxIndexRef.current) {
+  //     setCurrentIndex(Math.min(clampedIndex, totalImages - 1));
+  //     setCurrentIndexval(clampedIndex + 70);
+  //     maxIndexRef.current = clampedIndex;
+  //     // }
+
+  //     // Update the previous scroll position
+  //     prevScrollRef.current = latest;
+  //   });
+  // }, [imageIndex, scrollYProgress]);
 
   // Attach scroll event listener
   useEffect(() => {
@@ -135,23 +150,22 @@ export const Experience = () => {
   // Handle responsiveness
   const [width, setWidth] = useState(window.innerWidth);
 
-  const handleThisIsFinallllFocus = async () => {
+  // const handleThisIsFinallllFocus = async () => {
+  //   let findvals = await localStorage.getItem("testfinenine");
+  //   if (findvals === "1") {
+  //     setImagesone(false);
+  //   } else {
+  //     setImagesone(true);
+  //   }
 
-    let findvals = await localStorage.getItem('testfinenine');
-    if (findvals === "1") {
-      setImagesone(false);
-    } else {
-      setImagesone(true)
-    }
-
-    console.log("Element with id 'thisisfinallll' is in view!");
-  };
+  //   console.log("Element with id 'thisisfinallll' is in view!");
+  // };
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          handleThisIsFinallllFocus();
+          // handleThisIsFinallllFocus();
         }
       });
     });
@@ -171,9 +185,19 @@ export const Experience = () => {
   return (
     <>
       {width > 800 ? (
-        <div className="z-[100]" style={{ backgroundColor: "#525652", paddingTop: 40 }} id='thisisfinallll'>
+        <div
+          className="z-[100]"
+          style={{ backgroundColor: "#525652", paddingTop: 40 }}
+          id="thisisfinallll"
+        >
           <section ref={containerRef}>
-            <div className={imagesone === true ? "h-[700vh] sticky z-[1000] top-0" : "  sticky z-[1000] top-0"}>
+            <div
+              className={
+                imagesone === true
+                  ? "h-[700vh] sticky z-[1000] top-0"
+                  : "  sticky z-[1000] top-0"
+              }
+            >
               <div className="sticky top-0 w-full">
                 <div className="px-[5%]">
                   <div className="mt-[30px] flex justify-between">
@@ -182,7 +206,10 @@ export const Experience = () => {
                       <span className="text-[#FCD902]">{lastWord}</span>
                     </p>
                     <div className="bg-[#FCD902] flex items-center justify-center px-24 py-4 expppppp">
-                      <p className="text-black text-[1.6rem] threetwo" style={{ fontFamily: 'AktivGrotesk' }}>
+                      <p
+                        className="text-black text-[1.6rem] threetwo"
+                        style={{ fontFamily: "AktivGrotesk" }}
+                      >
                         WHAT'S THE HOLD
                       </p>
                     </div>
@@ -206,7 +233,7 @@ export const Experience = () => {
                       style={{
                         opacity: index === currentIndex ? 1 : 0,
                         zIndex: index === currentIndex ? 20 : 10,
-                        maxWidth: '100%'
+                        maxWidth: "100%",
                       }}
                     />
                   ))}
@@ -216,10 +243,17 @@ export const Experience = () => {
           </section>
         </div>
       ) : (
-        <section className="bg-white text-black font-base z-100" ref={containerRef}>
+        <section
+          className="bg-white text-black font-base z-100"
+          ref={containerRef}
+        >
           <div
             className="sticky z-[1000] top-0"
-            style={{ backgroundColor: "#424741", overflow: "hidden", paddingTop: 50 }}
+            style={{
+              backgroundColor: "#424741",
+              overflow: "hidden",
+              paddingTop: 50,
+            }}
           >
             <div className="sticky top-0 w-full">
               <div className="px-[5%] text-center">
@@ -230,9 +264,9 @@ export const Experience = () => {
 
                 <p className="text-white text-[15px] font-[400] font-['AktivGrotesk'] mt-3">
                   Explore the innovative solutions of Genbot and G Bot. Embrace
-                  the future of technology and human-robot interaction. Begin your
-                  journey to safer, more efficient, and tech-driven possibilities
-                  today.
+                  the future of technology and human-robot interaction. Begin
+                  your journey to safer, more efficient, and tech-driven
+                  possibilities today.
                 </p>
 
                 <div className="bg-[#FCD902] flex items-center justify-center mt-5 px-10 py-2 w-[63%] mx-auto">
@@ -242,7 +276,7 @@ export const Experience = () => {
                 </div>
               </div>
 
-              <div className="sticky top-0 flex justify-center items-center h-[32vh]">
+              <div className="sticky top-0 flex justify-center items-center h-[30vh]">
                 {images.map((imgSrc, index) => (
                   <img
                     key={index}

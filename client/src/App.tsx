@@ -182,13 +182,18 @@ function App() {
 
   useMotionValueEvent(videoProgress, "change", () => {
     if (videoRef.current) {
-      if (videoRef.current.currentTime > 29 && videoRef.current.currentTime < 29.999) {
-
+      if (
+        videoRef.current.currentTime > 29 &&
+        videoRef.current.currentTime < 29.999
+      ) {
         setTimeout(() => {
           // setEnteroneid(false);
         }, 1000);
       }
-      console.log(videoRef.current.currentTime, 'progressprogressprogressprogress')
+      console.log(
+        videoRef.current.currentTime,
+        "progressprogressprogressprogress"
+      );
       const progress = videoProgress.get();
       videoRef.current.currentTime = progress;
     }
@@ -207,7 +212,7 @@ function App() {
   }, []);
 
   const handleThisIsTheIdFocus = async () => {
-    let findvals = localStorage.getItem('testfinetwo');
+    let findvals = localStorage.getItem("testfinetwo");
     if (findvals === "1") {
       setEnteroneid(false);
     } else {
@@ -237,7 +242,7 @@ function App() {
   }, []);
 
   const setCurrentSection = (sectionId: string) => {
-    localStorage.setItem('currentSec', sectionId);
+    localStorage.setItem("currentSec", sectionId);
   };
 
   useEffect(() => {
@@ -271,41 +276,53 @@ function App() {
           className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 z-[1000000]"
         >
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <div style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "12px",
-              background: "#f4f4f4",
-              borderRadius: "10px",
-              border: "1px solid #fff",
-            }}>
-              <div style={{
-                width: "300px",
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "12px",
+                background: "#f4f4f4",
                 borderRadius: "10px",
-                overflow: "hidden",
-                position: "relative",
-                height: '100%',
-                boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-              }}>
-                <div style={{
-                  animation: "fillBar 60s linear forwards, glow 2s infinite alternate",
+                border: "1px solid #fff",
+              }}
+            >
+              <div
+                style={{
+                  width: "300px",
                   borderRadius: "10px",
                   overflow: "hidden",
-                  height: '100%',
-                  background: "#111827 var(--tw-gradient-to-position)",
-                  position: "relative", width: `${progress}%`,
-                }}>
-                  <span style={{
-                    position: "absolute",
-                    width: "100%",
-                    textAlign: "center",
-                    color: "#fff",
-                    fontWeight: "bold",
-                    animation: "pulse 1.5s infinite",
-                    fontSize: 7,
-                  }}>{progress}%</span>
+                  position: "relative",
+                  height: "100%",
+                  boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+                }}
+              >
+                <div
+                  style={{
+                    animation:
+                      "fillBar 60s linear forwards, glow 2s infinite alternate",
+                    borderRadius: "10px",
+                    overflow: "hidden",
+                    height: "100%",
+                    background: "#111827 var(--tw-gradient-to-position)",
+                    position: "relative",
+                    width: `${progress}%`,
+                  }}
+                >
+                  <span
+                    style={{
+                      position: "absolute",
+                      width: "100%",
+                      textAlign: "center",
+                      color: "#fff",
+                      fontWeight: "bold",
+                      animation: "pulse 1.5s infinite",
+                      fontSize: 7,
+                    }}
+                  >
+                    {progress}%
+                  </span>
                 </div>
               </div>
             </div>
@@ -327,9 +344,15 @@ function App() {
             </Element>
 
             <Element name="section3" id="section3">
-              <div className="z-[100]" id='thisistheidd'>
+              <div className="z-[100]" id="thisistheidd">
                 <section ref={thirdContainerOriginRef}>
-                  <div className={enteroneid === true ? " h-[600vh] bg-white sticky  z-[1000] top-0" : " bg-white sticky  z-[1000] top-0"}>
+                  <div
+                    className={
+                      enteroneid === true
+                        ? " h-[600vh] bg-white sticky  z-[1000] top-0"
+                        : " bg-white sticky  z-[1000] top-0"
+                    }
+                  >
                     <div className="sticky top-0 w-full flex md:flex-row bg-white">
                       <div className="bg-lightbg w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0 py-[60px] pl-[2%]">
                         <div className="ml-[5%] bg-white px-[10%] h-full rounded-l-3xl shadow-lg z-[10000]">
@@ -348,18 +371,20 @@ function App() {
                                 fontFamily: "SFpro",
                               }}
                             >
-                              {data?.data.data.content.split("").map((char: any, index: any) => (
-                                <motion.span
-                                  key={index}
-                                  initial={{ opacity: 0.01 }}
-                                  animate={{
-                                    opacity: index <= glowIndex ? 1 : 0.2,
-                                  }}
-                                  transition={{ duration: 0.3 }}
-                                >
-                                  {char}
-                                </motion.span>
-                              ))}
+                              {data?.data.data.content
+                                .split("")
+                                .map((char: any, index: any) => (
+                                  <motion.span
+                                    key={index}
+                                    initial={{ opacity: 0.01 }}
+                                    animate={{
+                                      opacity: index <= glowIndex ? 1 : 0.2,
+                                    }}
+                                    transition={{ duration: 0.3 }}
+                                  >
+                                    {char}
+                                  </motion.span>
+                                ))}
                             </motion.p>
                           </div>
                         </div>
@@ -370,7 +395,11 @@ function App() {
                             ref={videoRef}
                             muted
                             controls={false}
-                            className={width > 800 ? "object-cover h-full rounded-r-2xl shadow-lg" : "w-full max-h-screen rounded-r-2xl shadow-lg"}
+                            className={
+                              width > 800
+                                ? "object-cover h-full rounded-r-2xl shadow-lg"
+                                : "w-full max-h-screen rounded-r-2xl shadow-lg"
+                            }
                             preload="auto"
                           >
                             {base64Video && (
@@ -428,11 +457,22 @@ function App() {
                     style={{ height: "100vh" }}
                   ></div>
 
-                  <p className="font-sfpro" style={{ color: "#2B2B2B", fontSize: 20, textAlign: 'center', position: 'fixed', top: '23%', fontWeight: '500' }}>Introducing</p>
+                  <p
+                    className="font-sfpro uppercase font-black tracking-normal mb-24"
+                    style={{
+                      color: "#2B2B2B",
+                      fontSize: 36,
+                      textAlign: "center",
+                      position: "fixed",
+                      top: "23%",
+                    }}
+                  >
+                    Introducing
+                  </p>
 
                   <motion.img
                     src="/img/genbot-text.svg"
-                    className="fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto"
+                    className="fixed top-[33%] md:top-[20%] transform w-[300px] z-10 md:w-auto"
                     style={{
                       scale: textScale,
                       opacity: textOpacity,

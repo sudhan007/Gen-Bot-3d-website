@@ -54,15 +54,16 @@ const GbotThree = () => {
 
   useMotionValueEvent(imageIndex, "change", (latest) => {
     const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
-    console.log(clampedIndex, 'clampedIndexclampedIndexclampedIndexclampedIndexclampedIndexclampedIndex')
+    // console.log(
+    //   clampedIndex,
+    //   "clampedIndexclampedIndexclampedIndexclampedIndexclampedIndexclampedIndex"
+    // );
 
-    if (clampedIndex === 110 || clampedIndex === 109 || clampedIndex === 108) {
-
-      setTimeout(() => {
-        // setCurrentIndexfine(false);
-      }, 1000);
-
-    }
+    // if (clampedIndex === 110 || clampedIndex === 109 || clampedIndex === 108) {
+    //   setTimeout(() => {
+    //     // setCurrentIndexfine(false);
+    //   }, 1000);
+    // }
     if (clampedIndex !== currentIndex) setCurrentIndex(clampedIndex);
   });
 
@@ -79,12 +80,11 @@ const GbotThree = () => {
   }, []);
 
   const handleScrollRtGdssFocus = async () => {
-
-    let findvals = await localStorage.getItem('testfinefive');
+    let findvals = await localStorage.getItem("testfinefive");
     if (findvals === "1") {
       setCurrentIndexfine(false);
     } else {
-      setCurrentIndexfine(true)
+      setCurrentIndexfine(true);
     }
 
     console.log("Element with id 'scrollrtgdss' is in view!");
@@ -117,7 +117,11 @@ const GbotThree = () => {
         <div className="z-[100]" id="scrollrtgdss">
           <section ref={thirdContainerOriginbot}>
             <div
-              className={currentIndexfine === true ? "h-[800vh] sticky top-0 z-[1000]" : " sticky top-0 z-[1000]"}
+              className={
+                currentIndexfine === true
+                  ? "h-[800vh] sticky top-0 z-[1000]"
+                  : " sticky top-0 z-[1000]"
+              }
               style={{ backgroundColor: "#EEEEEA" }}
             >
               <div className="sticky top-0 w-full flex md:flex-row">
@@ -179,7 +183,7 @@ const GbotThree = () => {
                       style={{
                         opacity: index === currentIndex ? 1 : 0,
                         zIndex: index === currentIndex ? 20 : 10,
-                        maxWidth: '170%',
+                        maxWidth: "170%",
                       }}
                     />
                   ))}

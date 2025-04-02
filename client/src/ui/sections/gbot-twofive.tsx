@@ -69,15 +69,12 @@ const Twofive = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
-
   const handleFocus = async () => {
-
-    let findvals = await localStorage.getItem('testfine');
+    let findvals = await localStorage.getItem("testfine");
     if (findvals === "1") {
       setCheckval(false);
     } else {
-      setCheckval(true)
+      setCheckval(true);
     }
 
     console.log("Div focused!");
@@ -110,26 +107,30 @@ const Twofive = () => {
         <section
           style={{ backgroundColor: "#EEEEEA" }}
           className="text-black font-base z-100"
-
         >
           <div
-            className={checkval === true ? "sticky z-[1000] h-[400vh]" : "sticky z-[1000]"}
+            className={
+              checkval === true
+                ? "sticky z-[1000] h-[400vh]"
+                : "sticky z-[1000]"
+            }
             style={{ backgroundColor: "#EEEEEA" }}
             ref={ref}
           >
             <div className="sticky top-0 flex justify-center items-center w-full h-screen">
               <p
                 style={{
-                  color: '#2B2B2B',
-                  textAlign: 'center',
+                  color: "#2B2B2B",
+                  textAlign: "center",
                   fontSize: 51,
                   marginBottom: 50,
-                  alignItems: 'baseline',
-                  height: '100vh',
-                  justifyContent: 'center',
-                  display: 'flex',
-                  marginTop: '18vh',
-                }} id="gjgjjjgjjgjgj"
+                  alignItems: "baseline",
+                  height: "100vh",
+                  justifyContent: "center",
+                  display: "flex",
+                  marginTop: "18vh",
+                }}
+                id="gjgjjjgjjgjgj"
                 className="font-sfpro uppercase font-bold leading-loose tracking-[12px]"
               >
                 Introducing
@@ -141,8 +142,9 @@ const Twofive = () => {
                 style={{
                   scale: textImageScale,
                   zIndex: 50,
-                  opacity: currentIndexnews === 101 ? '1' : currentIndexnews / 100,
-                  height: '65vh',
+                  opacity:
+                    currentIndexnews === 101 ? "1" : currentIndexnews / 100,
+                  height: "65vh",
                 }}
               />
               {images.map((imgSrc, index) => (

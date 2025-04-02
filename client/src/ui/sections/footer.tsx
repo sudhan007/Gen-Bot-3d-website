@@ -206,7 +206,7 @@ export const Footer = () => {
           <div className="mx-[5%]">
             <div className=" py-[5%]">
               <div className="">
-                <div className="grid grid-cols-2">
+                <div className="grid">
                   <p
                     style={{
                       color: "rgba(255, 255, 255, 1)",

@@ -37,37 +37,37 @@ export const GbotFour = () => {
   }, [trigger]);
 
   const cardData = [
-    { heading: `${data?.data?.data[0]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[1]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[2]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[3]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[4]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[5]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[6]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[7]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[8]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[9]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[10]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[11]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[12]?.title || ''}`, bottom: 1 },
+    { heading: `${data?.data?.data[0]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[1]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[2]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[3]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[4]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[5]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[6]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[7]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[8]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[9]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[10]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[11]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[12]?.title || ""}`, bottom: 1 },
     {},
     {},
   ];
 
   const cardDatass = [
-    { heading: `${data?.data?.data[0]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[1]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[2]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[3]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[4]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[5]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[6]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[7]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[8]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[9]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[10]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[11]?.title || ''}`, bottom: 0 },
-    { heading: `${data?.data?.data[12]?.title || ''}`, bottom: 1 },
+    { heading: `${data?.data?.data[0]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[1]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[2]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[3]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[4]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[5]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[6]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[7]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[8]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[9]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[10]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[11]?.title || ""}`, bottom: 0 },
+    { heading: `${data?.data?.data[12]?.title || ""}`, bottom: 1 },
   ];
 
   const totalImages = 160;
@@ -88,15 +88,12 @@ export const GbotFour = () => {
       cardData.length
     );
 
-    console.log(newIndex , 'clampedIndexclampedIndexclampedIndexclampedIndexclampedIndexclampedIndex')
-
-    if(newIndex === 14  ) {
-      localStorage.setItem('testfinesix' , '1')
-      setTimeout(() => {
-        // setTriggerone(false);
-      }, 1000);
-      
-    }
+    // if (newIndex === 14) {
+    //   localStorage.setItem("testfinesix", "1");
+    //   setTimeout(() => {
+    //     // setTriggerone(false);
+    //   }, 1000);
+    // }
     setVisibleIndex(newIndex - 0.9);
   });
 
@@ -119,7 +116,7 @@ export const GbotFour = () => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          handleDivEnter();
+          // handleDivEnter();
         }
       },
       { threshold: 0.1 }
@@ -159,12 +156,12 @@ export const GbotFour = () => {
     }
   };
 
-  const handlePlzzzScrollFocus =async () => {
-    let findvals = await localStorage.getItem('testfinesix');
+  const handlePlzzzScrollFocus = async () => {
+    let findvals = await localStorage.getItem("testfinesix");
     if (findvals === "1") {
       setTriggerone(false);
-    }else{
-      setTriggerone(true)
+    } else {
+      setTriggerone(true);
     }
 
     console.log("Element with id 'plzzzscrolllllllllllllllllll' is in view!");
@@ -174,7 +171,7 @@ export const GbotFour = () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          handlePlzzzScrollFocus();
+          // handlePlzzzScrollFocus();
         }
       });
     });
@@ -196,7 +193,14 @@ export const GbotFour = () => {
       {width > 800 ? (
         <div className="z-[100]" id="plzzzscrolllllllllllllllllll">
           <section>
-            <div ref={refs} className={ triggerone === true ? "h-[500vh] sticky z-[1000] top-0" :  "sticky z-[1000] top-0"}>
+            <div
+              ref={refs}
+              className={
+                triggerone === true
+                  ? "h-[500vh] sticky z-[1000] top-0"
+                  : "sticky z-[1000] top-0"
+              }
+            >
               <div className="sticky top-0 w-full flex md:flex-row">
                 <div
                   style={{ marginLeft: 200 }}
@@ -217,7 +221,12 @@ export const GbotFour = () => {
                 </div>
 
                 <div
-                  style={{ paddingTop: 15, paddingBottom: 15, paddingRight: 65, paddingLeft: 65 }}
+                  style={{
+                    paddingTop: 15,
+                    paddingBottom: 15,
+                    paddingRight: 65,
+                    paddingLeft: 65,
+                  }}
                   className="w-full h-screen bg-lightbg overflow-hidden sticky top-0 hidden md:block z-[10000] paddgay"
                 >
                   <div className="h-full object-cover sticky top-0 pr-[10%] rounded-r-3xl paddgaytwo">
@@ -227,7 +236,17 @@ export const GbotFour = () => {
                           className="flex flex-col justify-between items-end h-full"
                           style={{ marginRight: "10%" }}
                         >
-                          <p style={{ color: "#2B2B2B", fontSize: 30, width: '100%', textAlign: 'center' }} className="yhhhhhhhhh">Applications of GBOT</p>
+                          <p
+                            style={{
+                              color: "#2B2B2B",
+                              fontSize: 30,
+                              width: "100%",
+                              textAlign: "center",
+                            }}
+                            className="yhhhhhhhhh"
+                          >
+                            Applications of GBOT
+                          </p>
                           {cardData.map(({ heading, bottom }, index) => (
                             <>
                               {bottom === 0 ? (
@@ -235,7 +254,11 @@ export const GbotFour = () => {
                                   key={index}
                                   className={`transition-all duration-700 ease-out fly-genbot-card flex flex-col items-center
                                     justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white
-                                    ${index <= visibleIndex && heading ? "opacity-100 translate-y-0" : "opacity-0 translate-y-negative"}`}
+                                    ${
+                                      index <= visibleIndex && heading
+                                        ? "opacity-100 translate-y-0"
+                                        : "opacity-0 translate-y-negative"
+                                    }`}
                                   style={{
                                     boxShadow:
                                       "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
@@ -243,7 +266,12 @@ export const GbotFour = () => {
                                 >
                                   <div className="w-full h-full flex flex-col p-3 bg-white rounded-xl text-[#2B2B2B] hahabot">
                                     <p
-                                      style={{ fontWeight: "700", fontSize: 13, marginBottom: 0, textTransform: 'uppercase' }}
+                                      style={{
+                                        fontWeight: "700",
+                                        fontSize: 13,
+                                        marginBottom: 0,
+                                        textTransform: "uppercase",
+                                      }}
                                       className="text-lg font-normal mb-2 break-before-avoid capitalize whuuudhdbuh"
                                     >
                                       {heading}
@@ -255,7 +283,11 @@ export const GbotFour = () => {
                                   key={index}
                                   className={`transition-all duration-700 ease-out fly-genbot-card flex flex-col items-center
                                     justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border
-                                    ${index <= visibleIndex && heading ? "opacity-100 translate-y-0" : "opacity-0 translate-y-negative"}`}
+                                    ${
+                                      index <= visibleIndex && heading
+                                        ? "opacity-100 translate-y-0"
+                                        : "opacity-0 translate-y-negative"
+                                    }`}
                                   style={{
                                     boxShadow:
                                       "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
@@ -263,7 +295,13 @@ export const GbotFour = () => {
                                 >
                                   <div className="w-full h-full flex flex-col p-3 bg-black text-[#FCD902] rounded-xl hahabot">
                                     <p
-                                      style={{ fontWeight: "700", fontSize: 13, marginBottom: 0, textAlign: 'center', textTransform: 'uppercase' }}
+                                      style={{
+                                        fontWeight: "700",
+                                        fontSize: 13,
+                                        marginBottom: 0,
+                                        textAlign: "center",
+                                        textTransform: "uppercase",
+                                      }}
                                       className="text-lg font-normal break-before-avoid capitalize whuuudhdbuh"
                                     >
                                       {heading}
@@ -287,7 +325,7 @@ export const GbotFour = () => {
           <div
             style={{
               backgroundColor: "#EEEEEA",
-              position: 'relative',
+              position: "relative",
               zIndex: 100,
               paddingBottom: 50,
             }}
@@ -303,7 +341,17 @@ export const GbotFour = () => {
                   className="flex flex-col justify-center items-end gap-3"
                   style={{}}
                 >
-                  <p style={{ color: "#2B2B2B", fontSize: 20, width: '100%', textAlign: 'center' }} className="yhhhhhhhhh">Applications of GBOT</p>
+                  <p
+                    style={{
+                      color: "#2B2B2B",
+                      fontSize: 20,
+                      width: "100%",
+                      textAlign: "center",
+                    }}
+                    className="yhhhhhhhhh"
+                  >
+                    Applications of GBOT
+                  </p>
                   {cardDatass.map(({ heading, bottom }, index) => (
                     <>
                       {bottom === 0 ? (
@@ -316,7 +364,10 @@ export const GbotFour = () => {
                           }}
                         >
                           <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
-                            <h1 className="text-lg font-normal mb-2 break-before-avoid capitalize" style={{ marginBottom: 0 }}>
+                            <h1
+                              className="text-lg font-normal mb-2 break-before-avoid capitalize"
+                              style={{ marginBottom: 0 }}
+                            >
                               {heading}
                             </h1>
                           </div>
@@ -331,7 +382,10 @@ export const GbotFour = () => {
                           }}
                         >
                           <div className="w-full h-full flex flex-col p-3 md:p-5 bg-black rounded-xl text-[#FCD902]">
-                            <h1 className="text-lg font-normal mb-2 break-before-avoid capitalize" style={{ marginBottom: 0, textAlign: 'center' }}>
+                            <h1
+                              className="text-lg font-normal mb-2 break-before-avoid capitalize"
+                              style={{ marginBottom: 0, textAlign: "center" }}
+                            >
                               {heading}
                             </h1>
                           </div>

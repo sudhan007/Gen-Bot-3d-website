@@ -30,17 +30,23 @@ const GbotTwo = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useMotionValueEvent(sectionProgress, "change", (latest) => {
-
     const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
-    console.log(clampedIndex, 'sectionProgresssectionProgresssectionProgresssectionProgresssectionProgress')
+    // console.log(
+    //   clampedIndex,
+    //   "sectionProgresssectionProgresssectionProgresssectionProgresssectionProgress"
+    // );
 
-    if (clampedIndex === 236 || clampedIndex === 235 || clampedIndex === 234 || clampedIndex === 233 || clampedIndex === 232) {
-
-      setTimeout(() => {
-        // setCurrentIndexdata(false);
-      }, 2000);
-
-    }
+    // if (
+    //   clampedIndex === 236 ||
+    //   clampedIndex === 235 ||
+    //   clampedIndex === 234 ||
+    //   clampedIndex === 233 ||
+    //   clampedIndex === 232
+    // ) {
+    //   setTimeout(() => {
+    //     // setCurrentIndexdata(false);
+    //   }, 2000);
+    // }
     setCurrentIndex(clampedIndex);
   });
 
@@ -53,22 +59,21 @@ const GbotTwo = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleThisIsEventHidFocus = async () => {
-
-    let findvals = await localStorage.getItem('testfinefour');
-    if (findvals === "1") {
-      setCurrentIndexdata(false);
-    } else {
-      setCurrentIndexdata(true)
-    }
-    console.log("Element with id 'thisisseventhid' is in view!");
-  };
+  // const handleThisIsEventHidFocus = async () => {
+  //   let findvals = await localStorage.getItem("testfinefour");
+  //   if (findvals === "1") {
+  //     setCurrentIndexdata(false);
+  //   } else {
+  //     setCurrentIndexdata(true);
+  //   }
+  //   console.log("Element with id 'thisisseventhid' is in view!");
+  // };
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          handleThisIsEventHidFocus();
+          // handleThisIsEventHidFocus();
         }
       });
     });
@@ -94,24 +99,28 @@ const GbotTwo = () => {
           id="thisisseventhid"
         >
           <div
-            className={currentIndexdata === true ? "sticky z-[1000] h-[800vh]" : "sticky z-[1000] "}
+            className={
+              currentIndexdata === true
+                ? "sticky z-[1000] h-[800vh]"
+                : "sticky z-[1000] "
+            }
             style={{ backgroundColor: "#EEEEEA" }}
             ref={ref}
           >
             <div className="sticky top-0 flex justify-center items-center w-full h-screen">
               <p
                 style={{
-                  width: '100%',
-                  color: '#2B2B2B',
-                  textAlign: 'center',
+                  width: "100%",
+                  color: "#2B2B2B",
+                  textAlign: "center",
                   fontSize: 48,
                   marginBottom: 50,
-                  alignItems: 'baseline',
-                  height: '100vh',
-                  justifyContent: 'left',
-                  display: 'flex',
-                  marginTop: '23vh',
-                  paddingLeft: '15%',
+                  alignItems: "baseline",
+                  height: "100vh",
+                  justifyContent: "left",
+                  display: "flex",
+                  marginTop: "23vh",
+                  paddingLeft: "15%",
                 }}
                 className="dhgiudiu finffffffffffffff font-sfpro uppercase font-bold leading-loose tracking-[12px]"
               >
