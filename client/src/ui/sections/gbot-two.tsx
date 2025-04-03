@@ -2,11 +2,15 @@ import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Grnbotnotmis from "./grnbotnotmis";
 
-const GbotTwo = () => {
+interface Props {
+  sectionVisibility: any;
+  sectiorefs: any;
+}
+
+const GbotTwo = ({ sectionVisibility, sectiorefs }: Props) => {
   const totalImages = 238;
   const ref = useRef(null);
   const [images, setImages] = useState([]);
-  const [currentIndexdata, setCurrentIndexdata] = useState(true);
 
   useEffect(() => {
     const preloadedImages: any = [];
@@ -31,22 +35,7 @@ const GbotTwo = () => {
 
   useMotionValueEvent(sectionProgress, "change", (latest) => {
     const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
-    // console.log(
-    //   clampedIndex,
-    //   "sectionProgresssectionProgresssectionProgresssectionProgresssectionProgress"
-    // );
 
-    // if (
-    //   clampedIndex === 236 ||
-    //   clampedIndex === 235 ||
-    //   clampedIndex === 234 ||
-    //   clampedIndex === 233 ||
-    //   clampedIndex === 232
-    // ) {
-    //   setTimeout(() => {
-    //     // setCurrentIndexdata(false);
-    //   }, 2000);
-    // }
     setCurrentIndex(clampedIndex);
   });
 
@@ -59,39 +48,8 @@ const GbotTwo = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // const handleThisIsEventHidFocus = async () => {
-  //   let findvals = await localStorage.getItem("testfinefour");
-  //   if (findvals === "1") {
-  //     setCurrentIndexdata(false);
-  //   } else {
-  //     setCurrentIndexdata(true);
-  //   }
-  //   console.log("Element with id 'thisisseventhid' is in view!");
-  // };
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // handleThisIsEventHidFocus();
-        }
-      });
-    });
-
-    const element = document.getElementById("thisisseventhid");
-    if (element) {
-      observer.observe(element);
-    }
-
-    return () => {
-      if (element) {
-        observer.unobserve(element);
-      }
-    };
-  }, []);
-
   return (
-    <>
+    <div id="section5">
       {width > 800 ? (
         <section
           style={{ backgroundColor: "#EEEEEA" }}
@@ -100,12 +58,15 @@ const GbotTwo = () => {
         >
           <div
             className={
-              currentIndexdata === true
+              sectionVisibility[5]
                 ? "sticky z-[1000] h-[800vh]"
-                : "sticky z-[1000] "
+                : "sticky z-[1000] h-screen"
             }
             style={{ backgroundColor: "#EEEEEA" }}
-            ref={ref}
+            ref={(el: any) => {
+              ref.current = el;
+              sectiorefs.current[5] = el;
+            }}
           >
             <div className="sticky top-0 flex justify-center items-center w-full h-screen">
               <p
@@ -126,14 +87,12 @@ const GbotTwo = () => {
               >
                 Introducing
               </p>
-              {/* G Bot Text */}
               <img
                 src="/img/gbot-text.png"
                 alt="G Bot Text"
                 className="absolute z-10 img2 transform"
               />
 
-              {/* Robot Images */}
               {images.map((imgSrc, index) => (
                 <img
                   key={index}
@@ -152,7 +111,7 @@ const GbotTwo = () => {
       ) : (
         <Grnbotnotmis />
       )}
-    </>
+    </div>
   );
 };
 

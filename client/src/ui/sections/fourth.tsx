@@ -4,17 +4,20 @@ import { useQuery } from "@tanstack/react-query";
 import anime from "animejs";
 import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { Element } from "react-scroll";
 
-const FlyGenBotSection = () => {
+interface Props {
+  sectionVisibility: any;
+  sectiorefs: any;
+}
+
+const FlyGenBotSection = ({ sectionVisibility, sectiorefs }: Props) => {
   const { entry, ref } = useIntersection({
-    threshold: 0,
+    threshold: 0.1,
   });
 
   const refs = useRef(null);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentIndexfine, setCurrentIndexfine] = useState(true);
+  const [, setCurrentIndex] = useState(0);
 
   const { scrollYProgress } = useScroll({
     target: refs,
@@ -40,10 +43,6 @@ const FlyGenBotSection = () => {
 
   useMotionValueEvent(sectionProgress, "change", (latest) => {
     const clampedIndex = Math.min(Math.floor(latest), 100);
-    console.log(
-      clampedIndex,
-      "clampedIndexclampedIndexclampedIndexclampedIndexclampedIndexclampedIndex"
-    );
 
     // if (clampedIndex === 99 || clampedIndex === 98 || clampedIndex === 97) {
     //   localStorage.setItem("testfinethree", "1");
@@ -53,22 +52,25 @@ const FlyGenBotSection = () => {
     // }
     setCurrentIndex(clampedIndex);
   });
-
   useEffect(() => {
+    const hasVisited = localStorage.getItem("botAnimationPlayed");
+
     const elems = document.querySelectorAll(".cards");
     const genbotImage: any = document.querySelector(".genbot-image");
 
-    if (elems && genbotImage) {
-      genbotImage.style.opacity = 0;
+    if (!genbotImage) return;
+
+    if (!hasVisited) {
+      genbotImage.style.opacity = "0";
       genbotImage.style.transform = "translateY(-100px)";
 
       elems.forEach((elem: any) => {
-        elem.style.opacity = 0;
+        elem.style.opacity = "0";
         elem.style.transform = "translateY(50px)";
       });
     }
 
-    if (!entry?.isIntersecting) return;
+    if (!entry?.isIntersecting || hasVisited) return;
 
     anime({
       targets: genbotImage,
@@ -80,42 +82,18 @@ const FlyGenBotSection = () => {
     });
 
     setTimeout(() => {
-      anime({
-        targets: elems[0],
-        opacity: [0, 1],
-        translateY: [50, 0],
-        duration: 2000,
-        delay: 200,
-      });
-      anime({
-        targets: elems[1],
-        opacity: [0, 1],
-        translateY: [50, 0],
-        duration: 2000,
-        delay: 100,
-      });
-      anime({
-        targets: elems[2],
-        opacity: [0, 1],
-        translateY: [50, 0],
-        duration: 2000,
-        delay: 200,
-      });
-      anime({
-        targets: elems[3],
-        opacity: [0, 1],
-        translateY: [50, 0],
-        duration: 2000,
-        delay: 200,
-      });
-      anime({
-        targets: elems[4],
-        opacity: [0, 1],
-        translateY: [50, 0],
-        duration: 2000,
-        delay: 300,
+      elems.forEach((elem: any, index) => {
+        anime({
+          targets: elem,
+          opacity: [0, 1],
+          translateY: [50, 0],
+          duration: 2000,
+          delay: index * 100,
+        });
       });
     }, 300);
+
+    localStorage.setItem("botAnimationPlayed", "true");
 
     return () => {
       anime({
@@ -190,51 +168,23 @@ const FlyGenBotSection = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleHifFocus = async () => {
-    let findvals = await localStorage.getItem("testfinethree");
-    if (findvals === "1") {
-      setCurrentIndexfine(false);
-    } else {
-      setCurrentIndexfine(true);
-    }
-
-    console.log("Element with id 'hifhhhhhhhhhhhhhhhh' is in view!");
-  };
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // handleHifFocus();
-        }
-      });
-    });
-
-    const element = document.getElementById("hifhhhhhhhhhhhhhhhh");
-    if (element) {
-      observer.observe(element);
-    }
-
-    return () => {
-      if (element) {
-        observer.unobserve(element);
-      }
-    };
-  }, []);
-
   return (
-    <>
+    <div>
       {width > 800 ? (
-        <Element name="section3" id="hifhhhhhhhhhhhhhhhh">
+        <div id="hifhhhhhhhhhhhhhhhh">
           <div className="z-[100]">
             <section ref={ref}>
               <div
-                ref={refs}
-                className={
-                  currentIndexfine === true
-                    ? " h-[500vh] bg-white sticky  z-[1000] top-0"
-                    : "  bg-white sticky  z-[1000] top-0"
-                }
+                ref={(el: any) => {
+                  refs.current = el;
+                  sectiorefs.current[4] = el;
+                }}
+                id="section4"
+                className={`${
+                  sectionVisibility[4]
+                    ? "h-[500vh] bg-white sticky  z-[1000] top-0 "
+                    : "h-screen bg-white sticky  z-[1000] top-0 "
+                }`}
               >
                 <div
                   className="sticky top-0 w-full flex md:flex-row "
@@ -242,17 +192,11 @@ const FlyGenBotSection = () => {
                 >
                   <section
                     style={{ backgroundColor: "#EEEEEA" }}
-                    className="  relative text-black min-w-[85%] max-w-[85%] m-auto font-base min-h-screen flex justify-center items-center overflow-hidden z-[100000] tjhtyjhtgndfg"
+                    className="relative text-black min-w-[85%] max-w-[85%] m-auto font-base min-h-screen flex justify-center items-center overflow-hidden z-[100000] tjhtyjhtgndfg"
                   >
                     <div className="w-full h-full absolute">
                       {cardData.map((card, index) => (
                         <div
-                          onClick={() => {
-                            console.log(
-                              currentIndex,
-                              "currentIndexcurrentIndex"
-                            );
-                          }}
                           key={index}
                           className={`absolute transition-all duration-700 ease-out ${
                             card.className
@@ -302,7 +246,7 @@ const FlyGenBotSection = () => {
               </div>
             </section>
           </div>
-        </Element>
+        </div>
       ) : (
         <section
           ref={ref}
@@ -350,7 +294,7 @@ const FlyGenBotSection = () => {
           </div>
         </section>
       )}
-    </>
+    </div>
   );
 };
 

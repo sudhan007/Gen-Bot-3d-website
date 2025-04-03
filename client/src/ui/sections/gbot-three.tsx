@@ -9,18 +9,21 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { AnimatedText } from "../components/AnimatedText";
 
-const GbotThree = () => {
+interface Props {
+  sectionVisibility: any;
+  sectiorefs: any;
+}
+
+const GbotThree = ({ sectionVisibility, sectiorefs }: Props) => {
   const totalImages = 111;
 
   const thirdContainerOriginbot = useRef(null);
   const [images, setImages] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [glowIndex, setGlowIndex] = useState(-1);
-  const [currentIndexfine, setCurrentIndexfine] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: thirdContainerOriginbot,
-    offset: ["start end", "end start"],
   });
 
   const { data } = useQuery({
@@ -54,16 +57,7 @@ const GbotThree = () => {
 
   useMotionValueEvent(imageIndex, "change", (latest) => {
     const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
-    // console.log(
-    //   clampedIndex,
-    //   "clampedIndexclampedIndexclampedIndexclampedIndexclampedIndexclampedIndex"
-    // );
 
-    // if (clampedIndex === 110 || clampedIndex === 109 || clampedIndex === 108) {
-    //   setTimeout(() => {
-    //     // setCurrentIndexfine(false);
-    //   }, 1000);
-    // }
     if (clampedIndex !== currentIndex) setCurrentIndex(clampedIndex);
   });
 
@@ -79,50 +73,19 @@ const GbotThree = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleScrollRtGdssFocus = async () => {
-    let findvals = await localStorage.getItem("testfinefive");
-    if (findvals === "1") {
-      setCurrentIndexfine(false);
-    } else {
-      setCurrentIndexfine(true);
-    }
-
-    console.log("Element with id 'scrollrtgdss' is in view!");
-  };
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          handleScrollRtGdssFocus();
-        }
-      });
-    });
-
-    const element = document.getElementById("scrollrtgdss");
-    if (element) {
-      observer.observe(element);
-    }
-
-    return () => {
-      if (element) {
-        observer.unobserve(element);
-      }
-    };
-  }, []);
-
   return (
-    <>
+    <div id="section6">
       {width > 800 ? (
         <div className="z-[100]" id="scrollrtgdss">
           <section ref={thirdContainerOriginbot}>
             <div
               className={
-                currentIndexfine === true
+                sectionVisibility[6]
                   ? "h-[800vh] sticky top-0 z-[1000]"
                   : " sticky top-0 z-[1000]"
               }
               style={{ backgroundColor: "#EEEEEA" }}
+              ref={(el) => (sectiorefs.current[6] = el)}
             >
               <div className="sticky top-0 w-full flex md:flex-row">
                 <div className="w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 pl-[2%]">
@@ -135,7 +98,6 @@ const GbotThree = () => {
                     <h4
                       className="twoone font-medium mb-8 text-3xl mt-[20px] md:text-5xl sm:text-3xl text-[#2B2B2B] textgenfi"
                       style={{
-                        fontSize: 64,
                         fontWeight: "610",
                         fontFamily: "SFpro",
                       }}
@@ -152,7 +114,7 @@ const GbotThree = () => {
                           fontFamily: "SFpro",
                         }}
                       >
-                        {text2.split("").map((char, index) => (
+                        {text2.split("").map((char: any, index: any) => (
                           <motion.span
                             key={index}
                             initial={{ opacity: 0.01 }}
@@ -247,7 +209,7 @@ const GbotThree = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

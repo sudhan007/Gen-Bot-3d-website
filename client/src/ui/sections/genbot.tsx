@@ -161,25 +161,25 @@ const GenBot = ({ onModelLoad, base64Video }: Props) => {
     }
   }, [fourthInViewPort]);
 
-  useEffect(() => {
-    if (fifthInViewPort && currentSection === "section6") {
-      const containerHeight = smoothScroll(
-        fifthContainerOriginRef.current.offsetTop,
-        600,
-        () => {
-          setCurrentSection("section5");
-        }
-      );
-    }
-  }, [fifthInViewPort]);
+  // useEffect(() => {
+  //   if (fifthInViewPort && currentSection === "section6") {
+  //     const containerHeight = smoothScroll(
+  //       fifthContainerOriginRef.current.offsetTop,
+  //       600,
+  //       () => {
+  //         setCurrentSection("section5");
+  //       }
+  //     );
+  //   }
+  // }, [fifthInViewPort]);
 
-  useEffect(() => {
-    if (sixthInViewPort && currentSection === "section7") {
-      smoothScroll(sixthContainerOriginRef.current.offsetTop, 600, () => {
-        setCurrentSection("section6");
-      });
-    }
-  }, [sixthInViewPort]);
+  // useEffect(() => {
+  //   if (sixthInViewPort && currentSection === "section7") {
+  //     smoothScroll(sixthContainerOriginRef.current.offsetTop, 600, () => {
+  //       setCurrentSection("section6");
+  //     });
+  //   }
+  // }, [sixthInViewPort]);
 
   useEffect(() => {
     if (seventhInViewPort && currentSection === "section8") {
@@ -331,4 +331,3 @@ const GenBot = ({ onModelLoad, base64Video }: Props) => {
     </div>
   );
 };
-

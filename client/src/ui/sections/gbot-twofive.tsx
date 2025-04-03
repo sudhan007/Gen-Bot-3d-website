@@ -7,11 +7,15 @@ import {
 import { useEffect, useRef, useState } from "react";
 import Grnbotnotmis from "./grnbotnotmis";
 
-const Twofive = () => {
+interface Props {
+  sectionVisibility: any;
+  sectiorefs: any;
+}
+
+const Twofive = ({ sectionVisibility, sectiorefs }: Props) => {
   const totalImages = 300;
   const ref = useRef(null);
   const [images, setImages] = useState([]);
-  const [checkval, setCheckval] = useState(true);
 
   useEffect(() => {
     const preloadedImages: any = [];
@@ -47,11 +51,6 @@ const Twofive = () => {
   useMotionValueEvent(sectionProgress, "change", async (latest) => {
     const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
 
-    if (clampedIndex === 299) {
-      setTimeout(() => {
-        // setCheckval(false);
-      }, 2000);
-    }
     setCurrentIndex(clampedIndex);
   });
 
@@ -69,38 +68,6 @@ const Twofive = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleFocus = async () => {
-    let findvals = await localStorage.getItem("testfine");
-    if (findvals === "1") {
-      setCheckval(false);
-    } else {
-      setCheckval(true);
-    }
-
-    console.log("Div focused!");
-  };
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          handleFocus();
-        }
-      });
-    });
-
-    const element = document.getElementById("gjgjjjgjjgjgj");
-    if (element) {
-      observer.observe(element);
-    }
-
-    return () => {
-      if (element) {
-        observer.unobserve(element);
-      }
-    };
-  }, []);
-
   return (
     <>
       {width > 800 ? (
@@ -110,12 +77,15 @@ const Twofive = () => {
         >
           <div
             className={
-              checkval === true
+              sectionVisibility[2]
                 ? "sticky z-[1000] h-[400vh]"
                 : "sticky z-[1000]"
             }
             style={{ backgroundColor: "#EEEEEA" }}
-            ref={ref}
+            ref={(el: any) => {
+              ref.current = el;
+              sectiorefs.current[2] = el;
+            }}
           >
             <div className="sticky top-0 flex justify-center items-center w-full h-screen">
               <p
@@ -130,7 +100,8 @@ const Twofive = () => {
                   display: "flex",
                   marginTop: "18vh",
                 }}
-                id="gjgjjjgjjgjgj"
+                // id="gjgjjjgjjgjgj"
+                id="section2"
                 className="font-sfpro uppercase font-bold leading-loose tracking-[12px]"
               >
                 Introducing
@@ -138,7 +109,7 @@ const Twofive = () => {
               <motion.img
                 src="/twoback.png"
                 alt="G Bot Text"
-                className="absolute z-10 img2 finfffffffffffffffff"
+                className="absolute z-10 img2 finfffffffffffffffff mt-10"
                 style={{
                   scale: textImageScale,
                   zIndex: 50,

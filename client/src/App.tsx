@@ -24,15 +24,14 @@ import { HeroSection } from "./ui/sections/hero.tsx";
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [loadedAssets, setLoadedAssets] = useState(0);
-  const [totalAssets, setTotalAssets] = useState(0);
+  const [_, setLoadedAssets] = useState(0);
+  const [, setTotalAssets] = useState(0);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [base64Video, setBase64Video] = useState(null);
   const [glowIndex, setGlowIndex] = useState(-1);
   const thirdContainerOriginRef = useRef(null);
   const [progress, setProgress] = useState(0);
   const [progressstate, setProgressstate] = useState(false);
-  const [enteroneid, setEnteroneid] = useState(true);
 
   useEffect(() => {
     if (progressstate === false) {
@@ -41,11 +40,6 @@ function App() {
       }, 200);
       return () => clearInterval(interval);
     }
-  }, []);
-
-  useEffect(() => {
-    localStorage.removeItem("keyName");
-    localStorage.removeItem("keyName2");
   }, []);
 
   const { scrollYProgress: sectionThreeScrollYProgressone } = useScroll({
@@ -150,7 +144,7 @@ function App() {
   }, [videoLoaded]);
 
   const [isMobile] = useState(window.innerWidth < 768);
-
+  const [lastScrollY, setLastScrollY] = useState(0);
   const secondContainerRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -186,14 +180,9 @@ function App() {
         videoRef.current.currentTime > 29 &&
         videoRef.current.currentTime < 29.999
       ) {
-        setTimeout(() => {
-          // setEnteroneid(false);
-        }, 1000);
+        setTimeout(() => {}, 1000);
       }
-      console.log(
-        videoRef.current.currentTime,
-        "progressprogressprogressprogress"
-      );
+
       const progress = videoProgress.get();
       videoRef.current.currentTime = progress;
     }
@@ -211,50 +200,27 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleThisIsTheIdFocus = async () => {
-    let findvals = localStorage.getItem("testfinetwo");
-    if (findvals === "1") {
-      setEnteroneid(false);
-    } else {
-      setEnteroneid(true);
-    }
-  };
-
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          handleThisIsTheIdFocus();
-        }
-      });
-    });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            localStorage.setItem("currentSec", entry.target.id);
 
-    const element = document.getElementById("thisistheidd");
-    if (element) {
-      observer.observe(element);
-    }
-
-    return () => {
-      if (element) {
-        observer.unobserve(element);
-      }
-    };
-  }, []);
-
-  const setCurrentSection = (sectionId: string) => {
-    localStorage.setItem("currentSec", sectionId);
-  };
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setCurrentSection(entry.target.id);
-        }
-      });
-    });
+            if (
+              entry.target.id == "section3" ||
+              entry.target.id == "section2"
+            ) {
+              localStorage.removeItem("botAnimationPlayed");
+            }
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
     const sections = document.querySelectorAll('[id^="section"]');
+
     sections.forEach((section) => {
       observer.observe(section);
     });
@@ -266,66 +232,70 @@ function App() {
     };
   }, []);
 
+  const sectionCount = 9;
+  const [sectionVisibility, setSectionVisibility] = useState(
+    Array(sectionCount).fill(true)
+  );
+  const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (width < 800) return;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const isScrollingUp = currentScrollY < lastScrollY;
+
+      let activeSectionIndex = 0;
+      sectionsRef.current.forEach((section, index) => {
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= window.innerHeight / 2) {
+            activeSectionIndex = index;
+          }
+        }
+      });
+
+      setSectionVisibility((prev) => {
+        const newVisibility = [...prev];
+
+        if (isScrollingUp) {
+          for (let i = 0; i < activeSectionIndex; i++) {
+            newVisibility[i] = false;
+          }
+        } else {
+          for (let i = activeSectionIndex; i < newVisibility.length; i++) {
+            newVisibility[i] = true;
+          }
+        }
+
+        return newVisibility;
+      });
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
   return (
     <>
       {loading && (
         <motion.div
           animate={{ opacity: 1 }}
-          transition={{ duration: 2, ease: "easeOut" }}
           exit={{ opacity: 0 }}
-          className="fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 z-[1000000]"
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="fixed inset-0 flex flex-col items-center justify-center bg-gray-900  z-[1000000]"
         >
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "12px",
-                background: "#f4f4f4",
-                borderRadius: "10px",
-                border: "1px solid #fff",
-              }}
-            >
-              <div
-                style={{
-                  width: "300px",
-                  borderRadius: "10px",
-                  overflow: "hidden",
-                  position: "relative",
-                  height: "100%",
-                  boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-                }}
-              >
-                <div
-                  style={{
-                    animation:
-                      "fillBar 60s linear forwards, glow 2s infinite alternate",
-                    borderRadius: "10px",
-                    overflow: "hidden",
-                    height: "100%",
-                    background: "#111827 var(--tw-gradient-to-position)",
-                    position: "relative",
-                    width: `${progress}%`,
-                  }}
-                >
-                  <span
-                    style={{
-                      position: "absolute",
-                      width: "100%",
-                      textAlign: "center",
-                      color: "#fff",
-                      fontWeight: "bold",
-                      animation: "pulse 1.5s infinite",
-                      fontSize: 7,
-                    }}
-                  >
-                    {progress}%
-                  </span>
-                </div>
-              </div>
-            </div>
+          <div className="w-80 h-3 rounded-full bg-gray-700 relative overflow-hidden border border-gray-500">
+            <motion.div
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="h-full bg-blue-500 rounded-full"
+            />
+            <span className="absolute inset-0 flex items-center justify-center text-xs text-white font-bold">
+              {progress}%
+            </span>
           </div>
         </motion.div>
       )}
@@ -335,108 +305,114 @@ function App() {
           <div className={`w-screen ${isMobile ? "overflow-x-hidden" : ""}`}>
             <Navbar {...{ loading }} />
 
-            <Element name="section1" id="section1">
+            <div id="section1">
               <HeroSection {...{ loading }} />
-            </Element>
+            </div>
 
-            <Element name="section2" id="section2">
-              <Twofive />
-            </Element>
+            <Twofive
+              sectionVisibility={sectionVisibility}
+              sectiorefs={sectionsRef}
+            />
 
-            <Element name="section3" id="section3">
-              <div className="z-[100]" id="thisistheidd">
-                <section ref={thirdContainerOriginRef}>
-                  <div
-                    className={
-                      enteroneid === true
-                        ? " h-[600vh] bg-white sticky  z-[1000] top-0"
-                        : " bg-white sticky  z-[1000] top-0"
-                    }
-                  >
-                    <div className="sticky top-0 w-full flex md:flex-row bg-white">
-                      <div className="bg-lightbg w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0 py-[60px] pl-[2%]">
-                        <div className="ml-[5%] bg-white px-[10%] h-full rounded-l-3xl shadow-lg z-[10000]">
-                          <img
-                            src="/img/bot3d.png"
-                            alt="GenBot 3D model"
-                            className="w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-4 oneimg"
-                          />
-                          <div className="w-[95%]">
-                            <motion.p
-                              className="mt-[10px] text-3xl leading-relaxed font-normal sm:text-xl thisisassclasss"
-                              style={{
-                                lineHeight: "40px",
-                                fontSize: 26,
-                                fontWeight: "400",
-                                fontFamily: "SFpro",
-                              }}
-                            >
-                              {data?.data.data.content
-                                .split("")
-                                .map((char: any, index: any) => (
-                                  <motion.span
-                                    key={index}
-                                    initial={{ opacity: 0.01 }}
-                                    animate={{
-                                      opacity: index <= glowIndex ? 1 : 0.2,
-                                    }}
-                                    transition={{ duration: 0.3 }}
-                                  >
-                                    {char}
-                                  </motion.span>
-                                ))}
-                            </motion.p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-full md:w-1/2 h-screen bg-lightbg overflow-hidden sticky top-0 hidden md:block z-[10000]">
-                        <div className="h-full object-cover sticky top-0 py-[60px] pr-[10%] rounded-r-3xl shadow-xl">
-                          <video
-                            ref={videoRef}
-                            muted
-                            controls={false}
-                            className={
-                              width > 800
-                                ? "object-cover h-full rounded-r-2xl shadow-lg"
-                                : "w-full max-h-screen rounded-r-2xl shadow-lg"
-                            }
-                            preload="auto"
+            <div className="z-[100]" id="thisistheidd">
+              <section ref={thirdContainerOriginRef}>
+                <div
+                  className={
+                    sectionVisibility[3]
+                      ? " h-[600vh] bg-white sticky  z-[1000] top-0"
+                      : " bg-white sticky  z-[1000] top-0"
+                  }
+                  ref={(el) => (sectionsRef.current[3] = el)}
+                >
+                  <div className="sticky top-0 w-full flex md:flex-row bg-white">
+                    <div className="bg-lightbg w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0 py-[60px] pl-[2%]">
+                      <div className="ml-[5%] bg-white px-[10%] h-full rounded-l-3xl shadow-lg z-[10000]">
+                        <img
+                          src="/img/bot3d.png"
+                          alt="GenBot 3D model"
+                          id="section3"
+                          className="w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-4 oneimg"
+                        />
+                        <div className="w-[95%]">
+                          <motion.p
+                            className="mt-[10px] text-3xl leading-relaxed font-normal sm:text-xl thisisassclasss"
+                            style={{
+                              lineHeight: "40px",
+                              fontSize: 26,
+                              fontWeight: "400",
+                              fontFamily: "SFpro",
+                            }}
                           >
-                            {base64Video && (
-                              <source src={base64Video} type="video/mp4" />
-                            )}
-                          </video>
+                            {data?.data.data.content
+                              .split("")
+                              .map((char: any, index: any) => (
+                                <motion.span
+                                  key={index}
+                                  initial={{ opacity: 0.01 }}
+                                  animate={{
+                                    opacity: index <= glowIndex ? 1 : 0.2,
+                                  }}
+                                  transition={{ duration: 0.3 }}
+                                >
+                                  {char}
+                                </motion.span>
+                              ))}
+                          </motion.p>
                         </div>
                       </div>
                     </div>
+                    <div className="w-full md:w-1/2 h-screen bg-lightbg overflow-hidden sticky top-0 hidden md:block z-[10000]">
+                      <div className="h-full object-cover sticky top-0 py-[60px] pr-[10%] rounded-r-3xl shadow-xl">
+                        <video
+                          ref={videoRef}
+                          muted
+                          controls={false}
+                          className={
+                            width > 800
+                              ? "object-cover h-full rounded-r-2xl shadow-lg"
+                              : "w-full max-h-screen rounded-r-2xl shadow-lg"
+                          }
+                          preload="auto"
+                        >
+                          {base64Video && (
+                            <source src={base64Video} type="video/mp4" />
+                          )}
+                        </video>
+                      </div>
+                    </div>
                   </div>
-                </section>
-              </div>
-            </Element>
+                </div>
+              </section>
+            </div>
 
-            <Element name="section4" id="section4">
-              <FlyGenBotSection />
-            </Element>
+            <FlyGenBotSection
+              sectionVisibility={sectionVisibility}
+              sectiorefs={sectionsRef}
+            />
 
-            <Element name="section6" id="section6">
-              <GbotTwo />
-            </Element>
+            <GbotTwo
+              sectionVisibility={sectionVisibility}
+              sectiorefs={sectionsRef}
+            />
 
-            <Element name="section7" id="section7">
-              <GbotThree />
-            </Element>
+            <GbotThree
+              sectionVisibility={sectionVisibility}
+              sectiorefs={sectionsRef}
+            />
 
-            <Element name="section8" id="section8">
-              <GbotFour />
-            </Element>
+            <GbotFour
+              sectionVisibility={sectionVisibility}
+              sectiorefs={sectionsRef}
+            />
 
-            <Element name="section9" id="section9">
-              <Experience />
-            </Element>
+            <Experience
+              sectionVisibility={sectionVisibility}
+              sectiorefs={sectionsRef}
+            />
 
-            <Element name="section10" id="section10">
+            <div>
               <Footer />
-            </Element>
+            </div>
           </div>
         </div>
       ) : (
@@ -537,26 +513,41 @@ function App() {
             </Element>
 
             <Element name="section4" id="section4">
-              <FlyGenBotSection />
+              <FlyGenBotSection
+                sectionVisibility={sectionVisibility}
+                sectiorefs={sectionsRef}
+              />
             </Element>
 
-            <Element name="section6" id="section6">
-              <GbotTwo />
+            <Element name="section6" id="section5">
+              <GbotTwo
+                sectionVisibility={sectionVisibility}
+                sectiorefs={sectionsRef}
+              />
             </Element>
 
-            <Element name="section7" id="section7">
-              <GbotThree />
+            <Element name="section7" id="section6">
+              <GbotThree
+                sectionVisibility={sectionVisibility}
+                sectiorefs={sectionsRef}
+              />
             </Element>
 
-            <Element name="section8" id="section8">
-              <GbotFour />
+            <Element name="section8" id="section7">
+              <GbotFour
+                sectionVisibility={sectionVisibility}
+                sectiorefs={sectionsRef}
+              />
             </Element>
 
-            <Element name="section9" id="section9">
-              <Experience />
+            <Element name="section9" id="section8">
+              <Experience
+                sectionVisibility={sectionVisibility}
+                sectiorefs={sectionsRef}
+              />
             </Element>
 
-            <Element name="section10" id="section10">
+            <Element name="section10" id="section9">
               <Footer />
             </Element>
           </div>

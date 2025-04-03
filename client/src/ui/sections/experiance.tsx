@@ -1,41 +1,64 @@
 import _axios from "@/lib/_axios";
 import { useQuery } from "@tanstack/react-query";
-import { useScroll, useTransform } from "framer-motion";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export const Experience = () => {
+interface Props {
+  sectionVisibility: any;
+  sectiorefs: any;
+}
+
+export const Experience = ({ sectiorefs }: Props) => {
   const totalImages = 250;
   const [images, setImages] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentIndexval, setCurrentIndexval] = useState(0);
   const containerRef = useRef(null);
-  const prevIndexRef = useRef(0);
-  const scrollRef = useRef(null);
 
-  const animationFrameRef = useRef(null);
-  const isScrollingBack = useRef(false);
-  const [imagesone, setImagesone] = useState(true);
-  // Initialize scroll tracking
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"], // Maps full section scroll to animation
-  });
+  const mobileRef = useRef(null);
+  const [mobileIndex, setMobileIndex] = useState(0);
 
-  // Map scroll progress to image index
-  const imageIndex = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, totalImages - 1]
-  );
+  useEffect(() => {
+    if (width <= 800) {
+      let mobileInterval: any = null;
 
-  // Preload images on mount
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setMobileIndex(0);
+
+            mobileInterval = setInterval(() => {
+              setMobileIndex((prev) => {
+                if (prev + 1 >= totalImages) {
+                  clearInterval(mobileInterval);
+                  return totalImages - 1;
+                }
+                return prev + 1;
+              });
+            }, 20);
+          } else {
+            clearInterval(mobileInterval);
+          }
+        },
+        { threshold: 0.1 }
+      );
+
+      if (mobileRef.current) {
+        observer.observe(mobileRef.current);
+      }
+
+      return () => {
+        clearInterval(mobileInterval);
+        observer.disconnect();
+      };
+    }
+  }, [totalImages]);
+
   useEffect(() => {
     const preloadedImages = Array.from(
       { length: totalImages },
       (_, i) => `/bottom/${String(i + 1).padStart(4, "0")}.webp`
     );
     setImages(preloadedImages);
-  }, []);
+  }, [totalImages]);
 
   const { data } = useQuery({
     queryKey: ["futuretechContent"],
@@ -51,134 +74,47 @@ export const Experience = () => {
   const lastWord =
     words[words.length - 2] + " " + words[words.length - 1] || "";
 
-  const maxIndexRef = useRef(0); // Track the max index reached
-  const prevScrollRef = useRef(0);
+  useEffect(() => {
+    if (width > 800) {
+      let interval: any = null;
 
-  // const scrollToSection = (id) => {
-  //   const target = document.getElementById(id);
-  //   if (!target) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setCurrentIndex(0);
 
-  //   const startPosition = window.scrollY;
-  //   const targetPosition = target.getBoundingClientRect().top + window.scrollY;
-  //   const distance = targetPosition - startPosition;
-  //   const duration = 3000;
-  //   let startTime = null;
+            interval = setInterval(() => {
+              setCurrentIndex((prevIndex) => {
+                if (prevIndex + 1 >= totalImages) {
+                  clearInterval(interval);
+                  return totalImages - 1;
+                }
+                return prevIndex + 1;
+              });
+            }, 30);
+          } else {
+            clearInterval(interval);
+          }
+        },
+        { threshold: 0.1 }
+      );
 
-  //   const animateScroll = (currentTime) => {
-  //     if (!startTime) startTime = currentTime;
-  //     const elapsedTime = currentTime - startTime;
-  //     const progress = Math.min(elapsedTime / duration, 1); // Ensure progress doesn't exceed 1
+      observer.observe(sectiorefs.current[8]);
 
-  //     // Smooth easing function (easeInOutQuad)
-  //     const easedProgress = progress < 0.5
-  //       ? 2 * progress * progress
-  //       : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-
-  //     window.scrollTo(0, startPosition + distance * easedProgress);
-
-  //     if (elapsedTime < duration) {
-  //       requestAnimationFrame(animateScroll);
-  //     }
-  //   };
-
-  //   requestAnimationFrame(animateScroll);
-  // };
-
-  // Debounced scroll handler
-
-  const handleScroll = useCallback(() => {
-    if (animationFrameRef.current) {
-      cancelAnimationFrame(animationFrameRef.current);
+      return () => {
+        clearInterval(interval);
+        observer.disconnect();
+      };
     }
+  }, [sectiorefs, totalImages]);
 
-    animationFrameRef.current = requestAnimationFrame(() => {
-      const latest = imageIndex.get();
-      const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
+  const [width, setWidth] = useState(window.innerWidth);
 
-      setCurrentIndex(Math.min(clampedIndex, totalImages - 1));
-      setCurrentIndexval(Math.min(clampedIndex + 70, totalImages - 1));
-      maxIndexRef.current = clampedIndex;
-
-      prevScrollRef.current = latest;
-    });
-  }, [imageIndex]);
-
-  // const handleScroll = useCallback(() => {
-  //   if (animationFrameRef.current) {
-  //     cancelAnimationFrame(animationFrameRef.current);
-  //   }
-
-  //   animationFrameRef.current = requestAnimationFrame(() => {
-  //     const latest = imageIndex.get();
-  //     const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
-
-  //     // if (latest < prevScrollRef.current && !isScrollingBack.current) {
-  //     //   isScrollingBack.current = true;
-
-  //     //   // scrollToSection("plzzzscrolllllllllllllllllll");
-  //     //   console.log(scrollYProgress, "Scrolling Back!");
-  //     // } else if (latest >= prevScrollRef.current && isScrollingBack.current) {
-  //     //   isScrollingBack.current = false;
-  //     // }
-
-  //     // if (latest <= 0) {
-  //     //   // Reset when fully scrolled up
-  //     //   setCurrentIndex(0);
-  //     //   maxIndexRef.current = 0;
-  //     // } else if (clampedIndex > maxIndexRef.current) {
-  //     setCurrentIndex(Math.min(clampedIndex, totalImages - 1));
-  //     setCurrentIndexval(clampedIndex + 70);
-  //     maxIndexRef.current = clampedIndex;
-  //     // }
-
-  //     // Update the previous scroll position
-  //     prevScrollRef.current = latest;
-  //   });
-  // }, [imageIndex, scrollYProgress]);
-
-  // Attach scroll event listener
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
-    window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("resize", handleResize);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [handleScroll]);
-
-  // Handle responsiveness
-  const [width, setWidth] = useState(window.innerWidth);
-
-  // const handleThisIsFinallllFocus = async () => {
-  //   let findvals = await localStorage.getItem("testfinenine");
-  //   if (findvals === "1") {
-  //     setImagesone(false);
-  //   } else {
-  //     setImagesone(true);
-  //   }
-
-  //   console.log("Element with id 'thisisfinallll' is in view!");
-  // };
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // handleThisIsFinallllFocus();
-        }
-      });
-    });
-
-    const element = document.getElementById("thisisfinallll");
-    if (element) {
-      observer.observe(element);
-    }
-
-    return () => {
-      if (element) {
-        observer.unobserve(element);
-      }
     };
   }, []);
 
@@ -192,11 +128,9 @@ export const Experience = () => {
         >
           <section ref={containerRef}>
             <div
-              className={
-                imagesone === true
-                  ? "h-[700vh] sticky z-[1000] top-0"
-                  : "  sticky z-[1000] top-0"
-              }
+              id="section8"
+              className={`${"h-screen sticky z-[1000] top-0 "}`}
+              ref={(el) => (sectiorefs.current[8] = el)}
             >
               <div className="sticky top-0 w-full">
                 <div className="px-[5%]">
@@ -210,7 +144,7 @@ export const Experience = () => {
                         className="text-black text-[1.6rem] threetwo"
                         style={{ fontFamily: "AktivGrotesk" }}
                       >
-                        WHAT'S THE HOLD
+                        WHAT'S THE HOLD!
                       </p>
                     </div>
                   </div>
@@ -254,29 +188,26 @@ export const Experience = () => {
               overflow: "hidden",
               paddingTop: 50,
             }}
+            ref={mobileRef}
           >
             <div className="sticky top-0 w-full">
               <div className="px-[5%] text-center">
                 <p className="threeone text-white text-[24px] font-[400] font-['AktivGrotesk']">
-                  EXPERIENCE THE <br />
-                  <span className="text-[#FCD902]">FUTURE TODAY</span>
+                  {firstWord} <span className="text-[#FCD902]">{lastWord}</span>
                 </p>
 
                 <p className="text-white text-[15px] font-[400] font-['AktivGrotesk'] mt-3">
-                  Explore the innovative solutions of Genbot and G Bot. Embrace
-                  the future of technology and human-robot interaction. Begin
-                  your journey to safer, more efficient, and tech-driven
-                  possibilities today.
+                  {data?.data.data.content}
                 </p>
 
                 <div className="bg-[#FCD902] flex items-center justify-center mt-5 px-10 py-2 w-[63%] mx-auto">
                   <p className="text-black text-[15px] threetwo uppercase">
-                    WHAT'S THE HOLD
+                    WHAT'S THE HOLD!
                   </p>
                 </div>
               </div>
 
-              <div className="sticky top-0 flex justify-center items-center h-[30vh]">
+              <div className="sticky top-0 flex justify-center items-center h-[29vh]">
                 {images.map((imgSrc, index) => (
                   <img
                     key={index}
@@ -284,8 +215,8 @@ export const Experience = () => {
                     alt={`Frame ${index + 1}`}
                     className="absolute"
                     style={{
-                      opacity: index === currentIndexval ? 1 : 0,
-                      zIndex: index === currentIndexval ? 20 : 10,
+                      opacity: index === mobileIndex ? 1 : 0,
+                      zIndex: index === mobileIndex ? 20 : 10,
                     }}
                   />
                 ))}
