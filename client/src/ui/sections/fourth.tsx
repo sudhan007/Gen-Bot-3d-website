@@ -96,12 +96,12 @@ const FlyGenBotSection = ({ sectionVisibility, sectiorefs }: Props) => {
     localStorage.setItem("botAnimationPlayed", "true");
 
     return () => {
-      anime({
-        targets: genbotImage,
-        translateX: [2400, 0],
-        duration: 200,
-        easing: "easeOutQuad",
-      });
+      // anime({
+      //   targets: genbotImage,
+      //   translateX: [2400, 0],
+      //   duration: 200,
+      //   easing: "easeOutQuad",
+      // });
     };
   }, [entry]);
 
