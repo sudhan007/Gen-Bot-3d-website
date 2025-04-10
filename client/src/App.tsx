@@ -331,7 +331,7 @@ function App() {
                           src="/img/bot3d.png"
                           alt="GenBot 3D model"
                           id="section3"
-                          className="w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-4 oneimg"
+                          className="w-[110px] mt-[20%] md:w-[360px] sm:w-[200px] pb-4 oneimg"
                         />
                         <div className="w-[95%]">
                           <motion.p
@@ -480,7 +480,7 @@ function App() {
                           <img
                             src="/img/bot3d.png"
                             alt="GenBot 3D model"
-                            className="w-[110px] md:w-[260px] sm:w-[200px] pb-4 oneimg"
+                            className="w-[210px] md:w-[360px] sm:w-[300px] pb-4 oneimg"
                           />
                           <div className="w-[95%]">
                             <AnimatedText text={genbotIntro} />

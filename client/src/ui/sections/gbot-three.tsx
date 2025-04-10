@@ -93,7 +93,7 @@ const GbotThree = ({ sectionVisibility, sectiorefs }: Props) => {
                     <img
                       src="/img/gbot3d.png"
                       alt="GenBot 3D model"
-                      className="w-[110px] mt-[20%] md:w-[260px] sm:w-[200px] pb-4 twoimg"
+                      className="w-[110px] mt-[20%] md:w-[360px] sm:w-[200px] pb-4 twoimg"
                     />
                     <h4
                       className="twoone font-medium mb-8 text-3xl mt-[20px] md:text-5xl sm:text-3xl text-[#2B2B2B] textgenfi"
@@ -162,7 +162,7 @@ const GbotThree = ({ sectionVisibility, sectiorefs }: Props) => {
                 <img
                   src="/img/gbot3d.png"
                   alt="GenBot 3D model"
-                  className="w-[110px] mt-[50%] md:w-[260px] sm:w-[200px] pb-2 twoimg"
+                  className="w-[170px] mt-[50%] md:w-[260px] sm:w-[200px] pb-2 twoimg"
                 />
                 <h4
                   className="twoone font-medium mb-4 text-3xl md:text-5xl sm:text-3xl text-[#2B2B2B]"
