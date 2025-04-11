@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 export const Footer = () => {
-
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -13,7 +12,7 @@ export const Footer = () => {
 
   return (
     <>
-      {width > 800 ? (
+      {width > 830 ? (
         <section
           className="text-black font-base relative "
           style={{
@@ -26,7 +25,6 @@ export const Footer = () => {
             <div className=" py-[5%]">
               <div className="grid grid-cols-[20%_20%_20%_40%] gap-4">
                 <div className="flex flex-col">
-
                   <p
                     style={{
                       color: "rgba(255, 255, 255, 1)",
@@ -59,8 +57,6 @@ export const Footer = () => {
                   >
                     Genrobotics
                   </p>
-
-
                 </div>
 
                 <div
@@ -69,8 +65,6 @@ export const Footer = () => {
                     justifyContent: "center",
                   }}
                 >
-
-
                   {/* <p
                     style={{
                       color: "rgba(255, 255, 255, 1)",
@@ -342,7 +336,6 @@ export const Footer = () => {
                   >
                     Genrobotics
                   </p> */}
-
                 </div>
 
                 <div>
@@ -534,7 +527,6 @@ export const Footer = () => {
                     Careers
                   </p> */}
 
-
                   <p
                     style={{
                       color: "rgba(255, 255, 255, 1)",
@@ -567,9 +559,6 @@ export const Footer = () => {
                   >
                     Genrobotics
                   </p>
-
-
-
                 </div>
 
                 <div
@@ -621,9 +610,6 @@ export const Footer = () => {
                   >
                     Genrobotics
                   </p> */}
-
-
-
                 </div>
               </div>
 

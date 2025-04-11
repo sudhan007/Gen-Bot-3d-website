@@ -17,7 +17,7 @@ export const Experience = ({ sectiorefs }: Props) => {
   const [mobileIndex, setMobileIndex] = useState(0);
 
   useEffect(() => {
-    if (width <= 800) {
+    if (width <= 830) {
       let mobileInterval: any = null;
 
       const observer = new IntersectionObserver(
@@ -75,7 +75,7 @@ export const Experience = ({ sectiorefs }: Props) => {
     words[words.length - 2] + " " + words[words.length - 1] || "";
 
   useEffect(() => {
-    if (width > 800) {
+    if (width > 830) {
       let interval: any = null;
 
       const observer = new IntersectionObserver(
@@ -120,7 +120,7 @@ export const Experience = ({ sectiorefs }: Props) => {
 
   return (
     <>
-      {width > 800 ? (
+      {width > 830 ? (
         <div
           className="z-[100]"
           style={{ backgroundColor: "#525652", paddingTop: 40 }}
@@ -207,7 +207,7 @@ export const Experience = ({ sectiorefs }: Props) => {
                 </div>
               </div>
 
-              <div className="sticky top-0 flex justify-center items-center h-[29vh]">
+              <div className="sticky top-0 flex justify-center items-center h-[39vh]">
                 {images.map((imgSrc, index) => (
                   <img
                     key={index}

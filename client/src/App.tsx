@@ -239,7 +239,7 @@ function App() {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    if (width < 800) return;
+    if (width < 830) return;
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -300,7 +300,7 @@ function App() {
         </motion.div>
       )}
 
-      {width > 800 ? (
+      {width > 830 ? (
         <div>
           <div className={`w-screen ${isMobile ? "overflow-x-hidden" : ""}`}>
             <Navbar {...{ loading }} />
@@ -368,7 +368,7 @@ function App() {
                           muted
                           controls={false}
                           className={
-                            width > 800
+                            width > 830
                               ? "object-cover h-full rounded-r-2xl shadow-lg"
                               : "w-full max-h-screen rounded-r-2xl shadow-lg"
                           }
@@ -433,39 +433,45 @@ function App() {
                     style={{ height: "100vh" }}
                   ></div>
 
-                  <p
-                    className="font-sfpro uppercase font-black tracking-normal mb-24"
-                    style={{
-                      color: "#2B2B2B",
-                      fontSize: 36,
-                      textAlign: "center",
-                      position: "fixed",
-                      top: "23%",
-                    }}
-                  >
-                    Introducing
-                  </p>
+                  {window.scrollY < 6000 && (
+                    <p
+                      className="font-sfpro uppercase font-black tracking-normal mb-24"
+                      style={{
+                        color: "#2B2B2B",
+                        fontSize: 36,
+                        textAlign: "center",
+                        position: "fixed",
+                        top: width > 830 ? "20%" : "7%",
+                      }}
+                    >
+                      Introducing
+                    </p>
+                  )}
 
-                  <motion.img
-                    src="/img/genbot-text.svg"
-                    className="fixed top-[33%] md:top-[20%] transform w-[300px] z-10 md:w-auto"
-                    style={{
-                      scale: textScale,
-                      opacity: textOpacity,
-                      zIndex: 10,
-                      display: visibility,
-                    }}
-                  />
+                  {window.scrollY < 6000 && (
+                    <motion.img
+                      src="/img/genbot-text.svg"
+                      className="fixed top-[33%] md:top-[20%] transform w-[300px] z-10 md:w-auto"
+                      style={{
+                        scale: textScale,
+                        opacity: textOpacity,
+                        zIndex: 10,
+                        display: visibility,
+                      }}
+                    />
+                  )}
 
-                  <motion.img
-                    src="/0300.png"
-                    className="fixed top-[30%] md:top-[10%] transform w-[300px] z-10 md:w-auto"
-                    style={{
-                      scale: robotScale,
-                      opacity: robotOpacity,
-                      zIndex: 10,
-                    }}
-                  />
+                  {window.scrollY < 6000 && (
+                    <motion.img
+                      src="/0300.png"
+                      className="fixed top-[30%] md:top-[10%] transform w-[600px] z-10"
+                      style={{
+                        scale: robotScale,
+                        opacity: robotOpacity,
+                        zIndex: 10,
+                      }}
+                    />
+                  )}
                 </section>
               </div>
             </Element>
@@ -475,7 +481,7 @@ function App() {
                 <section ref={thirdContainerOriginRef}>
                   <div className="  bg-white sticky  z-[1000] top-0">
                     <div className="sticky top-0 w-full">
-                      <div className="bg-lightbg w-full items-start gap-4 sticky top-0 py-[20px]">
+                      <div className="bg-lightbg w-full items-start gap-4 top-0 py-[20px]">
                         <div className=" px-[5%] rounded-l-3xl  z-[10000]">
                           <img
                             src="/img/bot3d.png"
@@ -512,44 +518,32 @@ function App() {
               </div>
             </Element>
 
-            <Element name="section4" id="section4">
-              <FlyGenBotSection
-                sectionVisibility={sectionVisibility}
-                sectiorefs={sectionsRef}
-              />
-            </Element>
+            <FlyGenBotSection
+              sectionVisibility={sectionVisibility}
+              sectiorefs={sectionsRef}
+            />
 
-            <Element name="section6" id="section5">
-              <GbotTwo
-                sectionVisibility={sectionVisibility}
-                sectiorefs={sectionsRef}
-              />
-            </Element>
+            <GbotTwo
+              sectionVisibility={sectionVisibility}
+              sectiorefs={sectionsRef}
+            />
 
-            <Element name="section7" id="section6">
-              <GbotThree
-                sectionVisibility={sectionVisibility}
-                sectiorefs={sectionsRef}
-              />
-            </Element>
+            <GbotThree
+              sectionVisibility={sectionVisibility}
+              sectiorefs={sectionsRef}
+            />
 
-            <Element name="section8" id="section7">
-              <GbotFour
-                sectionVisibility={sectionVisibility}
-                sectiorefs={sectionsRef}
-              />
-            </Element>
+            <GbotFour
+              sectionVisibility={sectionVisibility}
+              sectiorefs={sectionsRef}
+            />
 
-            <Element name="section9" id="section8">
-              <Experience
-                sectionVisibility={sectionVisibility}
-                sectiorefs={sectionsRef}
-              />
-            </Element>
+            <Experience
+              sectionVisibility={sectionVisibility}
+              sectiorefs={sectionsRef}
+            />
 
-            <Element name="section10" id="section9">
-              <Footer />
-            </Element>
+            <Footer />
           </div>
         </div>
       )}

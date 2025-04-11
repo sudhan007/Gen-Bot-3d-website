@@ -50,7 +50,7 @@ const GbotTwo = ({ sectionVisibility, sectiorefs }: Props) => {
 
   return (
     <div id="section5">
-      {width > 800 ? (
+      {width > 830 ? (
         <section
           style={{ backgroundColor: "#EEEEEA" }}
           className="text-black font-base z-100"

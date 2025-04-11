@@ -1,4 +1,3 @@
-
 import anime from "animejs/lib/anime.es.js";
 import { useEffect, useState } from "react";
 
@@ -29,7 +28,7 @@ export default function GBotOne({ loading }: { loading: boolean }) {
 
   return (
     <>
-      {width > 800 ? (
+      {width > 830 ? (
         <section
           className="h-[calc(100vh)] bg-black text-white font-base flex flex-col justify-end hero-section relative"
           style={{
@@ -75,7 +74,7 @@ export default function GBotOne({ loading }: { loading: boolean }) {
           >
             <source src={"/gbothero.mp4"} type="video/mp4" />
             Your browser does not support the video tag.
-          </video> 
+          </video>
 
           {/* <div className=" bottom-0 left-1/2 transform -translate-x-1/2 flex justify-center pb-[10px]">
             <Icon icon={"bi:mouse"} fontSize={40} />

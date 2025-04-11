@@ -107,7 +107,7 @@ export const GbotFour = ({ sectionVisibility, sectiorefs }: Props) => {
 
   return (
     <div>
-      {width > 800 ? (
+      {width > 830 ? (
         <div className="z-[100]" id="plzzzscrolllllllllllllllllll">
           <section
             ref={(el: any) => {
@@ -249,18 +249,10 @@ export const GbotFour = ({ sectionVisibility, sectiorefs }: Props) => {
                 }}
               >
                 <div
-                  className="flex flex-col justify-center items-end gap-3"
+                  className="flex flex-col justify-center items-center gap-3"
                   style={{}}
                 >
-                  <p
-                    style={{
-                      color: "#2B2B2B",
-                      fontSize: 20,
-                      width: "100%",
-                      textAlign: "center",
-                    }}
-                    className="yhhhhhhhhh"
-                  >
+                  <p className="text-[2B2B2B] my-6 mt-10 font-bold text-center! text-4xl">
                     Applications of GBOT
                   </p>
                   {cardDatass.map(({ heading, bottom }, index) => (
@@ -268,13 +260,13 @@ export const GbotFour = ({ sectionVisibility, sectiorefs }: Props) => {
                       {bottom === 0 ? (
                         <div
                           key={index}
-                          className="fly-genbot-card flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white"
+                          className="fly-genbot-card flex flex-col items-center p-3 justify-center w-[90%] rounded-xl border bg-white"
                           style={{
                             boxShadow:
                               "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",
                           }}
                         >
-                          <div className="w-full h-full flex flex-col p-3 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
+                          <div className="w-full h-full flex flex-col p-5 md:p-5 bg-white rounded-xl text-[#2B2B2B]">
                             <h1
                               className="text-lg font-normal mb-2 break-before-avoid capitalize"
                               style={{ marginBottom: 0 }}
@@ -286,7 +278,7 @@ export const GbotFour = ({ sectionVisibility, sectiorefs }: Props) => {
                       ) : (
                         <div
                           key={index}
-                          className="fly-genbot-card flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-black"
+                          className="fly-genbot-card flex flex-col items-center p-3 justify-center w-[90%] rounded-xl border bg-black"
                           style={{
                             boxShadow:
                               "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",

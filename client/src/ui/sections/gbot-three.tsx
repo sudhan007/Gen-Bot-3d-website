@@ -75,7 +75,7 @@ const GbotThree = ({ sectionVisibility, sectiorefs }: Props) => {
 
   return (
     <div id="section6">
-      {width > 800 ? (
+      {width > 830 ? (
         <div className="z-[100]" id="scrollrtgdss">
           <section ref={thirdContainerOriginbot}>
             <div
@@ -155,56 +155,44 @@ const GbotThree = ({ sectionVisibility, sectiorefs }: Props) => {
           </section>
         </div>
       ) : (
-        <div className="font-base bg-lightbg relative z-[101]">
+        <div className="font-base bg-lightbg relative z-[101] w-screen overflow-hidden">
           <div className="sticky top-0 w-full">
             <div className="w-full flex flex-col justify-start items-start gap-4">
-              <div className="px-[5%] h-full z-[10000]">
+              <div className="px-[5%] z-[10000]">
                 <img
                   src="/img/gbot3d.png"
                   alt="GenBot 3D model"
-                  className="w-[170px] mt-[50%] md:w-[260px] sm:w-[200px] pb-2 twoimg"
+                  className="w-[170px] mt-[10%] md:w-[260px] sm:w-[200px] pb-2"
                 />
-                <h4
-                  className="twoone font-medium mb-4 text-3xl md:text-5xl sm:text-3xl text-[#2B2B2B]"
-                  style={{
-                    fontSize: 28,
-                    fontWeight: "510",
-                    fontFamily: "SFpro",
-                  }}
-                >
-                  The Future Of Human- <br />
-                  Robot Interaction
-                  {data?.data.data.title || ""}
-                </h4>
+
                 <div className="w-[95%]">
                   <AnimatedText text={text2} />
                 </div>
               </div>
             </div>
 
-            <div
-              className="w-full h-full flex justify-center items-center relative"
-              style={{ alignItems: "end", justifyContent: "end", padding: 15 }}
-            >
-              <img
-                src="/img/gbot-text2.png"
-                className="w-[600px] z-[1]"
-                alt=""
-                style={{ width: "70%" }}
-              />
-              {images.map((imgSrc, index) => (
+            <div className="w-full flex justify-center items-center relative mt-5">
+              <div className="w-full h-full flex justify-end items-end relative p-10">
                 <img
-                  key={index}
-                  src={imgSrc}
-                  alt={`G Frame ${index + 1}`}
-                  className="absolute"
-                  style={{
-                    opacity: index === currentIndex ? 1 : 0,
-                    zIndex: index === currentIndex ? 20 : 10,
-                    left: 100,
-                  }}
+                  src="/img/gbot-text2.png"
+                  className="w-[600px] z-[1]"
+                  alt=""
+                  style={{ width: "70%" }}
                 />
-              ))}
+                {images.map((imgSrc, index) => (
+                  <img
+                    key={index}
+                    src={imgSrc}
+                    alt={`G Frame ${index + 1}`}
+                    className="absolute"
+                    style={{
+                      opacity: index === currentIndex ? 1 : 0,
+                      zIndex: index === currentIndex ? 20 : 10,
+                      left: 100,
+                    }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>

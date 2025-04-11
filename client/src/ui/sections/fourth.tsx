@@ -170,7 +170,7 @@ const FlyGenBotSection = ({ sectionVisibility, sectiorefs }: Props) => {
 
   return (
     <div>
-      {width > 800 ? (
+      {width > 830 ? (
         <div id="hifhhhhhhhhhhhhhhhh">
           <div className="z-[100]">
             <section ref={ref}>
@@ -251,19 +251,21 @@ const FlyGenBotSection = ({ sectionVisibility, sectiorefs }: Props) => {
         <section
           ref={ref}
           style={{ backgroundColor: "#EEEEEA" }}
-          className="bg-lightbg relative text-black min-w-[85%] max-w-[100%] m-auto font-base min-h-screen  justify-center items-center overflow-hidden z-[100000]"
+          className="bg-lightbg relative text-black w-screen font-base overflow-hidden z-[100000]"
         >
-          {/* Genbot image with opacity 0 for initial fade-in */}
-          <div style={{ alignItems: "center", justifyContent: "center" }}>
+          <div
+            style={{ alignItems: "center", justifyContent: "center" }}
+            className="mt-20"
+          >
             <img
-              className="  scale-75 md:w-[530px] xl:w-[580px]"
+              className="w-[630px] xl:w-[580px]"
               src="/img/shadowws.png"
               alt="genbot image"
               style={{ margin: "auto" }}
             />
           </div>
 
-          <div className="w-full" style={{ padding: 15 }}>
+          <div className="w-screen p-6">
             {cardData.map((card, index) => (
               <div
                 key={index}
@@ -273,7 +275,7 @@ const FlyGenBotSection = ({ sectionVisibility, sectiorefs }: Props) => {
                 style={{ marginBottom: 20 }}
               >
                 <div
-                  className={`flex flex-col items-center justify-center w-full md:w-[70%] lg:w-[400px] rounded-xl border bg-white`}
+                  className={`flex flex-col items-center justify-center w-[90%] mx-auto rounded-xl border bg-white`}
                   style={{
                     boxShadow:
                       "#ffca00 0px 3px 0px, rgba(0, 0, 0, 0.1) 12px 18px 20px 4px",

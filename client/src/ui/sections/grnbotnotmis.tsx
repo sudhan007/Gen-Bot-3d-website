@@ -5,7 +5,6 @@ const Grnbotnotmis = () => {
   const [images, setImages] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Preload images
   useEffect(() => {
     const preloadedImages = Array.from({ length: totalImages }, (_, i) => {
       const paddedIndex = String(i + 1).padStart(4, "0");
@@ -14,7 +13,6 @@ const Grnbotnotmis = () => {
     setImages(preloadedImages);
   }, []);
 
-  // Smooth animation loop
   useEffect(() => {
     let animationFrame: number;
     const updateFrame = () => {
@@ -27,8 +25,8 @@ const Grnbotnotmis = () => {
   }, [totalImages]);
 
   return (
-    <div className="bg-lightbg h-[85vh] relative z-10 flex justify-center items-center">
-      <p className="absolute top-0 left-[4%] text-2xl font-black text-[#2B2B2B] uppercase tracking-wide">
+    <div className="bg-lightbg h-[45vh] relative z-10 flex justify-center items-center">
+      <p className="absolute top-[50px] left-[4%] text-2xl font-black text-[#2B2B2B] uppercase tracking-wide">
         Introducing
       </p>
 
@@ -42,7 +40,7 @@ const Grnbotnotmis = () => {
         <img
           src={images[currentIndex]}
           alt={`G Frame ${currentIndex + 1}`}
-          className="absolute max-w-[1200px]"
+          className="absolute"
         />
       )}
     </div>

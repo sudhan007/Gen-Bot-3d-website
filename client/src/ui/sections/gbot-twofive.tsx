@@ -70,7 +70,7 @@ const Twofive = ({ sectionVisibility, sectiorefs }: Props) => {
 
   return (
     <>
-      {width > 800 ? (
+      {width > 830 ? (
         <section
           style={{ backgroundColor: "#EEEEEA" }}
           className="text-black font-base z-100"
