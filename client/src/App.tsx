@@ -430,7 +430,7 @@ function App() {
                         fontSize: 36,
                         textAlign: "center",
                         position: "fixed",
-                        top: width < 400 ? "16%" : width < 830 ? "20%" : "7%",
+                        top: width < 400 ? "16%" : width < 830 ? "8%" : "7%",
                       }}
                     >
                       Introducing
