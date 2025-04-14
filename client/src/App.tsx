@@ -24,23 +24,12 @@ import { HeroSection } from "./ui/sections/hero.tsx";
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [_, setLoadedAssets] = useState(0);
-  const [, setTotalAssets] = useState(0);
+  const [loadedAssets, setLoadedAssets] = useState(0);
+  const [totalAssets, setTotalAssets] = useState(0);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [base64Video, setBase64Video] = useState(null);
   const [glowIndex, setGlowIndex] = useState(-1);
   const thirdContainerOriginRef = useRef(null);
-  const [progress, setProgress] = useState(0);
-  const [progressstate, setProgressstate] = useState(false);
-
-  useEffect(() => {
-    if (progressstate === false) {
-      const interval = setInterval(() => {
-        setProgress((prev) => (prev < 98 ? prev + 1 : 98));
-      }, 200);
-      return () => clearInterval(interval);
-    }
-  }, []);
 
   const { scrollYProgress: sectionThreeScrollYProgressone } = useScroll({
     target: thirdContainerOriginRef,
@@ -65,52 +54,48 @@ function App() {
 
   useEffect(() => {
     const assets = document.querySelectorAll("img, video");
-    setTotalAssets(assets.length);
+    const total = assets.length;
+    setTotalAssets(total);
+
+    let loaded = 0;
+
+    const checkIfAllLoaded = () => {
+      loaded += 1;
+      setLoadedAssets(loaded);
+      if (loaded >= total) {
+        setVideoLoaded(true);
+      }
+    };
 
     assets.forEach((asset: any) => {
       if (asset.tagName === "IMG") {
-        asset.addEventListener("load", handleAssetLoad);
-
-        if (asset.complete) {
-          handleAssetLoad();
-        }
+        asset.addEventListener("load", checkIfAllLoaded);
+        if (asset.complete) checkIfAllLoaded();
       } else if (asset.tagName === "VIDEO") {
-        asset.setAttribute("preload", "auto");
-
-        const handleProgress = () => {
+        const handleVideoLoad = () => {
           if (
-            asset.buffered.length > 0 &&
-            asset.buffered.end(0) >= asset.duration
+            asset.readyState >= 4 ||
+            (asset.buffered.length > 0 &&
+              asset.buffered.end(0) >= asset.duration)
           ) {
-            handleVideoLoad();
-            asset.removeEventListener("progress", handleProgress);
+            checkIfAllLoaded();
+            asset.removeEventListener("loadedmetadata", handleVideoLoad);
           }
         };
-
-        asset.addEventListener("progress", handleProgress);
-        asset.addEventListener("loadedmetadata", handleProgress);
-
-        if (asset.readyState >= 4) {
-          handleVideoLoad();
-        }
+        asset.addEventListener("loadedmetadata", handleVideoLoad);
       }
     });
 
     return () => {
-      assets.forEach((asset) => {
+      assets.forEach((asset: any) => {
         if (asset.tagName === "IMG") {
-          asset.removeEventListener("load", handleAssetLoad);
+          asset.removeEventListener("load", checkIfAllLoaded);
         } else if (asset.tagName === "VIDEO") {
-          asset.removeEventListener("progress", handleVideoLoad);
           asset.removeEventListener("loadedmetadata", handleVideoLoad);
         }
       });
     };
   }, []);
-
-  const handleAssetLoad = () => {
-    setLoadedAssets((prev) => prev + 1);
-  };
 
   const handleVideoLoad = () => {
     setLoadedAssets((prev) => prev + 1);
@@ -277,6 +262,8 @@ function App() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
+
+  const progress = Math.floor((loadedAssets / totalAssets) * 100);
 
   return (
     <>
@@ -497,7 +484,6 @@ function App() {
                         <div className="h-full object-cover sticky top-0 p-[20px] rounded-r-3xl">
                           <video
                             muted
-                            className="  "
                             preload="auto"
                             style={{ borderRadius: 15 }}
                             autoPlay
@@ -518,32 +504,44 @@ function App() {
               </div>
             </Element>
 
-            <FlyGenBotSection
-              sectionVisibility={sectionVisibility}
-              sectiorefs={sectionsRef}
-            />
+            <Element name="section4" id="section4">
+              <FlyGenBotSection
+                sectionVisibility={sectionVisibility}
+                sectiorefs={sectionsRef}
+              />
+            </Element>
 
-            <GbotTwo
-              sectionVisibility={sectionVisibility}
-              sectiorefs={sectionsRef}
-            />
+            <Element name="section6" id="section5">
+              <GbotTwo
+                sectionVisibility={sectionVisibility}
+                sectiorefs={sectionsRef}
+              />
+            </Element>
 
-            <GbotThree
-              sectionVisibility={sectionVisibility}
-              sectiorefs={sectionsRef}
-            />
+            <Element name="section7" id="section6">
+              <GbotThree
+                sectionVisibility={sectionVisibility}
+                sectiorefs={sectionsRef}
+              />
+            </Element>
 
-            <GbotFour
-              sectionVisibility={sectionVisibility}
-              sectiorefs={sectionsRef}
-            />
+            <Element name="section8" id="section7">
+              <GbotFour
+                sectionVisibility={sectionVisibility}
+                sectiorefs={sectionsRef}
+              />
+            </Element>
 
-            <Experience
-              sectionVisibility={sectionVisibility}
-              sectiorefs={sectionsRef}
-            />
+            <Element name="section9" id="section8">
+              <Experience
+                sectionVisibility={sectionVisibility}
+                sectiorefs={sectionsRef}
+              />
+            </Element>
 
-            <Footer />
+            <Element name="section10" id="section9">
+              <Footer />
+            </Element>
           </div>
         </div>
       )}
