@@ -56,14 +56,24 @@ function App() {
     const assets = document.querySelectorAll("img, video");
     const total = assets.length;
     setTotalAssets(total);
-
     let loaded = 0;
 
     const checkIfAllLoaded = () => {
       loaded += 1;
       setLoadedAssets(loaded);
+      console.log(`Loaded assets: ${loaded} / ${total}`);
       if (loaded >= total) {
         setVideoLoaded(true);
+      }
+    };
+
+    const handleVideoLoad = (asset: any) => {
+      if (
+        asset.readyState >= 4 ||
+        (asset.buffered.length > 0 && asset.buffered.end(0) >= asset.duration)
+      ) {
+        checkIfAllLoaded();
+        asset.removeEventListener("loadedmetadata", handleVideoLoad);
       }
     };
 
@@ -72,22 +82,13 @@ function App() {
         asset.addEventListener("load", checkIfAllLoaded);
         if (asset.complete) checkIfAllLoaded();
       } else if (asset.tagName === "VIDEO") {
-        const handleVideoLoad = () => {
-          if (
-            asset.readyState >= 4 ||
-            (asset.buffered.length > 0 &&
-              asset.buffered.end(0) >= asset.duration)
-          ) {
-            checkIfAllLoaded();
-            asset.removeEventListener("loadedmetadata", handleVideoLoad);
-          }
-        };
         asset.addEventListener("loadedmetadata", handleVideoLoad);
+        if (asset.readyState >= 4) checkIfAllLoaded(); // Check if the video is already ready.
       }
     });
 
     return () => {
-      assets.forEach((asset: any) => {
+      assets.forEach((asset) => {
         if (asset.tagName === "IMG") {
           asset.removeEventListener("load", checkIfAllLoaded);
         } else if (asset.tagName === "VIDEO") {
@@ -97,15 +98,16 @@ function App() {
     };
   }, []);
 
-  const handleVideoLoad = () => {
-    setLoadedAssets((prev) => prev + 1);
-    setVideoLoaded(true);
-  };
-
   useEffect(() => {
     const loadVideo = async () => {
-      const videoData: any = await fetchVideoAsBase64("/input-encoded.mp4");
-      setBase64Video(videoData);
+      try {
+        const videoData: any = await fetchVideoAsBase64("/input-encoded.mp4");
+        setBase64Video(videoData);
+        setVideoLoaded(true);
+      } catch (error) {
+        console.error("Error loading video:", error);
+        // Handle error loading video (maybe fallback to a default video)
+      }
     };
 
     loadVideo();
@@ -428,7 +430,7 @@ function App() {
                         fontSize: 36,
                         textAlign: "center",
                         position: "fixed",
-                        top: width > 830 ? "20%" : "7%",
+                        top: width < 400 ? "16%" : width < 830 ? "20%" : "7%",
                       }}
                     >
                       Introducing
