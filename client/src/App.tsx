@@ -187,6 +187,8 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const [stopThatBot, setStopThatBot] = useState(false);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -199,6 +201,15 @@ function App() {
               entry.target.id == "section2"
             ) {
               localStorage.removeItem("botAnimationPlayed");
+            }
+
+            if (
+              entry.target.id == "section9" ||
+              entry.target.id == "section8"
+            ) {
+              setStopThatBot(true);
+            } else {
+              setStopThatBot(false);
             }
           }
         });
@@ -436,8 +447,7 @@ function App() {
                       Introducing
                     </p>
                   )}
-
-                  {window.scrollY < 6000 && (
+                  {!stopThatBot && window.scrollY < 6000 && (
                     <motion.img
                       src="/img/genbot-text.svg"
                       className="fixed top-[33%] md:top-[20%] transform w-[300px] z-10 md:w-auto"
@@ -450,7 +460,7 @@ function App() {
                     />
                   )}
 
-                  {window.scrollY < 6000 && (
+                  {!stopThatBot && window.scrollY < 6000 && (
                     <motion.img
                       src="/0300.png"
                       className="fixed top-[30%] md:top-[10%] transform w-[600px] z-10"
