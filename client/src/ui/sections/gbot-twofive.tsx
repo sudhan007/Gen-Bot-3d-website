@@ -123,7 +123,7 @@ const Twofive = ({ sectionVisibility, sectiorefs }: Props) => {
                   key={index}
                   src={imgSrc}
                   alt={`G Frame ${index + 1}`}
-                  className="absolute max-w-[1900px] img h-[74vh]"
+                  className="absolute object-cover img h-[74vh]"
                   style={{
                     opacity: index === currentIndex ? currentIndexnew / 100 : 0,
                     zIndex: index,

@@ -1,10 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-body {
-  overflow-x: hidden;
-}
+ 
 
 @font-face {
   font-family: "AktivGrotesk";
@@ -189,10 +186,7 @@ body {
   border-radius: 10px;
 }
 
-/* Disable scrolling while loading */
-body.loading {
-  /* overflow: hidden; */
-}
+ 
 
 .loader {
   width: 12px;
@@ -481,10 +475,7 @@ body.loading {
   }
 }
 
-
-
-
-
+ 
 
 
 @media (min-width: 1100px) and (max-width: 1500px) and (min-resolution: 1.5dppx) {

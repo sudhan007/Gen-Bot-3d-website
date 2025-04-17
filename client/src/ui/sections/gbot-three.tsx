@@ -141,11 +141,10 @@ const GbotThree = ({ sectionVisibility, sectiorefs }: Props) => {
                       key={index}
                       src={imgSrc}
                       alt={`G Frame ${index + 1}`}
-                      className="absolute"
+                      className="absolute object-contain img w-auto h-auto max-w-[100%] max-h-[100%] bottom-[0px] left-[0px]"
                       style={{
                         opacity: index === currentIndex ? 1 : 0,
                         zIndex: index === currentIndex ? 20 : 10,
-                        maxWidth: "170%",
                       }}
                     />
                   ))}

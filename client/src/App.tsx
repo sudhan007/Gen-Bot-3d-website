@@ -106,7 +106,6 @@ function App() {
         setVideoLoaded(true);
       } catch (error) {
         console.error("Error loading video:", error);
-        // Handle error loading video (maybe fallback to a default video)
       }
     };
 
@@ -301,118 +300,118 @@ function App() {
       )}
 
       {width > 830 ? (
-        <div>
-          <div className={`w-screen ${isMobile ? "overflow-x-hidden" : ""}`}>
-            <Navbar {...{ loading }} />
+        <div className={`w-screen`}>
+          <Navbar {...{ loading }} />
 
-            <div id="section1">
-              <HeroSection {...{ loading }} />
-            </div>
+          <div id="section1">
+            <HeroSection {...{ loading }} />
+          </div>
 
+          <div>
             <Twofive
               sectionVisibility={sectionVisibility}
               sectiorefs={sectionsRef}
             />
+          </div>
 
-            <div className="z-[100]" id="thisistheidd">
-              <section ref={thirdContainerOriginRef}>
-                <div
-                  className={
-                    sectionVisibility[3]
-                      ? " h-[600vh] bg-white sticky  z-[1000] top-0"
-                      : " bg-white sticky  z-[1000] top-0"
-                  }
-                  ref={(el) => (sectionsRef.current[3] = el)}
-                >
-                  <div className="sticky top-0 w-full flex md:flex-row bg-white">
-                    <div className="bg-lightbg w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0 py-[60px] pl-[2%]">
-                      <div className="ml-[5%] bg-white px-[10%] h-full rounded-l-3xl shadow-lg z-[10000]">
-                        <img
-                          src="/img/bot3d.png"
-                          alt="GenBot 3D model"
-                          id="section3"
-                          className="w-[110px] mt-[20%] md:w-[360px] sm:w-[200px] pb-4 oneimg"
-                        />
-                        <div className="w-[95%]">
-                          <motion.p
-                            className="mt-[10px] text-3xl leading-relaxed font-normal sm:text-xl thisisassclasss"
-                            style={{
-                              lineHeight: "40px",
-                              fontSize: 26,
-                              fontWeight: "400",
-                              fontFamily: "SFpro",
-                            }}
-                          >
-                            {data?.data.data.content
-                              .split("")
-                              .map((char: any, index: any) => (
-                                <motion.span
-                                  key={index}
-                                  initial={{ opacity: 0.01 }}
-                                  animate={{
-                                    opacity: index <= glowIndex ? 1 : 0.2,
-                                  }}
-                                  transition={{ duration: 0.3 }}
-                                >
-                                  {char}
-                                </motion.span>
-                              ))}
-                          </motion.p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="w-full md:w-1/2 h-screen bg-lightbg overflow-hidden sticky top-0 hidden md:block z-[10000]">
-                      <div className="h-full object-cover sticky top-0 py-[60px] pr-[10%] rounded-r-3xl shadow-xl">
-                        <video
-                          ref={videoRef}
-                          muted
-                          controls={false}
-                          className={
-                            width > 830
-                              ? "object-cover h-full rounded-r-2xl shadow-lg"
-                              : "w-full max-h-screen rounded-r-2xl shadow-lg"
-                          }
-                          preload="auto"
+          <div className="z-[100]" id="thisistheidd">
+            <section ref={thirdContainerOriginRef}>
+              <div
+                className={
+                  sectionVisibility[3]
+                    ? " h-[600vh] bg-white sticky  z-[1000] top-0"
+                    : " bg-white sticky  z-[1000] top-0"
+                }
+                ref={(el) => (sectionsRef.current[3] = el)}
+              >
+                <div className="sticky top-0 w-full flex md:flex-row bg-white">
+                  <div className="bg-lightbg w-full md:w-1/2 h-screen flex flex-col justify-start items-start gap-4 sticky top-0 py-[60px] pl-[2%]">
+                    <div className="ml-[5%] bg-white px-[10%] h-full rounded-l-3xl shadow-lg z-[10000]">
+                      <img
+                        src="/img/bot3d.png"
+                        alt="GenBot 3D model"
+                        id="section3"
+                        className="w-[110px] mt-[20%] md:w-[360px] sm:w-[200px] pb-4 oneimg"
+                      />
+                      <div className="w-[95%]">
+                        <motion.p
+                          className="mt-[10px] text-3xl leading-relaxed font-normal sm:text-xl thisisassclasss"
+                          style={{
+                            lineHeight: "40px",
+                            fontSize: 26,
+                            fontWeight: "400",
+                            fontFamily: "SFpro",
+                          }}
                         >
-                          {base64Video && (
-                            <source src={base64Video} type="video/mp4" />
-                          )}
-                        </video>
+                          {data?.data.data.content
+                            .split("")
+                            .map((char: any, index: any) => (
+                              <motion.span
+                                key={index}
+                                initial={{ opacity: 0.01 }}
+                                animate={{
+                                  opacity: index <= glowIndex ? 1 : 0.2,
+                                }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                {char}
+                              </motion.span>
+                            ))}
+                        </motion.p>
                       </div>
                     </div>
                   </div>
+                  <div className="w-full md:w-1/2 h-screen bg-lightbg overflow-hidden sticky top-0 hidden md:block z-[10000]">
+                    <div className="h-full object-cover sticky top-0 py-[60px] pr-[10%] rounded-r-3xl shadow-xl">
+                      <video
+                        ref={videoRef}
+                        muted
+                        controls={false}
+                        className={
+                          width > 830
+                            ? "object-cover h-full rounded-r-2xl shadow-lg"
+                            : "w-full max-h-screen rounded-r-2xl shadow-lg"
+                        }
+                        preload="auto"
+                      >
+                        {base64Video && (
+                          <source src={"/input-encoded.mp4"} type="video/mp4" />
+                        )}
+                      </video>
+                    </div>
+                  </div>
                 </div>
-              </section>
-            </div>
+              </div>
+            </section>
+          </div>
 
-            <FlyGenBotSection
-              sectionVisibility={sectionVisibility}
-              sectiorefs={sectionsRef}
-            />
+          <FlyGenBotSection
+            sectionVisibility={sectionVisibility}
+            sectiorefs={sectionsRef}
+          />
 
-            <GbotTwo
-              sectionVisibility={sectionVisibility}
-              sectiorefs={sectionsRef}
-            />
+          <GbotTwo
+            sectionVisibility={sectionVisibility}
+            sectiorefs={sectionsRef}
+          />
 
-            <GbotThree
-              sectionVisibility={sectionVisibility}
-              sectiorefs={sectionsRef}
-            />
+          <GbotThree
+            sectionVisibility={sectionVisibility}
+            sectiorefs={sectionsRef}
+          />
 
-            <GbotFour
-              sectionVisibility={sectionVisibility}
-              sectiorefs={sectionsRef}
-            />
+          <GbotFour
+            sectionVisibility={sectionVisibility}
+            sectiorefs={sectionsRef}
+          />
 
-            <Experience
-              sectionVisibility={sectionVisibility}
-              sectiorefs={sectionsRef}
-            />
+          <Experience
+            sectionVisibility={sectionVisibility}
+            sectiorefs={sectionsRef}
+          />
 
-            <div>
-              <Footer />
-            </div>
+          <div>
+            <Footer />
           </div>
         </div>
       ) : (

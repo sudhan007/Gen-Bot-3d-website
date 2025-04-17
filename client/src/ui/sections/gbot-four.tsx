@@ -128,7 +128,7 @@ export const GbotFour = ({ sectionVisibility, sectiorefs }: Props) => {
                     key={index}
                     src={imgSrc}
                     alt={`G Frame ${index + 1}`}
-                    className="absolute max-w-[1900px] img h-[100vh]"
+                    className="absolute img h-[100vh] object-cover"
                     style={{
                       opacity: index === currentIndex ? 1 : 0,
                       zIndex: index === currentIndex ? 20 : 10,
