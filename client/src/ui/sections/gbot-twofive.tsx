@@ -50,7 +50,6 @@ const Twofive = ({ sectionVisibility, sectiorefs }: Props) => {
 
   useMotionValueEvent(sectionProgress, "change", async (latest) => {
     const clampedIndex = Math.min(Math.floor(latest), totalImages - 1);
-
     setCurrentIndex(clampedIndex);
   });
 
@@ -70,7 +69,7 @@ const Twofive = ({ sectionVisibility, sectiorefs }: Props) => {
 
   return (
     <>
-      {width > 830 ? (
+      {width > 1120 ? (
         <section
           style={{ backgroundColor: "#EEEEEA" }}
           className="text-black font-base z-100"
@@ -79,7 +78,7 @@ const Twofive = ({ sectionVisibility, sectiorefs }: Props) => {
             className={
               sectionVisibility[2]
                 ? "sticky z-[1000] h-[400vh]"
-                : "sticky z-[1000]"
+                : "sticky z-[1000] h-[-webkit-fill-available]"
             }
             style={{ backgroundColor: "#EEEEEA" }}
             ref={(el: any) => {

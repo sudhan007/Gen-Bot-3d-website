@@ -170,7 +170,7 @@ const FlyGenBotSection = ({ sectionVisibility, sectiorefs }: Props) => {
 
   return (
     <div>
-      {width > 830 ? (
+      {width > 1120 ? (
         <div id="hifhhhhhhhhhhhhhhhh">
           <div className="z-[100]">
             <section ref={ref}>
@@ -183,7 +183,7 @@ const FlyGenBotSection = ({ sectionVisibility, sectiorefs }: Props) => {
                 className={`${
                   sectionVisibility[4]
                     ? "h-[500vh] bg-white sticky  z-[1000] top-0 "
-                    : "h-screen bg-white sticky  z-[1000] top-0 "
+                    : "h-[-webkit-fill-available] bg-white sticky  z-[1000] top-0 "
                 }`}
               >
                 <div

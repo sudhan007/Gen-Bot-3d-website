@@ -42,7 +42,7 @@ export const Navbar = ({ loading }: Props) => {
     >
       <nav
         className={
-          width > 830
+          width > 1120
             ? "w-[90%] mx-auto flex items-center justify-between py-1 opacity-0"
             : "w-[100%] mx-auto flex items-center justify-between py-1 opacity-0"
         }

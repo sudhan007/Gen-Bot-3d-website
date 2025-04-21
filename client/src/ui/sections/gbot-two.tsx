@@ -50,7 +50,7 @@ const GbotTwo = ({ sectionVisibility, sectiorefs }: Props) => {
 
   return (
     <div id="section5">
-      {width > 830 ? (
+      {width > 1120 ? (
         <section
           style={{ backgroundColor: "#EEEEEA" }}
           className="text-black font-base z-100"
@@ -60,7 +60,7 @@ const GbotTwo = ({ sectionVisibility, sectiorefs }: Props) => {
             className={
               sectionVisibility[5]
                 ? "sticky z-[1000] h-[800vh]"
-                : "sticky z-[1000] h-screen"
+                : "sticky z-[1000] h-[-webkit-fill-available]"
             }
             style={{ backgroundColor: "#EEEEEA" }}
             ref={(el: any) => {

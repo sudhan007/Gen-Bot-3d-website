@@ -28,7 +28,7 @@ export default function GBotOne({ loading }: { loading: boolean }) {
 
   return (
     <>
-      {width > 830 ? (
+      {width > 1120 ? (
         <section
           className="h-[calc(100vh)] bg-black text-white font-base flex flex-col justify-end hero-section relative"
           style={{

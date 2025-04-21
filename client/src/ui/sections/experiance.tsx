@@ -17,7 +17,7 @@ export const Experience = ({ sectiorefs }: Props) => {
   const [mobileIndex, setMobileIndex] = useState(0);
 
   useEffect(() => {
-    if (width <= 830) {
+    if (width <= 1120) {
       let mobileInterval: any = null;
 
       const observer = new IntersectionObserver(
@@ -75,7 +75,7 @@ export const Experience = ({ sectiorefs }: Props) => {
     words[words.length - 2] + " " + words[words.length - 1] || "";
 
   useEffect(() => {
-    if (width > 830) {
+    if (width > 1120) {
       let interval: any = null;
 
       const observer = new IntersectionObserver(
@@ -120,11 +120,10 @@ export const Experience = ({ sectiorefs }: Props) => {
 
   return (
     <>
-      {width > 830 ? (
+      {width > 1120 ? (
         <div
           className="z-[100]"
-          style={{ backgroundColor: "#525652", paddingTop: 40 }}
-          id="thisisfinallll"
+          style={{ backgroundColor: "#525652", paddingTop: 40, marginTop: 30 }}
         >
           <section ref={containerRef}>
             <div

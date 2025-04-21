@@ -39,7 +39,7 @@ export const AnimatedText = ({ text }: { text: string }) => {
 
   return (
     <>
-      {width > 830 ? (
+      {width > 1120 ? (
         <motion.p
           ref={textRef}
           className="mt-[10px] text-[calc(0.6rem+1vw)] font-sfpro font-semibold text-[#2B2B2B] onetwo"

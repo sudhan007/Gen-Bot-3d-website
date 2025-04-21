@@ -70,7 +70,7 @@ export const GbotFour = ({ sectionVisibility, sectiorefs }: Props) => {
     target: refs,
   });
 
-  const sectionProgress = useTransform(scrollYProgress, [0, 1], [0, 140]);
+  const sectionProgress = useTransform(scrollYProgress, [0, 1], [20, 140]);
   const [visibleIndex, setVisibleIndex] = useState(-1);
 
   useMotionValueEvent(sectionProgress, "change", (latest) => {
@@ -108,7 +108,7 @@ export const GbotFour = ({ sectionVisibility, sectiorefs }: Props) => {
   return (
     <div>
       {width > 830 ? (
-        <div className="z-[100]" id="plzzzscrolllllllllllllllllll">
+        <div className="z-[100]">
           <section
             ref={(el: any) => {
               refs.current = el;
@@ -118,11 +118,11 @@ export const GbotFour = ({ sectionVisibility, sectiorefs }: Props) => {
             className={
               sectionVisibility[7]
                 ? "h-[500vh] sticky z-[1000] top-0"
-                : "sticky z-[1000] top-0 h-screen"
+                : "sticky z-[1000] top-0 h-[-webkit-fill-available]"
             }
           >
             <div className="sticky top-0 w-full flex md:flex-row">
-              <div className="sticky top-0 flex justify-center items-center w-full h-screen ml-[200px]">
+              <div className="sticky top-0 flex justify-center items-center w-full h-screen">
                 {images.map((imgSrc, index) => (
                   <img
                     key={index}
@@ -142,7 +142,7 @@ export const GbotFour = ({ sectionVisibility, sectiorefs }: Props) => {
                   paddingTop: 15,
                   paddingBottom: 15,
                 }}
-                className="w-full h-screen bg-lightbg overflow-hidden sticky top-0 hidden md:block z-[10000] paddgay"
+                className="sticky top-0 flex justify-center items-center w-full h-screen"
               >
                 <div className="h-full object-cover sticky top-0 rounded-r-3xl paddgaytwo">
                   <div className="sticky top-0 h-screen m-auto" ref={ref}>

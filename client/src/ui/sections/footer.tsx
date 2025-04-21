@@ -41,7 +41,7 @@ export const Footer = () => {
 
   return (
     <>
-      {width > 830 ? (
+      {width > 1120 ? (
         <section
           className="text-black font-base relative "
           style={{

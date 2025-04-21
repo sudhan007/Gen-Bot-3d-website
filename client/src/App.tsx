@@ -61,7 +61,6 @@ function App() {
     const checkIfAllLoaded = () => {
       loaded += 1;
       setLoadedAssets(loaded);
-      console.log(`Loaded assets: ${loaded} / ${total}`);
       if (loaded >= total) {
         setVideoLoaded(true);
       }
@@ -201,15 +200,16 @@ function App() {
             ) {
               localStorage.removeItem("botAnimationPlayed");
             }
-
-            if (
-              entry.target.id == "section9" ||
-              entry.target.id == "section8"
-            ) {
-              setStopThatBot(true);
-            } else {
-              setStopThatBot(false);
-            }
+            // if (width < 1120) {
+            //   if (
+            //     entry.target.id == "section9" ||
+            //     entry.target.id == "section8"
+            //   ) {
+            //     setStopThatBot(true);
+            //   } else {
+            //     setStopThatBot(false);
+            //   }
+            // }
           }
         });
       },
@@ -236,7 +236,7 @@ function App() {
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    if (width < 830) return;
+    if (width < 1110) return;
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -299,7 +299,7 @@ function App() {
         </motion.div>
       )}
 
-      {width > 830 ? (
+      {width > 1120 ? (
         <div className={`w-screen`}>
           <Navbar {...{ loading }} />
 
@@ -307,7 +307,7 @@ function App() {
             <HeroSection {...{ loading }} />
           </div>
 
-          <div>
+          <div id="section2">
             <Twofive
               sectionVisibility={sectionVisibility}
               sectiorefs={sectionsRef}
@@ -319,8 +319,8 @@ function App() {
               <div
                 className={
                   sectionVisibility[3]
-                    ? " h-[600vh] bg-white sticky  z-[1000] top-0"
-                    : " bg-white sticky  z-[1000] top-0"
+                    ? "h-[600vh] bg-white sticky  z-[1000] top-0"
+                    : "bg-white sticky z-[1000] top-0 h-[-webkit-fill-available]"
                 }
                 ref={(el) => (sectionsRef.current[3] = el)}
               >
@@ -368,7 +368,7 @@ function App() {
                         muted
                         controls={false}
                         className={
-                          width > 830
+                          width > 1120
                             ? "object-cover h-full rounded-r-2xl shadow-lg"
                             : "w-full max-h-screen rounded-r-2xl shadow-lg"
                         }
@@ -440,7 +440,7 @@ function App() {
                         fontSize: 36,
                         textAlign: "center",
                         position: "fixed",
-                        top: width < 400 ? "16%" : width < 830 ? "8%" : "7%",
+                        top: width < 400 ? "16%" : width < 1120 ? "8%" : "7%",
                       }}
                     >
                       Introducing

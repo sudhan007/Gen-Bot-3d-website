@@ -75,14 +75,14 @@ const GbotThree = ({ sectionVisibility, sectiorefs }: Props) => {
 
   return (
     <div id="section6">
-      {width > 830 ? (
+      {width > 1120 ? (
         <div className="z-[100]" id="scrollrtgdss">
           <section ref={thirdContainerOriginbot}>
             <div
               className={
                 sectionVisibility[6]
                   ? "h-[800vh] sticky top-0 z-[1000]"
-                  : " sticky top-0 z-[1000]"
+                  : " sticky top-0 z-[1000] h-[-webkit-fill-available]"
               }
               style={{ backgroundColor: "#EEEEEA" }}
               ref={(el) => (sectiorefs.current[6] = el)}

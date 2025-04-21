@@ -50,7 +50,7 @@ export const HeroSection = ({ loading }: Props) => {
 
   return (
     <>
-      {width > 830 ? (
+      {width > 1120 ? (
         <section
           className="h-screen bg-black text-white font-base flex flex-col justify-end hero-section relative w-screen overflow-hidden"
           style={{
