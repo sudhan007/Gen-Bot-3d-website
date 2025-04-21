@@ -7,9 +7,11 @@ import { useEffect, useState } from "react";
 
 type Props = {
   loading: boolean;
+  sectionsRef: any;
+  sectionVisibility: any;
 };
 
-export const HeroSection = ({ loading }: Props) => {
+export const HeroSection = ({ loading, sectionsRef }: Props) => {
   useEffect(() => {
     if (!loading) {
       setTimeout(() => {
@@ -55,6 +57,9 @@ export const HeroSection = ({ loading }: Props) => {
           className="h-screen bg-black text-white font-base flex flex-col justify-end hero-section relative w-screen overflow-hidden"
           style={{
             zIndex: 1000,
+          }}
+          ref={(el: any) => {
+            sectionsRef.current[1] = el;
           }}
         >
           <video

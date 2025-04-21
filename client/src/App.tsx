@@ -200,16 +200,16 @@ function App() {
             ) {
               localStorage.removeItem("botAnimationPlayed");
             }
-            // if (width < 1120) {
-            //   if (
-            //     entry.target.id == "section9" ||
-            //     entry.target.id == "section8"
-            //   ) {
-            //     setStopThatBot(true);
-            //   } else {
-            //     setStopThatBot(false);
-            //   }
-            // }
+            if (width < 1120) {
+              if (
+                entry.target.id == "section9" ||
+                entry.target.id == "section8"
+              ) {
+                setStopThatBot(true);
+              } else {
+                setStopThatBot(false);
+              }
+            }
           }
         });
       },
@@ -229,14 +229,14 @@ function App() {
     };
   }, []);
 
-  const sectionCount = 9;
+  const sectionCount = 8;
   const [sectionVisibility, setSectionVisibility] = useState(
     Array(sectionCount).fill(true)
   );
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    if (width < 1110) return;
+    if (width < 1120) return;
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -304,7 +304,7 @@ function App() {
           <Navbar {...{ loading }} />
 
           <div id="section1">
-            <HeroSection {...{ loading }} />
+            <HeroSection {...{ loading, sectionVisibility, sectionsRef }} />
           </div>
 
           <div id="section2">
@@ -420,7 +420,7 @@ function App() {
             <Navbar {...{ loading }} />
 
             <Element name="section1" id="section1">
-              <HeroSection {...{ loading }} />
+              <HeroSection {...{ loading, sectionsRef, sectionVisibility }} />
             </Element>
 
             <Element name="section2" id="section2">
@@ -522,35 +522,35 @@ function App() {
               />
             </Element>
 
-            <Element name="section6" id="section5">
+            <Element name="section5" id="section5">
               <GbotTwo
                 sectionVisibility={sectionVisibility}
                 sectiorefs={sectionsRef}
               />
             </Element>
 
-            <Element name="section7" id="section6">
+            <Element name="section6" id="section6">
               <GbotThree
                 sectionVisibility={sectionVisibility}
                 sectiorefs={sectionsRef}
               />
             </Element>
 
-            <Element name="section8" id="section7">
+            <Element name="section7" id="section7">
               <GbotFour
                 sectionVisibility={sectionVisibility}
                 sectiorefs={sectionsRef}
               />
             </Element>
 
-            <Element name="section9" id="section8">
+            <Element name="section8" id="section8">
               <Experience
                 sectionVisibility={sectionVisibility}
                 sectiorefs={sectionsRef}
               />
             </Element>
 
-            <Element name="section10" id="section9">
+            <Element name="section9" id="section9">
               <Footer />
             </Element>
           </div>

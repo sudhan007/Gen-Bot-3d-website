@@ -77,7 +77,7 @@ const Twofive = ({ sectionVisibility, sectiorefs }: Props) => {
           <div
             className={
               sectionVisibility[2]
-                ? "sticky z-[1000] h-[400vh]"
+                ? "sticky z-[1000] h-[500vh]"
                 : "sticky z-[1000] h-[-webkit-fill-available]"
             }
             style={{ backgroundColor: "#EEEEEA" }}

@@ -107,7 +107,7 @@ export const GbotFour = ({ sectionVisibility, sectiorefs }: Props) => {
 
   return (
     <div>
-      {width > 830 ? (
+      {width > 1120 ? (
         <div className="z-[100]">
           <section
             ref={(el: any) => {

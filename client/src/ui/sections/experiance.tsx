@@ -14,28 +14,36 @@ export const Experience = ({ sectiorefs }: Props) => {
   const containerRef = useRef(null);
 
   const mobileRef = useRef(null);
+  const laptopRef = useRef(null);
   const [mobileIndex, setMobileIndex] = useState(0);
+
+  const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     if (width <= 1120) {
-      let mobileInterval: any = null;
+      let animationFrameId: number;
+      let isIntersecting = false;
+
+      const animate = () => {
+        if (!isIntersecting) return;
+        setMobileIndex((prev) => {
+          if (prev + 1 >= totalImages) {
+            return totalImages - 1;
+          }
+          return prev + 1;
+        });
+        animationFrameId = requestAnimationFrame(animate);
+      };
 
       const observer = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) {
+          isIntersecting = entry.isIntersecting;
+          if (isIntersecting) {
             setMobileIndex(0);
-
-            mobileInterval = setInterval(() => {
-              setMobileIndex((prev) => {
-                if (prev + 1 >= totalImages) {
-                  clearInterval(mobileInterval);
-                  return totalImages - 1;
-                }
-                return prev + 1;
-              });
-            }, 20);
+            animationFrameId = requestAnimationFrame(animate);
           } else {
-            clearInterval(mobileInterval);
+            cancelAnimationFrame(animationFrameId);
+            setMobileIndex(totalImages - 1);
           }
         },
         { threshold: 0.1 }
@@ -46,11 +54,11 @@ export const Experience = ({ sectiorefs }: Props) => {
       }
 
       return () => {
-        clearInterval(mobileInterval);
+        cancelAnimationFrame(animationFrameId);
         observer.disconnect();
       };
     }
-  }, [totalImages]);
+  }, [totalImages, width]);
 
   useEffect(() => {
     const preloadedImages = Array.from(
@@ -76,39 +84,44 @@ export const Experience = ({ sectiorefs }: Props) => {
 
   useEffect(() => {
     if (width > 1120) {
-      let interval: any = null;
+      let animationFrameId: number;
+      let isIntersecting = false;
+
+      const animate = () => {
+        if (!isIntersecting) return;
+        setCurrentIndex((prevIndex) => {
+          if (prevIndex + 1 >= totalImages) {
+            return totalImages - 1;
+          }
+          return prevIndex + 1;
+        });
+        animationFrameId = requestAnimationFrame(animate);
+      };
 
       const observer = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) {
+          isIntersecting = entry.isIntersecting;
+          if (isIntersecting) {
             setCurrentIndex(0);
-
-            interval = setInterval(() => {
-              setCurrentIndex((prevIndex) => {
-                if (prevIndex + 1 >= totalImages) {
-                  clearInterval(interval);
-                  return totalImages - 1;
-                }
-                return prevIndex + 1;
-              });
-            }, 30);
+            animationFrameId = requestAnimationFrame(animate);
           } else {
-            clearInterval(interval);
+            cancelAnimationFrame(animationFrameId);
+            setCurrentIndex(totalImages - 1);
           }
         },
         { threshold: 0.1 }
       );
 
-      observer.observe(sectiorefs.current[8]);
+      if (laptopRef.current) {
+        observer.observe(laptopRef.current);
+      }
 
       return () => {
-        clearInterval(interval);
+        cancelAnimationFrame(animationFrameId);
         observer.disconnect();
       };
     }
   }, [sectiorefs, totalImages]);
-
-  const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
@@ -119,62 +132,64 @@ export const Experience = ({ sectiorefs }: Props) => {
   }, []);
 
   return (
-    <>
+    <div>
       {width > 1120 ? (
-        <div
-          className="z-[100]"
-          style={{ backgroundColor: "#525652", paddingTop: 40, marginTop: 30 }}
+        <section
+          className="bg-[#525652] text-black font-base z-100 mt-[50px]"
+          ref={containerRef}
         >
-          <section ref={containerRef}>
-            <div
-              id="section8"
-              className={`${"h-screen sticky z-[1000] top-0 "}`}
-              ref={(el) => (sectiorefs.current[8] = el)}
-            >
-              <div className="sticky top-0 w-full">
-                <div className="px-[5%]">
-                  <div className="mt-[30px] flex justify-between">
-                    <p className="threeone text-white text-[50px] font-[400] font-['AktivGrotesk'] findthewayss">
-                      {firstWord}{" "}
-                      <span className="text-[#FCD902]">{lastWord}</span>
+          <div
+            className="sticky z-[1000] top-0"
+            style={{
+              backgroundColor: "#424741",
+              overflow: "hidden",
+            }}
+            ref={(el: any) => (
+              (sectiorefs.current[8] = el), (laptopRef.current = el)
+            )}
+          >
+            <div className="sticky top-0 w-full">
+              <div className="px-[5%]">
+                <div className="mt-[30px] flex justify-between">
+                  <p className="threeone text-white text-[50px] font-[400] font-['AktivGrotesk'] findthewayss">
+                    {firstWord}{" "}
+                    <span className="text-[#FCD902]">{lastWord}</span>
+                  </p>
+                  <div className="bg-[#FCD902] flex items-center justify-center px-24 py-4 expppppp">
+                    <p
+                      className="text-black text-[1.6rem] threetwo"
+                      style={{ fontFamily: "AktivGrotesk" }}
+                    >
+                      WHAT'S THE HOLD!
                     </p>
-                    <div className="bg-[#FCD902] flex items-center justify-center px-24 py-4 expppppp">
-                      <p
-                        className="text-black text-[1.6rem] threetwo"
-                        style={{ fontFamily: "AktivGrotesk" }}
-                      >
-                        WHAT'S THE HOLD!
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="mt-1 text-white text-[28px] font-[400] w-2/3 font-['AktivGrotesk'] uppercase uppercaseok">
-                    {data?.data.data.content}
                   </div>
                 </div>
 
-                <div
-                  className="sticky top-0 flex justify-center items-center w-full h-screen fgnfrthdfx"
-                  style={{ marginTop: -320 }}
-                >
-                  {images.map((imgSrc, index) => (
-                    <img
-                      key={index}
-                      src={imgSrc}
-                      alt={`Frame ${index + 1}`}
-                      className="absolute macccc"
-                      style={{
-                        opacity: index === currentIndex ? 1 : 0,
-                        zIndex: index === currentIndex ? 20 : 10,
-                        maxWidth: "100%",
-                      }}
-                    />
-                  ))}
+                <div className="mt-1 text-white text-[28px] font-[400] w-2/3 font-['AktivGrotesk'] uppercase uppercaseok">
+                  {data?.data.data.content}
                 </div>
               </div>
+
+              <div
+                className="sticky top-0 flex justify-center items-center w-full h-screen"
+                style={{ marginTop: -320 }}
+              >
+                {images.map((imgSrc, index) => (
+                  <img
+                    key={index}
+                    src={imgSrc}
+                    alt={`Frame ${index + 1}`}
+                    className="absolute bottom-0"
+                    style={{
+                      opacity: index === currentIndex ? 1 : 0,
+                      zIndex: index === currentIndex ? 20 : 10,
+                    }}
+                  />
+                ))}
+              </div>
             </div>
-          </section>
-        </div>
+          </div>
+        </section>
       ) : (
         <section
           className="bg-white text-black font-base z-100"
@@ -224,7 +239,7 @@ export const Experience = ({ sectiorefs }: Props) => {
           </div>
         </section>
       )}
-    </>
+    </div>
   );
 };
 
